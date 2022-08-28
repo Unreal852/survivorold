@@ -2,6 +2,7 @@
 
 namespace Sandbox;
 
+[SkipHotload]
 public static class CleanupManager
 {
 	private static readonly Dictionary<long, List<Entity>> PlayerEntities = new();
