@@ -4,7 +4,7 @@ using Sandbox.Players;
 using Sandbox.UI;
 using Sandbox.UI.World;
 
-namespace Survivor.UI.World;
+namespace Sandbox.UI.World;
 
 public class PlayerNameWorldPanel : WorldPanel
 {

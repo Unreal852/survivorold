@@ -1,4 +1,4 @@
-﻿using Survivor.UI.World;
+﻿using Sandbox.UI.World;
 
 namespace Sandbox.Players;
 

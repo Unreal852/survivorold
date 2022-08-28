@@ -16,7 +16,6 @@ public partial class SurvivorGame
 			return;
 		}
 
-
 		for ( int i = 0; i < amount; i++ )
 		{
 			var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
