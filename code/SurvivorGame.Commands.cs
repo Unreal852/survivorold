@@ -5,7 +5,7 @@ namespace Sandbox;
 
 public partial class SurvivorGame
 {
-	[ServerCommand( "spawn_model" )]
+	[ServerCommand( "spawnm" )]
 	public static void SpawnModel( string modelName, int amount = 1 )
 	{
 		long callerId = ConsoleSystem.Caller.Id;
@@ -16,7 +16,7 @@ public partial class SurvivorGame
 			return;
 		}
 
-		
+
 		for ( int i = 0; i < amount; i++ )
 		{
 			var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
