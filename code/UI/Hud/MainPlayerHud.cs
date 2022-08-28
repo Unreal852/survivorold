@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using Sandbox.UI.Hud;
 
 namespace Survivor.UI.Hud;
 

@@ -1,13 +1,27 @@
-﻿using Sandbox;
-using Survivor.UI.World;
+﻿using Survivor.UI.World;
 
-namespace Survivor.Players;
+namespace Sandbox.Players;
 
 public class SurvivorPlayer : Player
 {
+	private readonly ClothingContainer    _clothing = new();
+	private          PlayerNameWorldPanel WorldPanel { get; set; }
+
+	public SurvivorPlayer()
+	{
+		// Ignored	
+	}
+
+	public SurvivorPlayer( Client client )
+	{
+		_clothing.LoadFromClient( client );
+	}
+
 	private void Prepare()
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
+
+		_clothing.DressEntity( this );
 
 		Controller = new WalkController();
 		Animator = new StandardPlayerAnimator();
@@ -20,8 +34,6 @@ public class SurvivorPlayer : Player
 		EnableTouch = true;
 		Health = 100;
 	}
-
-	private PlayerNameWorldPanel WorldPanel { get; set; }
 
 	public override void Respawn()
 	{

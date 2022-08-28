@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Sandbox;
+using Sandbox.Players;
 using Sandbox.UI;
-using Survivor.Players;
+using Sandbox.UI.World;
 
 namespace Survivor.UI.World;
 

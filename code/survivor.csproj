@@ -17,9 +17,6 @@
 		<None Update="**\*.sass" DependentUpon="%(Filename).cs" />
 		<None Update="**\*.html" DependentUpon="%(Filename).cs" />
 		<None Update="**\*.htm" DependentUpon="%(Filename).cs" />
-		<None Update="UI\World\PlayerNameWorldPanel.scss">
-		  <DependentUpon>PlayerNameWorldPanel.cs</DependentUpon>
-		</None>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,7 +26,7 @@
   <PropertyGroup>
 	<OutputPath>D:\Games\Steam\steamapps\common\sbox/.vs/output/</OutputPath>
 	<DocumentationFile>D:\Games\Steam\steamapps\common\sbox/.vs/output/survivor.xml</DocumentationFile>
-	<RootNamespace>Survivor</RootNamespace>
+	<RootNamespace>Sandbox</RootNamespace>
 	<Nullable>disable</Nullable>
   </PropertyGroup>
 

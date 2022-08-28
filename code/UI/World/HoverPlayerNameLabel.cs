@@ -1,7 +1,6 @@
-﻿using Sandbox.UI;
-using Sandbox.UI.Construct;
+﻿using Sandbox.UI.Construct;
 
-namespace Survivor.UI.World;
+namespace Sandbox.UI.World;
 
 public class HoverPlayerNameLabel : Panel
 {

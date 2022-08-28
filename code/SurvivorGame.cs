@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Sandbox;
 using Sandbox.Internal;
-using Survivor.Players;
+using Sandbox.Players;
 using Survivor.UI.Hud;
 
-namespace Survivor;
+namespace Sandbox;
 
 /// <summary>
 /// This is your game class. This is an entity that is created serverside when
@@ -14,9 +13,10 @@ namespace Survivor;
 /// You can use this to create things like HUDs and declare which player class
 /// to use for spawned players.
 /// </summary>
-public class MyGame : Game
+[Library( "survivor", Title = "Survivor" )]
+public partial class SurvivorGame : Game
 {
-	public MyGame()
+	public SurvivorGame()
 	{
 		if ( IsServer )
 		{
@@ -32,7 +32,7 @@ public class MyGame : Game
 		base.ClientJoined( client );
 
 		// Create a pawn for this client to play with
-		var player = new SurvivorPlayer();
+		var player = new SurvivorPlayer( client );
 		client.Pawn = player;
 
 		// Get all of the spawnpoints
@@ -62,7 +62,6 @@ public class MyGame : Game
 		}
 		else
 			devCamera.Enabled = !devCamera.Enabled;
-		
 	}
 
 	public override void DoPlayerNoclip( Client player )

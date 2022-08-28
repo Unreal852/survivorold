@@ -1,8 +1,6 @@
-﻿using Sandbox;
-using Sandbox.UI;
-using Sandbox.UI.Construct;
+﻿using Sandbox.UI.Construct;
 
-namespace Survivor.UI.Hud;
+namespace Sandbox.UI.Hud;
 
 public class HealthLabel : Panel
 {
