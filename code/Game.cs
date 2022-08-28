@@ -2,7 +2,7 @@
 using System.Linq;
 using Sandbox;
 using Sandbox.Internal;
-using Survivor.Player;
+using Survivor.Players;
 using Survivor.UI.Hud;
 
 namespace Survivor;

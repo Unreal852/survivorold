@@ -1,9 +1,9 @@
 ﻿using Sandbox;
 using Survivor.UI.World;
 
-namespace Survivor.Player;
+namespace Survivor.Players;
 
-public class SurvivorPlayer : Sandbox.Player
+public class SurvivorPlayer : Player
 {
 	private void Prepare()
 	{
