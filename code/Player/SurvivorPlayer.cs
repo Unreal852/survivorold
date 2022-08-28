@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using Sandbox;
+﻿using Sandbox;
 using Survivor.UI.World;
 
-namespace Survivor;
+namespace Survivor.Player;
 
-public class SurvivorPlayer : Player
+public class SurvivorPlayer : Sandbox.Player
 {
 	private void Prepare()
 	{
