@@ -44,22 +44,10 @@ public class SurvivorPlayer : Player
 	public override void BuildInput( InputBuilder input )
 	{
 		base.BuildInput( input );
-		if ( Input.Pressed( InputButton.Menu ) && WorldPanel != null )
-		{
-			WorldPanel.Delete();
-			WorldPanel = new PlayerNameWorldPanel( this ) { Transform = Transform };
-			Log.Info( "Spawned panel" );
-		}
-	}
-
-	public override void Simulate( Client cl )
-	{
-		base.Simulate( cl );
 	}
 
 	public override void ClientSpawn()
 	{
 		WorldPanel ??= new PlayerNameWorldPanel( this );
-		Log.Info( "Spawned" );
 	}
 }
