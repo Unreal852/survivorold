@@ -37,8 +37,8 @@ public class SurvivorPlayer : Player
 
 	public override void Respawn()
 	{
-		base.Respawn();
 		Prepare();
+		base.Respawn();
 	}
 
 	public override void BuildInput( InputBuilder input )
@@ -61,11 +61,5 @@ public class SurvivorPlayer : Player
 	{
 		WorldPanel ??= new PlayerNameWorldPanel( this );
 		Log.Info( "Spawned" );
-	}
-
-	public override void Spawn()
-	{
-		base.Spawn();
-		Prepare();
 	}
 }

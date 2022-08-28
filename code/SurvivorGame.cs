@@ -33,21 +33,8 @@ public partial class SurvivorGame : Game
 
 		// Create a pawn for this client to play with
 		var player = new SurvivorPlayer( client );
+		player.Respawn();
 		client.Pawn = player;
-
-		// Get all of the spawnpoints
-		var spawnPoints = All.OfType<SpawnPoint>();
-
-		// chose a random one
-		var randomSpawnPoint = spawnPoints.MinBy( x => Guid.NewGuid() );
-
-		// if it exists, place the pawn there
-		if ( randomSpawnPoint == null )
-			return;
-
-		var tx = randomSpawnPoint.Transform;
-		tx.Position += Vector3.Up * 50.0f; // raise it up
-		player.Transform = tx;
 	}
 
 	public override void DoPlayerDevCam( Client client )
