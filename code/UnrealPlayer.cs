@@ -19,7 +19,6 @@ public class UnrealPlayer : Player
 		EnableShadowInFirstPerson = true;
 		EnableTouch = true;
 		Health = 100;
-		
 	}
 
 	private UnrealWorldPanel WorldPanel { get; set; }
