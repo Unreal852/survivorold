@@ -61,6 +61,7 @@ public class MyGame : Game
 		}
 		else
 			devCamera.Enabled = !devCamera.Enabled;
+		
 	}
 
 	public override void DoPlayerNoclip( Client player )
