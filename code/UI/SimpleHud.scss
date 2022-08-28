@@ -1,0 +1,31 @@
+﻿HealthHud {
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  height: 80px;
+  padding: 0 20px;
+  align-items: center;
+  font-family: Poppins, serif;
+  background-color: rgba(#333, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+
+NameHud {
+  position: absolute;
+  left: 50px;
+  top: 40px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  height: 80px;
+  padding: 0 20px;
+  align-items: center;
+  font-family: Poppins, serif;
+  background-color: rgba(#333, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
