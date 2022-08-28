@@ -7,7 +7,6 @@ code/.idea/*
 tools_asset_info.bin
 tools_thumbnail_cache.bin
 omnisharp.json
-*.csproj
 
 *_bakeresourcecache.vpk
 *.los
