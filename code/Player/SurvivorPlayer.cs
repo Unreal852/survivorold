@@ -1,9 +1,10 @@
 ﻿using System.Linq;
-using Sandbox.UI.World;
+using Sandbox;
+using Survivor.UI.World;
 
-namespace Sandbox;
+namespace Survivor;
 
-public class UnrealPlayer : Player
+public class SurvivorPlayer : Player
 {
 	private void Prepare()
 	{
@@ -21,7 +22,7 @@ public class UnrealPlayer : Player
 		Health = 100;
 	}
 
-	private UnrealWorldPanel WorldPanel { get; set; }
+	private PlayerNameWorldPanel WorldPanel { get; set; }
 
 	public override void Respawn()
 	{
@@ -35,7 +36,7 @@ public class UnrealPlayer : Player
 		if ( Input.Pressed( InputButton.Menu ) && WorldPanel != null )
 		{
 			WorldPanel.Delete();
-			WorldPanel = new UnrealWorldPanel( this ) { Transform = Transform };
+			WorldPanel = new PlayerNameWorldPanel( this ) { Transform = Transform };
 			Log.Info( "Spawned panel" );
 		}
 	}
@@ -47,7 +48,7 @@ public class UnrealPlayer : Player
 
 	public override void ClientSpawn()
 	{
-		WorldPanel ??= new UnrealWorldPanel( this );
+		WorldPanel ??= new PlayerNameWorldPanel( this );
 		Log.Info( "Spawned" );
 	}
 

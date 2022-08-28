@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Sandbox;
+using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace Sandbox.UI;
+namespace Survivor.UI.Hud;
 
-public class NameHud : Panel
+public class PlayerNameLabel : Panel
 {
-	private Label _label;
+	private readonly Label _label;
 
-	public NameHud()
+	public PlayerNameLabel()
 	{
 		_label = Add.Label( Local.DisplayName, "value" );
 	}
@@ -16,8 +17,6 @@ public class NameHud : Panel
 	{
 		var player = Local.Pawn;
 		if ( player == null ) return;
-
 		_label.Text = $"{Local.DisplayName}, {Local.Client.Ping}ms ";
-
 	}
 }

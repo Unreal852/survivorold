@@ -1,12 +1,14 @@
-﻿using Sandbox.UI.Construct;
+﻿using Sandbox;
+using Sandbox.UI;
+using Sandbox.UI.Construct;
 
-namespace Sandbox.UI;
+namespace Survivor.UI.Hud;
 
-public class HealthHud : Panel
+public class HealthLabel : Panel
 {
 	private Label _label;
 
-	public HealthHud()
+	public HealthLabel()
 	{
 		_label = Add.Label( "100", "value" );
 	}

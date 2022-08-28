@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Sandbox;
 using Sandbox.Internal;
+using Survivor.UI.Hud;
 
-//
-// You don't need to put things in a namespace, but it doesn't hurt.
-//
-namespace Sandbox;
+namespace Survivor;
 
 /// <summary>
 /// This is your game class. This is an entity that is created serverside when
@@ -20,7 +19,7 @@ public class MyGame : Game
 	{
 		if ( IsServer )
 		{
-			_ = new SimpleHud();
+			_ = new MainPlayerHud();
 		}
 	}
 
@@ -32,7 +31,7 @@ public class MyGame : Game
 		base.ClientJoined( client );
 
 		// Create a pawn for this client to play with
-		var player = new UnrealPlayer();
+		var player = new SurvivorPlayer();
 		client.Pawn = player;
 
 		// Get all of the spawnpoints
@@ -53,7 +52,7 @@ public class MyGame : Game
 	public override void DoPlayerDevCam( Client client )
 	{
 		EntityComponentAccessor components = client.Components;
-		DevCamera devCamera = components.Get<DevCamera>( true );
+		var devCamera = components.Get<DevCamera>( true );
 		if ( devCamera == null )
 		{
 			var component = new DevCamera();

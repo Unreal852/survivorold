@@ -1,13 +1,12 @@
-﻿using Sandbox.UI.Construct;
+﻿using Sandbox.UI;
+using Sandbox.UI.Construct;
 
-namespace Sandbox.UI.World;
+namespace Survivor.UI.World;
 
 public class HoverPlayerNameLabel : Panel
 {
-	private readonly Label _label;
-
 	public HoverPlayerNameLabel( string playerName )
 	{
-		_label = Add.Label( playerName, "value" );
+		Add.Label( playerName, "value" );
 	}
 }
