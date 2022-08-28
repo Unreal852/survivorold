@@ -2,7 +2,6 @@
 
 namespace Sandbox;
 
-[Library]
 public class SimpleHud : HudEntity<RootPanel>
 {
 	public SimpleHud()
@@ -13,6 +12,4 @@ public class SimpleHud : HudEntity<RootPanel>
 		RootPanel.AddChild<HealthHud>();
 		RootPanel.AddChild<NameHud>();
 	}
-	
-	
 }
