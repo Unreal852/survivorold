@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 using SandboxEditor;
 
-namespace Survivor.Entities;
+namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_zombie_spawn" )]
 [HammerEntity, EditorModel( "models/editor/playerstart.vmdl", FixedBounds = true )]

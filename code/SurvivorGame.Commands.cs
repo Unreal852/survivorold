@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Sandbox;
 using Survivor.Entities;
+using Survivor.Entities.Hammer;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;
