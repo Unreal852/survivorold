@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Sandbox;
 
-namespace Sandbox;
+namespace Survivor;
 
 [SkipHotload]
 public static class CleanupManager

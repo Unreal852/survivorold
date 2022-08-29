@@ -1,8 +1,9 @@
 ﻿using System.Linq;
-using Sandbox.Players;
-using Sandbox.UI.World;
+using Sandbox;
+using Survivor.Players;
+using Survivor.UI.World;
 
-namespace Sandbox.Entities.Components;
+namespace Survivor.Entities.Components;
 
 public class NameTagComponent : EntityComponent<SurvivorPlayer>
 {

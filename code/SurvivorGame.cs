@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using Sandbox;
 using Sandbox.Internal;
-using Sandbox.Players;
+using Survivor.Players;
 using Survivor.UI.Hud;
 
-namespace Sandbox;
+namespace Survivor;
 
 /// <summary>
 /// This is your game class. This is an entity that is created serverside when
