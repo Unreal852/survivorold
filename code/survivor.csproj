@@ -24,24 +24,24 @@
 	</ItemGroup>
 
   <PropertyGroup>
-	<OutputPath>D:\Games\Steam\steamapps\common\sbox/.vs/output/</OutputPath>
-	<DocumentationFile>D:\Games\Steam\steamapps\common\sbox/.vs/output/survivor.xml</DocumentationFile>
+	<OutputPath>C:\Program Files (x86)\Steam\steamapps\common\sbox/.vs/output/</OutputPath>
+	<DocumentationFile>C:\Program Files (x86)\Steam\steamapps\common\sbox/.vs/output/survivor.xml</DocumentationFile>
 	<RootNamespace>Survivor</RootNamespace>
 	<Nullable>disable</Nullable>
   </PropertyGroup>
 
 	<ItemGroup>
-		<Analyzer Include="D:\Games\Steam\steamapps\common\sbox\bin\managed\Sandbox.Generator.dll"/>
-		<Reference Include="D:\Games\Steam\steamapps\common\sbox\bin\managed/Sandbox.System.dll" />
-		<Reference Include="D:\Games\Steam\steamapps\common\sbox\bin\managed/Sandbox.Engine.dll" />
-		<Reference Include="D:\Games\Steam\steamapps\common\sbox\bin\managed/Sandbox.Game.dll" />
-		<Reference Include="D:\Games\Steam\steamapps\common\sbox\bin\managed/Sandbox.Event.dll" />
-		<Reference Include="D:\Games\Steam\steamapps\common\sbox\bin\managed/Sandbox.Bind.dll" />
-		<Reference Include="D:\Games\Steam\steamapps\common\sbox\bin\managed/Sandbox.Reflection.dll" />
+		<Analyzer Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed\Sandbox.Generator.dll"/>
+		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.System.dll" />
+		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Engine.dll" />
+		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Game.dll" />
+		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Event.dll" />
+		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Bind.dll" />
+		<Reference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\bin\managed/Sandbox.Reflection.dll" />
 	</ItemGroup>
 
   <ItemGroup>
-<ProjectReference Include="D:\Games\Steam\steamapps\common\sbox\addons\base\code\base.csproj" />
+<ProjectReference Include="C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\base\code\base.csproj" />
   </ItemGroup>
 
 </Project>

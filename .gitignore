@@ -23,3 +23,4 @@ omnisharp.json
 *.vsnd_c
 *.vpcf_c
 *.vpost_c
+code/survivor.csproj
