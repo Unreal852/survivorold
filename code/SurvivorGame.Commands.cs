@@ -57,6 +57,7 @@ public partial class SurvivorGame
 		for ( int i = 0; i < amount; i++ )
 		{
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
+			Log.Info($"IsEnabled: {zombieSpawn.IsEnabled}");
 			Model model = zombieSpawn.ModelToSpawn;
 			if ( model == null )
 			{
@@ -66,7 +67,7 @@ public partial class SurvivorGame
 
 			Log.Info( $"ModelName: {model.Name} | ResourceName: {model.ResourceName} | ResourcePath: {model.ResourcePath}" );
 
-			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 2 };
+			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 5 };
 			prop.SetModel( model.Name );
 		}
 	}
