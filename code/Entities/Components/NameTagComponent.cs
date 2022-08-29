@@ -29,10 +29,14 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 	}
 
 	[Event.Frame]
-	public static void SystemUpdate()
+	public void SystemUpdate()
 	{
 		// TODO: I don't think doing this every frame is good
 		foreach ( var player in Sandbox.Entity.All.OfType<SurvivorPlayer>() )
+		{
+			if ( player == Entity )
+				continue;
 			player.Components.GetOrCreate<NameTagComponent>();
+		}
 	}
 }
