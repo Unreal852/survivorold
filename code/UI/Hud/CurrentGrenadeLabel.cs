@@ -3,18 +3,18 @@ using Sandbox.UI.Construct;
 
 namespace Survivor.UI.Hud;
 
-public class RemainingZombiePanel : Panel
+public class CurrentGrenadeLabel : Label
 {
 	private Label _label;
 
-	public RemainingZombiePanel()
+	public CurrentGrenadeLabel()
 	{
 		_label = Add.Label( "0", "value" );
 	}
 
-	//TODO: Should be the number of remaining zombie instead of "0"
+	//TODO: Should have a picture of a grenade at the right of the current value
 	public override void Tick()
 	{
-		_label.Text = "☻ : " + "7";
+		_label.Text = "2" + " ○";
 	}
 }
