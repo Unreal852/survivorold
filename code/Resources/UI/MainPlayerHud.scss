@@ -48,11 +48,59 @@ RemainingZombiePanel {
 
 CurrentWaveLabel {
   position: absolute;
-  left: 50px;
-  bottom: 130px;
+  left: 1080px;
+  top: 40px;
   font-size: 40px;
   font-weight: bold;
   text-decoration: underline;
+  color: white;
+  height: 80px;
+  padding: 0 20px;
+  align-items: center;
+  font-family: Poppins, serif;
+  background-color: rgba(#333, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+
+CurrentAmmoLabel {
+  position: absolute;
+  right: 50px;
+  bottom: 40px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  height: 80px;
+  padding: 0 20px;
+  align-items: center;
+  font-family: Poppins, serif;
+  background-color: rgba(#333, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+
+CurrentGrenadeLabel {
+  position: absolute;
+  right: 50px;
+  bottom: 130px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  height: 80px;
+  padding: 0 20px;
+  align-items: center;
+  font-family: Poppins, serif;
+  background-color: rgba(#333, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+
+CurrentMoneyLabel {
+  position: absolute;
+  left: 50px;
+  top: 130px;
+  font-size: 40px;
+  font-weight: bold;
   color: white;
   height: 80px;
   padding: 0 20px;

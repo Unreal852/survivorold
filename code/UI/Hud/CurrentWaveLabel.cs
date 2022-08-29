@@ -15,6 +15,6 @@ public class CurrentWaveLabel : Panel
 	//TODO: Should be the number of the current wave instead of "0"
 	public override void Tick()
 	{
-		_label.Text = "Wave: " + "0";
+		_label.Text = "Wave: " + "6";
 	}
 }
