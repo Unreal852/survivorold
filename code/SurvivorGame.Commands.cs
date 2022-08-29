@@ -57,7 +57,7 @@ public partial class SurvivorGame
 		for ( int i = 0; i < amount; i++ )
 		{
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
-			Log.Info($"IsEnabled: {zombieSpawn.IsEnabled}");
+			Log.Info($"Message: {zombieSpawn.Message}");
 			Model model = zombieSpawn.ModelToSpawn;
 			if ( model == null )
 			{
