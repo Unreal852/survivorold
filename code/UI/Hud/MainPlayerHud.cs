@@ -12,6 +12,7 @@ public class MainPlayerHud : HudEntity<RootPanel>
 		RootPanel.StyleSheet.Load( "Resources/UI/MainPlayerHud.scss" );
 		RootPanel.AddChild<HealthLabel>();
 		RootPanel.AddChild<PlayerNameLabel>();
+		RootPanel.AddChild<RemainingZombiePanel>();
 	}
 	
 }
