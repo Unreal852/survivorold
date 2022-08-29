@@ -45,3 +45,20 @@ RemainingZombiePanel {
   backdrop-filter: blur(20px);
   border-radius: 10px;
 }
+
+CurrentWaveLabel {
+  position: absolute;
+  left: 50px;
+  bottom: 130px;
+  font-size: 40px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: white;
+  height: 80px;
+  padding: 0 20px;
+  align-items: center;
+  font-family: Poppins, serif;
+  background-color: rgba(#333, 0.4);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
