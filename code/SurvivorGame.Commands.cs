@@ -58,14 +58,16 @@ public partial class SurvivorGame
 		{
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
 			Model model = zombieSpawn.ModelToSpawn;
-			// if ( model == null )
-			// {
-			// 	Log.Error( "The specified model is null" );
-			// 	continue;
-			// }
+			if ( model == null )
+			{
+				Log.Error( "The specified model is null" );
+				continue;
+			}
+
+			Log.Info( $"ModelName: {model.Name} | ResourceName: {model.ResourceName} | ResourcePath: {model.ResourcePath}" );
 
 			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 2 };
-			prop.SetModel( "models/1911.vmdl" );
+			prop.SetModel( model.Name );
 		}
 	}
 }
