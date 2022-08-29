@@ -1,11 +1,11 @@
-﻿using Sandbox.UI.World;
+﻿using Sandbox.Entities.Components;
+using Sandbox.UI.World;
 
 namespace Sandbox.Players;
 
 public class SurvivorPlayer : Player
 {
-	private readonly ClothingContainer    _clothing = new();
-	private          PlayerNameWorldPanel WorldPanel { get; set; }
+	private readonly ClothingContainer _clothing = new();
 
 	public SurvivorPlayer()
 	{
@@ -48,6 +48,7 @@ public class SurvivorPlayer : Player
 
 	public override void ClientSpawn()
 	{
-		WorldPanel ??= new PlayerNameWorldPanel( this );
+		// // if ( !IsLocalPawn )
+		// 	Components.GetOrCreate<NameTagComponent>();
 	}
 }
