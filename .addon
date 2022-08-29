@@ -29,7 +29,7 @@
       "Keyboard": true
     },
     "Compiler": {
-      "RootNamespace": "Sandbox",
+      "RootNamespace": "Survivor",
       "DefineConstants": "SANDBOX;ADDON;DEBUG",
       "NoWarn": "1701;1702;1591;"
     }

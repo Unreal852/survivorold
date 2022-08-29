@@ -1,7 +1,7 @@
-﻿using Sandbox.Players;
+﻿using Sandbox;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
-namespace Sandbox;
+namespace Survivor;
 
 public partial class SurvivorGame
 {

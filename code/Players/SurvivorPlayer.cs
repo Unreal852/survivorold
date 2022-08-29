@@ -1,7 +1,6 @@
-﻿using Sandbox.Entities.Components;
-using Sandbox.UI.World;
+﻿using Sandbox;
 
-namespace Sandbox.Players;
+namespace Survivor.Players;
 
 public class SurvivorPlayer : Player
 {

@@ -1,6 +1,7 @@
-﻿using Sandbox.UI.Construct;
+﻿using Sandbox.UI;
+using Sandbox.UI.Construct;
 
-namespace Sandbox.UI.World;
+namespace Survivor.UI.World;
 
 public class PlayerNameTag : WorldPanel
 {

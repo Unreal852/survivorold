@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Hud;
 
 namespace Survivor.UI.Hud;
 
@@ -14,4 +13,5 @@ public class MainPlayerHud : HudEntity<RootPanel>
 		RootPanel.AddChild<HealthLabel>();
 		RootPanel.AddChild<PlayerNameLabel>();
 	}
+	
 }

@@ -1,6 +1,8 @@
-﻿using Sandbox.UI.Construct;
+﻿using Sandbox;
+using Sandbox.UI;
+using Sandbox.UI.Construct;
 
-namespace Sandbox.UI.Hud;
+namespace Survivor.UI.Hud;
 
 public class PlayerNameLabel : Panel
 {
