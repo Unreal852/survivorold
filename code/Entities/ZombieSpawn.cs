@@ -8,6 +8,5 @@ namespace Survivor.Entities;
 [Title( "Zombie Spawnpoint" ), Category( "Zombie" ), Icon( "place" )]
 public partial class ZombieSpawn : SpawnPoint
 {
-	[Property( Title = "Model" )] public Model ModelToSpawn { get; set; } = null;
-	[Property( Title = "Message" )] public string  Message    { get; set; } = "Default";
+	[Property( Title = "Model" )] public Model Model { get; set; } = null;
 }
