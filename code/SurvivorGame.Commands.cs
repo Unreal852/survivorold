@@ -64,10 +64,8 @@ public partial class SurvivorGame
 				continue;
 			}
 
-			Log.Info( $"ModelName: {model.Name} | ResourceName: {model.ResourceName} | ResourcePath: {model.ResourcePath}" );
-
 			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 5 };
-			prop.SetModel( zombieSpawn.Model.ResourceName );
+			prop.SetModel( zombieSpawn.Model.Name );
 		}
 	}
 }
