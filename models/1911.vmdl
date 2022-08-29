@@ -15,19 +15,19 @@
 						[
 							{
 								from = "mesh.001.vmat"
-								to = "materials/1911 material.vmat"
+								to = "materials/black_matte.vmat"
 							},
 							{
 								from = "mesh.002.vmat"
-								to = "materials/1911 material.vmat"
+								to = "materials/black_matte.vmat"
 							},
 							{
 								from = "mesh.003.vmat"
-								to = "materials/1911 material.vmat"
+								to = "materials/black_matte.vmat"
 							},
 							{
 								from = "mesh.vmat"
-								to = "materials/1911 material.vmat"
+								to = "materials/black_matte.vmat"
 							},
 						]
 						use_global_default = false
