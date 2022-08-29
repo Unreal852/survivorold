@@ -29,13 +29,17 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 	}
 
 	[Event.Frame]
-	public void SystemUpdate()
+	public static void SystemUpdate()
 	{
 		// TODO: I don't think doing this every frame is good
 		foreach ( var player in Sandbox.Entity.All.OfType<SurvivorPlayer>() )
 		{
-			if ( player == Entity )
+			if ( player.IsLocalPawn && player.IsFirstPersonMode )
+			{
+				player.Components.Get<NameTagComponent>()?.Remove();
 				continue;
+			}
+
 			player.Components.GetOrCreate<NameTagComponent>();
 		}
 	}
