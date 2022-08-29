@@ -9,7 +9,7 @@ public class PlayerNameTag : WorldPanel
 
 	public PlayerNameTag( string title, long? steamId )
 	{
-		StyleSheet.Load( "UI/World/PlayerNameTag.scss" );
+		StyleSheet.Load( "Resources/UI/PlayerNameTag.scss" );
 
 		if ( steamId != null )
 		{
