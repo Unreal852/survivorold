@@ -65,7 +65,7 @@ public partial class SurvivorGame
 			}
 
 			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 2 };
-			prop.SetModel( model.Name );
+			prop.SetModel( "models/1911.vmdl" );
 		}
 	}
 }
