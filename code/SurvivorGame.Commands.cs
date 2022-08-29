@@ -1,4 +1,6 @@
-﻿using Sandbox;
+﻿using System.Linq;
+using Sandbox;
+using Survivor.Entities;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;
@@ -40,5 +42,24 @@ public partial class SurvivorGame
 	{
 		CleanupManager.CleanAll();
 		//Map.Reset(DefaultCleanupFilter);
+	}
+
+	[ServerCommand( "spawnz" )]
+	public static void SpawnZombies( int amount )
+	{
+		var spawns = All.OfType<ZombieSpawn>().ToArray();
+		if ( spawns.Length <= 0 )
+		{
+			Log.Warning( "No zombie spawn found." );
+			return;
+		}
+
+		for ( int i = 0; i < amount; i++ )
+		{
+			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
+			Model model = zombieSpawn.ModelToSpawn;
+			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 2 };
+			prop.SetModel( model.Name );
+		}
 	}
 }
