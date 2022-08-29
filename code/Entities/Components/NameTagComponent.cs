@@ -25,7 +25,6 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 		var transform = Entity.GetAttachment( "hat" ) ?? Entity.Transform;
 		transform.Position += Vector3.Up * 10.0f;
 		transform.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
-
 		_nameTag.Transform = transform;
 	}
 
