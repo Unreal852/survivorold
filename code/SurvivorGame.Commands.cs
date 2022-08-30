@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Hammer;
@@ -8,7 +9,7 @@ namespace Survivor;
 
 public partial class SurvivorGame
 {
-	[ServerCommand( "spawnm" )]
+	[ServerCommand( Name = "spawnm", Help = "Spawn a model of the given type" )]
 	public static void SpawnModel( string modelName, int amount = 1 )
 	{
 		long callerId = ConsoleSystem.Caller.Id;
@@ -68,5 +69,25 @@ public partial class SurvivorGame
 			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 5 };
 			prop.SetModel( zombieSpawn.Model.Name );
 		}
+	}
+
+	[ServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]
+	public static void TeleportPlayerToCurrentCameraPosition( string playerName )
+	{
+		var devCamera = ConsoleSystem.Caller.Components.Get<DevCamera>();
+		if ( devCamera == null )
+		{
+			Log.Warning( "DEV CAM is null" );
+			return;
+		}
+
+		Client clientToTeleport = Client.All.FirstOrDefault( cl => cl.Name.Equals( playerName, StringComparison.OrdinalIgnoreCase ) );
+		if ( clientToTeleport == null )
+		{
+			Log.Warning( $"No client found with the name '{playerName}'" );
+			return;
+		}
+
+		clientToTeleport.Pawn.Position = devCamera.Entity.Position;
 	}
 }
