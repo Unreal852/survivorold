@@ -2,6 +2,7 @@
 using Sandbox;
 using Survivor.Players.Inventory;
 using Survivor.Tools;
+using Survivor.Weapons;
 using SWB_Base;
 
 namespace Survivor.Players;
@@ -46,24 +47,23 @@ public partial class SurvivorPlayer : PlayerBase
 
 		// TODO: Add weapons to inventory
 		Inventory.Add( new PhysTool(), true );
-		ActiveChild = Inventory.Active;
+		Inventory.Add( new M1911() );
+
+		GiveAmmo( AmmoType.Pistol, 1000 );
 
 		SuppressPickupNotices = false;
-
-		SwitchToBestWeapon();
 	}
 
 	public void SwitchToBestWeapon()
 	{
-		var best = Children
-		          .Select( x => x as WeaponBase )
-		          .Where( x => x.IsValid() && x.IsUsable() )
-		          .MaxBy( x => x.BucketWeight );
+		// var best = Children
+		//           .Select( x => x as WeaponBase )
+		//           .Where( x => x.IsValid() && x.IsUsable() )
+		//           .MaxBy( x => x.BucketWeight );
 
+		var best = Children.Select( x => x as CarriableBase ).FirstOrDefault( x => x.IsValid() );
 		if ( best == null )
-		{
 			return;
-		}
 
 		ActiveChild = best;
 	}
@@ -109,6 +109,11 @@ public partial class SurvivorPlayer : PlayerBase
 				SwitchToBestWeapon();
 			}
 		}
+
+		if ( Input.Pressed( InputButton.Slot1 ) )
+			Inventory.SetActiveSlot( 0, true );
+		else if ( Input.Pressed( InputButton.Slot2 ) )
+			Inventory.SetActiveSlot( 1, true );
 
 		SimulateActiveChild( cl, ActiveChild );
 

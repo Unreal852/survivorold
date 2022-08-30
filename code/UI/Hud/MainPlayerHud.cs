@@ -11,12 +11,11 @@ public class MainPlayerHud : HudEntity<RootPanel>
 			return;
 		RootPanel.StyleSheet.Load( "Resources/UI/MainPlayerHud.scss" );
 		RootPanel.AddChild<HealthLabel>();
-		RootPanel.AddChild<PlayerNameLabel>();
 		RootPanel.AddChild<RemainingZombiePanel>();
-		RootPanel.AddChild<CurrentWaveLabel>();
-		RootPanel.AddChild<CurrentAmmoLabel>();
-		RootPanel.AddChild<CurrentGrenadeLabel>();
 		RootPanel.AddChild<CurrentMoneyLabel>();
-		//RootPanel.AddChild<ScoreboardUI>();
+		// RootPanel.AddChild<CurrentWaveLabel>();
+		// RootPanel.AddChild<CurrentAmmoLabel>();
+		// RootPanel.AddChild<CurrentGrenadeLabel>();
+		// RootPanel.AddChild<ScoreboardUI>();
 	}
 }
