@@ -65,7 +65,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/1912.fbx"
+						filename = "models/1911.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 0.1
