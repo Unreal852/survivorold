@@ -3,6 +3,7 @@ using System.Linq;
 using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Hammer;
+using Survivor.Tools;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;
@@ -96,5 +97,31 @@ public partial class SurvivorGame
 		}
 
 		clientToTeleport.Pawn.Position = devCamera.Entity.Position;
+	}
+
+	[ServerCommand( Name = "stool" )]
+	public static void SpawnTool()
+	{
+		long callerId = ConsoleSystem.Caller.Id;
+		var caller = ConsoleSystem.Caller?.Pawn;
+		if ( caller == null )
+		{
+			Log.Warning( $"{nameof(SpawnModel)} command caller is null" );
+			return;
+		}
+
+		var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
+		                 .UseHitboxes()
+		                 .Ignore( caller )
+		                 .Size( 2 )
+		                 .Run();
+		var tool = _ = new PhysTool() { Position = trace.EndPosition };
+		CleanupManager.AddEntity( callerId, tool );
+		if ( tool.PhysicsBody == null || tool.PhysicsGroup.BodyCount != 1 )
+			return;
+
+		var point = tool.PhysicsBody.FindClosestPoint( trace.EndPosition );
+		var delta = point - trace.EndPosition;
+		tool.PhysicsBody.Position -= delta;
 	}
 }

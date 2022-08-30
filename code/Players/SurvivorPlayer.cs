@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Sandbox;
 using Survivor.Players.Inventory;
+using Survivor.Tools;
 using SWB_Base;
 
 namespace Survivor.Players;
@@ -27,7 +28,7 @@ public partial class SurvivorPlayer : PlayerBase
 		SetModel( "models/citizen/citizen.vmdl" );
 
 		_clothing.DressEntity( this );
-		
+
 		Controller = new PlayerWalkController();
 		Animator = new PlayerBaseAnimator();
 		CameraMode = new FirstPersonCamera();
@@ -44,8 +45,12 @@ public partial class SurvivorPlayer : PlayerBase
 		SuppressPickupNotices = true;
 
 		// TODO: Add weapons to inventory
+		Inventory.Add( new PhysTool(), true );
+		ActiveChild = Inventory.Active;
 
 		SuppressPickupNotices = false;
+
+		SwitchToBestWeapon();
 	}
 
 	public void SwitchToBestWeapon()
@@ -56,7 +61,9 @@ public partial class SurvivorPlayer : PlayerBase
 		          .MaxBy( x => x.BucketWeight );
 
 		if ( best == null )
+		{
 			return;
+		}
 
 		ActiveChild = best;
 	}
@@ -109,10 +116,9 @@ public partial class SurvivorPlayer : PlayerBase
 		// If the current weapon is out of ammo and we last fired it over half a second ago
 		// lets try to switch to a better wepaon
 		//
-		if ( ActiveChild is WeaponBase weapon
-		  && !weapon.IsUsable()
-		  && weapon.TimeSincePrimaryAttack   > 0.5f
-		  && weapon.TimeSinceSecondaryAttack > 0.5f )
+		if ( ActiveChild is WeaponBase weapon && !weapon.IsUsable()
+		                                      && weapon.TimeSincePrimaryAttack   > 0.5f
+		                                      && weapon.TimeSinceSecondaryAttack > 0.5f )
 			SwitchToBestWeapon();
 	}
 

@@ -8,8 +8,8 @@ namespace Survivor.Weapons
 	[Library( "template_weapon", Title = "Template Weapon" )]
 	public class TemplateWeapon : WeaponBase
 	{
-		public override string ViewModelPath  => "path/to/v_model.vmdl";
-		public override string WorldModelPath => "path/to/w_model.vmdl";
+		public override string ViewModelPath  => "models/1911.vmdl";
+		public override string WorldModelPath => "models/1911.vmdl";
 		public override string Icon           => "/path/to/icon.png";
 
 		public TemplateWeapon()
@@ -39,5 +39,7 @@ namespace Survivor.Weapons
 
 			RunAnimData = new AngPos { Angle = new Angles( 10, 40, 0 ), Pos = new Vector3( 5, 0, 0 ) };
 		}
+		
+		
 	}
 }

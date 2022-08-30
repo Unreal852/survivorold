@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Sandbox;
+using Survivor.Tools;
 using SWB_Base;
 
 namespace Survivor.Players.Inventory;
@@ -15,37 +16,38 @@ public class SurvivorPlayerInventory : InventoryBase
 	{
 		if ( Owner is not SurvivorPlayer player )
 			return false;
-		var weapon = ent as WeaponBase;
-		var showNotice = !player.SuppressPickupNotices;
 
-		if ( weapon != null && IsCarryingType( ent.GetType() ) )
+		if ( ent is WeaponBase weapon && IsCarryingType( ent.GetType() ) )
 		{
-			// Inventory bug workaround (duplicate pickup)
-			if ( weapon.TimeSinceActiveStart == 0 )
-				return false;
-
-			var ammo = weapon.Primary.Ammo;
-			var ammoType = weapon.Primary.AmmoType;
-
-			if ( ammo > 0 )
+			if ( IsCarryingType( ent.GetType() ) )
 			{
-				player.GiveAmmo( ammoType, ammo );
+				// Inventory bug workaround (duplicate pickup)
+				if ( weapon.TimeSinceActiveStart == 0 )
+					return false;
 
-				if ( showNotice )
+				var ammo = weapon.Primary.Ammo;
+				var ammoType = weapon.Primary.AmmoType;
+
+				if ( ammo > 0 )
 				{
-					Sound.FromWorld( "dm.pickup_ammo", ent.Position );
-					PickupFeed.OnPickup( To.Single( player ), $"+{ammo} {ammoType}" );
+					player.GiveAmmo( ammoType, ammo );
+
+					if ( !player.SuppressPickupNotices )
+					{
+						Sound.FromWorld( "dm.pickup_ammo", ent.Position );
+						PickupFeed.OnPickup( To.Single( player ), $"+{ammo} {ammoType}" );
+					}
 				}
+
+				// Despawn it
+				weapon.Delete();
+				return false;
 			}
 
-			// Despawn it
-			weapon.Delete();
-			return false;
-		}
-
-		if ( weapon != null && showNotice )
-		{
-			Sound.FromWorld( "dm.pickup_weapon", ent.Position );
+			if ( !player.SuppressPickupNotices )
+			{
+				Sound.FromWorld( "dm.pickup_weapon", ent.Position );
+			}
 		}
 
 		return base.Add( ent, makeActive );
