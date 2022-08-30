@@ -15,23 +15,47 @@
 						[
 							{
 								from = "mesh.001.vmat"
-								to = "materials/black_matte.vmat"
+								to = "materials/prototype/prototype_black_08.vmat"
 							},
 							{
 								from = "mesh.002.vmat"
-								to = "materials/black_matte.vmat"
+								to = "materials/prototype/prototype_black_08.vmat"
 							},
 							{
 								from = "mesh.003.vmat"
-								to = "materials/black_matte.vmat"
+								to = "materials/prototype/prototype_black_08.vmat"
 							},
 							{
 								from = "mesh.vmat"
-								to = "materials/black_matte.vmat"
+								to = "materials/prototype/prototype_black_13.vmat"
 							},
 						]
 						use_global_default = false
 						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						radius = 1.49094
+						point0 = [ -4.345438, 1.621611, 0.382313 ]
+						point1 = [ 4.866385, 4.379649, 0.322049 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						radius = 1.49094
+						point0 = [ -5.118828, -10.87099, -0.41608 ]
+						point1 = [ -4.980444, -1.256141, -0.476344 ]
 					},
 				]
 			},
@@ -41,7 +65,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/1911.fbx"
+						filename = "models/1912.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 0.1
@@ -51,31 +75,35 @@
 						parent_bone = ""
 						import_filter = 
 						{
-							exclude_by_default = true
-							exception_list = 
-							[
-								"Mesh",
-								"Mesh_001",
-								"Mesh_002",
-								"Mesh_003",
-							]
+							exclude_by_default = false
+							exception_list = [  ]
 						}
 					},
 				]
 			},
 			{
-				_class = "PhysicsShapeList"
+				_class = "AnimationList"
 				children = 
 				[
 					{
-						_class = "PhysicsHullFromRender"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						faceMergeAngle = 20.0
-						maxHullVertices = 32
+						_class = "AnimBindPose"
+						name = "bindPose"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						frame_count = 1
+						frame_rate = 30
 					},
 				]
+				default_root_bone_name = ""
 			},
 		]
 		model_archetype = ""
