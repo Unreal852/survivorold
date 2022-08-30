@@ -17,6 +17,6 @@ public class MainPlayerHud : HudEntity<RootPanel>
 		RootPanel.AddChild<CurrentAmmoLabel>();
 		RootPanel.AddChild<CurrentGrenadeLabel>();
 		RootPanel.AddChild<CurrentMoneyLabel>();
-		RootPanel.AddChild<ScoreboardUI>();
+		//RootPanel.AddChild<ScoreboardUI>();
 	}
 }
