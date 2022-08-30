@@ -45,8 +45,8 @@
 						surface_prop = "default"
 						collision_tags = "solid"
 						radius = 1.49094
-						point0 = [ -4.345438, 1.621611, 0.382313 ]
-						point1 = [ 4.866385, 4.379649, 0.322049 ]
+						point0 = [ -4.345438, 4.229921, -0.453362 ]
+						point1 = [ 4.866385, 6.987959, -0.513626 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
@@ -54,8 +54,8 @@
 						surface_prop = "default"
 						collision_tags = "solid"
 						radius = 1.49094
-						point0 = [ -5.118828, -10.87099, -0.41608 ]
-						point1 = [ -4.980444, -1.256141, -0.476344 ]
+						point0 = [ -3.414986, -7.684101, -0.41608 ]
+						point1 = [ -3.276602, 1.930748, -0.476344 ]
 					},
 				]
 			},
@@ -72,7 +72,7 @@
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
-						parent_bone = ""
+						parent_bone = "root"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -104,6 +104,29 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "root"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "hold_R"
+								origin = [ 0.0, 0.0, 0.0 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ 1.309467, 3.039648, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
 			},
 		]
 		model_archetype = ""
