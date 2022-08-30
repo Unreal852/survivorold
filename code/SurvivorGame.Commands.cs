@@ -72,12 +72,19 @@ public partial class SurvivorGame
 	}
 
 	[ServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]
-	public static void TeleportPlayerToCurrentCameraPosition( string playerName )
+	public static void TeleportPlayerToCurrentCameraPosition( string playerName = null )
 	{
 		var devCamera = ConsoleSystem.Caller.Components.Get<DevCamera>();
 		if ( devCamera == null )
 		{
 			Log.Warning( "DEV CAM is null" );
+			return;
+		}
+
+		if ( string.IsNullOrWhiteSpace( playerName ) )
+		{
+			foreach ( Client client in Client.All )
+				client.Pawn.Position = devCamera.Entity.Position;
 			return;
 		}
 
