@@ -15,19 +15,19 @@
 						[
 							{
 								from = "mesh.001.vmat"
-								to = "materials/prototype/prototype_black_08.vmat"
+								to = "materials/metal/metal_01_color.vmat"
 							},
 							{
 								from = "mesh.002.vmat"
-								to = "materials/prototype/prototype_black_08.vmat"
+								to = "materials/metal/metal_01_color.vmat"
 							},
 							{
 								from = "mesh.003.vmat"
-								to = "materials/prototype/prototype_black_08.vmat"
+								to = "materials/metal/metal_01_color.vmat"
 							},
 							{
 								from = "mesh.vmat"
-								to = "materials/prototype/prototype_black_13.vmat"
+								to = "materials/metal/metal_01_color.vmat"
 							},
 						]
 						use_global_default = false
