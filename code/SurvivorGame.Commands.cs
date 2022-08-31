@@ -13,6 +13,11 @@ public partial class SurvivorGame
 	[ServerCommand( Name = "spawnm", Help = "Spawn a model of the given type" )]
 	public static void SpawnModel( string modelName, int amount = 1 )
 	{
+		if ( !modelName.Contains( '/' ) )
+			modelName = $"models/{modelName}";
+		if ( !modelName.EndsWith( ".vmdl" ) )
+			modelName += ".vmdl";
+
 		long callerId = ConsoleSystem.Caller.Id;
 		var caller = ConsoleSystem.Caller?.Pawn;
 		if ( caller == null )
