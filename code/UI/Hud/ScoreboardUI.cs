@@ -13,13 +13,10 @@ public class ScoreboardUI : Panel
 	{
 		//var tabContainer = new TabContainer();
 		//tabContainer.Add.Label("tabContainer", "value");
-
 	}
 
 	public override void Tick()
 	{
 		//_label.Text = "tabContainer";
 	}
-	
-	
 }
