@@ -24,7 +24,7 @@ public class M1911 : WeaponBase
 				AmmoType = AmmoType.Pistol,
 				ClipSize = 7,
 				BulletSize = 3f,
-				BulletType = new PistolBullet(),
+				BulletType = new HitScanBullet(),
 				Damage = 15f,
 				Force = 3f,
 				Spread = 0.08f,
