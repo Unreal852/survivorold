@@ -13,6 +13,7 @@ public class MainPlayerHud : HudEntity<RootPanel>
 		RootPanel.AddChild<HealthLabel>();
 		RootPanel.AddChild<RemainingZombiePanel>();
 		RootPanel.AddChild<CurrentMoneyLabel>();
+		RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
 		// RootPanel.AddChild<CurrentWaveLabel>();
 		// RootPanel.AddChild<CurrentAmmoLabel>();
 		// RootPanel.AddChild<CurrentGrenadeLabel>();

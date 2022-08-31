@@ -15,19 +15,19 @@
 						[
 							{
 								from = "mesh.001.vmat"
-								to = "materials/dev/reflectivity_30_2sided.vmat"
+								to = "materials/prototype/prototype_black_05.vmat"
 							},
 							{
 								from = "mesh.002.vmat"
-								to = "materials/dev/reflectivity_30_2sided.vmat"
+								to = "materials/prototype/prototype_black_05.vmat"
 							},
 							{
 								from = "mesh.003.vmat"
-								to = "materials/dev/reflectivity_30_2sided.vmat"
+								to = "materials/prototype/prototype_black_05.vmat"
 							},
 							{
 								from = "mesh.vmat"
-								to = "materials/dev/reflectivity_30_2sided.vmat"
+								to = "materials/prototype/prototype_black_05.vmat"
 							},
 						]
 						use_global_default = false

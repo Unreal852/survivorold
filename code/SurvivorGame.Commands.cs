@@ -13,6 +13,11 @@ public partial class SurvivorGame
 	[ServerCommand( Name = "spawnm", Help = "Spawn a model of the given type" )]
 	public static void SpawnModel( string modelName, int amount = 1 )
 	{
+		if ( !modelName.Contains( '/' ) )
+			modelName = $"models/{modelName}";
+		if ( !modelName.EndsWith( ".vmdl" ) )
+			modelName += ".vmdl";
+
 		long callerId = ConsoleSystem.Caller.Id;
 		var caller = ConsoleSystem.Caller?.Pawn;
 		if ( caller == null )
@@ -28,7 +33,7 @@ public partial class SurvivorGame
 			                 .Ignore( caller )
 			                 .Size( 2 )
 			                 .Run();
-			var prop = new Prop { Position = trace.EndPosition };
+			var prop = new Prop { Position = trace.EndPosition * Vector3.Up * 10.0f };
 			prop.SetModel( modelName );
 			CleanupManager.AddEntity( callerId, prop );
 			if ( prop.PhysicsBody == null || prop.PhysicsGroup.BodyCount != 1 )
