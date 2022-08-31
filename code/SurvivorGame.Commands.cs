@@ -28,7 +28,7 @@ public partial class SurvivorGame
 			                 .Ignore( caller )
 			                 .Size( 2 )
 			                 .Run();
-			var prop = new Prop { Position = trace.EndPosition };
+			var prop = new Prop { Position = trace.EndPosition * Vector3.Up * 10.0f };
 			prop.SetModel( modelName );
 			CleanupManager.AddEntity( callerId, prop );
 			if ( prop.PhysicsBody == null || prop.PhysicsGroup.BodyCount != 1 )
