@@ -53,7 +53,7 @@ public partial class SurvivorGame
 	}
 
 	[ServerCommand( "spawnz" )]
-	public static void SpawnZombies( int amount )
+	public static void SpawnZombies( int amount = 1 )
 	{
 		var spawns = All.OfType<ZombieSpawn>().ToArray();
 		if ( spawns.Length <= 0 )
