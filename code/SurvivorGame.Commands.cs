@@ -43,6 +43,8 @@ public partial class SurvivorGame
 			var delta = point - trace.EndPosition;
 			prop.PhysicsBody.Position -= delta;
 		}
+
+		Log.Info( $"Spawned {amount} {modelName}" );
 	}
 
 	[ServerCommand( "cleanall" )]
@@ -53,20 +55,31 @@ public partial class SurvivorGame
 	}
 
 	[ServerCommand( "spawnz" )]
-	public static void SpawnZombies( int amount = 1 )
+	public static void SpawnZombiesCommand( int amount = 1 )
 	{
-		var spawns = All.OfType<ZombieSpawn>().ToArray();
-		if ( spawns.Length <= 0 )
+		if ( SpawnZombies( amount ) )
+			Log.Info( "Zombies Spawned !" );
+	}
+
+	[ServerCommand( "setzombiestpos" )]
+	public static void SetZombiesTargetPosition()
+	{
+		long callerId = ConsoleSystem.Caller.Id;
+		var caller = ConsoleSystem.Caller?.Pawn;
+		if ( caller == null )
 		{
-			Log.Warning( "No zombie spawn found." );
+			Log.Warning( $"{nameof(SpawnModel)} command caller is null" );
 			return;
 		}
 
-		for ( int i = 0; i < amount; i++ )
-		{
-			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
-			_ = new Zombie() { Position = zombieSpawn.Position + Vector3.Up * 5 };
-		}
+		var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
+		                 .UseHitboxes()
+		                 .Ignore( caller )
+		                 .Size( 2 )
+		                 .Run();
+		var zombies = All.OfType<Zombie>();
+		foreach ( Zombie zombie in zombies )
+			zombie.NavSteer.TargetPosition = trace.EndPosition;
 	}
 
 	[ServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]

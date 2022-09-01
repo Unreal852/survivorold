@@ -135,6 +135,15 @@ public partial class SurvivorPlayer : PlayerBase
 		base.StartTouch( other );
 	}
 
+	public override void TakeDamage( DamageInfo info )
+	{
+		base.TakeDamage( info );
+		this.ProceduralHitReaction( info );
+		Log.Info("DMG");
+		ScreenShake( new ScreenShakeStruct { Length = 1f, Delay = 0.02f, Size = 5f, Rotation = 10f } );
+		PlaySound( "sounds/hit.sound" );
+	}
+
 	public override void OnKilled()
 	{
 		base.OnKilled();

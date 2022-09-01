@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.Internal;
 using Survivor.Players;
+using Survivor.Players.Controllers;
 using Survivor.UI.Hud;
 
 namespace Survivor;
@@ -52,9 +53,9 @@ public partial class SurvivorGame : Game
 
 	public override void DoPlayerNoclip( Client player )
 	{
-		if ( player.Pawn is not Player pawn )
+		if ( player.Pawn is not SurvivorPlayer pawn )
 			return;
-		if ( pawn.DevController is NoclipController )
+		if ( pawn.DevController is PlayerNoclipController )
 		{
 			Log.Info( "Noclip Mode Off" );
 			pawn.DevController = null;
@@ -62,7 +63,7 @@ public partial class SurvivorGame : Game
 		else
 		{
 			Log.Info( "Noclip Mode On" );
-			pawn.DevController = new NoclipController();
+			pawn.DevController = new PlayerNoclipController();
 		}
 	}
 }
