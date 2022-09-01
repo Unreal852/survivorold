@@ -2,11 +2,8 @@
 
 namespace Survivor.Entities;
 
-public class Zombie : ModelEntity
+public class Zombie : AnimatedEntity
 {
-	//TODO: Make differents zombie's class who implements the main class Zombie ?
-	private int _health;
-
 	public Zombie()
 	{
 		// Ignored

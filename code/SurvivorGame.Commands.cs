@@ -65,15 +65,7 @@ public partial class SurvivorGame
 		for ( int i = 0; i < amount; i++ )
 		{
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
-			Model model = zombieSpawn.Model;
-			if ( model == null )
-			{
-				Log.Error( "The specified model is null" );
-				continue;
-			}
-
-			var prop = new Prop() { Position = zombieSpawn.Position + Vector3.Up * 5 };
-			prop.SetModel( zombieSpawn.Model.Name );
+			_ = new Zombie() { Position = zombieSpawn.Position + Vector3.Up * 5 };
 		}
 	}
 
