@@ -53,7 +53,7 @@ public class M1911 : WeaponBase
 						BoneOrAttachment = "muzzle",
 						Attachments = new List<AttachmentBase>()
 						{
-								new PistolSilencer
+								new M1911Silencer
 								{
 										MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
 										ShootSound = "sounds/weapons/colt_m1911/colt_m1911_shot_01.sound",
@@ -63,18 +63,25 @@ public class M1911 : WeaponBase
 												{
 														Position = new Vector3( 17.204f, 0.86f, 3.871f ),
 														Rotation = Rotation.From( new Angles( 0f, 0f, 0f ) ),
-														Scale = 11f
+														Scale = 5f
 												},
 										WorldParentBone = "root",
 										WorldTransform = new Transform
 										{
 												Position = new Vector3( 17.204f, 0.86f, 3.871f ),
 												Rotation = Rotation.From( new Angles( 0f, 0f, 0f ) ),
-												Scale = 9f
+												Scale = 5f
 										},
 								}
 						}
 				},
 		};
 	}
+}
+
+public class M1911Silencer : Silencer
+{
+	public override string Name      => "Silencer";
+	public override string IconPath  => "attachments/swb/muzzle/silencer_pistol/ui/icon.png";
+	public override string ModelPath => "models/attachments/glock18_silencer.vmdl";
 }
