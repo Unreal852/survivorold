@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
 using Survivor.HitBox;
@@ -10,10 +11,16 @@ namespace Survivor.Entities;
 
 public partial class Zombie : AnimatedEntity
 {
-	[ConVar.Replicated] public static bool nav_drawpath { get; set; } = true;
-
-	private Vector3 _inputVelocity;
-	private Vector3 _lookDirection;
+	private static readonly           List<Zombie> Zombies                  = new(200);
+	private static readonly           int          ZombiesPathUpdateBatches = 20;
+	private static readonly           int          ZombiesPathUpdateFrames  = 30;
+	private static                    int          ZombiesUpdateIndex       = 0;
+	private static                    int          CurrentFrame             = 0;
+	public virtual                    int          CollisionSize => 60;
+	public virtual                    int          NodeSize      => 50;
+	[ConVar.Replicated] public static bool         nav_drawpath  { get; set; } = true;
+	private                           Vector3      _inputVelocity;
+	private                           Vector3      _lookDirection;
 
 	public Zombie()
 	{
@@ -38,7 +45,7 @@ public partial class Zombie : AnimatedEntity
 
 		EnableHitboxes = true;
 
-		SetMaterialGroup( Rand.Int( 0, 3 ) );
+		SetMaterialGroup( 5 );
 
 		_ = new ModelEntity( "models/citizen_clothes/trousers/trousers.smart.vmdl", this );
 		_ = new ModelEntity( "models/citizen_clothes/jacket/labcoat.vmdl", this );
@@ -55,6 +62,8 @@ public partial class Zombie : AnimatedEntity
 		MoveSpeed = Rand.Float( 50, 250 );
 
 		FindTarget();
+
+		Zombies.Add( this );
 	}
 
 	private void FindTarget()
@@ -96,16 +105,22 @@ public partial class Zombie : AnimatedEntity
 	{
 		base.OnKilled();
 		BecomeRagdollOnClient( LastDamage.Force, LastDamage.BoneIndex );
+		Zombies.Remove( this );
+	}
+
+	public virtual void OnPathUpdate()
+	{
+		NavSteer?.Tick( Position );
 	}
 
 	[Event.Tick.Server]
-	public virtual void OnTick()
+	public virtual void OnUpdate()
 	{
 		_inputVelocity = 0;
 
 		if ( NavSteer != null )
 		{
-			NavSteer.Tick( Position );
+			//NavSteer.Tick( Position );
 
 			if ( !NavSteer.Output.Finished )
 			{
@@ -134,6 +149,7 @@ public partial class Zombie : AnimatedEntity
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( _inputVelocity );
 
+		// Should be done differently
 		var entities = FindInSphere( Position, 20.0f ).ToArray();
 		DoorEntity door = entities.OfType<DoorEntity>().FirstOrDefault();
 		door?.Open( this );
@@ -184,5 +200,24 @@ public partial class Zombie : AnimatedEntity
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	[Event.Tick.Server]
+	public static void OnTick()
+	{
+		// TODO: This cause zombies to walk cheloument
+		// if ( Zombies.Count == 0 || ++CurrentFrame < ZombiesPathUpdateFrames )
+		// 	return;
+
+		if ( Zombies.Count == 0 )
+			return;
+		var startIndex = ZombiesUpdateIndex > Zombies.Count ? 0 : ZombiesUpdateIndex;
+		var endIndex = startIndex + ZombiesPathUpdateBatches;
+		if ( endIndex > Zombies.Count )
+			endIndex = Zombies.Count;
+		for ( int i = 0; i < endIndex; i++ )
+			Zombies[i].OnPathUpdate();
+		ZombiesUpdateIndex = endIndex;
+		CurrentFrame = 0;
 	}
 }

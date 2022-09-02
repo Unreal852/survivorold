@@ -141,7 +141,7 @@ public partial class SurvivorPlayer : PlayerBase
 		this.ProceduralHitReaction( info );
 		Log.Info("DMG");
 		ScreenShake( new ScreenShakeStruct { Length = 1f, Delay = 0.02f, Size = 5f, Rotation = 10f } );
-		PlaySound( "sounds/hit.sound" );
+		PlaySound( "sounds/player_hit_01.sound" );
 	}
 
 	public override void OnKilled()

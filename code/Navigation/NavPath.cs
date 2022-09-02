@@ -13,12 +13,6 @@ public class NavPath
 
 	public void Update( Vector3 from, Vector3 to )
 	{
-		if ( !NavMesh.IsLoaded )
-		{
-			Log.Error( "MISSING NAV MESH" );
-			return;
-		}
-
 		bool needsBuild = false;
 
 		if ( !TargetPosition.AlmostEqual( to, 5 ) )
@@ -34,7 +28,13 @@ public class NavPath
 
 			Points.Clear();
 			NavMesh.GetClosestPoint( from );
-			NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
+			
+			if ( fromFixed.HasValue && toFixed.HasValue )
+			{
+				NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
+			}
+			else
+				Log.Warning( "No nav point found" );
 			//Points.Add( NavMesh.GetClosestPoint( to ) );
 		}
 

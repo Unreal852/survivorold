@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
 using Survivor.Entities;
@@ -11,6 +10,7 @@ namespace Survivor;
 public partial class SurvivorGame
 {
 	private static IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
+	public         BBox                       WorldSize    { get; private set; } = new BBox( Vector3.One * -5000f, Vector3.One * 5000f );
 
 	public static bool SpawnZombies( int amount = 1 )
 	{
