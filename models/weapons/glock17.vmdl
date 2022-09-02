@@ -55,7 +55,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/fbx/glock17.fbx"
+						filename = "blender/fbx/glock17v2.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 0.04

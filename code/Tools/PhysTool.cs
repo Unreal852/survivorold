@@ -1,5 +1,6 @@
 ﻿using System;
 using Sandbox;
+using Survivor.Entities;
 using Survivor.Players;
 using SWB_Base;
 
@@ -139,7 +140,7 @@ public partial class PhysTool : CarriableBase, IUse
 	{
 		var tr = Trace.Ray( eyePos, eyePos + eyeDir * MaxTargetDistance )
 		              .UseHitboxes()
-		              .WithAnyTags( "solid", "player" )
+		              .WithAnyTags( "solid", "player", "zombie" )
 		              .Ignore( this )
 		              .Run();
 
@@ -163,6 +164,8 @@ public partial class PhysTool : CarriableBase, IUse
 		// Don't move keyframed, unless it's a player
 		//
 		if ( body.BodyType == PhysicsBodyType.Keyframed && rootEnt is not SurvivorPlayer )
+			return;
+		if ( body.BodyType == PhysicsBodyType.Keyframed && rootEnt is not Zombie )
 			return;
 
 		//

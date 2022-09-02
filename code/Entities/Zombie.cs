@@ -46,6 +46,8 @@ public partial class Zombie : AnimatedEntity
 		EnableHitboxes = true;
 
 		SetMaterialGroup( 5 );
+		
+		Tags.Add("zombie");
 
 		_ = new ModelEntity( "models/citizen_clothes/trousers/trousers.smart.vmdl", this );
 		_ = new ModelEntity( "models/citizen_clothes/jacket/labcoat.vmdl", this );
