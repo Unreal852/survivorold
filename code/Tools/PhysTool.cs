@@ -8,7 +8,7 @@ namespace Survivor.Tools;
 public partial class PhysTool : CarriableBase, IUse
 {
 	// public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
-	public override string ViewModelPath => "models/1911.vmdl";
+	public override string ViewModelPath => "models/weapons/colt_m1911.vmdl";
 
 	protected PhysicsBody heldBody;
 	protected Vector3     heldPos;

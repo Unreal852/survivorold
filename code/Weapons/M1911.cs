@@ -8,8 +8,8 @@ namespace Survivor.Weapons;
 public class M1911 : WeaponBase
 {
 	public override HoldType HoldType       => HoldType.Pistol;
-	public override string   ViewModelPath  => "models/1911.vmdl";
-	public override string   WorldModelPath => "models/1911.vmdl";
+	public override string   ViewModelPath  => "models/weapons/glock18.vmdl";
+	public override string   WorldModelPath => "models/weapons/glock18.vmdl";
 	public override string   Icon           => "icons/m1911_logo_02.png";
 
 	public M1911()
@@ -33,7 +33,7 @@ public class M1911 : WeaponBase
 				FiringType = FiringType.semi,
 				ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1f, Rotation = 0.1f },
 				DryFireSound = "swb_rifle.empty",
-				ShootSound = "sounds/m1911_shot_01.sound",
+				ShootSound = "sounds/weapons/colt_m1911/colt_m1911_shot_01.sound",
 				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
 				MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
 				BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
