@@ -1,5 +1,7 @@
-﻿using Sandbox;
+﻿using System.Collections.Generic;
+using Sandbox;
 using SWB_Base;
+using SWB_Base.Attachments;
 using SWB_Base.Bullets;
 
 namespace Survivor.Weapons;
@@ -7,10 +9,11 @@ namespace Survivor.Weapons;
 [Library( "survivor_colt_m1911", Title = "Colt M1911" )]
 public class M1911 : WeaponBase
 {
-	public override HoldType HoldType       => HoldType.Pistol;
-	public override string   ViewModelPath  => "models/weapons/glock18.vmdl";
-	public override string   WorldModelPath => "models/weapons/glock18.vmdl";
-	public override string   Icon           => "icons/m1911_logo_02.png";
+	public override HoldType HoldType        => HoldType.Pistol;
+	public override string   ViewModelPath   => "models/weapons/glock18.vmdl";
+	public override string   WorldModelPath  => "models/weapons/glock18.vmdl";
+	public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 5.217f, 0f ), Pos = new Vector3( 13.043f, 18.261f, -7.391f ) };
+	public override string   Icon            => "icons/m1911_logo_02.png";
 
 	public M1911()
 	{
@@ -20,9 +23,9 @@ public class M1911 : WeaponBase
 		General = new WeaponInfo { DrawTime = 1f, ReloadTime = 1f, };
 		Primary = new ClipInfo
 		{
-				Ammo = 7,
+				Ammo = 17,
 				AmmoType = AmmoType.Pistol,
-				ClipSize = 7,
+				ClipSize = 17,
 				BulletSize = 3f,
 				BulletType = new HitScanBullet(),
 				Damage = 15f,
@@ -40,6 +43,38 @@ public class M1911 : WeaponBase
 		};
 
 		RunAnimData = new AngPos { Angle = new Angles( 10, 40, 0 ), Pos = new Vector3( 5, 0, 0 ) };
-		ZoomAnimData = new AngPos { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( -0.99f, 0f, 2.235f ) };
+		ZoomAnimData = new AngPos { Angle = new Angles( -0.19f, -5.25f, 0f ), Pos = new Vector3( -11.666f, 0f, 1.64f ) };
+
+		AttachmentCategories = new List<AttachmentCategory>()
+		{
+				new()
+				{
+						Name = AttachmentCategoryName.Muzzle,
+						BoneOrAttachment = "muzzle",
+						Attachments = new List<AttachmentBase>()
+						{
+								new PistolSilencer
+								{
+										MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+										ShootSound = "sounds/weapons/colt_m1911/colt_m1911_shot_01.sound",
+										ViewParentBone = "root",
+										ViewTransform
+												= new Transform
+												{
+														Position = new Vector3( 17.204f, 0.86f, 3.871f ),
+														Rotation = Rotation.From( new Angles( 0f, 0f, 0f ) ),
+														Scale = 11f
+												},
+										WorldParentBone = "root",
+										WorldTransform = new Transform
+										{
+												Position = new Vector3( 17.204f, 0.86f, 3.871f ),
+												Rotation = Rotation.From( new Angles( 0f, 0f, 0f ) ),
+												Scale = 9f
+										},
+								}
+						}
+				},
+		};
 	}
 }

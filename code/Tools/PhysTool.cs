@@ -1,5 +1,6 @@
 ﻿using System;
 using Sandbox;
+using Survivor.Players;
 using SWB_Base;
 
 namespace Survivor.Tools;
@@ -7,35 +8,29 @@ namespace Survivor.Tools;
 [Library( "phystool" )]
 public partial class PhysTool : CarriableBase, IUse
 {
-	// public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
-	public override string ViewModelPath => "models/weapons/colt_m1911.vmdl";
-
-	protected PhysicsBody heldBody;
-	protected Vector3     heldPos;
-	protected Rotation    heldRot;
-	protected Vector3     holdPos;
-	protected Rotation    holdRot;
-	protected float       holdDistance;
-	protected bool        grabbing;
-
-	protected virtual float MinTargetDistance   => 0.0f;
-	protected virtual float MaxTargetDistance   => 10000.0f;
-	protected virtual float LinearFrequency     => 20.0f;
-	protected virtual float LinearDampingRatio  => 1.0f;
-	protected virtual float AngularFrequency    => 20.0f;
-	protected virtual float AngularDampingRatio => 1.0f;
-	protected virtual float TargetDistanceSpeed => 50.0f;
-	protected virtual float RotateSpeed         => 0.125f;
-	protected virtual float RotateSnapAt        => 45.0f;
-
-	private const string grabbedTag = "grabbed";
-
-	[Net] public bool    BeamActive    { get; set; }
-	[Net] public Entity  GrabbedEntity { get; set; }
-	[Net] public int     GrabbedBone   { get; set; }
-	[Net] public Vector3 GrabbedPos    { get; set; }
-
-	public PhysicsBody HeldBody => heldBody;
+	private const     string      grabbedTag = "grabbed";
+	private           PhysicsBody heldBody;
+	private           Vector3     heldPos;
+	private           Rotation    heldRot;
+	private           Vector3     holdPos;
+	private           Rotation    holdRot;
+	private           float       holdDistance;
+	private           bool        grabbing;
+	protected virtual float       MinTargetDistance   => 0.0f;
+	protected virtual float       MaxTargetDistance   => 10000.0f;
+	protected virtual float       LinearFrequency     => 20.0f;
+	protected virtual float       LinearDampingRatio  => 1.0f;
+	protected virtual float       AngularFrequency    => 20.0f;
+	protected virtual float       AngularDampingRatio => 1.0f;
+	protected virtual float       TargetDistanceSpeed => 50.0f;
+	protected virtual float       RotateSpeed         => 0.125f;
+	protected virtual float       RotateSnapAt        => 45.0f;
+	public override   string      ViewModelPath       => "models/weapons/colt_m1911.vmdl";
+	public            PhysicsBody HeldBody            => heldBody;
+	[Net] public      bool        BeamActive          { get; set; }
+	[Net] public      Entity      GrabbedEntity       { get; set; }
+	[Net] public      int         GrabbedBone         { get; set; }
+	[Net] public      Vector3     GrabbedPos          { get; set; }
 
 	public override void Spawn()
 	{
@@ -167,7 +162,7 @@ public partial class PhysTool : CarriableBase, IUse
 		//
 		// Don't move keyframed, unless it's a player
 		//
-		if ( body.BodyType == PhysicsBodyType.Keyframed && rootEnt is not Player )
+		if ( body.BodyType == PhysicsBodyType.Keyframed && rootEnt is not SurvivorPlayer )
 			return;
 
 		//
@@ -396,7 +391,7 @@ public partial class PhysTool : CarriableBase, IUse
 	{
 		return Owner == null || HeldBody.IsValid();
 	}
-	
+
 	public bool OnUse( Entity user )
 	{
 		return false;

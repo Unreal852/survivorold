@@ -7,18 +7,12 @@ public partial class Zombie
 	[ClientRpc]
 	private void BecomeRagdollOnClient( Vector3 force, int forceBone )
 	{
-		var ent = new ModelEntity
-		{
-				Position = Position,
-				Rotation = Rotation,
-				PhysicsEnabled = true,
-				UsePhysicsCollision = true,
-				EnableAllCollisions = true
-		};
+		var ent = new ModelEntity { Position = Position, Rotation = Rotation, PhysicsEnabled = true, UsePhysicsCollision = true };
 
 		Tags.Add( "debris" );
 
 		ent.SetModel( GetModelName() );
+		ent.SetMaterialGroup( GetMaterialGroup() );
 		ent.CopyBonesFrom( this );
 		ent.TakeDecalsFrom( this );
 		ent.SetRagdollVelocityFrom( this );
@@ -39,7 +33,7 @@ public partial class Zombie
 			}
 		}
 
-		ent.PhysicsGroup.AddVelocity( force );
+		ent.PhysicsGroup.AddVelocity( force * 5 );
 
 		if ( forceBone >= 0 )
 		{

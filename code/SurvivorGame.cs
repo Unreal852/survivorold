@@ -22,6 +22,7 @@ public partial class SurvivorGame : Game
 		{
 			_ = new MainPlayerHud();
 		}
+		
 	}
 
 	/// <summary>
