@@ -12,8 +12,8 @@ Layer0
 	TextureAmbientOcclusion "materials/textures/metal/metal_0058_ao.tga"
 
 	//---- Color ----
-	g_flModelTintAmount "0.088"
-	g_vColorTint "[0.729412 0.729412 0.729412 1.000000]"
+	g_flModelTintAmount "0.275"
+	g_vColorTint "[1.000000 1.000000 1.000000 1.000000]"
 	TextureColor "materials/textures/metal/metal_0058_color.tga"
 
 	//---- Fade ----

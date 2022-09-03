@@ -13,7 +13,7 @@ public class M1911 : WeaponBase
 	public override string   ViewModelPath   => "models/weapons/v_glock18.vmdl";
 	public override string   WorldModelPath  => "models/weapons/glock18.vmdl";
 	public override string   HandsModelPath  => "models/first_person/first_person_arms.vmdl";
-	public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 11.304f, 22.609f, -11.739f ) };
+	//public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 11.304f, 22.609f, -11.739f ) };
 	public override string   Icon            => "icons/m1911_logo_02.png";
 
 	public M1911()
@@ -44,7 +44,7 @@ public class M1911 : WeaponBase
 		};
 
 		RunAnimData = new AngPos { Angle = new Angles( 10, 40, 0 ), Pos = new Vector3( 5, 0, 0 ) };
-		ZoomAnimData = new AngPos { Angle = new Angles( -0.19f, -5.25f, 0f ), Pos = new Vector3( -11.666f, 0f, 1.64f ) };
+		ZoomAnimData = new AngPos { Angle = new Angles(0.18f, -0.33f, 0f), Pos = new Vector3(-11.376f, 0f, 1.646f) };
 
 		AttachmentCategories = new List<AttachmentCategory>()
 		{
