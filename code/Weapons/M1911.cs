@@ -10,8 +10,9 @@ namespace Survivor.Weapons;
 public class M1911 : WeaponBase
 {
 	public override HoldType HoldType        => HoldType.Pistol;
-	public override string   ViewModelPath   => "models/weapons/glock18.vmdl";
+	public override string   ViewModelPath   => "models/weapons/v_glock18.vmdl";
 	public override string   WorldModelPath  => "models/weapons/glock18.vmdl";
+	public override string   HandsModelPath  => "models/first_person/first_person_arms.vmdl";
 	public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 5.217f, 0f ), Pos = new Vector3( 13.043f, 18.261f, -7.391f ) };
 	public override string   Icon            => "icons/m1911_logo_02.png";
 
