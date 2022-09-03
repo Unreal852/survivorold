@@ -22,7 +22,7 @@
 								do_not_discard = true
 							},
 						]
-						origin = [ -5.724007, 0.31528, -0.050819 ]
+						origin = [ -4.147881, 0.31528, -0.050819 ]
 						angles = [ 0.0, 0.0, 0.0 ]
 						do_not_discard = true
 					},
@@ -107,7 +107,7 @@
 						filename = "blender/fbx/glock18.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, -90.0, 0.0 ]
-						import_scale = 0.05
+						import_scale = 0.04
 						align_origin_x_type = "BoundsCenter"
 						align_origin_y_type = "BoundsCenter"
 						align_origin_z_type = "BoundsCenter"
