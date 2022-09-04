@@ -29,7 +29,7 @@ public partial class PhysTool : CarriableBase, IUse
 	protected virtual float RotateSnapAt => 45.0f;
 
 	// public override   string      ViewModelPath       => "models/weapons/pistols/colt_m1911/colt_m1911.vmdl";
-	public override string      ViewModelPath => "models/weapons/pistols/glock_17/wm_glock_17.vmdl";
+	public override string      ViewModelPath => "models/weapons/pistols/glock_17/vm_glock_17.vmdl";
 	public          PhysicsBody HeldBody      => heldBody;
 	[Net] public    bool        BeamActive    { get; set; }
 	[Net] public    Entity      GrabbedEntity { get; set; }
@@ -41,7 +41,7 @@ public partial class PhysTool : CarriableBase, IUse
 		base.Spawn();
 
 		Tags.Add( "weapon" );
-		SetModel( ViewModelPath );
+		SetModel( "models/weapons/pistols/glock_17/wm_glock_17.vmdl" );
 	}
 
 	public override void Simulate( Client client )
@@ -56,6 +56,9 @@ public partial class PhysTool : CarriableBase, IUse
 		{
 			(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
 			SetAnimParameter( "shoot", true );
+			ViewModelEntity?.SetAnimParameter( "shoot", true );
+			Log.Info($"WM: {GetAnimParameterBool("shoot")}" );
+			Log.Info($"VM: {GetAnimParameterBool("shoot")}" );
 
 			if ( !grabbing )
 				grabbing = true;

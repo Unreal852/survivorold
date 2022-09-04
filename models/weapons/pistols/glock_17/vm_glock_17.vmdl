@@ -11,12 +11,16 @@
 				[
 					{
 						_class = "ModelModifier_ScaleAndMirror"
-						scale = 0.5
+						scale = 0.4
 						mirror_x = false
 						mirror_y = false
 						mirror_z = false
 						flip_bone_forward = false
 						swap_left_and_right_bones = false
+					},
+					{
+						_class = "ModelModifier_Translate"
+						translation = [ 50.0, -20.0, 0.0 ]
 					},
 				]
 			},
@@ -26,18 +30,8 @@
 				[
 					{
 						_class = "Bone"
-						name = "root"
-						children = 
-						[
-							{
-								_class = "Bone"
-								name = "hold_R"
-								origin = [ 0.0, 0.0, -0.018456 ]
-								angles = [ 0.0, 0.0, 0.0 ]
-								do_not_discard = true
-							},
-						]
-						origin = [ 0.0, 0.198614, 0.0 ]
+						name = "hold_R"
+						origin = [ 0.0, 0.0, -0.018456 ]
 						angles = [ 0.0, 0.0, 0.0 ]
 						do_not_discard = true
 					},
@@ -75,9 +69,9 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/FBX/Glock17Rigged.fbx"
+						filename = "blender/fbx/glock17rigged.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
-						import_rotation = [ 0.0, 90.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
 						align_origin_x_type = "BoundsCenter"
 						align_origin_y_type = "BoundsCenter"
