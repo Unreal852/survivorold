@@ -33,6 +33,46 @@
       "RootNamespace": "Survivor",
       "DefineConstants": "SANDBOX;ADDON;DEBUG",
       "NoWarn": "1701;1702;1591;"
+    },
+    "GameSettings": {
+      "sv_gamemode": {
+        "DisplayType": "Choice",
+        "Choices": [
+          {
+            "Value": "gm_survivor",
+            "Name": "Survivor"
+          }
+        ],
+        "ConVarName": "sv_gamemode",
+        "DisplayName": "Game mode",
+        "DefaultValue": "gm_survivor",
+        "Minimum": 1,
+        "Maximum": 5
+      },
+      "sv_difficulty": {
+        "DisplayType": "Choice",
+        "Choices": [
+          {
+            "Value": "gm_difficulty_easy",
+            "Name": "Easy"
+          },
+          {
+            "Value": "gm_difficulty_normal",
+            "Name": "Normal"
+          },
+          {
+            "Value": "gm_difficulty_hard",
+            "Name": "Hard"
+          },
+          {
+            "Value": "gm_difficulty_legendary",
+            "Name": "Legendary"
+          }
+        ],
+        "ConVarName": "sv_difficulty",
+        "DisplayName": "Difficulty",
+        "DefaultValue": "gm_difficulty_normal"
+      }
     }
   }
 }

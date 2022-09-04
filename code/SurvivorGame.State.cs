@@ -3,6 +3,7 @@ using System.Linq;
 using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Hammer;
+using Survivor.Gamemodes;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;
@@ -10,7 +11,7 @@ namespace Survivor;
 public partial class SurvivorGame
 {
 	private static IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
-	public         BBox                       WorldSize    { get; private set; } = new BBox( Vector3.One * -5000f, Vector3.One * 5000f );
+	[Net] public   BaseGameMode               GameMode     { get; set; }
 
 	public static bool SpawnZombies( int amount = 1 )
 	{

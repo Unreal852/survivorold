@@ -1,5 +1,7 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.Internal;
+using Survivor.Gamemodes;
 using Survivor.Players;
 using Survivor.Players.Controllers;
 using Survivor.UI.Hud;
@@ -21,12 +23,32 @@ public partial class SurvivorGame : Game
 		if ( IsServer )
 		{
 			_ = new MainPlayerHud();
+			Global.TickRate = 30;
 		}
-		
+	}
+
+	public override void PostLevelLoaded()
+	{
+		base.PostLevelLoaded();
+
+		// GameMode = VarGameMode.Name switch
+		// {
+		// 		"survivor" => new SurvivorGameMode(),
+		// 		_          => new SurvivorGameMode()
+		// };
+		//
+		// GameMode.Difficulty = VarDifficulty.Name switch
+		// {
+		// 		"gm_difficulty_easy"      => Difficulty.Easy,
+		// 		"gm_difficulty_normal"    => Difficulty.Normal,
+		// 		"gm_difficulty_hard"      => Difficulty.Hard,
+		// 		"gm_difficulty_legendary" => Difficulty.Legendary,
+		// 		_                         => Difficulty.Normal
+		// };
 	}
 
 	/// <summary>
-	/// A client has joined the server. Make them a pawn to play with
+	/// A client has joined the server. Make them a pawn to play with 
 	/// </summary>
 	public override void ClientJoined( Client client )
 	{

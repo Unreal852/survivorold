@@ -665,7 +665,7 @@
 					{
 						_class = "RenderMeshFile"
 						filename = "blender/fbx/glock18.fbx"
-						import_translation = [ 639.15802, -251.0, -146.0 ]
+						import_translation = [ 700.0, -251.0, -146.0 ]
 						import_rotation = [ 0.0, -90.0, 0.0 ]
 						import_scale = 0.05
 						align_origin_x_type = "BoundsCenter"
