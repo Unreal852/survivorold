@@ -18,6 +18,8 @@ namespace Survivor;
 [Library( "survivor", Title = "Survivor" )]
 public partial class SurvivorGame : Game
 {
+	public new static SurvivorGame Current => (SurvivorGame)Game.Current;
+
 	public SurvivorGame()
 	{
 		if ( IsServer )

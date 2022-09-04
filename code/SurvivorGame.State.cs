@@ -35,7 +35,7 @@ public partial class SurvivorGame
 		// };
 	}
 
-	public static bool SpawnZombies( int amount = 1 )
+	public bool SpawnZombies( int amount = 1 )
 	{
 		var spawns = ZombieSpawns ??= All.OfType<ZombieSpawn>().Where( zs => zs.IsEnabled ).ToArray();
 		if ( spawns.Count <= 0 )
@@ -49,6 +49,8 @@ public partial class SurvivorGame
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
 			_ = new Zombie { Position = zombieSpawn.Position + Vector3.Up * 5 };
 		}
+
+		GameMode.EnemiesRemaining += amount;
 
 		return true;
 	}

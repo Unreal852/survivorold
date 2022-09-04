@@ -110,6 +110,7 @@ public partial class Zombie : AnimatedEntity
 		Zombies.Remove( this );
 		if ( IsServer && LastAttacker is SurvivorPlayer player )
 		{
+			SurvivorGame.Current.GameMode.EnemiesRemaining--;
 			player.Money += Rand.Int( 5, 10 );
 			player.Client.AddInt( "kills" );
 		}

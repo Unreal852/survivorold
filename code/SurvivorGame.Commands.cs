@@ -57,7 +57,7 @@ public partial class SurvivorGame
 	[ServerCommand( "spawnz" )]
 	public static void SpawnZombiesCommand( int amount = 1 )
 	{
-		if ( SpawnZombies( amount ) )
+		if ( Current is SurvivorGame game && game.SpawnZombies( amount ) )
 			Log.Info( "Zombies Spawned !" );
 	}
 
