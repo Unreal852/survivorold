@@ -47,7 +47,7 @@ public partial class SurvivorPlayer : PlayerBase
 
 		// TODO: Add weapons to inventory
 		Inventory.Add( new PhysTool(), true );
-		Inventory.Add( new M1911() );
+		Inventory.Add( new Glock18() );
 
 		GiveAmmo( AmmoType.Pistol, 1000 );
 

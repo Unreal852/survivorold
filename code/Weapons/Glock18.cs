@@ -2,21 +2,20 @@
 using Sandbox;
 using SWB_Base;
 using SWB_Base.Attachments;
-using SWB_Base.Bullets;
 
 namespace Survivor.Weapons;
 
-[Library( "survivor_colt_m1911", Title = "Colt M1911" )]
-public class M1911 : WeaponBase
+[Library( "survivor_glock_g18", Title = "Glock G18" )]
+public class Glock18 : WeaponBase
 {
-	public override HoldType HoldType        => HoldType.Pistol;
-	public override string   ViewModelPath   => "models/weapons/v_glock18.vmdl";
-	public override string   WorldModelPath  => "models/weapons/glock18.vmdl";
-	public override string   HandsModelPath  => "models/first_person/first_person_arms.vmdl";
-	//public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 11.304f, 22.609f, -11.739f ) };
-	public override string   Icon            => "icons/m1911_logo_02.png";
+	public override HoldType HoldType       => HoldType.Pistol;
+	public override string   ViewModelPath  => "models/weapons/pistols/glock_18/vm_glock18.vmdl";
+	public override string   WorldModelPath => "models/weapons/pistols/glock_18/wm_glock18.vmdl";
+	public override string   HandsModelPath => "models/first_person/first_person_arms.vmdl";
 
-	public M1911()
+	//public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 11.304f, 22.609f, -11.739f ) };
+
+	public Glock18()
 	{
 		// Todo: This should not be here
 		UISettings.ShowHealthCount = false;
@@ -43,8 +42,8 @@ public class M1911 : WeaponBase
 				BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
 		};
 
-		RunAnimData = new AngPos { Angle = new Angles( 10, 40, 0 ), Pos = new Vector3( 5, 0, 0 ) };
-		ZoomAnimData = new AngPos { Angle = new Angles(0.18f, -0.33f, 0f), Pos = new Vector3(-11.376f, 0f, 1.646f) };
+		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 5f, 0f, 0f ) };
+		ZoomAnimData = new AngPos { Angle = new Angles( -0.43f, -0.05f, 0f ), Pos = new Vector3( -4.353f, 0f, 0.51f ) };
 
 		AttachmentCategories = new List<AttachmentCategory>()
 		{
