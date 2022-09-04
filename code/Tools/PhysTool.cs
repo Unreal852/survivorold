@@ -25,14 +25,16 @@ public partial class PhysTool : CarriableBase, IUse
 	protected virtual float       AngularDampingRatio => 1.0f;
 	protected virtual float       TargetDistanceSpeed => 50.0f;
 	protected virtual float       RotateSpeed         => 0.125f;
-	protected virtual float       RotateSnapAt        => 45.0f;
+
+	protected virtual float RotateSnapAt => 45.0f;
+
 	// public override   string      ViewModelPath       => "models/weapons/pistols/colt_m1911/colt_m1911.vmdl";
-	public override   string      ViewModelPath       => "models/weapons/pistols/glock_17/wm_glock_17.vmdl";
-	public            PhysicsBody HeldBody            => heldBody;
-	[Net] public      bool        BeamActive          { get; set; }
-	[Net] public      Entity      GrabbedEntity       { get; set; }
-	[Net] public      int         GrabbedBone         { get; set; }
-	[Net] public      Vector3     GrabbedPos          { get; set; }
+	public override string      ViewModelPath => "models/weapons/pistols/glock_17/wm_glock_17.vmdl";
+	public          PhysicsBody HeldBody      => heldBody;
+	[Net] public    bool        BeamActive    { get; set; }
+	[Net] public    Entity      GrabbedEntity { get; set; }
+	[Net] public    int         GrabbedBone   { get; set; }
+	[Net] public    Vector3     GrabbedPos    { get; set; }
 
 	public override void Spawn()
 	{
@@ -53,6 +55,7 @@ public partial class PhysTool : CarriableBase, IUse
 		if ( Input.Pressed( InputButton.PrimaryAttack ) )
 		{
 			(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
+			SetAnimParameter( "shoot", true );
 
 			if ( !grabbing )
 				grabbing = true;

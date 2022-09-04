@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "ModelModifier_ScaleAndMirror"
-						scale = 0.39
+						scale = 0.05
 						mirror_x = false
 						mirror_y = false
 						mirror_z = false
@@ -90,8 +90,8 @@
 					{
 						_class = "RenderMeshFile"
 						filename = "blender/FBX/Glock17Rigged.fbx"
-						import_translation = [ 0.0, -55.0, 0.0 ]
-						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 90.0, 0.0 ]
 						import_scale = 1.0
 						align_origin_x_type = "BoundsCenter"
 						align_origin_y_type = "BoundsCenter"
@@ -144,7 +144,7 @@
 						worldSpace = false
 						hidden = false
 						anim_markup_ordered = false
-						disable_compression = false
+						disable_compression = true
 						source_filename = "blender/FBX/Glock17Rigged.fbx"
 						start_frame = -1
 						end_frame = -1
@@ -155,10 +155,25 @@
 				]
 				default_root_bone_name = ""
 			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "root"
+						relative_origin = [ 195.564407, -12.518598, 102.17141 ]
+						relative_angles = [ -0.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = ""
+		anim_graph_name = "models/weapons/pistols/glock_17/wm_glock_17_anim.vanmgrph"
 		base_model_name = ""
 	}
 }
