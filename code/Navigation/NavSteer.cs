@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Survivor.Entities;
+using Survivor.Entities.Hammer;
 
 namespace Survivor.Navigation;
 
@@ -45,7 +46,7 @@ public class NavSteer
 		foreach ( var ent in Entity.FindInSphere( center, radius ) )
 		{
 			// TODO
-			if ( ent.IsWorld || ent is not Zombie && ent is not Player )
+			if ( ent.IsWorld || ent is not Zombie && ent is not Player && ent is not BuyableDoor )
 				continue;
 
 			var delta = (position - ent.Position).WithZ( 0 );

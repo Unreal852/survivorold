@@ -1,4 +1,6 @@
-﻿using Sandbox;
+﻿using System.ComponentModel;
+using Sandbox;
+using Sandbox.Component;
 using SandboxEditor;
 using Survivor.Players;
 
@@ -15,27 +17,54 @@ public partial class BuyableDoor : ModelEntity, IUse
 	[Property, Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
 
-	[Property, Title( "Door Mesh" ), FGDType( "target_destination", "", "" )]
-	public string DoorMesh { get; set; } = null;
-
 	public override void Spawn()
 	{
 		base.Spawn();
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
+		if ( IsEnabled )
+			Enable();
+	}
+
+	/// <summary>
+	/// Enables this blocker.
+	/// </summary>
+	[Input]
+	public void Enable()
+	{
+		IsEnabled = true;
+
+		if ( Components.Get<NavBlocker>( true ) != null )
+			return;
+
+		// If you are looking here, take note that the blocker will not update as the entity moves.
+		Components.Add( new NavBlocker( NavBlockerType.BLOCK ) );
+	}
+
+	/// <summary>
+	/// Disables this blocker.
+	/// </summary>
+	[Input]
+	public void Disable()
+	{
+		IsEnabled = false;
+		Components.RemoveAny<NavBlocker>();
 	}
 
 	public bool OnUse( Entity user )
 	{
+		if ( !IsEnabled )
+			return false;
 		if ( user is SurvivorPlayer player )
 		{
 			if ( player.Money >= Cost )
 			{
 				player.Money -= Cost;
 				Delete();
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	public bool IsUsable( Entity user )
