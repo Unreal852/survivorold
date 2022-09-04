@@ -582,7 +582,6 @@
 					{
 						_class = "Bone"
 						name = "camera"
-						disabled = true
 						origin = [ 0.0, -0.000029, 150.0 ]
 						angles = [ -0.000005, 0.000338, -0.000031 ]
 						do_not_discard = true
@@ -688,7 +687,7 @@
 					{
 						_class = "AnimFile"
 						name = "Example_Pistol"
-						activity_name = ""
+						activity_name = "ACT_IDLE"
 						activity_weight = 1
 						weight_list_name = ""
 						fade_in_time = 0.2
@@ -738,6 +737,25 @@
 						relative_angles = [ -0.0, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.39
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+					{
+						_class = "ModelModifier_Translate"
+						translation = [ 0.0, 0.0, 0.0 ]
 					},
 				]
 			},
