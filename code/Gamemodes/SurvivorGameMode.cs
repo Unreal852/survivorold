@@ -10,6 +10,6 @@ public class SurvivorGameMode : BaseGameMode
 
 	public override bool CanRespawn( SurvivorPlayer player )
 	{
-		throw new System.NotImplementedException();
+		return true;
 	}
 }

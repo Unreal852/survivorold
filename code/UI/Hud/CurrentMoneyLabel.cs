@@ -1,5 +1,7 @@
-﻿using Sandbox.UI;
+﻿using Sandbox;
+using Sandbox.UI;
 using Sandbox.UI.Construct;
+using Survivor.Players;
 
 namespace Survivor.UI.Hud;
 
@@ -15,6 +17,8 @@ public class CurrentMoneyLabel : Label
 	//TODO: Should be the number of the current money instead of "0": 
 	public override void Tick()
 	{
-		_label.Text = "118" + "$";
+		if ( Local.Pawn is not SurvivorPlayer player )
+			return;
+		_label.Text = $"{player.Money}$";
 	}
 }
