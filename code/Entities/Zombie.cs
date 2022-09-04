@@ -46,8 +46,8 @@ public partial class Zombie : AnimatedEntity
 		EnableHitboxes = true;
 
 		SetMaterialGroup( 5 );
-		
-		Tags.Add("zombie");
+
+		Tags.Add( "zombie" );
 
 		_ = new ModelEntity( "models/citizen_clothes/trousers/trousers.smart.vmdl", this );
 		_ = new ModelEntity( "models/citizen_clothes/jacket/labcoat.vmdl", this );
@@ -108,6 +108,11 @@ public partial class Zombie : AnimatedEntity
 		base.OnKilled();
 		BecomeRagdollOnClient( LastDamage.Force, LastDamage.BoneIndex );
 		Zombies.Remove( this );
+		if ( IsServer && LastAttacker is SurvivorPlayer player )
+		{
+			player.Money += Rand.Int( 5, 10 );
+			player.Client.AddInt( "kills" );
+		}
 	}
 
 	public virtual void OnPathUpdate()

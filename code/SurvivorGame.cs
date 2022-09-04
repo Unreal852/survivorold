@@ -27,26 +27,6 @@ public partial class SurvivorGame : Game
 		}
 	}
 
-	public override void PostLevelLoaded()
-	{
-		base.PostLevelLoaded();
-
-		// GameMode = VarGameMode.Name switch
-		// {
-		// 		"survivor" => new SurvivorGameMode(),
-		// 		_          => new SurvivorGameMode()
-		// };
-		//
-		// GameMode.Difficulty = VarDifficulty.Name switch
-		// {
-		// 		"gm_difficulty_easy"      => Difficulty.Easy,
-		// 		"gm_difficulty_normal"    => Difficulty.Normal,
-		// 		"gm_difficulty_hard"      => Difficulty.Hard,
-		// 		"gm_difficulty_legendary" => Difficulty.Legendary,
-		// 		_                         => Difficulty.Normal
-		// };
-	}
-
 	/// <summary>
 	/// A client has joined the server. Make them a pawn to play with 
 	/// </summary>
