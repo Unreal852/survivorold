@@ -49,6 +49,7 @@ public partial class SurvivorPlayer : PlayerBase
 		// TODO: Add weapons to inventory
 		Inventory.Add( new PhysTool(), true );
 		Inventory.Add( new Glock18() );
+		Inventory.Add( new M1911() );
 
 		GiveAmmo( AmmoType.Pistol, 1000 );
 
@@ -115,6 +116,8 @@ public partial class SurvivorPlayer : PlayerBase
 			Inventory.SetActiveSlot( 0, true );
 		else if ( Input.Pressed( InputButton.Slot2 ) )
 			Inventory.SetActiveSlot( 1, true );
+		else if ( Input.Pressed( InputButton.Slot3 ) )
+			Inventory.SetActiveSlot( 2, true );
 
 		SimulateActiveChild( cl, ActiveChild );
 
