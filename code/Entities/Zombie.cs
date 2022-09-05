@@ -18,7 +18,7 @@ public partial class Zombie : AnimatedEntity
 	private static                    int          CurrentFrame             = 0;
 	public virtual                    int          CollisionSize => 60;
 	public virtual                    int          NodeSize      => 50;
-	[ConVar.Replicated] public static bool         nav_drawpath  { get; set; } = true;
+	[ConVar.Replicated] public static bool         nav_drawpath  { get; set; } = false;
 	private                           Vector3      _inputVelocity;
 	private                           Vector3      _lookDirection;
 
@@ -91,7 +91,7 @@ public partial class Zombie : AnimatedEntity
 		LastDamage = info;
 		if ( !IsServer || Health <= 0.0 || LifeState != LifeState.Alive )
 			return;
-		Health -= GetHitboxGroup( info.HitboxIndex ) == (int)HitboxGroup.Head ? info.Damage * 10 : info.Damage;
+		Health -= GetHitboxGroup( info.HitboxIndex ) == (int)HitboxGroup.Head ? info.Damage * 2 : info.Damage;
 		this.ProceduralHitReaction( info );
 
 		if ( Health <= 0.0 )
