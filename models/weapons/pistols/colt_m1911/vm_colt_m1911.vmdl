@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/FBX/FP_M1911.fbx"
+						filename = "blender/fbx/1911wtf.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -24,19 +24,6 @@
 							exclude_by_default = false
 							exception_list = [  ]
 						}
-					},
-				]
-			},
-			{
-				_class = "Skeleton"
-				children = 
-				[
-					{
-						_class = "Bone"
-						name = "Hand_R"
-						origin = [ -0.069681, 0.0, 0.0 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						do_not_discard = true
 					},
 				]
 			},
@@ -68,7 +55,7 @@
 				[
 					{
 						_class = "AnimFile"
-						name = "Arms@Draw"
+						name = "1911WTF"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -80,36 +67,30 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/FP_Arms_M1911.fbx"
-						start_frame = -1
-						end_frame = -1
-						framerate = -1.0
-						take = 0
-						reverse = false
-					},
-					{
-						_class = "AnimFile"
-						name = "Weapon@Draw"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "blender/FBX/FP_M1911.fbx"
+						source_filename = "blender/FBX/1911WTF.fbx"
 						start_frame = 0
-						end_frame = 27
+						end_frame = 21
 						framerate = -1.0
-						take = 1
+						take = 2
 						reverse = false
 					},
 				]
 				default_root_bone_name = "root"
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.1
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+				]
 			},
 		]
 		model_archetype = ""
