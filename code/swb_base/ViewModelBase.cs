@@ -70,7 +70,8 @@ namespace SWB_Base
 			finalVectorRot = finalVectorRot.LerpTo( targetVectorRot, animSpeed * RealTime.Delta );
 			if ( weapon.Primary.Ammo > 0 && weapon.TimeSincePrimaryAttack < 0.05 ) // TODO: This is temporary
 			{
-				finalVectorRot += Vector3.Backward * weapon.Primary.Recoil * Rand.Float( 1.0f, 2.0f );
+				//var rnd = Rand.Float( 1.0f, 2.0f );
+				finalVectorRot += Vector3.Random.WithX(-1) * weapon.Primary.Recoil * Rand.Float( 1.0f, weapon.IsZooming ? 2.0f : 5.0f );
 			}
 
 			finalPlayerFOV = finalPlayerFOV.LerpTo( targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );

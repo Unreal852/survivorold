@@ -254,6 +254,25 @@ namespace SWB_Base
 
             return tr;
         }
+        
+        public virtual TraceResult[] TraceBulletAll(Vector3 start, Vector3 end, float radius = 2.0f)
+        {
+	        var startsInWater = SurfaceUtil.IsPointWater(start);
+	        List<string> withoutTags = new() { "trigger" };
+
+	        if (startsInWater)
+		        withoutTags.Add("water");
+
+	        var tr = Trace.Ray(start, end)
+	                      .UseHitboxes()
+	                      .WithoutTags(withoutTags.ToArray())
+	                      .Ignore(Owner)
+	                      .Ignore(this)
+	                      .Size(radius)
+	                      .RunAll();
+
+	        return tr;
+        }
 
         /// <summary>
         /// Shoot a single bullet (server only)

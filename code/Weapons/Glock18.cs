@@ -27,7 +27,7 @@ public class Glock18 : WeaponBase
 				AmmoType = AmmoType.Pistol,
 				ClipSize = 17,
 				BulletSize = 3f,
-				BulletType = new HitScanBullet(),
+				BulletType = new TraceBullet(),
 				Damage = 15f,
 				Force = 3f,
 				Spread = 0.08f,
@@ -40,6 +40,7 @@ public class Glock18 : WeaponBase
 				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
 				MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
 				BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
+				InfiniteAmmo = InfiniteAmmoType.reserve
 		};
 
 		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 5f, 0f, 0f ) };
