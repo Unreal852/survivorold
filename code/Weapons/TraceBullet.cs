@@ -78,7 +78,7 @@ public class TraceBullet : BulletBase
 		var effectEntity = effectData.Item1;
 		var muzzleAttach = effectEntity.GetAttachment( effectData.Item2 );
 		var tracer = Particles.Create( tracerParticle );
-		tracer.SetPosition( 1, muzzleAttach.GetValueOrDefault().Position );
-		tracer.SetPosition( 2, endPos );
+		tracer.SetPosition( 0, muzzleAttach.GetValueOrDefault().Position );
+		tracer.SetPosition( 1, endPos );
 	}
 }
