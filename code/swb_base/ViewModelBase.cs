@@ -73,8 +73,8 @@ namespace SWB_Base
 				finalVectorRot += Vector3.Backward * weapon.Primary.Recoil * Rand.Float( 1.0f, 2.0f );
 			}
 
-			finalPlayerFOV = MathX.LerpTo( finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
-			finalWeaponFOV = MathX.LerpTo( finalWeaponFOV, targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
+			finalPlayerFOV = finalPlayerFOV.LerpTo( targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
+			finalWeaponFOV = finalPlayerFOV.LerpTo( targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
 			animSpeed = 10 * weapon.WalkAnimationSpeedMod;
 
 			// Change the angles and positions of the viewmodel with the new vectors
