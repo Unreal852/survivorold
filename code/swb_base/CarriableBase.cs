@@ -13,7 +13,6 @@ namespace SWB_Base
 		public override void Spawn()
 		{
 			base.Spawn();
-
 			PhysicsEnabled = true;
 			UsePhysicsCollision = true;
 			EnableHideInFirstPerson = true;
@@ -112,11 +111,8 @@ namespace SWB_Base
 
 			if ( string.IsNullOrEmpty( ViewModelPath ) )
 				return;
-			
-			ViewModelEntity = new BaseViewModel();
-			ViewModelEntity.Position = Position;
-			ViewModelEntity.Owner = Owner;
-			ViewModelEntity.EnableViewmodelRendering = true;
+
+			ViewModelEntity = new BaseViewModel { Position = Position, Owner = Owner, EnableViewmodelRendering = true };
 			ViewModelEntity.SetModel( ViewModelPath );
 		}
 

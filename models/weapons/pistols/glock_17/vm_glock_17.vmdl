@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "ModelModifier_ScaleAndMirror"
-						scale = 0.4
+						scale = 0.2
 						mirror_x = false
 						mirror_y = false
 						mirror_z = false
@@ -21,19 +21,6 @@
 					{
 						_class = "ModelModifier_Translate"
 						translation = [ 50.0, -20.0, 0.0 ]
-					},
-				]
-			},
-			{
-				_class = "Skeleton"
-				children = 
-				[
-					{
-						_class = "Bone"
-						name = "hold_R"
-						origin = [ 0.0, 0.0, -0.018456 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						do_not_discard = true
 					},
 				]
 			},
@@ -95,23 +82,6 @@
 				children = 
 				[
 					{
-						_class = "AnimBindPose"
-						name = "bindPose"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						frame_count = 1
-						frame_rate = 30
-					},
-					{
 						_class = "AnimFile"
 						name = "Shoot"
 						activity_name = ""
@@ -132,6 +102,23 @@
 						take = 0
 						reverse = false
 					},
+					{
+						_class = "AnimBindPose"
+						name = "bindPose"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						frame_count = 1
+						frame_rate = 30
+					},
 				]
 				default_root_bone_name = ""
 			},
@@ -142,8 +129,8 @@
 					{
 						_class = "Attachment"
 						name = "muzzle"
-						parent_bone = "hold_R"
-						relative_origin = [ 0.181217, -191.94902, 186.324051 ]
+						parent_bone = ""
+						relative_origin = [ 340.385437, -99.428894, 52.329288 ]
 						relative_angles = [ -0.0, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false

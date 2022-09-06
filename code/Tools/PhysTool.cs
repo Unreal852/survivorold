@@ -25,16 +25,13 @@ public partial class PhysTool : CarriableBase, IUse
 	protected virtual float       AngularDampingRatio => 1.0f;
 	protected virtual float       TargetDistanceSpeed => 50.0f;
 	protected virtual float       RotateSpeed         => 0.125f;
-
-	protected virtual float RotateSnapAt => 45.0f;
-
-	// public override   string      ViewModelPath       => "models/weapons/pistols/colt_m1911/colt_m1911.vmdl";
-	public override string      ViewModelPath => "models/weapons/pistols/glock_17/vm_glock_17.vmdl";
-	public          PhysicsBody HeldBody      => heldBody;
-	[Net] public    bool        BeamActive    { get; set; }
-	[Net] public    Entity      GrabbedEntity { get; set; }
-	[Net] public    int         GrabbedBone   { get; set; }
-	[Net] public    Vector3     GrabbedPos    { get; set; }
+	protected virtual float       RotateSnapAt        => 45.0f;
+	public override   string      ViewModelPath       => "models/weapons/pistols/glock_17/vm_glock_17.vmdl";
+	public            PhysicsBody HeldBody            => heldBody;
+	[Net] public      bool        BeamActive          { get; set; }
+	[Net] public      Entity      GrabbedEntity       { get; set; }
+	[Net] public      int         GrabbedBone         { get; set; }
+	[Net] public      Vector3     GrabbedPos          { get; set; }
 
 	public override void Spawn()
 	{
@@ -46,7 +43,8 @@ public partial class PhysTool : CarriableBase, IUse
 
 	public override void Simulate( Client client )
 	{
-		if ( Owner is not PlayerBase owner ) return;
+		if ( Owner is not PlayerBase owner )
+			return;
 
 		var eyePos = owner.EyePosition;
 		var eyeDir = owner.EyeRotation.Forward;
@@ -55,10 +53,14 @@ public partial class PhysTool : CarriableBase, IUse
 		if ( Input.Pressed( InputButton.PrimaryAttack ) )
 		{
 			(Owner as AnimatedEntity)?.SetAnimParameter( "b_attack", true );
-			SetAnimParameter( "shoot", true );
-			ViewModelEntity?.SetAnimParameter( "shoot", true );
-			Log.Info($"WM: {GetAnimParameterBool("shoot")}" );
-			Log.Info($"VM: {GetAnimParameterBool("shoot")}" );
+			if ( ViewModelEntity is not null )
+			{
+				ViewModelEntity.SetAnimParameter( "shoot", true );
+				Log.Info( ViewModelEntity.Name );
+				Log.Info( ViewModelEntity.AnimGraph );
+				Log.Info( ViewModelEntity.AnimGraph.IsError );
+				Log.Info( "----" );
+			}
 
 			if ( !grabbing )
 				grabbing = true;

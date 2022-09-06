@@ -44,7 +44,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "idle"
-					m_vecPosition = [ -448.0, -192.0 ]
+					m_vecPosition = [ -448.0, -208.0 ]
 					m_nNodeID = 
 					{
 						m_id = 726923771
@@ -88,7 +88,7 @@
 				{
 					_class = "CStateMachineAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -128.0, -192.0 ]
+					m_vecPosition = [ -144.0, -192.0 ]
 					m_nNodeID = 
 					{
 						m_id = 2084403556
@@ -386,7 +386,7 @@
 	}
 	m_previewModels = 
 	[
-		"models/weapons/pistols/glock_17/wm_glock_17.vmdl",
+		"models/weapons/pistols/glock_17/vm_glock_17.vmdl",
 	]
 	m_boneMergeModels = [  ]
 }
