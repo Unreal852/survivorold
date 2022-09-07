@@ -70,6 +70,13 @@
         "ConVarName": "sv_difficulty",
         "DisplayName": "Difficulty",
         "DefaultValue": "gm_difficulty_normal"
+      },
+      "sv_friendly_fire": {
+        "DisplayType": "Boolean",
+        "Choices": [],
+        "ConVarName": "sv_friendly_fire",
+        "DisplayName": "Friendly Fire",
+        "DefaultValue": "false"
       }
     }
   }
