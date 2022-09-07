@@ -13,7 +13,6 @@ namespace Survivor;
 public partial class SurvivorGame
 {
 	private static IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
-	public static  List<string>               BoughtRooms  { get; set; } = new();
 	[Net] public   BaseGameMode               GameMode     { get; set; }
 
 	public override void PostLevelLoaded()
@@ -43,7 +42,7 @@ public partial class SurvivorGame
 	public bool SpawnZombies( int amount = 1 )
 	{
 		var spawns = ZombieSpawns ??= All.OfType<ZombieSpawn>().Where( zs => zs.IsEnabled ).ToArray();
-		spawns = ZombieSpawns.Where( zs => string.IsNullOrEmpty( zs.Room ) || BoughtRooms.Contains( zs.Room ) ).ToArray();
+		spawns = spawns.Where( zs => zs.CanSpawn).ToArray();
 		if ( spawns.Count <= 0 )
 		{
 			Log.Warning( "No zombie spawn found." );

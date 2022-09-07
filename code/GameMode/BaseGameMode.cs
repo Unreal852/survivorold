@@ -12,7 +12,7 @@ public abstract partial class BaseGameMode : Entity
 	public          int        MinimumPlayers   { get; set; } = 1;
 	[Net] public    int        EnemiesRemaining { get; set; } = 0;
 	[Net] public    Difficulty Difficulty       { get; set; } = Difficulty.Normal;
-	public abstract string     GameModeName             { get; }
+	public abstract string     GameModeName     { get; }
 
 	protected BaseGameMode()
 	{

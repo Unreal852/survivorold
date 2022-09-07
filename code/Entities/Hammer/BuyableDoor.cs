@@ -6,6 +6,8 @@ using Sandbox.UI;
 using SandboxEditor;
 using Survivor.Players;
 
+// resharper disable all
+
 namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_buyable_door" )]
@@ -16,13 +18,16 @@ public partial class BuyableDoor : ModelEntity, IUse
 	private bool      _bought = false;
 	private TimeSince _timeSinceBought;
 
-	[Property, Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
+	[Property]
+	[Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;
 
-	[Property, Title( "Cost" ), Description( "The cost to unlock this door" )]
+	[Property]
+	[Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
 
-	[Property, Title( "Room" ), Description( "The room which this door will unlock. Multiple doors can unlock a single room" )]
+	[Property, FGDType( "target_destination" )]
+	[Title( "Room" ), Description( "The room which this door will unlock. Multiple doors can unlock a single room" )]
 	public string Room { get; set; } = "";
 
 	public override void Spawn()
@@ -67,8 +72,9 @@ public partial class BuyableDoor : ModelEntity, IUse
 			if ( player.Money >= Cost )
 			{
 				player.Money -= Cost;
+				if ( Owner is Room room )
+					room.IsBought = true;
 				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}" );
-				SurvivorGame.BoughtRooms.Add( Room );
 				_bought = true;
 				_timeSinceBought = 0;
 				return true;
