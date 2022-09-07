@@ -20,7 +20,7 @@ public partial class SurvivorGame : Game
 	{
 		if ( IsServer )
 		{
-			_ = new MainPlayerHud();
+			_ = new PlayerHud();
 			Global.TickRate = 30;
 		}
 	}
