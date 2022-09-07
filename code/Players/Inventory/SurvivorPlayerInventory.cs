@@ -16,7 +16,7 @@ public class SurvivorPlayerInventory : InventoryBase
 		if ( Owner is not SurvivorPlayer player )
 			return false;
 
-		if ( ent is WeaponBase weapon && IsCarryingType( ent.GetType() ) )
+		if ( ent is WeaponBase weapon )
 		{
 			if ( IsCarryingType( ent.GetType() ) )
 			{

@@ -74,7 +74,7 @@ public partial class BuyableDoor : ModelEntity, IUse
 				player.Money -= Cost;
 				if ( Owner is Room room )
 					room.IsBought = true;
-				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}" );
+				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}$" );
 				_bought = true;
 				_timeSinceBought = 0;
 				return true;

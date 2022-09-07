@@ -46,7 +46,7 @@ public class NavSteer
 		foreach ( var ent in Entity.FindInSphere( center, radius ) )
 		{
 			// TODO
-			if ( ent.IsWorld || ent is not BaseZombie && ent is not Player && ent is not BuyableDoor )
+			if ( ent.IsWorld || ent is not BaseZombie && ent is not Player)
 				continue;
 
 			var delta = (position - ent.Position).WithZ( 0 );

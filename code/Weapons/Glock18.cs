@@ -32,7 +32,7 @@ public class Glock18 : WeaponBase
 				Force = 3f,
 				Spread = 0.08f,
 				Recoil = 0.35f,
-				RPM = 900,
+				RPM = 1111,
 				FiringType = FiringType.auto,
 				ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1f, Rotation = 0.1f },
 				DryFireSound = "swb_rifle.empty",

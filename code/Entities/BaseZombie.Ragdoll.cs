@@ -10,12 +10,14 @@ public partial class BaseZombie
 	[ClientRpc]
 	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone )
 	{
-		var ent = new ModelEntity();
-		ent.Position = Position;
-		ent.Rotation = Rotation;
-		ent.Scale = Scale;
-		ent.UsePhysicsCollision = true;
-		ent.EnableAllCollisions = true;
+		var ent = new ModelEntity
+		{
+				Position = Position,
+				Rotation = Rotation,
+				Scale = Scale,
+				UsePhysicsCollision = true,
+				EnableAllCollisions = true
+		};
 		ent.Tags.Add( "ragdoll", "solid", "debris" );
 		ent.SetModel( GetModelName() );
 		ent.CopyBonesFrom( this );

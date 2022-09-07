@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Sandbox;
 using Survivor.Utils;
 
@@ -28,7 +29,7 @@ public class NavPath
 
 			Points.Clear();
 			NavMesh.GetClosestPoint( from );
-			
+
 			if ( fromFixed.HasValue && toFixed.HasValue )
 			{
 				NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
