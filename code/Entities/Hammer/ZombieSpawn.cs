@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using SandboxEditor;
 
 namespace Survivor.Entities.Hammer;
@@ -10,4 +11,7 @@ public partial class ZombieSpawn : Entity
 {
 	[Property, Title( "Enabled" ), Description( "Unchecking this will prevent zombies from spawning on this spawn point" )]
 	public bool IsEnabled { get; set; } = true;
+
+	[Property, Title( "Room" ), Description( "The room which this zombie spawn belongs to. If the room has not been bought, zombies will not spawn" )]
+	public string Room { get; set; } = "";
 }

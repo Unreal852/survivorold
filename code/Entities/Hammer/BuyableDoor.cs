@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Sandbox;
 using Sandbox.Component;
+using Sandbox.UI;
 using SandboxEditor;
 using Survivor.Players;
 
@@ -11,11 +13,17 @@ namespace Survivor.Entities.Hammer;
 [HammerEntity, Solid, PhysicsTypeOverrideMesh]
 public partial class BuyableDoor : ModelEntity, IUse
 {
+	private bool      _bought = false;
+	private TimeSince _timeSinceBought;
+
 	[Property, Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;
 
 	[Property, Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
+
+	[Property, Title( "Room" ), Description( "The room which this door will unlock. Multiple doors can unlock a single room" )]
+	public string Room { get; set; } = "";
 
 	public override void Spawn()
 	{
@@ -52,14 +60,17 @@ public partial class BuyableDoor : ModelEntity, IUse
 
 	public bool OnUse( Entity user )
 	{
-		if ( !IsEnabled )
+		if ( !IsEnabled || _bought )
 			return false;
 		if ( user is SurvivorPlayer player )
 		{
 			if ( player.Money >= Cost )
 			{
 				player.Money -= Cost;
-				Delete();
+				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}" );
+				SurvivorGame.BoughtRooms.Add( Room );
+				_bought = true;
+				_timeSinceBought = 0;
 				return true;
 			}
 		}
@@ -70,5 +81,19 @@ public partial class BuyableDoor : ModelEntity, IUse
 	public bool IsUsable( Entity user )
 	{
 		return true;
+	}
+
+	[Event.Tick.Server]
+	public void Simulate()
+	{
+		if ( IsValid && _bought )
+		{
+			// TODO: This
+			Position += Vector3.Down * 10;
+			if ( _timeSinceBought >= 3 )
+			{
+				Delete();
+			}
+		}
 	}
 }

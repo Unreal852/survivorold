@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Sandbox;
 using Survivor.Players.Inventory;
-using Survivor.Tools;
 using Survivor.Weapons;
 using SWB_Base;
 
@@ -46,9 +45,7 @@ public partial class SurvivorPlayer : PlayerBase
 
 		SuppressPickupNotices = true;
 
-		// TODO: Add weapons to inventory
-		Inventory.Add( new PhysTool(), true );
-		Inventory.Add( new Glock18() );
+		Inventory.Add( new Glock18(), true );
 		Inventory.Add( new M1911() );
 
 		GiveAmmo( AmmoType.Pistol, 1000 );
@@ -72,8 +69,8 @@ public partial class SurvivorPlayer : PlayerBase
 
 	public override void Respawn()
 	{
-		Prepare();
 		base.Respawn();
+		Prepare();
 	}
 
 	public override void Simulate( Client cl )
@@ -116,8 +113,6 @@ public partial class SurvivorPlayer : PlayerBase
 			Inventory.SetActiveSlot( 0, true );
 		else if ( Input.Pressed( InputButton.Slot2 ) )
 			Inventory.SetActiveSlot( 1, true );
-		else if ( Input.Pressed( InputButton.Slot3 ) )
-			Inventory.SetActiveSlot( 2, true );
 
 		SimulateActiveChild( cl, ActiveChild );
 
@@ -155,7 +150,7 @@ public partial class SurvivorPlayer : PlayerBase
 		Inventory.DropActive();
 		Inventory.DeleteContents();
 
-		BecomeRagdollOnClient( LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
+		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
 
 		Controller = null;
 		CameraMode = new SpectateRagdollCamera();

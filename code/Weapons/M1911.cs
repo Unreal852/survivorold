@@ -10,7 +10,8 @@ public class M1911 : WeaponBase
 	public override HoldType HoldType       => HoldType.Pistol;
 	public override string   ViewModelPath  => "models/weapons/pistols/colt_m1911/vm_colt_m1911.vmdl";
 	public override string   WorldModelPath => "models/weapons/pistols/colt_m1911/wm_colt_m1911.vmdl";
-	public override string   HandsModelPath => "models/weapons/pistols/colt_m1911/vm_arms.vmdl";
+	public override string   HandsModelPath => "models/first_person/first_person_arms.vmdl";
+	
 
 	//public override AngPos   ViewModelOffset => new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 11.304f, 22.609f, -11.739f ) };
 
@@ -34,6 +35,7 @@ public class M1911 : WeaponBase
 				RPM = 900,
 				FiringType = FiringType.semi,
 				ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1f, Rotation = 0.1f },
+				ShootAnim = "shoot",
 				DryFireSound = "swb_rifle.empty",
 				ShootSound = "sounds/weapons/colt_m1911/colt_m1911_shot_01.sound",
 				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",

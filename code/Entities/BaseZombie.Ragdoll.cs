@@ -1,19 +1,22 @@
-﻿using Sandbox;
+﻿using System.Linq;
+using Sandbox;
 
-namespace Survivor.Players;
+namespace Survivor.Entities;
 
-public partial class SurvivorPlayer
+public partial class BaseZombie
 {
+	private static readonly EntityLimit Limit = new() { MaxTotal = 20 };
+
 	[ClientRpc]
 	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone )
 	{
 		var ent = new ModelEntity();
-		ent.Tags.Add( "ragdoll", "solid", "debris" );
 		ent.Position = Position;
 		ent.Rotation = Rotation;
 		ent.Scale = Scale;
 		ent.UsePhysicsCollision = true;
 		ent.EnableAllCollisions = true;
+		ent.Tags.Add( "ragdoll", "solid", "debris" );
 		ent.SetModel( GetModelName() );
 		ent.CopyBonesFrom( this );
 		ent.CopyBodyGroups( this );
@@ -28,32 +31,29 @@ public partial class SurvivorPlayer
 
 		foreach ( var child in Children )
 		{
-			if ( !child.Tags.Has( "clothes" ) ) continue;
-			if ( child is not ModelEntity e ) continue;
-
-			var model = e.GetModelName();
+			if ( child is not ModelEntity modelEntity )
+				continue;
+			// TODO: Use Tags : Need to add tags to clothes when spawning them on zombies
+			var model = modelEntity.GetModelName();
+			if ( !model.Contains( "clothes" ) )
+				continue;
 
 			var clothing = new ModelEntity();
 			clothing.SetModel( model );
 			clothing.SetParent( ent, true );
-			clothing.RenderColor = e.RenderColor;
-			clothing.CopyBodyGroups( e );
-			clothing.CopyMaterialGroup( e );
+			clothing.RenderColor = modelEntity.RenderColor;
+			clothing.CopyBodyGroups( modelEntity );
+			clothing.CopyMaterialGroup( modelEntity );
 		}
 
 		if ( damageFlags.HasFlag( DamageFlags.Bullet ) ||
 		     damageFlags.HasFlag( DamageFlags.PhysicsImpact ) )
 		{
 			PhysicsBody body = bone > 0 ? ent.GetBonePhysicsBody( bone ) : null;
-
 			if ( body != null )
-			{
 				body.ApplyImpulseAt( forcePos, force * body.Mass );
-			}
 			else
-			{
 				ent.PhysicsGroup.ApplyImpulse( force );
-			}
 		}
 
 		if ( damageFlags.HasFlag( DamageFlags.Blast ) )
@@ -66,8 +66,7 @@ public partial class SurvivorPlayer
 			}
 		}
 
-		Corpse = ent;
-
-		ent.DeleteAsync( 10.0f );
+		Limit.Watch( ent );
+		//ent.DeleteAsync( 10.0f );
 	}
 }

@@ -1,64 +1,50 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Hammer;
-using Survivor.Tools;
+using Survivor.Players;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;
 
 public partial class SurvivorGame
 {
-	[ServerCommand( Name = "spawnm", Help = "Spawn a model of the given type" )]
-	public static void SpawnModel( string modelName, int amount = 1 )
+	[ServerCommand( "sessioninfos" )]
+	public static void SessionInfosCommand()
 	{
-		if ( !modelName.Contains( '/' ) )
-			modelName = $"models/{modelName}";
-		if ( !modelName.EndsWith( ".vmdl" ) )
-			modelName += ".vmdl";
-
-		long callerId = ConsoleSystem.Caller.Id;
-		var caller = ConsoleSystem.Caller?.Pawn;
-		if ( caller == null )
-		{
-			Log.Warning( $"{nameof(SpawnModel)} command caller is null" );
-			return;
-		}
-
-		for ( int i = 0; i < amount; i++ )
-		{
-			var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
-			                 .UseHitboxes()
-			                 .Ignore( caller )
-			                 .Size( 2 )
-			                 .Run();
-			var prop = new Prop { Position = trace.EndPosition * Vector3.Up * 10.0f };
-			prop.SetModel( modelName );
-			CleanupManager.AddEntity( callerId, prop );
-			if ( prop.PhysicsBody == null || prop.PhysicsGroup.BodyCount != 1 )
-				continue;
-
-			var point = prop.PhysicsBody.FindClosestPoint( trace.EndPosition );
-			var delta = point - trace.EndPosition;
-			prop.PhysicsBody.Position -= delta;
-		}
-
-		Log.Info( $"Spawned {amount} {modelName}" );
+		Log.Info( "SESSION INFOS ----" );
+		Log.Info( $"\tGameMode: {Current.GameMode.Name} ({Current.GameMode.GetType()})" );
+		Log.Info( $"\tDifficulty: {Current.GameMode.Difficulty}" );
 	}
 
-	[ServerCommand( "cleanall" )]
-	public static void CleanUp()
+	[ServerCommand( "mapreset" )]
+	public static void CleanUpCommand()
 	{
-		CleanupManager.CleanAll();
-		//Map.Reset(DefaultCleanupFilter);
+		Map.Reset( DefaultCleanupFilter );
+	}
+
+	[ServerCommand( "givemoney" )]
+	public static void GiveMoney( int amount = 100 )
+	{
+		var caller = ConsoleSystem.Caller?.Pawn;
+		if ( caller is SurvivorPlayer player )
+			player.Money += amount;
 	}
 
 	[ServerCommand( "spawnz" )]
 	public static void SpawnZombiesCommand( int amount = 1 )
 	{
-		if ( Current is SurvivorGame game && game.SpawnZombies( amount ) )
+		if ( Current is { } game && game.SpawnZombies( amount ) )
 			Log.Info( "Zombies Spawned !" );
+	}
+
+	[ServerCommand( "clearz" )]
+	public static void ClearZombiesCommand()
+	{
+		foreach ( BaseZombie zombie in All.OfType<BaseZombie>().ToArray() )
+			zombie.Delete();
 	}
 
 	[ServerCommand( "setzombiestpos" )]
@@ -68,7 +54,7 @@ public partial class SurvivorGame
 		var caller = ConsoleSystem.Caller?.Pawn;
 		if ( caller == null )
 		{
-			Log.Warning( $"{nameof(SpawnModel)} command caller is null" );
+			Log.Warning( $"{nameof(SetZombiesTargetPosition)} command caller is null" );
 			return;
 		}
 
@@ -77,8 +63,8 @@ public partial class SurvivorGame
 		                 .Ignore( caller )
 		                 .Size( 2 )
 		                 .Run();
-		var zombies = All.OfType<Zombie>();
-		foreach ( Zombie zombie in zombies )
+		var zombies = All.OfType<BaseZombie>();
+		foreach ( BaseZombie zombie in zombies )
 			zombie.NavSteer.TargetPosition = trace.EndPosition;
 	}
 
@@ -107,31 +93,5 @@ public partial class SurvivorGame
 		}
 
 		clientToTeleport.Pawn.Position = devCamera.Entity.Position;
-	}
-
-	[ServerCommand( Name = "stool" )]
-	public static void SpawnTool()
-	{
-		long callerId = ConsoleSystem.Caller.Id;
-		var caller = ConsoleSystem.Caller?.Pawn;
-		if ( caller == null )
-		{
-			Log.Warning( $"{nameof(SpawnModel)} command caller is null" );
-			return;
-		}
-
-		var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
-		                 .UseHitboxes()
-		                 .Ignore( caller )
-		                 .Size( 2 )
-		                 .Run();
-		var tool = _ = new PhysTool() { Position = trace.EndPosition };
-		CleanupManager.AddEntity( callerId, tool );
-		if ( tool.PhysicsBody == null || tool.PhysicsGroup.BodyCount != 1 )
-			return;
-
-		var point = tool.PhysicsBody.FindClosestPoint( trace.EndPosition );
-		var delta = point - trace.EndPosition;
-		tool.PhysicsBody.Position -= delta;
 	}
 }

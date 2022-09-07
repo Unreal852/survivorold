@@ -55,7 +55,36 @@
 				[
 					{
 						_class = "AnimFile"
-						name = "1911WTF"
+						name = "shoot"
+						children = 
+						[
+							{
+								_class = "AnimOffset"
+								translation = [ 0.0, 0.0, -14.0 ]
+								rotation_xyz = [ 0.0, 0.0, 0.0 ]
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = true
+						source_filename = "blender/FBX/1911WTF.fbx"
+						start_frame = 0
+						end_frame = 21
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimBindPose"
+						name = "bindPose"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -67,12 +96,8 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/1911WTF.fbx"
-						start_frame = 0
-						end_frame = 21
-						framerate = -1.0
-						take = 2
-						reverse = false
+						frame_count = 1
+						frame_rate = 30
 					},
 				]
 				default_root_bone_name = "root"
@@ -89,6 +114,10 @@
 						mirror_z = false
 						flip_bone_forward = false
 						swap_left_and_right_bones = false
+					},
+					{
+						_class = "ModelModifier_Translate"
+						translation = [ 5.0, -5.0, 0.0 ]
 					},
 				]
 			},

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Sandbox;
-using Survivor.Tools;
 using SWB_Base;
 
 namespace Survivor.Players.Inventory;

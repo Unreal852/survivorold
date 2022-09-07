@@ -6,15 +6,11 @@ using Survivor.Players;
 using Survivor.Players.Controllers;
 using Survivor.UI.Hud;
 
+// ReSharper disable All
+
 namespace Survivor;
 
-/// <summary>
-/// This is your game class. This is an entity that is created serverside when
-/// the game starts, and is replicated to the client. 
-/// 
-/// You can use this to create things like HUDs and declare which player class
-/// to use for spawned players.
-/// </summary>
+/// <inheritdoc />
 [Library( "survivor", Title = "Survivor" )]
 public partial class SurvivorGame : Game
 {
@@ -29,46 +25,37 @@ public partial class SurvivorGame : Game
 		}
 	}
 
-	/// <summary>
-	/// A client has joined the server. Make them a pawn to play with 
-	/// </summary>
 	public override void ClientJoined( Client client )
 	{
 		base.ClientJoined( client );
+		Assert.NotNull( GameMode );
 
-		// Create a pawn for this client to play with
-		var player = new SurvivorPlayer( client );
-		player.Respawn();
-		client.Pawn = player;
+		GameMode?.OnClientJoin( this, client );
+	}
+
+	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	{
+		base.ClientDisconnect( cl, reason );
+		Assert.NotNull( GameMode );
+		GameMode?.OnClientDisconnected( this, cl, reason );
 	}
 
 	public override void DoPlayerDevCam( Client client )
 	{
-		EntityComponentAccessor components = client.Components;
-		var devCamera = components.Get<DevCamera>( true );
-		if ( devCamera == null )
-		{
-			var component = new DevCamera();
-			components = client.Components;
-			components.Add( component );
-		}
-		else
-			devCamera.Enabled = !devCamera.Enabled;
+		Assert.NotNull( GameMode );
+		GameMode?.OnDoPlayerDevCam( this, client );
 	}
 
-	public override void DoPlayerNoclip( Client player )
+	public override void DoPlayerNoclip( Client client )
 	{
-		if ( player.Pawn is not SurvivorPlayer pawn )
-			return;
-		if ( pawn.DevController is PlayerNoclipController )
-		{
-			Log.Info( "Noclip Mode Off" );
-			pawn.DevController = null;
-		}
-		else
-		{
-			Log.Info( "Noclip Mode On" );
-			pawn.DevController = new PlayerNoclipController();
-		}
+		Assert.NotNull( GameMode );
+		GameMode?.OnDoPlayerNoclip( this, client );
+	}
+
+	public new static bool DefaultCleanupFilter( string className, Entity ent )
+	{
+		if ( ent is BaseGameMode )
+			return false;
+		return Game.DefaultCleanupFilter( className, ent );
 	}
 }
