@@ -34,6 +34,7 @@ public partial class SurvivorPlayer : PlayerBase
 		Animator = new PlayerBaseAnimator();
 		CameraMode = new FirstPersonCamera();
 
+
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
@@ -60,7 +61,7 @@ public partial class SurvivorPlayer : PlayerBase
 		//           .Where( x => x.IsValid() && x.IsUsable() )
 		//           .MaxBy( x => x.BucketWeight );
 
-		var best = Children.Select( x => x as CarriableBase ).FirstOrDefault( x => x.IsValid() );
+		var best = Children.Select( x => x as WeaponBase ).FirstOrDefault( x => x.IsValid() );
 		if ( best == null )
 			return;
 

@@ -40,8 +40,8 @@ public partial class BaseZombie : BaseNpc
 		EnableHitboxes = true;
 		UsePhysicsCollision = true;
 
-		Tags.Add( "zombie", "solid" );
-		RenderColor = Color.Gray;
+		Tags.Add( "zombie" );
+		RenderColor = Color.Green;
 		Health = 100;
 		MoveSpeed = InchesUtils.FromMeters( 7 );
 		AttackRange = InchesUtils.FromMeters( 1 );

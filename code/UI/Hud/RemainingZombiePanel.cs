@@ -12,9 +12,8 @@ public class RemainingZombiePanel : Panel
 		_label = Add.Label( "0", "value" );
 	}
 
-	//TODO: Should be the number of remaining zombie instead of "0"
 	public override void Tick()
 	{
-		_label.Text = $"☻: {SurvivorGame.Current.GameMode?.EnemiesRemaining}";
+		_label.Text = $"☻: {SurvivorGame.Current.GameMode?.EnemiesRemaining ?? 0}";
 	}
 }
