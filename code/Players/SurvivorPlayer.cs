@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Sandbox;
 using Survivor.Players.Inventory;
-using Survivor.Tools;
 using Survivor.Weapons;
 using SWB_Base;
 
@@ -35,6 +34,7 @@ public partial class SurvivorPlayer : PlayerBase
 		Animator = new PlayerBaseAnimator();
 		CameraMode = new FirstPersonCamera();
 
+
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
@@ -46,9 +46,8 @@ public partial class SurvivorPlayer : PlayerBase
 
 		SuppressPickupNotices = true;
 
-		// TODO: Add weapons to inventory
-		Inventory.Add( new PhysTool(), true );
-		Inventory.Add( new Glock18() );
+		Inventory.Add( new Glock18(), true );
+		Inventory.Add( new M1911() );
 
 		GiveAmmo( AmmoType.Pistol, 1000 );
 
@@ -62,7 +61,7 @@ public partial class SurvivorPlayer : PlayerBase
 		//           .Where( x => x.IsValid() && x.IsUsable() )
 		//           .MaxBy( x => x.BucketWeight );
 
-		var best = Children.Select( x => x as CarriableBase ).FirstOrDefault( x => x.IsValid() );
+		var best = Children.Select( x => x as WeaponBase ).FirstOrDefault( x => x.IsValid() );
 		if ( best == null )
 			return;
 
@@ -71,8 +70,8 @@ public partial class SurvivorPlayer : PlayerBase
 
 	public override void Respawn()
 	{
-		Prepare();
 		base.Respawn();
+		Prepare();
 	}
 
 	public override void Simulate( Client cl )
@@ -140,8 +139,6 @@ public partial class SurvivorPlayer : PlayerBase
 	{
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
-		Log.Info( "DMG" );
-		ScreenShake( new ScreenShakeStruct { Length = 1f, Delay = 0.02f, Size = 5f, Rotation = 10f } );
 		PlaySound( "sounds/player_hit_01.sound" );
 	}
 
@@ -152,7 +149,7 @@ public partial class SurvivorPlayer : PlayerBase
 		Inventory.DropActive();
 		Inventory.DeleteContents();
 
-		BecomeRagdollOnClient( LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
+		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
 
 		Controller = null;
 		CameraMode = new SpectateRagdollCamera();

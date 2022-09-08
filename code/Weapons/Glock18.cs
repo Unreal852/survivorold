@@ -27,19 +27,20 @@ public class Glock18 : WeaponBase
 				AmmoType = AmmoType.Pistol,
 				ClipSize = 17,
 				BulletSize = 3f,
-				BulletType = new HitScanBullet(),
+				BulletType = new TraceBullet(),
 				Damage = 15f,
 				Force = 3f,
 				Spread = 0.08f,
 				Recoil = 0.35f,
-				RPM = 300,
-				FiringType = FiringType.semi,
+				RPM = 1111,
+				FiringType = FiringType.auto,
 				ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1f, Rotation = 0.1f },
 				DryFireSound = "swb_rifle.empty",
 				ShootSound = "sounds/weapons/colt_m1911/colt_m1911_shot_01.sound",
 				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
 				MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
 				BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
+				InfiniteAmmo = InfiniteAmmoType.reserve
 		};
 
 		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 5f, 0f, 0f ) };

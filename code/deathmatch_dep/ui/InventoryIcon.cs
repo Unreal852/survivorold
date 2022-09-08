@@ -1,8 +1,6 @@
 ﻿
 using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Construct;
-using System;
 using SWB_Base;
 
 class InventoryIcon : Panel

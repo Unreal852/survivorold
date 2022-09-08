@@ -1,6 +1,8 @@
 ﻿using Sandbox;
 using SandboxEditor;
 
+// resharper disable all
+
 namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_player_lobby_spawn" )]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Sandbox;
-using Survivor.Tools;
 using SWB_Base;
 
 namespace Survivor.Players.Inventory;
@@ -17,7 +16,7 @@ public class SurvivorPlayerInventory : InventoryBase
 		if ( Owner is not SurvivorPlayer player )
 			return false;
 
-		if ( ent is WeaponBase weapon && IsCarryingType( ent.GetType() ) )
+		if ( ent is WeaponBase weapon )
 		{
 			if ( IsCarryingType( ent.GetType() ) )
 			{

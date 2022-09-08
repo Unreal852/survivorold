@@ -17,10 +17,8 @@
     "MaxPlayers": 10,
     "MinPlayers": 1,
     "GameNetworkType": "Multiplayer",
-    "MapSelect": "Unrestricted",
-    "MapList": [
-      "facepunch.flatgrass"
-    ],
+    "MapSelect": "Tagged",
+    "MapList": [],
     "RankType": "None",
     "PerMapRanking": false,
     "LeaderboardType": "None",
@@ -72,6 +70,13 @@
         "ConVarName": "sv_difficulty",
         "DisplayName": "Difficulty",
         "DefaultValue": "gm_difficulty_normal"
+      },
+      "sv_friendly_fire": {
+        "DisplayType": "Boolean",
+        "Choices": [],
+        "ConVarName": "sv_friendly_fire",
+        "DisplayName": "Friendly Fire",
+        "DefaultValue": "false"
       }
     }
   }

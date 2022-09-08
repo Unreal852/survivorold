@@ -1,7 +1,7 @@
 ﻿using Sandbox.Internal;
 using Sandbox.Internal.Globals;
 
-namespace Survivor.Utils;
+namespace Survivor.Extensions;
 
 public static class DebugOverlayExtensions
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sandbox;
-using Survivor.Utils;
+using Survivor.Extensions;
 
 namespace Survivor.Navigation;
 
@@ -28,13 +28,11 @@ public class NavPath
 
 			Points.Clear();
 			NavMesh.GetClosestPoint( from );
-			
+
 			if ( fromFixed.HasValue && toFixed.HasValue )
 			{
 				NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
 			}
-			else
-				Log.Warning( "No nav point found" );
 			//Points.Add( NavMesh.GetClosestPoint( to ) );
 		}
 
