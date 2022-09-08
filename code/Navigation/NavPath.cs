@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using Sandbox;
-using Survivor.Utils;
+using Survivor.Extensions;
 
 namespace Survivor.Navigation;
 

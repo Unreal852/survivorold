@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using Sandbox;
 using Survivor.Entities;
-using Survivor.Entities.Hammer;
+using Survivor.Entities.Zombies;
 using Survivor.Players;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
@@ -40,14 +39,14 @@ public partial class SurvivorGame
 			Log.Info( "Zombies Spawned !" );
 	}
 
-	[ServerCommand( "clearz" )]
+	[ServerCommand( "killnpc" )]
 	public static void ClearZombiesCommand()
 	{
-		foreach ( BaseZombie zombie in All.OfType<BaseZombie>().ToArray() )
-			zombie.Delete();
+		foreach ( BaseNpc npc in All.OfType<BaseNpc>().ToArray() )
+			npc.Delete();
 	}
 
-	[ServerCommand( "setzombiestpos" )]
+	[ServerCommand( "setnpctpos" )]
 	public static void SetZombiesTargetPosition()
 	{
 		long callerId = ConsoleSystem.Caller.Id;

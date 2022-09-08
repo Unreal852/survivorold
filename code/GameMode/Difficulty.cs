@@ -1,4 +1,4 @@
-﻿namespace Survivor.Gamemodes;
+﻿namespace Survivor.GameMode;
 
 public enum Difficulty
 {

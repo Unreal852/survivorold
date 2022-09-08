@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using Sandbox;
+﻿using Sandbox;
 
 namespace Survivor.Entities;
 
-public partial class BaseZombie
+public partial class BaseNpc
 {
 	private static readonly EntityLimit Limit = new() { MaxTotal = 20 };
 

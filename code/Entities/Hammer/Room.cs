@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sandbox;
 using SandboxEditor;
 
@@ -23,7 +22,7 @@ public partial class Room : Entity
 
 	public void InitializeRoom( BuyableDoor[] buyableDoors, ZombieSpawn[] zombieSpawns )
 	{
-		_zombieSpawns = zombieSpawns;
+		_zombieSpawns = zombieSpawns ?? Array.Empty<ZombieSpawn>();
 		foreach ( var zombieSpawn in _zombieSpawns )
 			zombieSpawn.Owner = this;
 		foreach ( var buyableDoor in buyableDoors )

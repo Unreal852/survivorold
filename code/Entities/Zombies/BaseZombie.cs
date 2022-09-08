@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
+using Survivor.Entities.Zombies.States;
 using Survivor.HitBox;
 using Survivor.Navigation;
 using Survivor.Players;
-using NavPath = Survivor.Navigation.NavPath;
+using Survivor.StateMachine;
 
-namespace Survivor.Entities;
+namespace Survivor.Entities.Zombies;
 
-public partial class BaseZombie : AnimatedEntity
+public partial class BaseZombie : BaseNpc
 {
 	private static readonly           List<BaseZombie> Zombies                  = new(200);
 	private static readonly           int              ZombiesPathUpdateBatches = 20;
 	private static readonly           int              ZombiesPathUpdateFrames  = 30;
 	private static                    int              ZombiesUpdateIndex       = 0;
 	private static                    int              CurrentFrame             = 0;
+	[ConVar.Replicated] public static bool             nav_drawpath  { get; set; } = false;
 	public virtual                    int              CollisionSize => 60;
 	public virtual                    int              NodeSize      => 50;
-	[ConVar.Replicated] public static bool             nav_drawpath  { get; set; } = false;
 	private                           Vector3          _inputVelocity;
 	private                           Vector3          _lookDirection;
 
@@ -28,13 +27,13 @@ public partial class BaseZombie : AnimatedEntity
 		// Ignored
 	}
 
-	public                  float      MoveSpeed       { get; set; }
-	public                  float      AttackSpeed     { get; set; } = 1f;
-	public                  float      AttackDamages   { get; set; } = 50f;
-	public                  float      AttackRange     { get; set; } = 39f;
-	public                  NavSteer   NavSteer        { get; set; } = new();
-	[Net, Predicted] public TimeSince  SinceLastAttack { get; set; }
-	private                 DamageInfo LastDamage      { get; set; }
+	public float               MoveSpeed           { get; set; } = 150f;
+	public float               AttackSpeed         { get; set; } = 1f;
+	public float               AttackDamages       { get; set; } = 50f;
+	public float               AttackRange         { get; set; } = 39f;
+	public NavSteer            NavSteer            { get; set; } = new();
+	public TimeSince           SinceLastAttack     { get; set; }
+	public DefaultStateMachine DefaultStateMachine { get; private set; }
 
 	private void Prepare()
 	{
@@ -60,8 +59,10 @@ public partial class BaseZombie : AnimatedEntity
 
 		SetBodyGroup( 1, 0 );
 
+		DefaultStateMachine = new DefaultStateMachine { StateFactory = new ZombieStateFactory( DefaultStateMachine ), };
+		DefaultStateMachine.CurrentState = DefaultStateMachine.GetStateFactory<ZombieStateFactory>().Idle;
+
 		Health = 100;
-		MoveSpeed = Rand.Float( 100, 250 );
 
 		FindTarget();
 
@@ -86,27 +87,12 @@ public partial class BaseZombie : AnimatedEntity
 
 	public override void TakeDamage( DamageInfo info )
 	{
-		LastAttacker = info.Attacker;
-		LastAttackerWeapon = info.Weapon;
-		LastDamage = info;
-		if ( !IsServer || Health <= 0.0 || LifeState != LifeState.Alive )
-			return;
-		Health -= GetHitboxGroup( info.HitboxIndex ) == (int)HitboxGroup.Head ? info.Damage * 2 : info.Damage;
-		this.ProceduralHitReaction( info );
-
-		if ( Health <= 0.0 )
-		{
-			Health = 0.0f;
-			OnKilled();
-		}
-		else
-			NavSteer.TargetEntity = info.Attacker;
+		base.TakeDamage( info );
 	}
 
 	public override void OnKilled()
 	{
 		base.OnKilled();
-		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
 		Zombies.Remove( this );
 		if ( IsServer && LastAttacker is SurvivorPlayer player )
 		{
@@ -121,9 +107,9 @@ public partial class BaseZombie : AnimatedEntity
 		NavSteer?.Tick( Position );
 	}
 
-	[Event.Tick.Server]
-	public virtual void OnUpdate()
+	public override void OnServerUpdate()
 	{
+		DefaultStateMachine.CurrentState.OnUpdateState();
 		_inputVelocity = 0;
 
 		if ( NavSteer != null )

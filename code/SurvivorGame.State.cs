@@ -4,6 +4,8 @@ using System.Text;
 using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Hammer;
+using Survivor.Entities.Zombies;
+using Survivor.GameMode;
 using Survivor.GameMode.GameModes;
 using Survivor.Gamemodes;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
@@ -52,7 +54,7 @@ public partial class SurvivorGame
 		for ( int i = 0; i < amount; i++ )
 		{
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
-			_ = new BaseZombie { Position = zombieSpawn.Position + Vector3.Up * 5 };
+			_ = new BaseZombie() { Position = zombieSpawn.Position + Vector3.Up * 5 };
 		}
 
 		GameMode.EnemiesRemaining += amount;
