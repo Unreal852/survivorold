@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
-using Survivor.Entities.Zombies.States;
-using Survivor.HitBox;
 using Survivor.Navigation;
 using Survivor.Players;
-using Survivor.StateMachine;
 
 namespace Survivor.Entities.Zombies;
 
@@ -27,13 +24,12 @@ public partial class BaseZombie : BaseNpc
 		// Ignored
 	}
 
-	public float               MoveSpeed           { get; set; } = 150f;
-	public float               AttackSpeed         { get; set; } = 1f;
-	public float               AttackDamages       { get; set; } = 50f;
-	public float               AttackRange         { get; set; } = 39f;
-	public NavSteer            NavSteer            { get; set; } = new();
-	public TimeSince           SinceLastAttack     { get; set; }
-	public DefaultStateMachine DefaultStateMachine { get; private set; }
+	public float       MoveSpeed       { get; set; } = 150f;
+	public float       AttackSpeed     { get; set; } = 1f;
+	public float       AttackDamages   { get; set; } = 50f;
+	public float       AttackRange     { get; set; } = 39f;
+	public NavSteer    NavSteer        { get; set; } = new();
+	public TimeSince   SinceLastAttack { get; set; }
 
 	private void Prepare()
 	{
@@ -58,9 +54,6 @@ public partial class BaseZombie : BaseNpc
 			_ = new ModelEntity( "models/citizen_clothes/hat/hat_hardhat.vmdl", this );
 
 		SetBodyGroup( 1, 0 );
-
-		DefaultStateMachine = new DefaultStateMachine { StateFactory = new ZombieStateFactory( DefaultStateMachine ), };
-		DefaultStateMachine.CurrentState = DefaultStateMachine.GetStateFactory<ZombieStateFactory>().Idle;
 
 		Health = 100;
 
@@ -109,7 +102,6 @@ public partial class BaseZombie : BaseNpc
 
 	public override void OnServerUpdate()
 	{
-		DefaultStateMachine.CurrentState.OnUpdateState();
 		_inputVelocity = 0;
 
 		if ( NavSteer != null )
