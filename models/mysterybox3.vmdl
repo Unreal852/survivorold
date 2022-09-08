@@ -49,7 +49,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/FBX/Mysterybox3.fbx"
+						filename = "blender/fbx/mysterybox4.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -71,7 +71,7 @@
 				[
 					{
 						_class = "AnimFile"
-						name = "Mysterybox3"
+						name = "Mysterybox4"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -83,7 +83,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/Mysterybox3.fbx"
+						source_filename = "blender/fbx/mysteryboxanim.fbx"
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
@@ -92,6 +92,56 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "bone_dessus"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "bone_poignG"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "bone_poignG_end"
+										origin = [ 0.0, 6.923981, -0.000008 ]
+										angles = [ -0.0, -0.0, 0.000003 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 22.229172, 83.081253, -5.72912 ]
+								angles = [ -0.0, 0.0, 57.999985 ]
+								do_not_discard = true
+							},
+							{
+								_class = "Bone"
+								name = "bone_poignD"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "bone_poignD_end"
+										origin = [ 0.000004, 6.896084, -0.000004 ]
+										angles = [ -0.0, -0.0, 0.000003 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 142.82843, 83.084633, -5.742798 ]
+								angles = [ -0.0, 0.0, 57.999985 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ -39.956161, -95.829216, 19.273849 ]
+						angles = [ -0.0, 90.0, 179.948013 ]
+						do_not_discard = true
+					},
+				]
 			},
 		]
 		model_archetype = ""
