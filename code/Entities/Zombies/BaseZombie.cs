@@ -3,6 +3,7 @@ using System.Linq;
 using Sandbox;
 using Survivor.Navigation;
 using Survivor.Players;
+using Survivor.Utils;
 
 namespace Survivor.Entities.Zombies;
 
@@ -24,38 +25,26 @@ public partial class BaseZombie : BaseNpc
 		// Ignored
 	}
 
-	public float       MoveSpeed       { get; set; } = 150f;
-	public float       AttackSpeed     { get; set; } = 1f;
-	public float       AttackDamages   { get; set; } = 50f;
-	public float       AttackRange     { get; set; } = 39f;
-	public NavSteer    NavSteer        { get; set; } = new();
-	public TimeSince   SinceLastAttack { get; set; }
+	public float     MoveSpeed       { get; set; }
+	public float     AttackSpeed     { get; set; } = 1f;
+	public float     AttackDamages   { get; set; } = 5;
+	public float     AttackRange     { get; set; }
+	public NavSteer  NavSteer        { get; set; } = new();
+	public TimeSince SinceLastAttack { get; set; } = 0;
 
 	private void Prepare()
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
 		EyePosition = Position + Vector3.Up * 64;
-		//CollisionGroup = CollisionGroup.Player;
-		EnableAllCollisions = true;
-		EnableHitboxes = true;
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
+		EnableHitboxes = true;
+		UsePhysicsCollision = true;
 
-		SetMaterialGroup( 5 );
-
-		Tags.Add( "zombie" );
-		RenderColor = Color.Green;
-		_ = new ModelEntity( "models/citizen_clothes/trousers/trousers.smart.vmdl", this );
-		_ = new ModelEntity( "models/citizen_clothes/jacket/labcoat.vmdl", this );
-		_ = new ModelEntity( "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl", this );
-
-		if ( Rand.Int( 3 ) == 1 )
-			_ = new ModelEntity( "models/citizen_clothes/hair/hair_femalebun.black.vmdl", this );
-		else if ( Rand.Int( 10 ) == 1 )
-			_ = new ModelEntity( "models/citizen_clothes/hat/hat_hardhat.vmdl", this );
-
-		SetBodyGroup( 1, 0 );
-
+		Tags.Add( "zombie", "solid" );
+		RenderColor = Color.Gray;
 		Health = 100;
+		MoveSpeed = InchesUtils.FromMeters( 7 );
+		AttackRange = InchesUtils.FromMeters( 1 );
 
 		FindTarget();
 
@@ -76,11 +65,6 @@ public partial class BaseZombie : BaseNpc
 	{
 		base.Spawn();
 		Prepare();
-	}
-
-	public override void TakeDamage( DamageInfo info )
-	{
-		base.TakeDamage( info );
 	}
 
 	public override void OnKilled()
@@ -144,6 +128,8 @@ public partial class BaseZombie : BaseNpc
 		                                    && NavSteer.TargetEntity.Position.Distance( Position ) < AttackRange
 		                                    && SinceLastAttack                                     > AttackSpeed )
 		{
+			animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
+			SetAnimParameter( "b_attack", true );
 			NavSteer.TargetEntity.TakeDamage( DamageInfo.Generic( AttackDamages ) );
 			SinceLastAttack = 0;
 		}
@@ -191,17 +177,13 @@ public partial class BaseZombie : BaseNpc
 	[Event.Tick.Server]
 	public static void OnTick()
 	{
-		// TODO: This cause zombies to walk cheloument
-		// if ( Zombies.Count == 0 || ++CurrentFrame < ZombiesPathUpdateFrames )
-		// 	return;
-
 		if ( Zombies.Count == 0 )
 			return;
-		var startIndex = ZombiesUpdateIndex > Zombies.Count ? 0 : ZombiesUpdateIndex;
+		var startIndex = ZombiesUpdateIndex >= Zombies.Count ? 0 : ZombiesUpdateIndex;
 		var endIndex = startIndex + ZombiesPathUpdateBatches;
 		if ( endIndex > Zombies.Count )
 			endIndex = Zombies.Count;
-		for ( int i = 0; i < endIndex; i++ )
+		for ( int i = startIndex; i < endIndex; i++ )
 		{
 			var zombie = Zombies[i];
 			if ( !zombie.IsValid )

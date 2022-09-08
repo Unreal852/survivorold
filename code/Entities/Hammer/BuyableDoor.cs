@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using Sandbox;
+﻿using Sandbox;
 using Sandbox.Component;
 using Sandbox.UI;
 using SandboxEditor;

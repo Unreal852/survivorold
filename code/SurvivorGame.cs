@@ -1,9 +1,5 @@
-﻿using System;
-using Sandbox;
-using Sandbox.Internal;
+﻿using Sandbox;
 using Survivor.Gamemodes;
-using Survivor.Players;
-using Survivor.Players.Controllers;
 using Survivor.UI.Hud;
 
 // ReSharper disable All

@@ -1,5 +1,6 @@
-﻿using System;
-using Sandbox;
+﻿using Sandbox;
+using Survivor.Extensions;
+using Survivor.Players;
 using SWB_Base;
 
 namespace Survivor.Weapons;
@@ -17,13 +18,11 @@ public class TraceBullet : BulletBase
 	{
 		Fire( weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
 	}
-
-	private PhysicsShape lastHit;
-
+	
 	private void Fire( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize,
 	                   bool isPrimary, int refireCount = 0 )
 	{
-		var tr = weapon.TraceBullet( startPos, endPos, bulletSize );
+		var tr = weapon.TraceBulletEx( startPos, endPos, bulletSize );
 		if ( !tr.Hit )
 			return;
 		var isValidEnt = tr.Entity.IsValid;
@@ -31,7 +30,7 @@ public class TraceBullet : BulletBase
 			return;
 		var canPenetrate = SurfaceUtil.CanPenetrate( tr.Surface );
 		if ( Host.IsClient )
-		{
+		{ 
 			// Impact
 			tr.Surface.DoBulletImpact( tr );
 
@@ -45,8 +44,10 @@ public class TraceBullet : BulletBase
 			}
 		}
 
-		if ( Host.IsServer && isValidEnt )
+		if ( Host.IsServer )
 		{
+			if ( tr.Entity is SurvivorPlayer && !SurvivorGame.VarFriendlyFire )
+				return;
 			using ( Prediction.Off() )
 			{
 				// Damage

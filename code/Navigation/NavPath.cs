@@ -33,8 +33,6 @@ public class NavPath
 			{
 				NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
 			}
-			else
-				Log.Warning( "No nav point found" );
 			//Points.Add( NavMesh.GetClosestPoint( to ) );
 		}
 

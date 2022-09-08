@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using Survivor.HitBox;
-using Survivor.Navigation;
 
 namespace Survivor.Entities;
 
@@ -8,16 +7,10 @@ public partial class BaseNpc : AnimatedEntity
 {
 	public DamageInfo LastDamage { get; private set; }
 
-	public override void Spawn()
-	{
-		base.Spawn();
-	}
-
 	public override void TakeDamage( DamageInfo info )
 	{
-		base.TakeDamage( info );
 		LastDamage = info;
-		info.Damage *= GetHitboxGroup( info.HitboxIndex ) == (int)HitboxGroup.Head ? info.Damage * 2 : info.Damage;
+		info.Damage *= GetHitboxGroup( info.HitboxIndex ) == (int)HitboxGroup.Head ? 2 : 1;
 		this.ProceduralHitReaction( info );
 
 		base.TakeDamage( info );

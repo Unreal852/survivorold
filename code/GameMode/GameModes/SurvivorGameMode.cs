@@ -1,5 +1,4 @@
 ﻿using Survivor.Gamemodes;
-using Survivor.Players;
 using Survivor.Rooms;
 
 namespace Survivor.GameMode.GameModes;
