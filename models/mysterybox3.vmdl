@@ -49,7 +49,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/fbx/mysterybox4.fbx"
+						filename = "blender/fbx/mysterybox.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -71,7 +71,7 @@
 				[
 					{
 						_class = "AnimFile"
-						name = "Mysterybox4"
+						name = "Anim@Open"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -83,70 +83,88 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/fbx/mysteryboxanim.fbx"
+						source_filename = "blender/FBX/mysterybox@anim.fbx"
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
 						take = 0
 						reverse = false
 					},
+					{
+						_class = "AnimFile"
+						name = "Anim@Close"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "blender/FBX/mysterybox@anim.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = true
+					},
+					{
+						_class = "AnimBindPose"
+						name = "bindPose"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						frame_count = 1
+						frame_rate = 30
+					},
 				]
 				default_root_bone_name = ""
 			},
 			{
-				_class = "Skeleton"
+				_class = "PhysicsShapeList"
 				children = 
 				[
 					{
-						_class = "Bone"
-						name = "bone_dessus"
-						children = 
-						[
-							{
-								_class = "Bone"
-								name = "bone_poignG"
-								children = 
-								[
-									{
-										_class = "Bone"
-										name = "bone_poignG_end"
-										origin = [ 0.0, 6.923981, -0.000008 ]
-										angles = [ -0.0, -0.0, 0.000003 ]
-										do_not_discard = true
-									},
-								]
-								origin = [ 22.229172, 83.081253, -5.72912 ]
-								angles = [ -0.0, 0.0, 57.999985 ]
-								do_not_discard = true
-							},
-							{
-								_class = "Bone"
-								name = "bone_poignD"
-								children = 
-								[
-									{
-										_class = "Bone"
-										name = "bone_poignD_end"
-										origin = [ 0.000004, 6.896084, -0.000004 ]
-										angles = [ -0.0, -0.0, 0.000003 ]
-										do_not_discard = true
-									},
-								]
-								origin = [ 142.82843, 83.084633, -5.742798 ]
-								angles = [ -0.0, 0.0, 57.999985 ]
-								do_not_discard = true
-							},
-						]
-						origin = [ -39.956161, -95.829216, 19.273849 ]
-						angles = [ -0.0, 90.0, 179.948013 ]
-						do_not_discard = true
+						_class = "PhysicsHullFile"
+						name = "mysterybox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "blender/FBX/mysterybox.fbx"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
 					},
 				]
 			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = ""
+		anim_graph_name = "survivor/animgraphs/mysterybox.vanmgrph"
 		base_model_name = ""
 	}
 }
