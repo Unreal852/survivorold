@@ -9,11 +9,11 @@ using Survivor.Utils;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_mystery_box" )]
-[Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/mysterybox3.vmdl", Archetypes = ModelArchetype.animated_model )]
+[Library( "survivor_distributor" )]
+[Title( "Distributor" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
+[HammerEntity, SupportsSolid, Model( Model = "models/distributeur.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class MysteryBox : AnimatedEntity, IUse
+public partial class Distributor : AnimatedEntity, IUse
 {
 	[Property]
 	[Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
@@ -30,13 +30,13 @@ public partial class MysteryBox : AnimatedEntity, IUse
 	private      float       DelayBetweenUses               { get; set; } = 3;
 	private      TimeSince   TimeSinceOpened                { get; set; } = 0;
 	private      TimeSince   TimeSinceClosed                { get; set; } = 0;
-	private      ModelEntity PropModel                      { get; set; }
+	private      ModelEntity Prop                           { get; set; }
 
 	public override void Spawn()
 	{
 		base.Spawn();
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
-		SetAnimParameter( "closing", true ); 
+		SetAnimParameter( "closing", true );
 	}
 
 	public void Open()
@@ -45,6 +45,9 @@ public partial class MysteryBox : AnimatedEntity, IUse
 			return;
 		IsOpened = true;
 		SetAnimParameter( "opening", IsOpened );
+		var att = GetAttachment( "distri_spawn" );
+		if ( att.HasValue )
+			Prop = new ModelEntity( "models/bottle.vmdl" ) { Position = att.Value.Position };
 		TimeSinceOpened = 0;
 	}
 
@@ -54,7 +57,8 @@ public partial class MysteryBox : AnimatedEntity, IUse
 			return;
 		IsOpened = false;
 		SetAnimParameter( "closing", true );
-		PropModel?.Delete();
+		Prop?.Delete();
+		Prop = null;
 		TimeSinceClosed = 0;
 	}
 
@@ -74,16 +78,6 @@ public partial class MysteryBox : AnimatedEntity, IUse
 	{
 		if ( !IsOpened || TimeSinceOpened <= 1 || ++CurrentFrame < FramesBetweenModelColorChanges )
 			return;
-		if ( PropModel == null || !PropModel.IsValid )
-		{
-			PropModel = new ModelEntity( "models/citizen/citizen.vmdl" );
-			PropModel.Position = Position + Vector3.Up * InchesUtils.FromMeters( 1 );
-			PropModel.Rotation = Rotation;
-			PropModel.RenderColor = Color.Random;
-			return;
-		}
-
-		PropModel.RenderColor = Color.Random;
 		CurrentFrame = 0;
 		Close();
 	}

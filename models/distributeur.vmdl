@@ -30,11 +30,11 @@
 						[
 							{
 								from = "material.001.vmat"
-								to = "materials/plastic/plasic_01.vmat"
+								to = "materials/hotspots/metal_painted_cyan_a_hs.vmat"
 							},
 							{
 								from = "material.002.vmat"
-								to = "materials/generic/wall_panel_c_metal_galvanized.vmat"
+								to = "materials/hotspots/metal_painted_black_a_hs.vmat"
 							},
 						]
 						use_global_default = false
@@ -159,6 +159,21 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "distri_spawn"
+						parent_bone = "Bone_Distrib"
+						relative_origin = [ -0.007027, 22.669186, 103.470329 ]
+						relative_angles = [ -89.369919, -2.254892, 2.220512 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
 			},
 		]
 		model_archetype = ""
