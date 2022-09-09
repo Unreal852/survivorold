@@ -1,20 +1,19 @@
 ﻿using Sandbox;
-using Sandbox.Component;
-using Sandbox.UI;
 using SandboxEditor;
-using Survivor.Players;
-using Survivor.Utils;
 
 // resharper disable all
 
 namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_distributor" )]
-[Title( "Distributor" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
+[Title( "Distributor" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a distributor" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/distributeur.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class Distributor : AnimatedEntity, IUse
 {
+	// TODO: This class has been written just to test things, this should be rewrite
+	// TODO: Use anim tags
+	
 	[Property]
 	[Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;

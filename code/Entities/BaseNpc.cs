@@ -14,8 +14,6 @@ public partial class BaseNpc : AnimatedEntity
 		this.ProceduralHitReaction( info );
 
 		base.TakeDamage( info );
-
-		//TODO: Change target
 	}
 
 	public override void OnKilled()

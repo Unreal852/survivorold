@@ -12,8 +12,9 @@ namespace Survivor;
 
 public partial class SurvivorGame
 {
-	private static      IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
-	[Net] public BaseGameMode               GameMode     { get; set; }
+	private static IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
+	public static  BaseGameMode               GAME_MODE    => Current.GameMode;
+	[Net] public   BaseGameMode               GameMode     { get; set; }
 
 	public override void PostLevelLoaded()
 	{

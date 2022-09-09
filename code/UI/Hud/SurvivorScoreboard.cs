@@ -8,21 +8,20 @@ namespace Survivor.UI.Hud;
 
 public partial class SurvivorScoreboard<T> : Panel where T : SurvivorScoreboardEntry, new()
 {
-	private Dictionary<Client, T> Rows = new();
+	private readonly Dictionary<Client, T> _rows = new();
+	private readonly Panel                 _canvas;
 
 	public Panel Header { get; protected set; }
 
 	public SurvivorScoreboard()
 	{
 		StyleSheet.Load( "Resources/UI/Scoreboard/Scoreboard.scss" );
+		
 		AddClass( "scoreboard" );
-
 		AddHeader();
-
-		Canvas = Add.Panel( "canvas" );
+		_canvas = Add.Panel( "canvas" );
 	}
-
-	public Panel Canvas { get; protected set; }
+	
 	public bool  IsOpen => Input.Down( InputButton.Score );
 
 	public override void Tick()
@@ -37,18 +36,18 @@ public partial class SurvivorScoreboard<T> : Panel where T : SurvivorScoreboardE
 		//
 		// Clients that were added
 		//
-		foreach ( var client in Client.All.Except( Rows.Keys ) )
+		foreach ( var client in Client.All.Except( _rows.Keys ) )
 		{
 			var entry = AddClient( client );
-			Rows[client] = entry;
+			_rows[client] = entry;
 		}
 
-		foreach ( var client in Rows.Keys.Except( Client.All ) )
+		foreach ( var client in _rows.Keys.Except( Client.All ) )
 		{
-			if ( Rows.TryGetValue( client, out var row ) )
+			if ( _rows.TryGetValue( client, out var row ) )
 			{
 				row?.Delete();
-				Rows.Remove( client );
+				_rows.Remove( client );
 			}
 		}
 	}
@@ -65,7 +64,7 @@ public partial class SurvivorScoreboard<T> : Panel where T : SurvivorScoreboardE
 
 	protected virtual T AddClient( Client entry )
 	{
-		var p = Canvas.AddChild<T>();
+		var p = _canvas.AddChild<T>();
 		p.Client = entry;
 		return p;
 	}

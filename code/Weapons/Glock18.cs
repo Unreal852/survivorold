@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sandbox;
+using Survivor.Weapons.Bullets;
 using SWB_Base;
 using SWB_Base.Attachments;
 

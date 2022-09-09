@@ -7,6 +7,9 @@ namespace Survivor.Players.Inventory;
 
 public class SurvivorPlayerInventory : InventoryBase
 {
+	// TODO: Rework inventory to support only required things
+	// TODO: Main Weapon, Secondary Weapon, Grenade, Buffs
+
 	public SurvivorPlayerInventory( PlayerBase player ) : base( player )
 	{
 	}

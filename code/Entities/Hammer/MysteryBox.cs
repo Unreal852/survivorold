@@ -10,11 +10,14 @@ using Survivor.Utils;
 namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_mystery_box" )]
-[Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
+[Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a mystery box" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/mysterybox3.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class MysteryBox : AnimatedEntity, IUse
 {
+	// TODO: This class has been written just to test things, this should be rewrite
+	// TODO: Use anim tags
+
 	[Property]
 	[Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;
@@ -36,7 +39,7 @@ public partial class MysteryBox : AnimatedEntity, IUse
 	{
 		base.Spawn();
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
-		SetAnimParameter( "closing", true ); 
+		SetAnimParameter( "closing", true );
 	}
 
 	public void Open()

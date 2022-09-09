@@ -14,26 +14,10 @@
   border-radius: 10px;
 }
 
-PlayerNameLabel {
-  position: absolute;
-  left: 50px;
-  top: 40px;
-  font-size: 40px;
-  font-weight: bold;
-  color: white;
-  height: 80px;
-  padding: 0 20px;
-  align-items: center;
-  font-family: Poppins, serif;
-  background-color: rgba(#333, 0.5);
-  backdrop-filter: blur(20px);
-  border-radius: 10px;
-}
-
-RemainingZombiePanel {
+RemainingZombieLabel {
   position: absolute;
   right: 50px;
-  top: 40px;
+  top: 130px;
   font-size: 40px;
   font-weight: bold;
   color: limegreen;
@@ -46,13 +30,12 @@ RemainingZombiePanel {
   border-radius: 10px;
 }
 
-CurrentWaveLabel {
+WaveLabel {
   position: absolute;
-  left: 50px;
-  top: 90px;
+  right: 50px;
+  top: 40px;
   font-size: 40px;
   font-weight: bold;
-  text-decoration: underline;
   color: black;
   height: 80px;
   padding: 0 20px;
@@ -63,39 +46,7 @@ CurrentWaveLabel {
   border-radius: 10px;
 }
 
-CurrentAmmoLabel {
-  position: absolute;
-  right: 50px;
-  bottom: 40px;
-  font-size: 40px;
-  font-weight: bold;
-  color: yellow;
-  height: 80px;
-  padding: 0 20px;
-  align-items: center;
-  font-family: Poppins, serif;
-  background-color: rgba(#333, 0.5);
-  backdrop-filter: blur(20px);
-  border-radius: 10px;
-}
-
-CurrentGrenadeLabel {
-  position: absolute;
-  right: 50px;
-  bottom: 130px;
-  font-size: 40px;
-  font-weight: bold;
-  color: green;
-  height: 80px;
-  padding: 0 20px;
-  align-items: center;
-  font-family: Poppins, serif;
-  background-color: rgba(#333, 0.5);
-  backdrop-filter: blur(20px);
-  border-radius: 10px;
-}
-
-CurrentMoneyLabel {
+MoneyLabel {
   position: absolute;
   left: 50px;
   top: 130px;
@@ -107,23 +58,6 @@ CurrentMoneyLabel {
   align-items: center;
   font-family: Poppins, serif;
   background-color: rgba(#333, 0.5);
-  backdrop-filter: blur(20px);
-  border-radius: 10px;
-}
-
-ScoreboardUI {
-  position: absolute;
-  left: 680px;
-  top: 250px;
-  font-size: 40px;
-  font-weight: bold;
-  color: white;
-  height: 600px;
-  width: 1000px;
-  padding: 0 20px;
-  align-items: center;
-  font-family: Poppins, serif;
-  background-color: rgba(#232323, 1);
   backdrop-filter: blur(20px);
   border-radius: 10px;
 }

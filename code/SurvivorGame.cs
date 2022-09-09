@@ -10,10 +10,11 @@ namespace Survivor;
 [Library( "survivor", Title = "Survivor" )]
 public partial class SurvivorGame : Game
 {
-	public new static SurvivorGame Current => (SurvivorGame)Game.Current;
+	public new static SurvivorGame Current { get; private set; }
 
 	public SurvivorGame()
 	{
+		Current = this;
 		if ( IsServer )
 		{
 			_ = new PlayerHud();

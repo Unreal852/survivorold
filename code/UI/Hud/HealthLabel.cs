@@ -1,12 +1,13 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using Survivor.Players;
 
 namespace Survivor.UI.Hud;
 
 public class HealthLabel : Panel
 {
-	private Label _label;
+	private readonly Label _label;
 
 	public HealthLabel()
 	{
@@ -15,9 +16,8 @@ public class HealthLabel : Panel
 
 	public override void Tick()
 	{
-		var player = Local.Pawn;
-		if ( player == null ) return;
-
-		_label.Text = "♥ " + $"{player.Health.CeilToInt()}"; 
+		if ( Local.Pawn is not SurvivorPlayer player )
+			return;
+		_label.Text = $"♥ {player.Health.CeilToInt()}";
 	}
 }

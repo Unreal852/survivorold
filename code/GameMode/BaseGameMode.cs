@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.Internal;
+using Survivor.Entities;
 using Survivor.GameMode;
 using Survivor.Players;
 using Survivor.Players.Controllers;
@@ -12,6 +13,7 @@ public abstract partial class BaseGameMode : Entity
 {
 	public          int        MinimumPlayers   { get; set; } = 1;
 	[Net] public    int        EnemiesRemaining { get; set; } = 0;
+	[Net] public    int        CurrentWave      { get; set; } = 0;
 	[Net] public    Difficulty Difficulty       { get; set; } = Difficulty.Normal;
 	public abstract string     GameModeName     { get; }
 

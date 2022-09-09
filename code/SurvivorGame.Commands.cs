@@ -44,6 +44,7 @@ public partial class SurvivorGame
 	{
 		foreach ( BaseNpc npc in All.OfType<BaseNpc>().ToArray() )
 			npc.Delete();
+		GAME_MODE.EnemiesRemaining = 0;
 	}
 
 	[ServerCommand( "setnpctpos" )]

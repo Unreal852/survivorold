@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Sandbox;
 using Survivor.Navigation;
@@ -7,18 +8,13 @@ using Survivor.Utils;
 
 namespace Survivor.Entities.Zombies;
 
+// TODO: Whole movement system isn't that performant at all
+
 public partial class BaseZombie : BaseNpc
 {
-	private static readonly           List<BaseZombie> Zombies                  = new(200);
-	private static readonly           int              ZombiesPathUpdateBatches = 20;
-	private static readonly           int              ZombiesPathUpdateFrames  = 30;
-	private static                    int              ZombiesUpdateIndex       = 0;
-	private static                    int              CurrentFrame             = 0;
-	[ConVar.Replicated] public static bool             nav_drawpath  { get; set; } = false;
-	public virtual                    int              CollisionSize => 60;
-	public virtual                    int              NodeSize      => 50;
-	private                           Vector3          _inputVelocity;
-	private                           Vector3          _lookDirection;
+	[ConVar.Replicated] public static bool    nav_drawpath { get; set; } = false;
+	private                           Vector3 _inputVelocity;
+	private                           Vector3 _lookDirection;
 
 	public BaseZombie()
 	{
@@ -47,8 +43,6 @@ public partial class BaseZombie : BaseNpc
 		AttackRange = InchesUtils.FromMeters( 1 );
 
 		FindTarget();
-
-		Zombies.Add( this );
 	}
 
 	private void FindTarget()
@@ -70,7 +64,6 @@ public partial class BaseZombie : BaseNpc
 	public override void OnKilled()
 	{
 		base.OnKilled();
-		Zombies.Remove( this );
 		if ( IsServer && LastAttacker is SurvivorPlayer player )
 		{
 			SurvivorGame.Current.GameMode.EnemiesRemaining--;
@@ -79,18 +72,13 @@ public partial class BaseZombie : BaseNpc
 		}
 	}
 
-	public virtual void OnPathUpdate()
-	{
-		NavSteer?.Tick( Position );
-	}
-
 	public override void OnServerUpdate()
 	{
 		_inputVelocity = 0;
 
 		if ( NavSteer != null )
 		{
-			//NavSteer.Tick( Position );
+			NavSteer.Tick( Position );
 
 			if ( !NavSteer.Output.Finished )
 			{
@@ -107,7 +95,7 @@ public partial class BaseZombie : BaseNpc
 		var walkVelocity = Velocity.WithZ( 0 );
 		if ( walkVelocity.Length > 0.5f )
 		{
-			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 100, true );
+			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 100 );
 			var targetRotation = Rotation.LookAt( walkVelocity.Normal, Vector3.Up );
 			Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
 		}
@@ -119,7 +107,6 @@ public partial class BaseZombie : BaseNpc
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( _inputVelocity );
 
-		// Should be done differently
 		var entities = FindInSphere( Position, 20.0f ).ToArray();
 		DoorEntity door = entities.OfType<DoorEntity>().FirstOrDefault();
 		door?.Open( this );
@@ -172,26 +159,5 @@ public partial class BaseZombie : BaseNpc
 
 		Position = move.Position;
 		Velocity = move.Velocity;
-	}
-
-	[Event.Tick.Server]
-	public static void OnTick()
-	{
-		if ( Zombies.Count == 0 )
-			return;
-		var startIndex = ZombiesUpdateIndex >= Zombies.Count ? 0 : ZombiesUpdateIndex;
-		var endIndex = startIndex + ZombiesPathUpdateBatches;
-		if ( endIndex > Zombies.Count )
-			endIndex = Zombies.Count;
-		for ( int i = startIndex; i < endIndex; i++ )
-		{
-			var zombie = Zombies[i];
-			if ( !zombie.IsValid )
-				continue;
-			Zombies[i].OnPathUpdate();
-		}
-
-		ZombiesUpdateIndex = endIndex;
-		CurrentFrame = 0;
 	}
 }

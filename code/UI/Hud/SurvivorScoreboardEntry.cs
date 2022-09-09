@@ -7,11 +7,11 @@ namespace Survivor.UI.Hud;
 
 public partial class SurvivorScoreboardEntry : Panel
 {
-	private Label _playerName;
-	private Label _kills;
-	private Label _deaths;
-	private Label _money;
-	private Label _ping;
+	private readonly Label _playerName;
+	private readonly Label _kills;
+	private readonly Label _deaths;
+	private readonly Label _money;
+	private readonly Label _ping;
 
 	public SurvivorScoreboardEntry()
 	{
@@ -24,8 +24,8 @@ public partial class SurvivorScoreboardEntry : Panel
 		_ping = Add.Label( "", "ping" );
 	}
 
-	public Client        Client          { get; set; }
-	public RealTimeSince TimeSinceUpdate { get; set; } = 0;
+	public  Client        Client          { get; set; }
+	private RealTimeSince TimeSinceUpdate { get; set; } = 0;
 
 	public override void Tick()
 	{

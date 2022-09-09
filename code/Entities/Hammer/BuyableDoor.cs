@@ -10,9 +10,12 @@ namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_buyable_door" )]
 [Title( "Buyable door" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
-[HammerEntity, Solid, PhysicsTypeOverrideMesh]
+[HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.animated_model )]
+[RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class BuyableDoor : ModelEntity, IUse
 {
+	// TODO: Door open direction
+	
 	private bool      _bought = false;
 	private TimeSince _timeSinceBought;
 
@@ -92,8 +95,7 @@ public partial class BuyableDoor : ModelEntity, IUse
 	{
 		if ( IsValid && _bought )
 		{
-			// TODO: This
-			Position += Vector3.Down * 10;
+			Position += Vector3.Down * 500 * Time.Delta;
 			if ( _timeSinceBought >= 3 )
 			{
 				Delete();
