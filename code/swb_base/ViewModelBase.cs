@@ -68,10 +68,10 @@ namespace SWB_Base
 			// Smoothly transition the vectors with the target values
 			finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.Delta );
 			finalVectorRot = finalVectorRot.LerpTo( targetVectorRot, animSpeed * RealTime.Delta );
-			// if ( weapon.Primary.Ammo > 0 && weapon.TimeSincePrimaryAttack < 0.05 ) // TODO: This is temporary
-			// {
-			// 	finalVectorRot += Vector3.Random.WithX( -1 ) * weapon.Primary.Recoil;
-			// }
+			if ( weapon.Primary.Ammo > 0 && weapon.TimeSincePrimaryAttack < 0.05 ) // TODO: This is temporary
+			{
+				finalVectorRot += Vector3.Random.WithX( -0.1f ) * weapon.Primary.Recoil;
+			}
 
 			finalPlayerFOV = finalPlayerFOV.LerpTo( targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
 			finalWeaponFOV = finalPlayerFOV.LerpTo( targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
