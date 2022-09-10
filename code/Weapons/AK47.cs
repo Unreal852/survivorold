@@ -46,38 +46,6 @@ public class AK47 : WeaponBase
 
 		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 6.184f, 0f, 8.476f ) };
 		ZoomAnimData = new AngPos { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( -14.635f, -5f, 7.812f ) };
-
-		AttachmentCategories = new List<AttachmentCategory>()
-		{
-				new()
-				{
-						Name = AttachmentCategoryName.Muzzle,
-						BoneOrAttachment = "muzzle",
-						Attachments = new List<AttachmentBase>()
-						{
-								new M1911Silencer
-								{
-										MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
-										ShootSound = "sounds/weapons/colt_m1911/colt_m1911_shot_01.sound",
-										ViewParentBone = "root",
-										ViewTransform
-												= new Transform
-												{
-														Position = new Vector3( 17.204f, 0.86f, 3.871f ),
-														Rotation = Rotation.From( new Angles( 0f, 0f, 0f ) ),
-														Scale = 5f
-												},
-										WorldParentBone = "root",
-										WorldTransform = new Transform
-										{
-												Position = new Vector3( 17.204f, 0.86f, 3.871f ),
-												Rotation = Rotation.From( new Angles( 0f, 0f, 0f ) ),
-												Scale = 5f
-										},
-								}
-						}
-				},
-		};
 	}
 
 	protected override void ShootEffects( string muzzleFlashParticle, string bulletEjectParticle, string shootAnim )
