@@ -1338,7 +1338,6 @@
 					m_vDomainMaxs = [ 0.0, 0.0 ]
 				}
 			}
-			m_bDisableOperator = true
 		},
 		{
 			_class = "C_OP_RenderRopes"

@@ -14,10 +14,8 @@ namespace Survivor.Entities.Hammer;
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class BuyableDoor : ModelEntity, IUse
 {
-	// TODO: Door open direction
-
 	private bool      _bought = false;
-	private TimeSince _timeSinceBought;
+	private TimeSince _timeSinceBought = new TimeSince();
 
 	[Property]
 	[Category( "Door" ), Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
@@ -88,11 +86,11 @@ public partial class BuyableDoor : ModelEntity, IUse
 				player.Money -= Cost;
 				if ( Owner is Room room )
 					room.IsBought = true;
+				if ( OpenDirection == Vector3.Zero )
+					Delete();
 				_bought = true;
 				_timeSinceBought = 0;
 				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}$" );
-				if ( OpenDirection == Vector3.Zero )
-					Delete();
 				return true;
 			}
 		}

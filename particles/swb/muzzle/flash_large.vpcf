@@ -1507,7 +1507,7 @@
 				}
 			}
 			m_bFogParticles = true
-			m_hTexture = resource:"particles/swb/muzzle/flash.vtex"
+			m_hTexture = resource:"materials/effects/muzzleflash_blue.vtex"
 			m_bCannotBeRefracted = false
 			m_bGammaCorrectVertexColors = false
 			m_flRadiusScale = 
