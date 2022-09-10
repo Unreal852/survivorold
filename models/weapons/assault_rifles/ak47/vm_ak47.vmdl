@@ -37,7 +37,7 @@
 						[
 							{
 								from = "ak47.vmat"
-								to = "materials/ak47.vmat"
+								to = "materials/weapons/ak47.vmat"
 							},
 							{
 								from = "citizen_skin.vmat"
@@ -226,7 +226,7 @@
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = "survivor/animgraphs/vm_ak47.vanmgrph"
+		anim_graph_name = "anims/vm_ak47.vanmgrph"
 		base_model_name = ""
 	}
 }

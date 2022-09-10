@@ -654,7 +654,7 @@
 							},
 						]
 						use_global_default = false
-						global_default_material = ""
+						global_default_material = "materials/ground/coast_sand_rocks.vmat"
 					},
 				]
 			},

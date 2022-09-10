@@ -8,12 +8,12 @@ Layer0
 	F_AMBIENT_OCCLUSION_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "materials/textures/plastic/plastic_0020_ao.tga"
+	TextureAmbientOcclusion "textures/plastic/plastic_0020_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "0.000"
 	g_vColorTint "[0.113725 0.113725 0.113725 1.000000]"
-	TextureColor "materials/textures/plastic/plastic_0020_color.tga"
+	TextureColor "textures/plastic/plastic_0020_color.tga"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -29,10 +29,10 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "materials/textures/plastic/plastic_0020_normal_direct.tga"
+	TextureNormal "textures/plastic/plastic_0020_normal_opengl.tga"
 
 	//---- Roughness ----
-	TextureRoughness "materials/textures/plastic/plastic_0020_roughness.tga"
+	TextureRoughness "textures/plastic/plastic_0020_roughness.tga"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"

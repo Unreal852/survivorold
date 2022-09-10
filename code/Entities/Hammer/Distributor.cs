@@ -7,13 +7,13 @@ namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_distributor" )]
 [Title( "Distributor" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a distributor" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/distributeur.vmdl", Archetypes = ModelArchetype.animated_model )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/distributeur.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class Distributor : AnimatedEntity, IUse
 {
 	// TODO: This class has been written just to test things, this should be rewrite
 	// TODO: Use anim tags
-	
+
 	[Property]
 	[Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;
@@ -24,7 +24,6 @@ public partial class Distributor : AnimatedEntity, IUse
 
 	[Net] public bool        IsOpened                       { get; set; } = false;
 	private      float       FramesBetweenModelColorChanges { get; set; } = 10;
-	private      float       CurrentFrame                   { get; set; } = 0;
 	private      float       StayOpenedDuration             { get; set; } = 5;
 	private      float       DelayBetweenUses               { get; set; } = 3;
 	private      TimeSince   TimeSinceOpened                { get; set; } = 0;
@@ -46,7 +45,7 @@ public partial class Distributor : AnimatedEntity, IUse
 		SetAnimParameter( "opening", IsOpened );
 		var att = GetAttachment( "distri_spawn" );
 		if ( att.HasValue )
-			Prop = new ModelEntity( "models/bottle.vmdl" ) { Position = att.Value.Position };
+			Prop = new ModelEntity( "models/objects/bottle.vmdl" ) { Position = att.Value.Position, Scale = 0.4f };
 		TimeSinceOpened = 0;
 	}
 
@@ -56,8 +55,6 @@ public partial class Distributor : AnimatedEntity, IUse
 			return;
 		IsOpened = false;
 		SetAnimParameter( "closing", true );
-		Prop?.Delete();
-		Prop = null;
 		TimeSinceClosed = 0;
 	}
 
@@ -75,9 +72,15 @@ public partial class Distributor : AnimatedEntity, IUse
 	[Event.Tick.Server]
 	public void OnTick()
 	{
-		if ( !IsOpened || TimeSinceOpened <= 1 || ++CurrentFrame < FramesBetweenModelColorChanges )
+		if ( !IsOpened && Prop != null && TimeSinceClosed >= 2 )
+		{
+			Prop.Delete();
+			Prop = null;
 			return;
-		CurrentFrame = 0;
+		}
+
+		if ( !IsOpened || TimeSinceOpened <= 1 )
+			return;
 		Close();
 	}
 }

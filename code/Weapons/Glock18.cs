@@ -29,7 +29,7 @@ public class Glock18 : WeaponBase
 				ClipSize = 17,
 				BulletSize = 3f,
 				BulletType = new TraceBullet(),
-				Damage = 15f,
+				Damage = 10f,
 				Force = 3f,
 				Spread = 0.08f,
 				Recoil = 0.35f,

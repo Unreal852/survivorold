@@ -11,7 +11,7 @@ namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_mystery_box" )]
 [Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a mystery box" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/mysterybox3.vmdl", Archetypes = ModelArchetype.animated_model )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/mystery_box.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class MysteryBox : AnimatedEntity, IUse
 {

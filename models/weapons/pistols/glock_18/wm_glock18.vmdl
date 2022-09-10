@@ -46,7 +46,7 @@
 							},
 							{
 								from = "material.003.vmat"
-								to = "materials/metal/metal_01.vmat"
+								to = "materials/plastic/plasic_01.vmat"
 							},
 							{
 								from = "material.004.vmat"
@@ -58,7 +58,7 @@
 							},
 							{
 								from = "material.006.vmat"
-								to = "materials/plastic/plasic_01.vmat"
+								to = "materials/metal/metal_01.vmat"
 							},
 							{
 								from = "material.007.vmat"

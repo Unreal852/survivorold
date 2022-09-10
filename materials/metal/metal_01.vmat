@@ -9,12 +9,12 @@ Layer0
 	F_METALNESS_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "materials/textures/metal/metal_0058_ao.tga"
+	TextureAmbientOcclusion "textures/metal/metal_0058_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "0.275"
 	g_vColorTint "[1.000000 1.000000 1.000000 1.000000]"
-	TextureColor "materials/textures/metal/metal_0058_color.tga"
+	TextureColor "textures/metal/metal_0058_color.tga"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -27,13 +27,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	TextureMetalness "materials/textures/metal/metal_0058_metallic.tga"
+	TextureMetalness "textures/metal/metal_0058_metallic.tga"
 
 	//---- Normal ----
-	TextureNormal "materials/textures/metal/metal_0058_normal_direct.tga"
+	TextureNormal "textures/metal/metal_0058_normal_opengl.tga"
 
 	//---- Roughness ----
-	TextureRoughness "materials/textures/metal/metal_0058_roughness.tga"
+	TextureRoughness "textures/metal/metal_0058_roughness.tga"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"

@@ -78,7 +78,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "LOD3"
-						filename = "blender/FBX/wm_ak47.fbx"
+						filename = "blender/fbx/wm_ak47.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, -180.0, 0.0 ]
 						import_scale = 1.0
@@ -132,7 +132,7 @@
 						[
 							{
 								from = "ak47.vmat"
-								to = "materials/ak47.vmat"
+								to = "materials/weapons/ak47.vmat"
 							},
 						]
 						use_global_default = false
