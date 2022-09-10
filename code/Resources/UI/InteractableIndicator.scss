@@ -1,0 +1,18 @@
+﻿InteractableIndicator
+{
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: lighten;
+  z-index: 50;
+
+  .title
+  {
+    font-family: Roboto, serif;
+    font-size: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #33a909;
+    mix-blend-mode: lighten;
+    text-shadow: 0 0 2px #000000;
+  }
+}

@@ -88,6 +88,7 @@ public partial class SurvivorPlayer : PlayerBase
 			return;
 
 		TickPlayerUse();
+		TickPlayerUseClient();
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
