@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Sandbox;
 using Survivor.Extensions;
 
@@ -26,13 +27,23 @@ public class NavPath
 			var fromFixed = NavMesh.GetClosestPoint( from );
 			var toFixed = NavMesh.GetClosestPoint( to );
 
-			Points.Clear();
-			NavMesh.GetClosestPoint( from );
+			if ( fromFixed == null || toFixed == null )
+				return;
 
-			if ( fromFixed.HasValue && toFixed.HasValue )
-			{
-				NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
-			}
+			Points.Clear();
+
+			var path = NavMesh.PathBuilder( fromFixed.Value )
+			                  .WithStepHeight( 30 ) // Same step as in the zombie class
+			                  .WithMaxDropDistance( 10000 )
+			                  .WithDropDistanceCostScale( 0.5f )
+			                  .WithMaxDetourDistance( 100 )
+			                  .WithPartialPaths()
+			                  .WithMaxClimbDistance( 200 ).Build( toFixed.Value );
+			// NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
+
+			foreach ( var pathSegment in path.Segments )
+				Points.Add( pathSegment.Position );
+
 			//Points.Add( NavMesh.GetClosestPoint( to ) );
 		}
 

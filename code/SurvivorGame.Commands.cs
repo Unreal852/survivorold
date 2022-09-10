@@ -65,7 +65,7 @@ public partial class SurvivorGame
 		                 .Run();
 		var zombies = All.OfType<BaseZombie>();
 		foreach ( BaseZombie zombie in zombies )
-			zombie.NavSteer.TargetPosition = trace.EndPosition;
+			zombie.SetTarget( trace.EndPosition, true );
 	}
 
 	[ServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]
