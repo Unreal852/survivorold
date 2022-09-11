@@ -140,7 +140,7 @@ public partial class SurvivorPlayer : PlayerBase
 	{
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
-		PlaySound( "sounds/player_hit_01.sound" );
+		PlaySound( "sounds/player/player_hit_01.sound" );
 	}
 
 	public override void OnKilled()
