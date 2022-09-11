@@ -5,43 +5,46 @@ using Sandbox;
 using Survivor.Navigation;
 using Survivor.Players;
 using Survivor.Utils;
+using Survivor.Weapons;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Survivor.Entities.Zombies;
 
 // TODO: Whole movement system isn't that performant at all
 
-public partial class BaseZombie : BaseNpc
+public abstract partial class BaseZombie : BaseNpc
 {
 	[ConVar.Replicated] public static bool      nav_drawpath { get; set; } = false;
-	private readonly                  NavSteer  _navSteer = new();
-	private readonly                  BBox      _bBox     = BBox.FromHeightAndRadius( 64, 4 );
-	private                           Vector3   _inputVelocity;
-	private                           Vector3   _lookDirection;
-	private                           TimeSince _timeSinceLastAttack;
+	protected readonly                NavSteer  NavSteer = new();
+	protected readonly                BBox      BBox     = BBox.FromHeightAndRadius( 64, 4 );
+	protected                         Vector3   InputVelocity;
+	protected                         Vector3   LookDirection;
+	protected                         TimeSince SinceLastAttack;
+	protected                         TimeSince SinceLastMoan;
 
 	public BaseZombie()
 	{
 		// Ignored
 	}
 
-	public float MoveSpeed     { get; set; }
-	public float AttackSpeed   { get; set; } = 1f;
-	public float AttackDamages { get; set; } = 5;
-	public float AttackRange   { get; set; }
+	public float  MoveSpeed     { get; set; } = 1f;
+	public float  AttackSpeed   { get; set; } = 1f;
+	public float  AttackDamages { get; set; } = 1f;
+	public float  AttackRange   { get; set; } = 1f;
+	public Entity Target        => NavSteer.TargetEntity;
 
-	private void Prepare()
+	protected virtual void Prepare()
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
-		EyePosition = Position + Vector3.Up * 64;
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
+		EyePosition = Position + Vector3.Up * 64;
 		EnableHitboxes = true;
 		UsePhysicsCollision = true;
-
-		Tags.Add( "zombie" );
 		RenderColor = Color.Green;
 		Health = 100;
-		MoveSpeed = InchesUtils.FromMeters( 7 );
-		AttackRange = InchesUtils.FromMeters( 1 );
+
+		Tags.Add( "zombie" );
 
 		FindTarget();
 	}
@@ -53,21 +56,23 @@ public partial class BaseZombie : BaseNpc
 		var clients = Client.All;
 		Client client = clients[Rand.Int( 0, clients.Count - 1 )];
 		if ( client.Pawn is SurvivorPlayer player )
-			_navSteer.TargetEntity = player;
+			NavSteer.TargetEntity = player;
 	}
 
 	public void SetTarget( Entity entity )
 	{
+		Host.AssertServer();
 		if ( entity is not { IsValid: true } )
 			return;
-		_navSteer.TargetEntity = entity;
+		NavSteer.TargetEntity = entity;
 	}
 
 	public void SetTarget( Vector3 position, bool force = false )
 	{
-		_navSteer.TargetPosition = position;
+		Host.AssertServer();
+		NavSteer.TargetPosition = position;
 		if ( force )
-			_navSteer.TargetEntity = null;
+			NavSteer.TargetEntity = null;
 	}
 
 	public override void Spawn()
@@ -87,22 +92,27 @@ public partial class BaseZombie : BaseNpc
 		}
 	}
 
+	public override void TakeDamage( DamageInfo info )
+	{
+		base.TakeDamage( info );
+		// TODO: Target change
+	}
+
 	public override void OnServerUpdate()
 	{
-		_inputVelocity = 0;
-
-		if ( _navSteer != null )
+		InputVelocity = 0;
+		if ( NavSteer != null )
 		{
-			_navSteer.Tick( Position );
+			NavSteer.Tick( Position );
 
-			if ( !_navSteer.Output.Finished )
+			if ( !NavSteer.Output.Finished )
 			{
-				_inputVelocity = _navSteer.Output.Direction.Normal;
-				Velocity = Velocity.AddClamped( _inputVelocity * Time.Delta * 500, MoveSpeed );
+				InputVelocity = NavSteer.Output.Direction.Normal;
+				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, MoveSpeed );
 			}
 
 			if ( nav_drawpath )
-				_navSteer.DebugDrawPath();
+				NavSteer.DebugDrawPath();
 		}
 
 		Move( Time.Delta );
@@ -117,30 +127,46 @@ public partial class BaseZombie : BaseNpc
 
 		var animHelper = new CitizenAnimationHelper( this );
 
-		_lookDirection = Vector3.Lerp( _lookDirection, _inputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
-		animHelper.WithLookAt( EyePosition + _lookDirection );
+		LookDirection = Vector3.Lerp( LookDirection, InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
+		animHelper.WithLookAt( EyePosition + LookDirection );
 		animHelper.WithVelocity( Velocity );
-		animHelper.WithWishVelocity( _inputVelocity );
+		animHelper.WithWishVelocity( InputVelocity );
 
-		var entities = FindInSphere( Position, 20.0f ).ToArray();
-		DoorEntity door = entities.OfType<DoorEntity>().FirstOrDefault();
-		door?.Open( this );
-		if ( _navSteer?.TargetEntity != null && _navSteer.TargetEntity.IsValid
-		                                     && _navSteer.TargetEntity.Health                        > 0.0f
-		                                     && _navSteer.TargetEntity.Position.Distance( Position ) < AttackRange
-		                                     && _timeSinceLastAttack                                 > AttackSpeed )
+		CheckSurroundings();
+
+		if ( CanAttack() )
 		{
-			animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
-			SetAnimParameter( "b_attack", true );
-			_navSteer.TargetEntity.TakeDamage( DamageInfo.Generic( AttackDamages ) );
-			_timeSinceLastAttack = 0;
+			Attack( ref animHelper );
+		}
+	}
+
+	protected virtual bool CanAttack()
+	{
+		return NavSteer?.TargetEntity != null
+		    && NavSteer.TargetEntity.IsValid
+		    && NavSteer.TargetEntity.Health                        > 0.0f
+		    && NavSteer.TargetEntity.Position.Distance( Position ) < AttackRange
+		    && SinceLastAttack                                     > AttackSpeed;
+	}
+
+	protected virtual void Attack( ref CitizenAnimationHelper animHelper )
+	{
+		SinceLastAttack = 0;
+	}
+
+	protected virtual void CheckSurroundings()
+	{
+		foreach ( var entity in FindInSphere( Position, 20.0f ) )
+		{
+			if ( entity is DoorEntity doorEntity )
+				doorEntity.Open( this );
 		}
 	}
 
 	protected virtual void Move( float timeDelta )
 	{
 		MoveHelper move = new(Position, Velocity) { MaxStandableAngle = 50 };
-		move.Trace = move.Trace.Ignore( this ).Size( _bBox );
+		move.Trace = move.Trace.Ignore( this ).Size( BBox );
 
 		if ( !Velocity.IsNearlyZero( 0.001f ) )
 		{
@@ -159,12 +185,12 @@ public partial class BaseZombie : BaseNpc
 			if ( !tr.StartedSolid )
 				move.Position = tr.EndPosition;
 
-			if ( _inputVelocity.Length > 0 )
+			if ( InputVelocity.Length > 0 )
 			{
-				var movement = move.Velocity.Dot( _inputVelocity.Normal );
-				move.Velocity -= movement * _inputVelocity.Normal;
+				var movement = move.Velocity.Dot( InputVelocity.Normal );
+				move.Velocity -= movement * InputVelocity.Normal;
 				move.ApplyFriction( tr.Surface.Friction * 10.0f, timeDelta );
-				move.Velocity += movement * _inputVelocity.Normal;
+				move.Velocity += movement * InputVelocity.Normal;
 			}
 			else
 				move.ApplyFriction( tr.Surface.Friction * 10.0f, timeDelta );

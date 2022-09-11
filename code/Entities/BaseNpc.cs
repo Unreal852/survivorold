@@ -5,6 +5,7 @@ namespace Survivor.Entities;
 
 public partial class BaseNpc : AnimatedEntity
 {
+	
 	public DamageInfo LastDamage { get; private set; }
 
 	public override void TakeDamage( DamageInfo info )

@@ -12,7 +12,7 @@ public class NavPath
 
 	public bool IsEmpty => Points.Count <= 1;
 
-	public void Update( Vector3 from, Vector3 to )
+	public void Update(ref Vector3 from, Vector3 to )
 	{
 		bool needsBuild = false;
 

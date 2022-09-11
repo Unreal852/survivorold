@@ -4,7 +4,7 @@ namespace Survivor.Entities;
 
 public partial class BaseNpc
 {
-	[SkipHotload] private static readonly EntityLimit Limit = new() { MaxTotal = 20 };
+	private static readonly EntityLimit Limit = new() { MaxTotal = 20 };
 
 	[ClientRpc]
 	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force, int bone )

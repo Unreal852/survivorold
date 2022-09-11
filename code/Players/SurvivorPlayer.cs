@@ -21,8 +21,10 @@ public partial class SurvivorPlayer : PlayerBase
 		_clothing.LoadFromClient( client );
 	}
 
-	public       bool SuppressPickupNotices { get; set; } = true;
-	[Net] public int  Money                 { get; set; }
+	public       bool      SuppressPickupNotices { get; set; } = true;
+	public       bool      GodMode               { get; set; } = false;
+	public       TimeSince SinceRespawn          { get; set; } = 0;
+	[Net] public int       Money                 { get; set; }
 
 	private void Prepare()
 	{
@@ -39,7 +41,6 @@ public partial class SurvivorPlayer : PlayerBase
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
-
 		Health = 100;
 
 		ClearAmmo();
@@ -52,6 +53,8 @@ public partial class SurvivorPlayer : PlayerBase
 		GiveAmmo( AmmoType.Pistol, 1000 );
 
 		SuppressPickupNotices = false;
+
+		SinceRespawn = 0;
 	}
 
 	public void SwitchToBestWeapon()
@@ -138,6 +141,8 @@ public partial class SurvivorPlayer : PlayerBase
 
 	public override void TakeDamage( DamageInfo info )
 	{
+		if ( GodMode || SinceRespawn < 1.5 )
+			return;
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
 		PlaySound( "sounds/player/player_hit_01.sound" );

@@ -5,6 +5,7 @@ using Survivor.Entities;
 using Survivor.Entities.Zombies;
 using Survivor.Players;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
+using AdminServerCommand = Sandbox.ConCmd.AdminAttribute;
 
 namespace Survivor;
 
@@ -18,13 +19,21 @@ public partial class SurvivorGame
 		Log.Info( $"\tDifficulty: {Current.GameMode.Difficulty}" );
 	}
 
-	[ServerCommand( "mapreset" )]
+	[AdminServerCommand( "imgod" )]
+	public static void GodModeCommand()
+	{
+		var caller = ConsoleSystem.Caller?.Pawn;
+		if ( caller is SurvivorPlayer player )
+			player.GodMode = !player.GodMode;
+	}
+
+	[AdminServerCommand( "mapreset" )]
 	public static void CleanUpCommand()
 	{
 		Map.Reset( DefaultCleanupFilter );
 	}
 
-	[ServerCommand( "givemoney" )]
+	[AdminServerCommand( "givemoney" )]
 	public static void GiveMoney( int amount = 100 )
 	{
 		var caller = ConsoleSystem.Caller?.Pawn;
@@ -32,14 +41,14 @@ public partial class SurvivorGame
 			player.Money += amount;
 	}
 
-	[ServerCommand( "spawnz" )]
+	[AdminServerCommand( "spawnz" )]
 	public static void SpawnZombiesCommand( int amount = 1 )
 	{
 		if ( Current is { } game && game.SpawnZombies( amount ) )
 			Log.Info( "Zombies Spawned !" );
 	}
 
-	[ServerCommand( "killnpc" )]
+	[AdminServerCommand( "killnpc" )]
 	public static void ClearZombiesCommand()
 	{
 		foreach ( BaseNpc npc in All.OfType<BaseNpc>().ToArray() )
@@ -47,7 +56,7 @@ public partial class SurvivorGame
 		GAME_MODE.EnemiesRemaining = 0;
 	}
 
-	[ServerCommand( "setnpctpos" )]
+	[AdminServerCommand( "setnpctpos" )]
 	public static void SetZombiesTargetPosition()
 	{
 		long callerId = ConsoleSystem.Caller.Id;
@@ -68,7 +77,7 @@ public partial class SurvivorGame
 			zombie.SetTarget( trace.EndPosition, true );
 	}
 
-	[ServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]
+	[AdminServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]
 	public static void TeleportPlayerToCurrentCameraPosition( string playerName = null )
 	{
 		var devCamera = ConsoleSystem.Caller.Components.Get<DevCamera>();

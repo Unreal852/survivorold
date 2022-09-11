@@ -19,9 +19,8 @@ public class NavSteer
 
 	public virtual void Tick( Vector3 currentPosition )
 	{
-		Path.Update( currentPosition, Target );
+		Path.Update( ref currentPosition, Target );
 		Output.Finished = Path.IsEmpty;
-
 		if ( Output.Finished )
 		{
 			Output.Direction = Vector3.Zero;
@@ -45,7 +44,7 @@ public class NavSteer
 		foreach ( var ent in Entity.FindInSphere( center, radius ) )
 		{
 			// TODO
-			if ( ent.IsWorld || ent is not BaseNpc)
+			if ( ent.IsWorld || ent is not BaseNpc )
 				continue;
 
 			var delta = (position - ent.Position).WithZ( 0 );
