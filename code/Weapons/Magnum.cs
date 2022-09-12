@@ -28,7 +28,7 @@ public class Magnum : WeaponBase
 				ClipSize = 6,
 				BulletSize = 3f,
 				BulletType = new TraceBullet(),
-				Damage = 20f,
+				Damage = 30f,
 				Force = 8f,
 				Spread = 0.01f,
 				Recoil = 2f,
