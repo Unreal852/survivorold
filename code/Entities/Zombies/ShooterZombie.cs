@@ -6,7 +6,7 @@ namespace Survivor.Entities.Zombies;
 
 // TODO: Whole movement system isn't that performant at all
 
-public partial class ShooterZombie : BaseZombie
+public sealed partial class ShooterZombie : BaseZombie
 {
 	private ModelEntity _weaponEntity;
 

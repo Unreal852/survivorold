@@ -6,7 +6,7 @@ using SWB_Base;
 namespace Survivor.Weapons;
 
 [Library( "survivor_magnum", Title = "Magnum" )]
-public class Magnum : WeaponBase
+public sealed class Magnum : WeaponBase
 {
 	public override HoldType HoldType        => HoldType.Pistol;
 	public override string   ViewModelPath   => "models/weapons/pistols/magnum/vm_magnum.vmdl";

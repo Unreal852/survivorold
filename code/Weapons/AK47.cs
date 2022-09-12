@@ -6,7 +6,7 @@ using SWB_Base;
 namespace Survivor.Weapons;
 
 [Library( "survivor_ak47", Title = "AK47" )]
-public class AK47 : WeaponBase
+public sealed class AK47 : WeaponBase
 {
 	public override HoldType HoldType        => HoldType.Rifle;
 	public override string   ViewModelPath   => "models/weapons/assault_rifles/ak47/vm_ak47.vmdl";

@@ -7,7 +7,7 @@ namespace Survivor.Entities.Zombies;
 
 // TODO: Whole movement system isn't that performant at all
 
-public partial class TinyPuncherZombie : PuncherZombie
+public sealed partial class TinyPuncherZombie : PuncherZombie
 {
 	public TinyPuncherZombie()
 	{
