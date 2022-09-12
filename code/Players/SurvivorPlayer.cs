@@ -47,7 +47,7 @@ public partial class SurvivorPlayer : PlayerBase
 
 		SuppressPickupNotices = true;
 
-		Inventory.Add( new Glock18(), true );
+		Inventory.Add( new Magnum(), true );
 		Inventory.Add( new AK47() );
 
 		GiveAmmo( AmmoType.Pistol, 1000 );
