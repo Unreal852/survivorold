@@ -14,7 +14,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	private readonly ClothingContainer _clothing   = new();
 	private readonly WorldInput        _worldInput = new();
 	private          TimeSince         _sinceDropped;
-	private          TimeSince         _sinceLastUse;
 
 	public SurvivorPlayer()
 	{
@@ -29,6 +28,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	public       bool      SuppressPickupNotices { get; set; } = true;
 	public       bool      GodMode               { get; set; } = false;
 	public       TimeSince SinceRespawn          { get; set; } = 0;
+	public       TimeSince SinceLastUse          { get; set; }
 	[Net] public int       Money                 { get; set; }
 
 	private void Prepare()
@@ -43,7 +43,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Controller = new PlayerWalkController();
 		Animator = new PlayerBaseAnimator();
 		CameraMode = new FirstPersonCamera();
-
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -115,13 +114,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( LifeState != LifeState.Alive )
 			return;
 
-		if ( _sinceLastUse <= 1 )
-		{
-			TickPlayerUse();
-			_sinceLastUse = 0;
-			Log.Info( "dd" );
-		}
-
+		TickPlayerUse();
 		TickPlayerUseClient();
 		TickPlayerInput();
 
