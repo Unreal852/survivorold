@@ -40,7 +40,6 @@ public sealed class AK47 : WeaponBase
 				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
 				MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
 				BulletTracerParticle = "",
-				InfiniteAmmo = InfiniteAmmoType.reserve
 		};
 
 		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 6.184f, 0f, 8.476f ) };

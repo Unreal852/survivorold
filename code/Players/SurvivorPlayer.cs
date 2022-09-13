@@ -11,9 +11,10 @@ namespace Survivor.Players;
 
 public sealed partial class SurvivorPlayer : PlayerBase
 {
-	private readonly ClothingContainer _clothing = new();
-	private          TimeSince         _timeSinceDropped;
-	private          WorldInput        _worldInput = new();
+	private readonly ClothingContainer _clothing   = new();
+	private readonly WorldInput        _worldInput = new();
+	private          TimeSince         _sinceDropped;
+	private          TimeSince         _sinceLastUse;
 
 	public SurvivorPlayer()
 	{
@@ -55,7 +56,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		SuppressPickupNotices = true;
 
 		Inventory.Add( new Magnum(), true );
-		Inventory.Add( new AK47() );
+		//Inventory.Add( new AK47() );
 
 		GiveAmmo( AmmoType.Pistol, 1000 );
 
@@ -89,14 +90,13 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	public override void BuildInput( InputBuilder input )
 	{
 		_worldInput.Ray = new Ray( EyePosition, EyeRotation.Forward );
-		_worldInput.MouseLeftPressed = input.Down( InputButton.Use);
+		_worldInput.MouseLeftPressed = input.Down( InputButton.Use );
 		if ( _worldInput.MouseLeftPressed )
 		{
-			Log.Info("Pressed");
-			if(_worldInput.Hovered != null)
-				Log.Info($"Hovered: {_worldInput.Hovered}");
-			if(_worldInput.Active != null)
-				Log.Info($"Active: {_worldInput.Active}");	
+			if ( _worldInput.Hovered != null )
+				Log.Info( $"Hovered: {_worldInput.Hovered}" );
+			if ( _worldInput.Active != null )
+				Log.Info( $"Active: {_worldInput.Active}" );
 		}
 
 		base.BuildInput( input );
@@ -115,8 +115,15 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( LifeState != LifeState.Alive )
 			return;
 
-		TickPlayerUse();
+		if ( _sinceLastUse <= 1 )
+		{
+			TickPlayerUse();
+			_sinceLastUse = 0;
+			Log.Info( "dd" );
+		}
+
 		TickPlayerUseClient();
+		TickPlayerInput();
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
@@ -134,15 +141,10 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				if ( dropped.PhysicsGroup != null )
 					dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 300;
 
-				_timeSinceDropped = 0;
+				_sinceDropped = 0;
 				SwitchToBestWeapon();
 			}
 		}
-
-		if ( Input.Pressed( InputButton.Slot1 ) )
-			Inventory.SetActiveSlot( 0, true );
-		else if ( Input.Pressed( InputButton.Slot2 ) )
-			Inventory.SetActiveSlot( 1, true );
 
 		SimulateActiveChild( cl, ActiveChild );
 
@@ -158,7 +160,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	public override void StartTouch( Entity other )
 	{
-		if ( _timeSinceDropped < 1 )
+		if ( _sinceDropped < 1 )
 			return;
 
 		base.StartTouch( other );
@@ -187,5 +189,30 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
+	}
+
+	private void TickPlayerInput()
+	{
+		// TODO: i should use BuildInput but it wasn't working
+		if ( Input.Pressed( InputButton.Slot1 ) )
+			Inventory.SetActiveSlot( 0, true );
+		else if ( Input.Pressed( InputButton.Slot2 ) )
+			Inventory.SetActiveSlot( 1, true );
+		else if ( Input.Pressed( InputButton.Slot3 ) )
+			Inventory.SetActiveSlot( 2, true );
+		else if ( Input.Pressed( InputButton.Slot4 ) )
+			Inventory.SetActiveSlot( 3, true );
+		else if ( Input.Pressed( InputButton.Slot5 ) )
+			Inventory.SetActiveSlot( 4, true );
+		else if ( Input.Pressed( InputButton.Slot6 ) )
+			Inventory.SetActiveSlot( 5, true );
+		else if ( Input.Pressed( InputButton.Slot7 ) )
+			Inventory.SetActiveSlot( 6, true );
+		else if ( Input.Pressed( InputButton.Slot8 ) )
+			Inventory.SetActiveSlot( 7, true );
+		else if ( Input.Pressed( InputButton.Slot9 ) )
+			Inventory.SetActiveSlot( 8, true );
+		else if ( Input.Pressed( InputButton.Slot0 ) )
+			Inventory.SetActiveSlot( 9, true );
 	}
 }
