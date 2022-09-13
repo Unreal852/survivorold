@@ -14,6 +14,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	private readonly ClothingContainer _clothing   = new();
 	private readonly WorldInput        _worldInput = new();
 	private          TimeSince         _sinceDropped;
+	private          TimeSince         _sinceUseInteraction;
 
 	public SurvivorPlayer()
 	{
@@ -28,7 +29,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	public       bool      SuppressPickupNotices { get; set; } = true;
 	public       bool      GodMode               { get; set; } = false;
 	public       TimeSince SinceRespawn          { get; set; } = 0;
-	public       TimeSince SinceLastUse          { get; set; }
 	[Net] public int       Money                 { get; set; }
 
 	private void Prepare()
@@ -64,6 +64,15 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		SinceRespawn = 0;
 
 		base.Respawn();
+	}
+
+	public bool TryUse()
+	{
+		if ( !(_sinceUseInteraction > 0.5) )
+			return false;
+
+		_sinceUseInteraction = 0;
+		return true;
 	}
 
 	public void SwitchToBestWeapon()

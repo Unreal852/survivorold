@@ -41,11 +41,10 @@ public partial class WeaponStand : ModelEntity, IUse
 	{
 		if ( !IsEnabled )
 			return false;
-		if ( user is SurvivorPlayer player && player.SinceLastUse > 1 )
+		if ( user is SurvivorPlayer player && player.TryUse() )
 		{
 			if ( player.Money >= Cost )
 			{
-				player.SinceLastUse = 0;
 				player.Money -= Cost;
 				player.Inventory.Add( new AK47(), true );
 				Log.Info( player.Inventory );
