@@ -1,0 +1,20 @@
+﻿WorldInteractablePanel {
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: lighten;
+  opacity: 1;
+  pointer-events: auto;
+
+  .title {
+    font-family: Roboto, serif;
+    font-size: 60px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #ffffff;
+    mix-blend-mode: lighten;
+    opacity: 1;
+    text-shadow: 0 0 2px #FFFF00;
+    pointer-events: all;
+  }
+}

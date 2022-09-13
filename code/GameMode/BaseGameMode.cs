@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using Sandbox.Internal;
-using Survivor.Entities;
 using Survivor.GameMode;
 using Survivor.Players;
 using Survivor.Players.Controllers;

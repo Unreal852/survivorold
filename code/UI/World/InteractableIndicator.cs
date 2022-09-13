@@ -13,9 +13,10 @@ public class InteractableIndicator : WorldPanel
 
 	public InteractableIndicator( SurvivorPlayer player )
 	{
-		StyleSheet.Load( "Resources/UI/InteractableIndicator.scss" );
+		StyleSheet.Load( "UI/World/InteractableIndicator.scss" );
 		_label = Add.Label( "Press E to interact", "title" );
 		_player = player;
+		SceneObject.Flags.ViewModelLayer = true;
 	}
 
 	public override void Tick()
@@ -23,7 +24,7 @@ public class InteractableIndicator : WorldPanel
 		if ( _player.Using == null )
 			return;
 		var pos = _player.EyePosition + CurrentView.Rotation.Forward * InchesUtils.FromMeters( 1f );
-		Position = pos.WithZ( pos.z      - 3.5f );
+		Position = pos.WithZ( pos.z - 3.5f );
 		Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
 	}
 }

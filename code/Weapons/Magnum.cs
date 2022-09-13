@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Sandbox;
+﻿using Sandbox;
 using Survivor.Weapons.Bullets;
 using SWB_Base;
 
@@ -30,7 +29,7 @@ public sealed class Magnum : WeaponBase
 				BulletType = new TraceBullet(),
 				Damage = 30f,
 				Force = 8f,
-				Spread = 0.01f,
+				Spread = 0.1f,
 				Recoil = 2f,
 				RPM = 80,
 				FiringType = FiringType.semi,
@@ -44,7 +43,9 @@ public sealed class Magnum : WeaponBase
 				InfiniteAmmo = InfiniteAmmoType.reserve
 		};
 
+		
 		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 6.955f, -28.402f, 2.965f ) };
+		DuckAnimData = new AngPos { Angle = new Angles(5.08f, -2.89f, -25.082f), Pos = new Vector3(-49.547f, 0f, 2.885f) };
 		ZoomAnimData = new AngPos { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( -32.063f, -11f, 8.161f ) };
 	}
 

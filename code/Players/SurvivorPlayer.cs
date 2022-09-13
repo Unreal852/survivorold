@@ -1,15 +1,19 @@
 ﻿using System.Linq;
 using Sandbox;
+using Sandbox.UI;
+using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
+using Survivor.UI.World;
 using Survivor.Weapons;
 using SWB_Base;
 
 namespace Survivor.Players;
 
-public partial class SurvivorPlayer : PlayerBase
+public sealed partial class SurvivorPlayer : PlayerBase
 {
 	private readonly ClothingContainer _clothing = new();
 	private          TimeSince         _timeSinceDropped;
+	private          WorldInput        _worldInput = new();
 
 	public SurvivorPlayer()
 	{
@@ -31,6 +35,9 @@ public partial class SurvivorPlayer : PlayerBase
 		SetModel( "models/citizen/citizen.vmdl" );
 
 		_clothing.DressEntity( this );
+
+		if ( DevController is PlayerNoclipController )
+			DevController = null;
 
 		Controller = new PlayerWalkController();
 		Animator = new PlayerBaseAnimator();
@@ -55,6 +62,8 @@ public partial class SurvivorPlayer : PlayerBase
 		SuppressPickupNotices = false;
 
 		SinceRespawn = 0;
+
+		base.Respawn();
 	}
 
 	public void SwitchToBestWeapon()
@@ -75,6 +84,22 @@ public partial class SurvivorPlayer : PlayerBase
 	{
 		base.Respawn();
 		Prepare();
+	}
+
+	public override void BuildInput( InputBuilder input )
+	{
+		_worldInput.Ray = new Ray( EyePosition, EyeRotation.Forward );
+		_worldInput.MouseLeftPressed = input.Down( InputButton.Use);
+		if ( _worldInput.MouseLeftPressed )
+		{
+			Log.Info("Pressed");
+			if(_worldInput.Hovered != null)
+				Log.Info($"Hovered: {_worldInput.Hovered}");
+			if(_worldInput.Active != null)
+				Log.Info($"Active: {_worldInput.Active}");	
+		}
+
+		base.BuildInput( input );
 	}
 
 	public override void Simulate( Client cl )

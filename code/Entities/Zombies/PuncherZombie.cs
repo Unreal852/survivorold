@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Sandbox;
-using Survivor.Navigation;
-using Survivor.Players;
+﻿using Sandbox;
 using Survivor.Utils;
-using Survivor.Weapons;
+
+// ReSharper disable PartialTypeWithSinglePart
 
 namespace Survivor.Entities.Zombies;
-
-// TODO: Whole movement system isn't that performant at all
 
 public partial class PuncherZombie : BaseZombie
 {

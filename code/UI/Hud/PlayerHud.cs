@@ -9,7 +9,7 @@ public class PlayerHud : HudEntity<RootPanel>
 	{
 		if ( !IsClient )
 			return;
-		RootPanel.StyleSheet.Load( "Resources/UI/MainPlayerHud.scss" );
+		RootPanel.StyleSheet.Load( "UI/Hud/PlayerHud.scss" );
 		RootPanel.AddChild<HealthLabel>();
 		RootPanel.AddChild<RemainingZombieLabel>();
 		RootPanel.AddChild<MoneyLabel>();

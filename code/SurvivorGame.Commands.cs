@@ -4,13 +4,21 @@ using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Zombies;
 using Survivor.Players;
+using Survivor.UI.World;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
+using ClientCommand = Sandbox.ConCmd.ClientAttribute;
 using AdminServerCommand = Sandbox.ConCmd.AdminAttribute;
 
 namespace Survivor;
 
 public partial class SurvivorGame
 {
+	[ClientCommand( "test" )]
+	public static void SpawnWorldInteractablePanel()
+	{
+		_ = new WorldInteractablePanel() { Position = Local.Pawn.EyePosition };
+	}
+
 	[ServerCommand( "sessioninfos" )]
 	public static void SessionInfosCommand()
 	{

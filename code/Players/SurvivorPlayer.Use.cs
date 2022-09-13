@@ -3,7 +3,7 @@ using Survivor.UI.World;
 
 namespace Survivor.Players;
 
-public partial class SurvivorPlayer
+public sealed partial class SurvivorPlayer
 {
 	// TODO: This is badly written, its only here for testing
 

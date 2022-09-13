@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Sandbox;
+﻿using Sandbox;
 using Survivor.Navigation;
 using Survivor.Players;
-using Survivor.Utils;
-using Survivor.Weapons;
 
+// ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace Survivor.Entities.Zombies;
@@ -28,11 +24,21 @@ public abstract partial class BaseZombie : BaseNpc
 		// Ignored
 	}
 
-	public float  MoveSpeed     { get; set; } = 1f;
-	public float  AttackSpeed   { get; set; } = 1f;
-	public float  AttackDamages { get; set; } = 1f;
-	public float  AttackRange   { get; set; } = 1f;
-	public Entity Target        => NavSteer.TargetEntity;
+	public float MoveSpeed     { get; set; } = 1f;
+	public float AttackSpeed   { get; set; } = 1f;
+	public float AttackDamages { get; set; } = 1f;
+	public float AttackRange   { get; set; } = 1f;
+
+	public Entity Target
+	{
+		get => NavSteer.TargetEntity;
+		set
+		{
+			if ( value is not { IsValid: true } )
+				return;
+			NavSteer.TargetEntity = value;
+		}
+	}
 
 	protected virtual void Prepare()
 	{
@@ -57,14 +63,6 @@ public abstract partial class BaseZombie : BaseNpc
 		Client client = clients[Rand.Int( 0, clients.Count - 1 )];
 		if ( client.Pawn is SurvivorPlayer player )
 			NavSteer.TargetEntity = player;
-	}
-
-	public void SetTarget( Entity entity )
-	{
-		Host.AssertServer();
-		if ( entity is not { IsValid: true } )
-			return;
-		NavSteer.TargetEntity = entity;
 	}
 
 	public void SetTarget( Vector3 position, bool force = false )

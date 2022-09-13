@@ -2,9 +2,9 @@
 using Survivor.Players;
 using Survivor.Utils;
 
-namespace Survivor.Entities.Zombies;
+// ReSharper disable PartialTypeWithSinglePart
 
-// TODO: Whole movement system isn't that performant at all
+namespace Survivor.Entities.Zombies;
 
 public sealed partial class ShooterZombie : BaseZombie
 {
@@ -55,12 +55,11 @@ public sealed partial class ShooterZombie : BaseZombie
 		              .Size( 3 )
 		              .Run();
 		DebugOverlay.Line( EyePosition, tr.HitPosition, 10f );
-		if ( !tr.Hit )
+		if ( !tr.Hit || tr.Entity is not SurvivorPlayer player )
 			return;
-		if ( tr.Entity is SurvivorPlayer player )
-			player.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
-			                             .UsingTraceResult( tr )
-			                             .WithAttacker( this, _weaponEntity )
-			                             .WithHitBody( tr.Body ) );
+		player.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
+		                             .UsingTraceResult( tr )
+		                             .WithAttacker( this, _weaponEntity )
+		                             .WithHitBody( tr.Body ) );
 	}
 }

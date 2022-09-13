@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Sandbox;
+﻿using Sandbox;
 using Survivor.Weapons.Bullets;
 using SWB_Base;
 
@@ -31,7 +30,7 @@ public sealed class AK47 : WeaponBase
 				Damage = 10f,
 				Force = 5f,
 				Spread = 0.08f,
-				Recoil = 0.35f,
+				Recoil = 0.40f,
 				RPM = 900,
 				FiringType = FiringType.auto,
 				ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1.2f, Rotation = 0.1f },

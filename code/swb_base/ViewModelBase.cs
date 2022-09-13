@@ -126,6 +126,16 @@ namespace SWB_Base
 			HandleSprintAnimation( ref camSetup );
 			HandleCustomizeAnimation( ref camSetup );
 			HandleJumpAnimation( ref camSetup );
+			HandleDuckAnimation( ref camSetup );
+		}
+
+		private void HandleDuckAnimation( ref CameraSetup camSetup )
+		{
+			if ( !weapon.IsZooming && weapon.DuckAnimData != AngPos.Zero && Input.Down(InputButton.Duck) )
+			{
+				targetVectorPos += weapon.DuckAnimData.Pos;
+				targetVectorRot += MathUtil.ToVector3( weapon.DuckAnimData.Angle );
+			}
 		}
 
 		private void HandleIdleAnimation( ref CameraSetup camSetup )

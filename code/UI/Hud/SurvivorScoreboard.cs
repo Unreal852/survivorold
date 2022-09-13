@@ -15,14 +15,14 @@ public partial class SurvivorScoreboard<T> : Panel where T : SurvivorScoreboardE
 
 	public SurvivorScoreboard()
 	{
-		StyleSheet.Load( "Resources/UI/Scoreboard/Scoreboard.scss" );
-		
+		StyleSheet.Load( "UI/Hud/SurvivorScoreboard.scss" );
+
 		AddClass( "scoreboard" );
 		AddHeader();
 		_canvas = Add.Panel( "canvas" );
 	}
-	
-	public bool  IsOpen => Input.Down( InputButton.Score );
+
+	public bool IsOpen => Input.Down( InputButton.Score );
 
 	public override void Tick()
 	{

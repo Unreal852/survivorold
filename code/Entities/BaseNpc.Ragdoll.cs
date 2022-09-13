@@ -34,7 +34,7 @@ public partial class BaseNpc
 		{
 			if ( child is not ModelEntity modelEntity )
 				continue;
-			// TODO: Use Tags : Need to add tags to clothes when spawning them on zombies
+			// TODO: Use Tags : Need to add tags to clothes when spawning them on zombies (see SurvivorPlayer.Ragdoll)
 			var model = modelEntity.GetModelName();
 			if ( !model.Contains( "clothes" ) )
 				continue;

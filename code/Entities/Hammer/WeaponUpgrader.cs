@@ -1,9 +1,5 @@
 ﻿using Sandbox;
-using Sandbox.Component;
-using Sandbox.UI;
 using SandboxEditor;
-using Survivor.Players;
-using Survivor.Utils;
 
 // resharper disable all
 
