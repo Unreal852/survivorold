@@ -9,12 +9,12 @@ Layer0
 	F_METALNESS_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "textures/mixer/plates/tall_plate/tall_plate_ao.png"
+	TextureAmbientOcclusion "textures/mixer/plates/plate/plate_ao.png"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
-	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "textures/mixer/plates/tall_plate/tall_plate_albedo.png"
+	g_vColorTint "[0.345098 0.392157 0.447059 1.000000]"
+	TextureColor "textures/mixer/plates/plate/plate_albedo.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -27,13 +27,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	TextureMetalness "textures/mixer/plates/tall_plate/tall_plate_metalness.png"
+	TextureMetalness "textures/mixer/plates/plate/plate_metalness.png"
 
 	//---- Normal ----
-	TextureNormal "textures/mixer/plates/tall_plate/tall_plate_normal.png"
+	TextureNormal "textures/mixer/plates/plate/plate_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "textures/mixer/plates/tall_plate/tall_plate_roughness.png"
+	TextureRoughness "textures/mixer/plates/plate/plate_roughness.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
