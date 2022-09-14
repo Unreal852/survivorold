@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Survivor.HitBox;
 using Survivor.Navigation;
 using Survivor.Players;
 
@@ -18,6 +19,7 @@ public abstract partial class BaseZombie : BaseNpc
 	protected                         Vector3   LookDirection;
 	protected                         TimeSince SinceLastAttack;
 	protected                         TimeSince SinceLastMoan;
+	protected                         float     NextMoanIn;
 
 	public BaseZombie()
 	{
@@ -49,8 +51,11 @@ public abstract partial class BaseZombie : BaseNpc
 		UsePhysicsCollision = true;
 		RenderColor = Color.Green;
 		Health = 100;
+		NextMoanIn = Rand.Float( 1.5f, 10f );
+
 
 		Tags.Add( "zombie" );
+
 
 		FindTarget();
 	}
@@ -93,6 +98,7 @@ public abstract partial class BaseZombie : BaseNpc
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
+		Log.Info( (HitboxGroup)GetHitboxGroup( info.HitboxIndex ) );
 		// TODO: Target change
 	}
 
@@ -135,6 +141,13 @@ public abstract partial class BaseZombie : BaseNpc
 		if ( CanAttack() )
 		{
 			Attack( ref animHelper );
+		}
+
+		if ( SinceLastMoan >= NextMoanIn )
+		{
+			Sound.FromEntity( "zombie_moan", this );
+			SinceLastMoan = 0;
+			NextMoanIn = Rand.Float( 1.5f, 10f );
 		}
 	}
 

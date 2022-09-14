@@ -36,7 +36,7 @@ public class NavPath
 			                  .WithMaxDropDistance( 10000 )
 			                  .WithDropDistanceCostScale( 0.5f )
 			                  .WithMaxDetourDistance( 100 )
-			                  .WithPartialPaths()
+			                  .WithPartialPaths().WithDuckHeight( 12 )
 			                  .WithMaxClimbDistance( 200 ).Build( toFixed.Value );
 			// NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
 

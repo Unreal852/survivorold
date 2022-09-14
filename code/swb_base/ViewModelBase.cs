@@ -1,5 +1,6 @@
 ﻿using System;
 using Sandbox;
+using Survivor.Players;
 
 namespace SWB_Base
 {
@@ -131,7 +132,7 @@ namespace SWB_Base
 
 		private void HandleDuckAnimation( ref CameraSetup camSetup )
 		{
-			if ( !weapon.IsZooming && weapon.DuckAnimData != AngPos.Zero && Input.Down(InputButton.Duck) )
+			if ( !weapon.IsZooming && weapon.DuckAnimData != AngPos.Zero && Owner.GroundEntity != null && Input.Down(InputButton.Duck) )
 			{
 				targetVectorPos += weapon.DuckAnimData.Pos;
 				targetVectorRot += MathUtil.ToVector3( weapon.DuckAnimData.Angle );
