@@ -2,15 +2,15 @@
 {
 	data = 
 	{
-		Id = 1
-		FriendlyName = "Puncher"
+		Id = 2
+		FriendlyName = "Baby Zombie"
 		Model = resource:"models/citizen/citizen.vmdl"
 		RenderColor = "0,0.50196,0,1"
-		Scale = 1
-		Health = 100
-		MoveSpeed = 5
+		Scale = 0.5
+		Health = 20
+		MoveSpeed = 9
 		AttackRange = 1.5
-		AttackDamages = 10
+		AttackDamages = 5
 		AttackSpeed = 1
 		Tags = 
 		[

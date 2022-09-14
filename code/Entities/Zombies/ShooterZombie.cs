@@ -15,16 +15,12 @@ public sealed partial class ShooterZombie : BaseZombie
 		// Ignored
 	}
 
+	public override int DataId => 3;
+
 	protected override void Prepare()
 	{
 		base.Prepare();
-		MoveSpeed = InchesUtils.FromMeters( 4 );
-		AttackRange = InchesUtils.FromMeters( 25 );
-		AttackSpeed = 3;
-		AttackDamages = 15f;
-		Health = 50;
-
-		_weaponEntity = new ModelEntity( "models/weapons/pistols/glock_18/wm_glock18.vmdl" );
+		_weaponEntity = new ModelEntity( "models/weapons/pistols/magnum/wm_magnum.vmdl" );
 		_weaponEntity.SetParent( this, true );
 	}
 

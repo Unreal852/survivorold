@@ -1,7 +1,9 @@
 ﻿using Sandbox;
+using Survivor.GameResources;
 using Survivor.HitBox;
 using Survivor.Navigation;
 using Survivor.Players;
+using Survivor.Utils;
 
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable MemberCanBePrivate.Global
@@ -26,10 +28,12 @@ public abstract partial class BaseZombie : BaseNpc
 		// Ignored
 	}
 
-	public float MoveSpeed     { get; set; } = 1f;
-	public float AttackSpeed   { get; set; } = 1f;
-	public float AttackDamages { get; set; } = 1f;
-	public float AttackRange   { get; set; } = 1f;
+	public          string FriendlyName  { get; set; } = "Zombie";
+	public          float  MoveSpeed     { get; set; } = 1f;
+	public          float  AttackSpeed   { get; set; } = 1f;
+	public          float  AttackDamages { get; set; } = 1f;
+	public          float  AttackRange   { get; set; } = 1f;
+	public abstract int    DataId        { get; }
 
 	public Entity Target
 	{
@@ -44,18 +48,23 @@ public abstract partial class BaseZombie : BaseNpc
 
 	protected virtual void Prepare()
 	{
-		SetModel( "models/citizen/citizen.vmdl" );
+		var data = ZombieData.GetResource( DataId );
+		if ( data == null )
+		{
+			Log.Error( $"Missing data for {GetType().Name}" );
+			Delete();
+			return;
+		}
+
+		data.Apply( this );
+
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
 		EyePosition = Position + Vector3.Up * 64;
 		EnableHitboxes = true;
 		UsePhysicsCollision = true;
-		RenderColor = Color.Green;
-		Health = 100;
+
+
 		NextMoanIn = Rand.Float( 1.5f, 10f );
-
-
-		Tags.Add( "zombie" );
-
 
 		FindTarget();
 	}
@@ -98,7 +107,6 @@ public abstract partial class BaseZombie : BaseNpc
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
-		Log.Info( (HitboxGroup)GetHitboxGroup( info.HitboxIndex ) );
 		// TODO: Target change
 	}
 

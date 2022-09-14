@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Survivor.GameResources;
 using Survivor.Utils;
 
 // ReSharper disable PartialTypeWithSinglePart
@@ -12,12 +13,11 @@ public partial class PuncherZombie : BaseZombie
 		// Ignored
 	}
 
+	public override int DataId => 1;
+
 	protected override void Prepare()
 	{
 		base.Prepare();
-		MoveSpeed = InchesUtils.FromMeters( 5 );
-		AttackRange = InchesUtils.FromMeters( 1.5f );
-		AttackDamages = 10;
 	}
 
 	protected override void Attack( ref CitizenAnimationHelper animHelper )
