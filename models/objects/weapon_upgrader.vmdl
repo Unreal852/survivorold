@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/FBX/pacapunch.fbx"
+						filename = "blender/fbx/pacapunch.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -36,24 +36,8 @@
 						remaps = 
 						[
 							{
-								from = "cube.001.vmat"
-								to = "materials/hotspots/metal_painted_grey_a_hs.vmat"
-							},
-							{
-								from = "cube.002.vmat"
-								to = "materials/hotspots/metal_painted_grey_a_hs.vmat"
-							},
-							{
-								from = "cylinder.vmat"
-								to = "materials/hotspots/metal_painted_red_a_hs.vmat"
-							},
-							{
-								from = "plane.001.vmat"
-								to = "materials/hotspots/metal_painted_black_a_hs.vmat"
-							},
-							{
-								from = "plane.vmat"
-								to = "materials/hotspots/metal_painted_red_a_hs.vmat"
+								from = "material.vmat"
+								to = "materials/pacapunch.vmat"
 							},
 						]
 						use_global_default = false
