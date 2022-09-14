@@ -9,12 +9,12 @@ Layer0
 	F_METALNESS_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "textures/mixer/weaponbox/weaponbox_ao.png"
+	TextureAmbientOcclusion "textures/mixer/plates/weapon_box/weapon_box_ao.png"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "textures/mixer/weaponbox/weaponbox_albedo.png"
+	TextureColor "textures/mixer/plates/weapon_box/weapon_box_albedo.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -27,13 +27,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	TextureMetalness "textures/mixer/weaponbox/weaponbox_metalness.png"
+	TextureMetalness "textures/mixer/plates/weapon_box/weapon_box_metalness.png"
 
 	//---- Normal ----
-	TextureNormal "textures/mixer/weaponbox/weaponbox_normal.png"
+	TextureNormal "textures/mixer/plates/weapon_box/weapon_box_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "textures/mixer/weaponbox/weaponbox_roughness.png"
+	TextureRoughness "textures/mixer/plates/weapon_box/weapon_box_roughness.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
