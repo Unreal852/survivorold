@@ -2,7 +2,7 @@
 {
 	data = 
 	{
-		Id = 2
+		Type = "TinyPuncher"
 		FriendlyName = "Baby Zombie"
 		Model = resource:"models/citizen/citizen.vmdl"
 		RenderColor = "0,0.50196,0,1"

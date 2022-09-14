@@ -28,12 +28,12 @@ public abstract partial class BaseZombie : BaseNpc
 		// Ignored
 	}
 
-	public          string FriendlyName  { get; set; } = "Zombie";
-	public          float  MoveSpeed     { get; set; } = 1f;
-	public          float  AttackSpeed   { get; set; } = 1f;
-	public          float  AttackDamages { get; set; } = 1f;
-	public          float  AttackRange   { get; set; } = 1f;
-	public abstract int    DataId        { get; }
+	public          string     FriendlyName  { get; set; } = "Zombie";
+	public          float      MoveSpeed     { get; set; } = 1f;
+	public          float      AttackSpeed   { get; set; } = 1f;
+	public          float      AttackDamages { get; set; } = 1f;
+	public          float      AttackRange   { get; set; } = 1f;
+	public abstract ZombieType ZombieType    { get; }
 
 	public Entity Target
 	{
@@ -48,7 +48,7 @@ public abstract partial class BaseZombie : BaseNpc
 
 	protected virtual void Prepare()
 	{
-		var data = ZombieData.GetResource( DataId );
+		var data = ZombieData.GetResource( ZombieType );
 		if ( data == null )
 		{
 			Log.Error( $"Missing data for {GetType().Name}" );

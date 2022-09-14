@@ -2,7 +2,7 @@
 {
 	data = 
 	{
-		Id = 3
+		Type = "Shooter"
 		FriendlyName = "Shooter"
 		Model = resource:"models/citizen/citizen.vmdl"
 		RenderColor = "0,0.50196,0,1"

@@ -97,9 +97,18 @@
 					{
 						_class = "Attachment"
 						name = "weapon"
-						parent_bone = "Bone_plaque_spawn"
-						relative_origin = [ 0.0, 0.0, 0.0 ]
-						relative_angles = [ -0.0, 0.0, 0.0 ]
+						parent_bone = "Bone_plaque_rota"
+						relative_origin = [ -4.194559, 18.319536, 100.420067 ]
+						relative_angles = [ 88.942841, -10.061962, -99.827019 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "timer"
+						parent_bone = "Bone_machine"
+						relative_origin = [ 299.644409, 94.854568, 68.000053 ]
+						relative_angles = [ -89.999962, -89.999947, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
 					},

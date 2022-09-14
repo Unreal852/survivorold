@@ -15,7 +15,7 @@ public sealed partial class ShooterZombie : BaseZombie
 		// Ignored
 	}
 
-	public override int DataId => 3;
+	public override ZombieType ZombieType => ZombieType.Shooter;
 
 	protected override void Prepare()
 	{

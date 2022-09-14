@@ -15,7 +15,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -384.0, 0.0 ]
+					m_vecPosition = [ -384.0, 16.0 ]
 					m_nNodeID = 
 					{
 						m_id = 172764478
@@ -59,7 +59,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -384.0, -64.0 ]
+					m_vecPosition = [ -384.0, 112.0 ]
 					m_nNodeID = 
 					{
 						m_id = 694417361
@@ -145,7 +145,7 @@
 							]
 							m_tags = [  ]
 							m_tagBehaviors = [  ]
-							m_name = "any"
+							m_name = "Any"
 							m_inputConnection = 
 							{
 								m_nodeID = 
@@ -186,7 +186,7 @@
 									m_blendDuration = 0.2
 									m_destState = 
 									{
-										m_id = 325210460
+										m_id = 443307123
 									}
 									m_bReset = true
 									m_resetCycleOption = "Beginning"
@@ -200,9 +200,14 @@
 									m_bDisabled = false
 								},
 							]
-							m_tags = [  ]
-							m_tagBehaviors = [  ]
-							m_name = "open"
+							m_tags = 
+							[
+								{
+									m_id = 1048471367
+								},
+							]
+							m_tagBehaviors = [ 0 ]
+							m_name = "Open"
 							m_inputConnection = 
 							{
 								m_nodeID = 
@@ -218,7 +223,7 @@
 							{
 								m_id = 1904038295
 							}
-							m_position = [ -176.0, 48.0 ]
+							m_position = [ -240.0, -48.0 ]
 							m_bIsStartState = false
 							m_bIsEndtState = false
 							m_bIsPassthrough = false
@@ -257,8 +262,13 @@
 									m_bDisabled = false
 								},
 							]
-							m_tags = [  ]
-							m_tagBehaviors = [  ]
+							m_tags = 
+							[
+								{
+									m_id = 1760130579
+								},
+							]
+							m_tagBehaviors = [ 0 ]
 							m_name = "close"
 							m_inputConnection = 
 							{
@@ -275,7 +285,7 @@
 							{
 								m_id = 582120139
 							}
-							m_position = [ 64.0, 48.0 ]
+							m_position = [ -48.0, 80.0 ]
 							m_bIsStartState = false
 							m_bIsEndtState = false
 							m_bIsPassthrough = false
@@ -357,7 +367,7 @@
 							]
 							m_tags = [  ]
 							m_tagBehaviors = [  ]
-							m_name = "idle"
+							m_name = "Idle"
 							m_inputConnection = 
 							{
 								m_nodeID = 
@@ -380,6 +390,75 @@
 							m_bIsRootMotionExclusive = false
 							m_bAlwaysEvaluate = false
 						},
+						{
+							_class = "CAnimState"
+							m_transitions = 
+							[
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CParameterAnimCondition"
+											m_comparisonOp = 0
+											m_paramID = 
+											{
+												m_id = 96149033
+											}
+											m_comparisonValue = 
+											{
+												m_nType = 1
+												m_data = true
+											}
+										},
+									]
+									m_blendDuration = 0.2
+									m_destState = 
+									{
+										m_id = 582120139
+									}
+									m_bReset = true
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.5, 0.0 ]
+										m_vControlPoint2 = [ 0.5, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+								},
+							]
+							m_tags = 
+							[
+								{
+									m_id = 981294089
+								},
+							]
+							m_tagBehaviors = [ 0 ]
+							m_name = "Idle Opened"
+							m_inputConnection = 
+							{
+								m_nodeID = 
+								{
+									m_id = 694417361
+								}
+								m_outputID = 
+								{
+									m_id = 4294967295
+								}
+							}
+							m_stateID = 
+							{
+								m_id = 443307123
+							}
+							m_position = [ -240.0, 80.0 ]
+							m_bIsStartState = false
+							m_bIsEndtState = false
+							m_bIsPassthrough = false
+							m_bIsRootMotionExclusive = false
+							m_bAlwaysEvaluate = false
+						},
 					]
 					m_bBlockWaningTags = false
 					m_bLockStateWhenWaning = false
@@ -394,7 +473,7 @@
 		[
 			{
 				_class = "CBoolAnimParameter"
-				m_name = "opening"
+				m_name = "open"
 				m_id = 
 				{
 					m_id = 782583930
@@ -408,7 +487,7 @@
 			},
 			{
 				_class = "CBoolAnimParameter"
-				m_name = "closing"
+				m_name = "close"
 				m_id = 
 				{
 					m_id = 96149033
@@ -425,7 +504,36 @@
 	m_pTagManager = 
 	{
 		_class = "CAnimTagManager"
-		m_tags = [  ]
+		m_tags = 
+		[
+			{
+				_class = "CTaskStatusAnimTag"
+				m_name = "Opening"
+				m_tagID = 
+				{
+					m_id = 1048471367
+				}
+				m_identifierString = ""
+			},
+			{
+				_class = "CTaskStatusAnimTag"
+				m_name = "Closing"
+				m_tagID = 
+				{
+					m_id = 1760130579
+				}
+				m_identifierString = ""
+			},
+			{
+				_class = "CTaskStatusAnimTag"
+				m_name = "Opened"
+				m_tagID = 
+				{
+					m_id = 981294089
+				}
+				m_identifierString = ""
+			},
+		]
 	}
 	m_pMovementManager = 
 	{

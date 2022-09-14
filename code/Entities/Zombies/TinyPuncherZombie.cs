@@ -12,7 +12,7 @@ public sealed partial class TinyPuncherZombie : PuncherZombie
 		// Ignored
 	}
 
-	public override int DataId => 2;
+	public override ZombieType ZombieType => ZombieType.TinyPuncher;
 
 	protected override void Prepare()
 	{

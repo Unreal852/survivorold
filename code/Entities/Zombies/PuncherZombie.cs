@@ -13,7 +13,7 @@ public partial class PuncherZombie : BaseZombie
 		// Ignored
 	}
 
-	public override int DataId => 1;
+	public override ZombieType ZombieType { get; } = ZombieType.Puncher;
 
 	protected override void Prepare()
 	{

@@ -10,39 +10,39 @@ namespace Survivor.GameResources;
 [GameResource( "Zombie Data", "zombie", "Describes a zombie" )]
 public class ZombieData : GameResource
 {
-	private static Dictionary<int, ZombieData> Resources { get; } = new();
+	private static Dictionary<ZombieType, ZombieData> Resources { get; } = new();
 
-	public static ZombieData GetResource( int id )
+	public static ZombieData GetResource( ZombieType zombieType )
 	{
-		return Resources.ContainsKey( id ) ? Resources[id] : null;
+		return Resources.ContainsKey( zombieType ) ? Resources[zombieType] : null;
 	}
 
 	protected override void PostLoad()
 	{
-		if ( !Resources.ContainsKey( Id ) )
-			Resources.Add( Id, this );
-		Log.Info( $"Loaded {FriendlyName} with ID {Id}" );
+		if ( !Resources.ContainsKey( Type ) )
+			Resources.Add( Type, this );
+		Log.Info( $"Loaded {FriendlyName} with ID {Type}" );
 	}
 
 	protected override void PostReload()
 	{
 		Resources.Clear();
-		if ( Resources.ContainsKey( Id ) )
-			Resources.Remove( Id );
-		Resources.Add( Id, this );
+		if ( Resources.ContainsKey( Type ) )
+			Resources.Remove( Type );
+		Resources.Add( Type, this );
 	}
 
-	[Category( "General" )]                       public int      Id            { get; set; }
-	[Category( "General" )]                       public string   FriendlyName  { get; set; }
-	[Category( "Model" ), ResourceType( "vmdl" )] public string   Model         { get; set; }
-	[Category( "Model" )]                         public Color    RenderColor   { get; set; }
-	[Category( "Model" )]                         public float    Scale         { get; set; } = 1;
-	[Category( "Behaviour" )]                     public float    Health        { get; set; }
-	[Category( "Behaviour" )]                     public float    MoveSpeed     { get; set; }
-	[Category( "Behaviour" )]                     public float    AttackRange   { get; set; }
-	[Category( "Behaviour" )]                     public float    AttackDamages { get; set; }
-	[Category( "Behaviour" )]                     public float    AttackSpeed   { get; set; }
-	[Category( "Misc" )]                          public string[] Tags          { get; set; } = { "zombie" };
+	[Category( "General" )]                       public ZombieType Type          { get; set; }
+	[Category( "General" )]                       public string     FriendlyName  { get; set; }
+	[Category( "Model" ), ResourceType( "vmdl" )] public string     Model         { get; set; } = "models/citizen/citizen.vmdl";
+	[Category( "Model" )]                         public Color      RenderColor   { get; set; } = Color.Green;
+	[Category( "Model" )]                         public float      Scale         { get; set; } = 1f;
+	[Category( "Behaviour" )]                     public float      Health        { get; set; } = 100f;
+	[Category( "Behaviour" )]                     public float      MoveSpeed     { get; set; } = 5f;
+	[Category( "Behaviour" )]                     public float      AttackRange   { get; set; } = 1.5f;
+	[Category( "Behaviour" )]                     public float      AttackDamages { get; set; }
+	[Category( "Behaviour" )]                     public float      AttackSpeed   { get; set; } = 1f;
+	[Category( "Misc" )]                          public string[]   Tags          { get; set; } = { "zombie" };
 
 	public void Apply( BaseZombie zombie )
 	{

@@ -1,0 +1,18 @@
+﻿MysteryBoxTimer {
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: lighten;
+  opacity: 1;
+
+  .value {
+    font-family: Roboto, serif;
+    font-size: 90px;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #ff0000;
+    mix-blend-mode: lighten;
+    opacity: 1;
+    text-shadow: 0 0 2px #000000;
+  }
+}
