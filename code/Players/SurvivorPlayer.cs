@@ -29,6 +29,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	public       bool      SuppressPickupNotices { get; set; } = true;
 	public       bool      GodMode               { get; set; } = false;
 	public       TimeSince SinceRespawn          { get; set; } = 0;
+	[Net] public float     MaxHealth             { get; set; }
+	[Net] public float     MaxStamina            { get; set; }
+	[Net] public float     Stamina               { get; set; }
 	[Net] public int       Money                 { get; set; }
 
 	private void Prepare()
@@ -48,7 +51,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
-		Health = 100;
+
+		MaxHealth = Health = 100;
+		MaxStamina = Stamina = 100;
 
 		ClearAmmo();
 
