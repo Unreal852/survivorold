@@ -45,6 +45,7 @@
         "ConVarName": "sv_gamemode",
         "DisplayName": "Game mode",
         "DefaultValue": "gm_survivor",
+        "Description": "The gamemode that will run for your session. ",
         "Minimum": 1,
         "Maximum": 5
       },
@@ -70,14 +71,16 @@
         ],
         "ConVarName": "sv_difficulty",
         "DisplayName": "Difficulty",
-        "DefaultValue": "gm_difficulty_normal"
+        "DefaultValue": "gm_difficulty_normal",
+        "Description": "The game difficulty affects the way ennemies scale over waves. "
       },
       "sv_friendly_fire": {
         "DisplayType": "Boolean",
         "Choices": [],
         "ConVarName": "sv_friendly_fire",
         "DisplayName": "Friendly Fire",
-        "DefaultValue": "false"
+        "DefaultValue": "false",
+        "Description": "Well, i mean, you know what this is right ?"
       }
     }
   }
