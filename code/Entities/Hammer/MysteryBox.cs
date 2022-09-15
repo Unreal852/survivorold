@@ -1,5 +1,6 @@
 ﻿using System;
 using Sandbox;
+using Sandbox.Component;
 using SandboxEditor;
 using Survivor.Players;
 using Survivor.UI.World;
@@ -64,6 +65,8 @@ public partial class MysteryBox : AnimatedEntity, IUse
 				_weaponEntity = new ModelEntity( "models/weapons/pistols/magnum/wm_magnum.vmdl" ) { Transform = wepSpawn.Value };
 			else
 				_weaponEntity = new ModelEntity( "models/weapons/assault_rifles/ak47/wm_ak47.vmdl" ) { Transform = wepSpawn.Value, };
+			// var mat = Material.Load( "materials/dev/glowproperty.vmat" );
+			// _weaponEntity.SetMaterialOverride( Material.Load( "materials/dev/glowproperty.vmat" ) );
 		}
 		else
 			Log.Warning( "Missing 'weapon' attachement on the mystery box" );

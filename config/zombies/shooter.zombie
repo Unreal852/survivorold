@@ -10,7 +10,7 @@
 		Health = 50
 		MoveSpeed = 4
 		AttackRange = 25
-		AttackDamages = 25
+		AttackDamages = 10
 		AttackSpeed = 1
 		Tags = 
 		[

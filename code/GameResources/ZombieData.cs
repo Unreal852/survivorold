@@ -22,6 +22,9 @@ public class ZombieData : GameResource
 		if ( !Resources.ContainsKey( Type ) )
 			Resources.Add( Type, this );
 		Log.Info( $"Loaded {FriendlyName} with ID {Type}" );
+		if ( Type == ZombieType.Default )
+			Log.Warning(
+					$"The zombie data for '{(string.IsNullOrWhiteSpace( FriendlyName ) ? "NO_NAME" : FriendlyName)}' has the default zombie type. Please consider setting a proper type" );
 	}
 
 	protected override void PostReload()
