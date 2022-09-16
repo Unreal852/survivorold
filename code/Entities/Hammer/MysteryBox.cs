@@ -48,7 +48,6 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 	public override void ClientSpawn()
 	{
 		base.ClientSpawn();
-		// TODO: Box panel caching, Maybe network _isOpened for clients to rely on this to show the timer instead of RPCs
 	}
 
 	private void SpawnRandomWeapon()

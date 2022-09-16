@@ -27,20 +27,19 @@ public class PlayerInteractablePanel : Panel
 			return;
 		if ( !IsVisible )
 			return;
-		if ( player.Using == null )
-		{
-			_useLabel.Text = string.Empty;
-			_glyphImage.Texture = null;
-			_useMessageLabel.Text = string.Empty;
-			return;
-		}
 
-		if ( player.Using is IUsable usable && usable.IsUsable( player ) )
+		switch ( player.Using )
 		{
-			_useLabel.Text = "Use";
-			_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
-			_useMessageLabel.Text = usable.UseMessage;
-			return;
+			case null:
+				_useLabel.Text = string.Empty;
+				_glyphImage.Texture = null;
+				_useMessageLabel.Text = string.Empty;
+				return;
+			case IUsable usable when usable.IsUsable( player ):
+				_useLabel.Text = "Use";
+				_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
+				_useMessageLabel.Text = usable.UseMessage;
+				return;
 		}
 
 		_useLabel.Text = "Use";
