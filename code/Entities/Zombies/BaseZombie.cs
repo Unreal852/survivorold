@@ -163,8 +163,8 @@ public abstract partial class BaseZombie : BaseNpc
 	protected virtual bool CanAttack( Entity entity )
 	{
 		return entity is { IsValid: true, Health: > 0.0f }
-		    && entity.Position.Distance( Position ) <= AttackRange
-		    && SinceLastAttack                      > AttackSpeed;
+		    && entity.Position.DistanceSquared( Position ) <= (AttackRange * AttackRange)
+		    && SinceLastAttack                             > AttackSpeed;
 	}
 
 	protected virtual void Attack( ref CitizenAnimationHelper animHelper, Entity entity )

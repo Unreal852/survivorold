@@ -44,6 +44,8 @@ public sealed partial class ShooterZombie : BaseZombie
 		// forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.08f * 0.25f;
 		// forward = forward.Normal;
 		// var endPos = EyePosition + forward * 999999;
+		if ( Rand.Float() >= 0.3f ) // Fake miss
+			return;
 		var endPos = entity.EyePosition + Vector3.Down * 5;
 		var tr = Trace.Ray( EyePosition, endPos )
 		              .UseHitboxes()
