@@ -92,9 +92,9 @@ public partial class MysteryBox : AnimatedEntity, IUse
 	{
 		if ( !IsEnabled )
 			return false;
-		if ( user is SurvivorPlayer player && player.Money >= Cost && player.TryUse() )
+		if ( user is SurvivorPlayer player && player.TryUse() )
 		{
-			if ( !_isOpened )
+			if ( !_isOpened && player.Money >= Cost )
 			{
 				_lastUser = player;
 				player.Money -= Cost;

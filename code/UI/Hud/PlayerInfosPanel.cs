@@ -8,28 +8,22 @@ namespace Survivor.UI.Hud;
 
 public class PlayerInfosPanel : Panel
 {
-	private const    float MaxBarWidth = 350; // Same as in the .scss
+	private const    float MaxBarWidth = 350; // Same width as in the .scss *-bar classes.
 	private readonly Label _healthBar;
 	private readonly Label _staminaBar;
 	private readonly Label _money;
-	private readonly Label _name;
-	private readonly Panel _avatarPanel;
 
 	public PlayerInfosPanel()
 	{
 		StyleSheet.Load( "UI/Hud/PlayerInfosPanel.scss" );
 
-		_avatarPanel = Add.Panel( "avatar" );
-		_avatarPanel.Style.SetBackgroundImage( $"avatar:{Local.Client.PlayerId}" );
-
-		//_nameLabel = Add.Label( title, "title" );
-
+		Add.Panel( "avatar" ).Style.SetBackgroundImage( $"avatar:{Local.Client.PlayerId}" );
 		_ = Add.Label( "", "health-bar-background" );
 		_ = Add.Label( "", "stamina-bar-background" );
+		_ = Add.Label( Local.DisplayName, "name" );
 		_healthBar = Add.Label( "", "health-bar" );
 		_staminaBar = Add.Label( "", "stamina-bar" );
 		_money = Add.Label( "", "money" );
-		_ = Add.Label( Local.DisplayName, "name" );
 	}
 
 	public override void Tick()

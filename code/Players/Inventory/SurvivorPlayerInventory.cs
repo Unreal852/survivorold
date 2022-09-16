@@ -55,6 +55,11 @@ public class SurvivorPlayerInventory : InventoryBase
 		return base.Add( ent, makeActive );
 	}
 
+	public override bool SetActiveSlot( int i, bool evenIfEmpty = false )
+	{
+		return base.SetActiveSlot( i, evenIfEmpty );
+	}
+
 	public bool IsCarryingType( Type t )
 	{
 		return List.Any( x => x.GetType() == t );

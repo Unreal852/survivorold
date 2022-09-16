@@ -55,15 +55,9 @@ public abstract partial class BaseGameMode : Entity
 		if ( player.Pawn is not SurvivorPlayer pawn )
 			return;
 		if ( pawn.DevController is PlayerNoclipController )
-		{
-			Log.Info( "Noclip Mode Off" );
 			pawn.DevController = null;
-		}
 		else
-		{
-			Log.Info( "Noclip Mode On" );
 			pawn.DevController = new PlayerNoclipController();
-		}
 	}
 
 	[Event.Tick.Server]

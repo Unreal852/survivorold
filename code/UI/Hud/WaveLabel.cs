@@ -12,7 +12,6 @@ public class WaveLabel : Panel
 		_label = Add.Label( "0", "value" );
 	}
 
-	//TODO: Should be the number of the current wave instead of "0"
 	public override void Tick()
 	{
 		_label.Text = $"Wave {SurvivorGame.GAME_MODE?.CurrentWave ?? 0}";
