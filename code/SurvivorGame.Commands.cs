@@ -50,9 +50,19 @@ public partial class SurvivorGame
 	}
 
 	[AdminServerCommand( "spawnz" )]
-	public static void SpawnZombiesCommand( int amount = 1 )
+	public static void SpawnZombiesCommand( int amount = 1, string zombieType = "" )
 	{
-		if ( Current is { } game && game.SpawnZombies( amount ) )
+		if ( Current == null )
+			return;
+		var success = zombieType switch
+		{
+				"tiny"    => Current.SpawnZombies<TinyPuncherZombie>( amount ),
+				"puncher" => Current.SpawnZombies<PuncherZombie>( amount ),
+				"shooter" => Current.SpawnZombies<ShooterZombie>( amount ),
+				_         => Current.SpawnZombies( amount ),
+		};
+
+		if ( success )
 			Log.Info( "Zombies Spawned !" );
 	}
 

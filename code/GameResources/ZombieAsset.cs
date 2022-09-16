@@ -8,34 +8,14 @@ using Survivor.Utils;
 namespace Survivor.GameResources;
 
 [GameResource( "Zombie Data", "zombie", "Describes a zombie" )]
-public class ZombieData : GameResource
+public class ZombieAsset : GameResource
 {
-	private static Dictionary<ZombieType, ZombieData> Resources { get; } = new();
+	private static Dictionary<ZombieType, ZombieAsset> Resources { get; } = new();
 
-	public static ZombieData GetResource( ZombieType zombieType )
+	public static ZombieAsset GetResource( ZombieType zombieType )
 	{
 		return Resources.ContainsKey( zombieType ) ? Resources[zombieType] : null;
 	}
-
-	protected override void PostLoad()
-	{
-		if ( !Resources.ContainsKey( Type ) )
-			Resources.Add( Type, this );
-		Log.Info( $"Loaded {FriendlyName} with ID {Type}" );
-		if ( Type == ZombieType.Default )
-			Log.Warning(
-					$"The zombie data for '{(string.IsNullOrWhiteSpace( FriendlyName ) ? "NO_NAME" : FriendlyName)}' has the default zombie type. Please consider setting a proper type" );
-	}
-
-	protected override void PostReload()
-	{
-		_clothingContainer = null;
-		if ( Resources.ContainsKey( Type ) )
-			Resources.Remove( Type );
-		Resources.Add( Type, this );
-	}
-
-	private ClothingContainer _clothingContainer;
 
 	[Category( "General" )]                             public ZombieType Type          { get; set; }
 	[Category( "General" )]                             public string     FriendlyName  { get; set; }
@@ -48,7 +28,8 @@ public class ZombieData : GameResource
 	[Category( "Behaviour" )]                           public float      AttackDamages { get; set; } = 1f;
 	[Category( "Behaviour" )]                           public float      AttackForce   { get; set; } = 1f;
 	[Category( "Behaviour" )]                           public float      AttackSpeed   { get; set; } = 1f;
-	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Hat           { get; set; }
+	[Category( "Clothes" )]                             public bool       UseClothes    { get; set; } = false;
+	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Head          { get; set; }
 	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Chest         { get; set; }
 	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Legs          { get; set; }
 	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Feet          { get; set; }
@@ -68,22 +49,39 @@ public class ZombieData : GameResource
 		zombie.AttackForce = AttackForce;
 		zombie.AttackSpeed = AttackSpeed;
 
-		if ( _clothingContainer == null )
+
+		if ( UseClothes )
 		{
-			_clothingContainer = new ClothingContainer();
-			if ( !string.IsNullOrWhiteSpace( Hat ) )
-				_clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Hat ) );
+			// TODO: Cache clothes instead of doing ResourceLibrary.Get<Clothing> every times e.g: Only do that on PostLoad / PostReload
+			var clothingContainer = new ClothingContainer();
+			if ( !string.IsNullOrWhiteSpace( Head ) )
+				clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Head ) );
 			if ( !string.IsNullOrWhiteSpace( Chest ) )
-				_clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Chest ) );
+				clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Chest ) );
 			if ( !string.IsNullOrWhiteSpace( Legs ) )
-				_clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Legs ) );
+				clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Legs ) );
 			if ( !string.IsNullOrWhiteSpace( Feet ) )
-				_clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Feet ) );
+				clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Feet ) );
+			clothingContainer.DressEntity( zombie );
 		}
 
-		if ( _clothingContainer.Clothing.Count >= 1 )
-			_clothingContainer.DressEntity( zombie );
-
 		zombie.Tags.Add( Tags );
+	}
+
+	protected override void PostLoad()
+	{
+		if ( !Resources.ContainsKey( Type ) )
+			Resources.Add( Type, this );
+		Log.Info( $"Loaded {FriendlyName} with ID {Type}" );
+		if ( Type == ZombieType.Default )
+			Log.Warning(
+					$"The zombie data for '{(string.IsNullOrWhiteSpace( FriendlyName ) ? "NO_NAME" : FriendlyName)}' has the default zombie type. Please consider setting a proper type" );
+	}
+
+	protected override void PostReload()
+	{
+		if ( Resources.ContainsKey( Type ) )
+			Resources.Remove( Type );
+		Resources.Add( Type, this );
 	}
 }

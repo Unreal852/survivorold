@@ -49,7 +49,7 @@ public abstract partial class BaseZombie : BaseNpc
 
 	protected virtual void Prepare()
 	{
-		var data = ZombieData.GetResource( ZombieType );
+		var data = ZombieAsset.GetResource( ZombieType );
 		if ( data == null )
 		{
 			Log.Error( $"Missing data for {GetType().Name}" );

@@ -43,7 +43,6 @@ public class NavSteer
 
 		foreach ( var ent in Entity.FindInSphere( center, radius ) )
 		{
-			// TODO
 			if ( ent.IsWorld || ent is not BaseNpc )
 				continue;
 

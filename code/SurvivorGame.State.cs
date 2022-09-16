@@ -40,10 +40,34 @@ public partial class SurvivorGame
 		SessionInfosCommand();
 	}
 
-	public bool SpawnZombies( int amount = 1 )
+	public IReadOnlyList<ZombieSpawn> GetAvailableZombiesSpawns()
 	{
 		var spawns = ZombieSpawns ??= All.OfType<ZombieSpawn>().Where( zs => zs.IsEnabled ).ToArray();
-		spawns = spawns.Where( zs => zs.CanSpawn ).ToArray();
+		return spawns.Where( zs => zs.CanSpawn ).ToArray();
+	}
+
+	public bool SpawnZombies<TZombie>( int amount = 1 ) where TZombie : BaseZombie, new()
+	{
+		var spawns = GetAvailableZombiesSpawns();
+		if ( spawns.Count <= 0 )
+		{
+			Log.Warning( "No zombie spawn found." );
+			return false;
+		}
+
+		for ( var i = 0; i < amount; i++ )
+		{
+			var zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
+			_ = new TZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
+		}
+
+		GameMode.EnemiesRemaining += amount;
+		return true;
+	}
+
+	public bool SpawnZombies( int amount = 1 )
+	{
+		var spawns = GetAvailableZombiesSpawns();
 		if ( spawns.Count <= 0 )
 		{
 			Log.Warning( "No zombie spawn found." );
@@ -52,7 +76,7 @@ public partial class SurvivorGame
 
 		for ( int i = 0; i < amount; i++ )
 		{
-			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
+			var zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
 			switch ( Rand.Int( 2 ) )
 			{
 				case 0:

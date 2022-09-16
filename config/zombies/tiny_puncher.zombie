@@ -13,7 +13,7 @@
 		AttackDamages = 5
 		AttackForce = 2
 		AttackSpeed = 1
-		Hat = null
+		Head = null
 		Chest = null
 		Legs = null
 		Feet = null

@@ -20,7 +20,7 @@ public partial class SurvivorGame : Game
 			_ = new PlayerHud();
 			Global.TickRate = 30;
 			
-			Precache.Add( "sounds/zombies/zombie_moan.sound" );
+			// Precache.Add( "sounds/zombies/zombie_moan.sound" );
 		}
 	}
 

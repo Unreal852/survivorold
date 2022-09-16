@@ -19,10 +19,6 @@ public partial class MysteryBoxTimer : WorldPanel
 		_label = Add.Label( deleteAfter.CeilToInt().ToString(), "value" );
 		_deleteAfter = deleteAfter;
 		_sinceSpawned = 0;
-		if ( _instance is { IsValid: true } )
-			_instance.Delete();
-
-		_instance = this;
 	}
 
 	public override void Tick()
@@ -38,7 +34,9 @@ public partial class MysteryBoxTimer : WorldPanel
 	[ClientRpc]
 	public static void SpawnMysteryBoxTimerClient( Vector3 position, Rotation rotation, float deleteAfter )
 	{
-		_ = new MysteryBoxTimer( deleteAfter ) { Position = position, Rotation = rotation };
+		if ( _instance is { IsValid: true } )
+			_instance.Delete();
+		_instance = new MysteryBoxTimer( deleteAfter ) { Position = position, Rotation = rotation };
 	}
 
 	[ClientRpc]
