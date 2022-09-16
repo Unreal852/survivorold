@@ -1,0 +1,33 @@
+﻿GameInfosPanel {
+  position: absolute;
+  background-color: #323232;
+  backdrop-filter: blur(40px);
+  opacity: .5;
+  border-radius: 0 10px 10px 0;
+  left: 10px;
+  top: 5px;
+  width: 450px;
+  height: 100px;
+
+  .wave {
+    position: absolute;
+    opacity: 100;
+    left: 15px;
+    top: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #40a2f1;
+    border-color: black;
+  }
+
+  .enemiesRemaining {
+    position: absolute;
+    opacity: 100;
+    left: 15px;
+    top: 55px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #40a2f1;
+    border-color: black;
+  }
+}

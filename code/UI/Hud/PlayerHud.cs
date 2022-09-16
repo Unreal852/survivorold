@@ -9,10 +9,8 @@ public class PlayerHud : HudEntity<RootPanel>
 	{
 		if ( !IsClient )
 			return;
-		RootPanel.StyleSheet.Load( "UI/Hud/PlayerHud.scss" );
-		RootPanel.AddChild<RemainingZombieLabel>();
+		RootPanel.AddChild<GameInfosPanel>();
 		RootPanel.AddChild<PlayerInteractablePanel>();
-		RootPanel.AddChild<WaveLabel>();
 		RootPanel.AddChild<ChatBox>();
 		RootPanel.AddChild<SurvivorScoreboard<SurvivorScoreboardEntry>>();
 	}

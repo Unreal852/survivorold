@@ -53,7 +53,7 @@ public partial class SurvivorGame
 		for ( int i = 0; i < amount; i++ )
 		{
 			ZombieSpawn zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
-			switch ( Rand.Int( 3 ) )
+			switch ( Rand.Int( 2 ) )
 			{
 				case 0:
 					_ = new TinyPuncherZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };

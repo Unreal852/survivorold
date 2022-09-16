@@ -1,19 +1,24 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using Survivor.Interaction;
 using Survivor.Players;
 
 namespace Survivor.UI.Hud;
 
 public class PlayerInteractablePanel : Panel
 {
-	private readonly Label _label;
+	private readonly Label _useLabel;
+	private readonly Image _glyphImage;
+	private readonly Label _useMessageLabel;
 
 	public PlayerInteractablePanel()
 	{
 		StyleSheet.Load( "UI/Hud/PlayerInteractablePanel.scss" );
 
-		_label = Add.Label( "", "value" );
+		_useLabel = Add.Label( "", "value" );
+		_glyphImage = Add.Image( "", "glyph" );
+		_useMessageLabel = Add.Label( "", "message" );
 	}
 
 	public override void Tick()
@@ -22,6 +27,24 @@ public class PlayerInteractablePanel : Panel
 			return;
 		if ( !IsVisible )
 			return;
-		_label.Text = player.Using == null ? string.Empty : "Press E to interact";
+		if ( player.Using == null )
+		{
+			_useLabel.Text = string.Empty;
+			_glyphImage.Texture = null;
+			_useMessageLabel.Text = string.Empty;
+			return;
+		}
+
+		if ( player.Using is IUsable usable && usable.IsUsable( player ) )
+		{
+			_useLabel.Text = "Use";
+			_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
+			_useMessageLabel.Text = usable.UseMessage;
+			return;
+		}
+
+		_useLabel.Text = "Use";
+		_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
+		_useMessageLabel.Text = string.Empty;
 	}
 }

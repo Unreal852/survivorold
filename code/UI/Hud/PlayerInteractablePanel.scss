@@ -5,12 +5,29 @@
   align-items: center;
   justify-content: center;
 
+  .message {
+    position: absolute;
+    font-size: 42px;
+    font-weight: bold;
+    bottom: 240px;
+    color: #fffcfc;
+    border-color: #ffffff;
+  }
+
   .value {
     font-size: 42px;
     font-weight: bold;
+    margin-right: 10px;
     top: 180px;
     color: #2bd77e;
     border-color: #ffffff;
   }
 
+  .glyph {
+    top: 180px;
+    width: 64px;
+    height: 64px;
+    color: #2bd77e;
+    border-color: #ffffff;
+  }
 }

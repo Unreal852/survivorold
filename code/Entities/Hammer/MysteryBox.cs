@@ -2,6 +2,7 @@
 using Sandbox;
 using Sandbox.Component;
 using SandboxEditor;
+using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.UI.World;
 using Survivor.Utils;
@@ -15,11 +16,8 @@ namespace Survivor.Entities.Hammer;
 [Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a mystery box" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/weapon_box.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class MysteryBox : AnimatedEntity, IUse
+public partial class MysteryBox : AnimatedEntity, IUsable
 {
-	private bool        _isOpening;
-	private bool        _isOpened;
-	private bool        _isClosing;
 	private Entity      _lastUser;
 	private ModelEntity _weaponEntity;
 	private TimeSince   _sinceOpened;
@@ -32,11 +30,14 @@ public partial class MysteryBox : AnimatedEntity, IUse
 	[Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;
 
-	[Property]
+	[Property, Net]
 	[Title( "Cost" ), Description( "The price to use this machine" )]
 	public int Cost { get; set; } = 0;
 
-	public float StayOpenedDuration { get; set; } = 8f;
+	public       float StayOpenedDuration { get; set; } = 8f;
+	[Net] public bool  IsOpened           { get; set; }
+	[Net] public bool  IsOpening          { get; set; }
+	[Net] public bool  IsClosing          { get; set; }
 
 	public override void Spawn()
 	{
@@ -74,7 +75,7 @@ public partial class MysteryBox : AnimatedEntity, IUse
 
 	public void OpenBox()
 	{
-		if ( _isOpening || _isClosing || _isOpened )
+		if ( IsOpening || IsClosing || IsOpened )
 			return;
 		SpawnRandomWeapon();
 		SetAnimParameter( "open", true );
@@ -82,7 +83,7 @@ public partial class MysteryBox : AnimatedEntity, IUse
 
 	public void CloseBox()
 	{
-		if ( _isOpening || _isClosing || !_isOpened )
+		if ( IsOpening || IsClosing || !IsOpened )
 			return;
 		SetAnimParameter( "close", true );
 		_lastUser = null;
@@ -94,7 +95,7 @@ public partial class MysteryBox : AnimatedEntity, IUse
 			return false;
 		if ( user is SurvivorPlayer player && player.TryUse() )
 		{
-			if ( !_isOpened && player.Money >= Cost )
+			if ( !IsOpened && player.Money >= Cost )
 			{
 				_lastUser = player;
 				player.Money -= Cost;
@@ -123,22 +124,24 @@ public partial class MysteryBox : AnimatedEntity, IUse
 
 	public bool IsUsable( Entity user )
 	{
-		return !_isOpening && !_isClosing;
+		return !IsOpening && !IsClosing;
 	}
+
+	public string UseMessage => IsOpened ? "Take Weapon" : $"Random weapon {Cost} $";
 
 	protected override void OnAnimGraphTag( string tag, AnimGraphTagEvent fireMode )
 	{
 		if ( !IsServer )
 			return;
 		if ( tag == "Opening" )
-			_isOpening = fireMode == AnimGraphTagEvent.Start;
+			IsOpening = fireMode == AnimGraphTagEvent.Start;
 		else if ( tag == "Closing" )
-			_isClosing = fireMode == AnimGraphTagEvent.Start;
+			IsClosing = fireMode == AnimGraphTagEvent.Start;
 		else if ( tag == "Opened" )
 		{
 			_sinceOpened = 0;
-			_isOpened = fireMode == AnimGraphTagEvent.Start;
-			if ( _isOpened )
+			IsOpened = fireMode == AnimGraphTagEvent.Start;
+			if ( IsOpened )
 			{
 				var timerSpawn = GetAttachment( "timer" );
 				if ( !timerSpawn.HasValue )
@@ -153,7 +156,7 @@ public partial class MysteryBox : AnimatedEntity, IUse
 	{
 		if ( _weaponEntity != null && _weaponEntity.IsValid ) // TODO: Maybe we can parent it instead of doing this
 			_weaponEntity.Transform = GetAttachment( "weapon" ).Value;
-		if ( _isOpened && _sinceOpened > StayOpenedDuration )
+		if ( IsOpened && _sinceOpened > StayOpenedDuration )
 			CloseBox();
 	}
 }
