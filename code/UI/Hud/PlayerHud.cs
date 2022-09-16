@@ -11,6 +11,7 @@ public class PlayerHud : HudEntity<RootPanel>
 			return;
 		RootPanel.StyleSheet.Load( "UI/Hud/PlayerHud.scss" );
 		RootPanel.AddChild<RemainingZombieLabel>();
+		RootPanel.AddChild<PlayerInteractablePanel>();
 		RootPanel.AddChild<WaveLabel>();
 		RootPanel.AddChild<ChatBox>();
 		RootPanel.AddChild<SurvivorScoreboard<SurvivorScoreboardEntry>>();

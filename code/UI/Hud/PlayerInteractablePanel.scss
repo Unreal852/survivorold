@@ -1,0 +1,16 @@
+﻿PlayerInteractablePanel {
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  .value {
+    font-size: 42px;
+    font-weight: bold;
+    top: 180px;
+    color: #2bd77e;
+    border-color: #ffffff;
+  }
+
+}
