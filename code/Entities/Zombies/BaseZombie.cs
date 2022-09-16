@@ -181,7 +181,7 @@ public abstract partial class BaseZombie : BaseNpc
 				doorEntity.Open( this );
 			if ( entity is Prop prop )
 			{
-				prop.TakeDamage( DamageInfo.Generic(AttackDamages).WithForce(10f) );
+				prop.TakeDamage( DamageInfo.Generic( AttackDamages ).WithForce( 10f ) );
 			}
 		}
 	}
