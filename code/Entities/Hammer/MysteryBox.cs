@@ -153,8 +153,8 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 	[Event.Tick.Server]
 	public void OnTick()
 	{
-		if ( _weaponEntity != null && _weaponEntity.IsValid ) // TODO: Maybe we can parent it instead of doing this
-			_weaponEntity.Transform = GetAttachment( "weapon" ).Value;
+		if ( IsOpening || IsClosing && _weaponEntity != null && _weaponEntity.IsValid )
+			_weaponEntity.Transform = GetAttachment( "weapon" ).Value; // TODO: Maybe we can parent it instead of doing this
 		if ( IsOpened && _sinceOpened > StayOpenedDuration )
 			CloseBox();
 	}

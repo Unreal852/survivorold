@@ -32,6 +32,7 @@ public abstract partial class BaseZombie : BaseNpc
 	public          float      MoveSpeed     { get; set; } = 1f;
 	public          float      AttackSpeed   { get; set; } = 1f;
 	public          float      AttackDamages { get; set; } = 1f;
+	public          float      AttackForce   { get; set; } = 1f;
 	public          float      AttackRange   { get; set; } = 1f;
 	public abstract ZombieType ZombieType    { get; }
 
@@ -144,11 +145,11 @@ public abstract partial class BaseZombie : BaseNpc
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
 
-		CheckSurroundings();
+		CheckSurroundings( ref animHelper );
 
-		if ( CanAttack() )
+		if ( CanAttack( NavSteer?.TargetEntity ) )
 		{
-			Attack( ref animHelper );
+			Attack( ref animHelper, NavSteer!.TargetEntity );
 		}
 
 		if ( SinceLastMoan >= NextMoanIn )
@@ -159,30 +160,26 @@ public abstract partial class BaseZombie : BaseNpc
 		}
 	}
 
-	protected virtual bool CanAttack()
+	protected virtual bool CanAttack( Entity entity )
 	{
-		return NavSteer?.TargetEntity != null
-		    && NavSteer.TargetEntity.IsValid
-		    && NavSteer.TargetEntity.Health                        > 0.0f
-		    && NavSteer.TargetEntity.Position.Distance( Position ) < AttackRange
-		    && SinceLastAttack                                     > AttackSpeed;
+		return entity is { IsValid: true, Health: > 0.0f }
+		    && entity.Position.Distance( Position ) <= AttackRange
+		    && SinceLastAttack                      > AttackSpeed;
 	}
 
-	protected virtual void Attack( ref CitizenAnimationHelper animHelper )
+	protected virtual void Attack( ref CitizenAnimationHelper animHelper, Entity entity )
 	{
 		SinceLastAttack = 0;
 	}
 
-	protected virtual void CheckSurroundings()
+	protected virtual void CheckSurroundings( ref CitizenAnimationHelper animationHelper )
 	{
 		foreach ( var entity in FindInSphere( Position, 20.0f ) )
 		{
 			if ( entity is DoorEntity doorEntity )
 				doorEntity.Open( this );
-			if ( entity is Prop prop )
-			{
-				prop.TakeDamage( DamageInfo.Generic( AttackDamages ).WithForce( 10f ) );
-			}
+			if ( entity is Prop prop && CanAttack( prop ) )
+				Attack( ref animationHelper, prop );
 		}
 	}
 

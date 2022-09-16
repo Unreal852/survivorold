@@ -20,11 +20,11 @@ public partial class PuncherZombie : BaseZombie
 		base.Prepare();
 	}
 
-	protected override void Attack( ref CitizenAnimationHelper animHelper )
+	protected override void Attack( ref CitizenAnimationHelper animHelper, Entity entity )
 	{
 		animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
 		SetAnimParameter( "b_attack", true );
-		NavSteer.TargetEntity.TakeDamage( DamageInfo.Generic( AttackDamages ) );
-		base.Attack( ref animHelper );
+		entity.TakeDamage( DamageInfo.Generic( AttackDamages ).WithAttacker( this ).WithForce( AttackForce ) );
+		base.Attack( ref animHelper, entity );
 	}
 }

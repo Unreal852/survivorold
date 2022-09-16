@@ -11,6 +11,7 @@
 		MoveSpeed = 9
 		AttackRange = 1.5
 		AttackDamages = 5
+		AttackForce = 2
 		AttackSpeed = 1
 		Hat = null
 		Chest = null

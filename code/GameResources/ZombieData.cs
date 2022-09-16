@@ -45,7 +45,8 @@ public class ZombieData : GameResource
 	[Category( "Behaviour" )]                           public float      Health        { get; set; } = 100f;
 	[Category( "Behaviour" )]                           public float      MoveSpeed     { get; set; } = 5f;
 	[Category( "Behaviour" )]                           public float      AttackRange   { get; set; } = 1.5f;
-	[Category( "Behaviour" )]                           public float      AttackDamages { get; set; }
+	[Category( "Behaviour" )]                           public float      AttackDamages { get; set; } = 1f;
+	[Category( "Behaviour" )]                           public float      AttackForce   { get; set; } = 1f;
 	[Category( "Behaviour" )]                           public float      AttackSpeed   { get; set; } = 1f;
 	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Hat           { get; set; }
 	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Chest         { get; set; }
@@ -64,8 +65,9 @@ public class ZombieData : GameResource
 		zombie.MoveSpeed = InchesUtils.FromMeters( MoveSpeed );
 		zombie.AttackRange = InchesUtils.FromMeters( AttackRange );
 		zombie.AttackDamages = AttackDamages;
+		zombie.AttackForce = AttackForce;
 		zombie.AttackSpeed = AttackSpeed;
-		
+
 		if ( _clothingContainer == null )
 		{
 			_clothingContainer = new ClothingContainer();

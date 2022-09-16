@@ -41,8 +41,8 @@ public partial class SurvivorGame
 		Map.Reset( DefaultCleanupFilter );
 	}
 
-	[AdminServerCommand( "givemoney" )]
-	public static void GiveMoney( int amount = 100 )
+	[AdminServerCommand( "imrich" )]
+	public static void GiveMoney( int amount = 1000 )
 	{
 		var caller = ConsoleSystem.Caller?.Pawn;
 		if ( caller is SurvivorPlayer player )

@@ -31,9 +31,11 @@ public sealed partial class ShooterZombie : BaseZombie
 		_weaponEntity = null;
 	}
 
-	protected override void Attack( ref CitizenAnimationHelper animHelper )
+	protected override void Attack( ref CitizenAnimationHelper animHelper, Entity entity )
 	{
-		base.Attack( ref animHelper );
+		if ( entity is Prop )
+			return;
+		base.Attack( ref animHelper, entity );
 		animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
 		SetAnimParameter( "b_attack", true );
 		Sound.FromEntity( "sounds/weapons/ak47/ak_47_shot_01.sound", this );
@@ -42,15 +44,14 @@ public sealed partial class ShooterZombie : BaseZombie
 		// forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.08f * 0.25f;
 		// forward = forward.Normal;
 		// var endPos = EyePosition + forward * 999999;
-		var endPos = NavSteer.TargetEntity.EyePosition +
-		             ((Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f * 0.25f).Normal;
+		var endPos = entity.EyePosition + Vector3.Down * 5;
 		var tr = Trace.Ray( EyePosition, endPos )
 		              .UseHitboxes()
 		              .Ignore( this )
 		              .Ignore( _weaponEntity )
 		              .Size( 3 )
 		              .Run();
-		DebugOverlay.Line( EyePosition, tr.HitPosition, 10f );
+		DebugOverlay.Line( EyePosition, tr.HitPosition, 1f );
 		if ( !tr.Hit || tr.Entity is not SurvivorPlayer player )
 			return;
 		player.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
