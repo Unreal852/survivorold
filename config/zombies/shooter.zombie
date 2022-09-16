@@ -12,6 +12,10 @@
 		AttackRange = 25
 		AttackDamages = 10
 		AttackSpeed = 1
+		Hat = resource:"models/citizen_clothes/hat/tactical_helmet/tactical_helmet_army.clothing"
+		Chest = null
+		Legs = null
+		Feet = null
 		Tags = 
 		[
 			"zombie",

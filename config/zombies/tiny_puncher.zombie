@@ -12,6 +12,10 @@
 		AttackRange = 1.5
 		AttackDamages = 5
 		AttackSpeed = 1
+		Hat = null
+		Chest = null
+		Legs = null
+		Feet = null
 		Tags = 
 		[
 			"zombie",

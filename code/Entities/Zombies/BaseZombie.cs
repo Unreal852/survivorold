@@ -179,6 +179,7 @@ public abstract partial class BaseZombie : BaseNpc
 		{
 			if ( entity is DoorEntity doorEntity )
 				doorEntity.Open( this );
+			Log.Info(entity);
 		}
 	}
 
