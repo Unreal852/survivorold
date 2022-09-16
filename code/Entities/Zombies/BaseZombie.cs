@@ -179,7 +179,10 @@ public abstract partial class BaseZombie : BaseNpc
 		{
 			if ( entity is DoorEntity doorEntity )
 				doorEntity.Open( this );
-			Log.Info( entity.GetType() );
+			if ( entity is Prop prop )
+			{
+				prop.TakeDamage( DamageInfo.Generic(AttackDamages).WithForce(10f) );
+			}
 		}
 	}
 
