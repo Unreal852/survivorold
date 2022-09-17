@@ -2,6 +2,7 @@
 using Sandbox.Component;
 using Sandbox.UI;
 using SandboxEditor;
+using Survivor.Interaction;
 using Survivor.Players;
 
 // resharper disable all
@@ -12,16 +13,16 @@ namespace Survivor.Entities.Hammer;
 [Title( "Buyable door" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
 [HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class BuyableDoor : ModelEntity, IUse
+public partial class BuyableDoor : ModelEntity, IUsable
 {
-	private bool      _bought = false;
+	private bool      _bought          = false;
 	private TimeSince _timeSinceBought = new TimeSince();
 
 	[Property]
 	[Category( "Door" ), Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
 	public bool IsEnabled { get; set; } = true;
 
-	[Property]
+	[Property, Net]
 	[Category( "Door" ), Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
 
@@ -41,6 +42,8 @@ public partial class BuyableDoor : ModelEntity, IUse
 	[Property]
 	[Category( "Door" ), Title( "Delete after" ), Description( "Delete this door after the set amount of time (in seconds)" )]
 	public float DeleteAfter { get; set; } = 2.5f;
+
+	public string UseMessage => "Open Door";
 
 	public override void Spawn()
 	{

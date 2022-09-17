@@ -1,5 +1,7 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using SandboxEditor;
+using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.Weapons;
 
@@ -11,15 +13,25 @@ namespace Survivor.Entities.Hammer;
 [Title( "Weapon Stand" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines weapon stand" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/tall_plate.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class WeaponStand : ModelEntity, IUse
+public partial class WeaponStand : ModelEntity, IUsable
 {
 	[Property]
 	[Title( "Enabled" ), Description( "Unchecking this will prevent this weapon from being bought" )]
 	public bool IsEnabled { get; set; } = true;
 
-	[Property]
+	[Property, Net]
 	[Title( "Cost" ), Description( "The cost to buy this weapon" )]
 	public int Cost { get; set; } = 0;
+
+	public string UseMessage
+	{
+		get
+		{
+			if ( Local.Pawn is not SurvivorPlayer player )
+				return string.Empty;
+			return "Buy Weapon";
+		}
+	}
 
 	public override void Spawn()
 	{
