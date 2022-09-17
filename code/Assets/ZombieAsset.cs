@@ -5,7 +5,7 @@ using Survivor.Utils;
 
 namespace Survivor.Assets;
 
-[GameResource( "Zombie Data", "zombie", "Describes a zombie" )]
+[GameResource( "Zombie", "zombie", "Describes a zombie" )]
 public class ZombieAsset : GameResource
 {
 	private static Dictionary<ZombieType, ZombieAsset> Resources { get; } = new();

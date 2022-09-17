@@ -5,7 +5,7 @@ using SWB_Base;
 namespace Survivor.Weapons;
 
 [Library( "survivor_ak47", Title = "AK47" )]
-public sealed class AK47 : WeaponBase
+public sealed class AK47 : BaseWeapon
 {
 	public override HoldType HoldType        => HoldType.Rifle;
 	public override string   ViewModelPath   => "models/weapons/assault_rifles/ak47/vm_ak47.vmdl";
@@ -16,9 +16,6 @@ public sealed class AK47 : WeaponBase
 
 	public AK47()
 	{
-		// Todo: This should not be here
-		UISettings.ShowHealthCount = false;
-		UISettings.ShowHealthIcon = false;
 		General = new WeaponInfo { DrawTime = 1f, ReloadTime = 2.8f, };
 		Primary = new ClipInfo
 		{
@@ -54,6 +51,7 @@ public sealed class AK47 : WeaponBase
 
 	public override void StartReloadEffects( bool isEmpty, string reloadAnim = null )
 	{
+		// TODO: Move with WeaponInfos
 		ViewModelEntity?.SetAnimParameter( "w_reloading", true );
 	}
 }
