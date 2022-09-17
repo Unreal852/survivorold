@@ -5,16 +5,19 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
+  transform: scale( 0.5 );
+  transition: all 0.1s ease-out;
 
   &.visible {
     opacity: 1;
+    transform: scale( 1 );
   }
 
   .message {
     position: absolute;
     font-size: 42px;
     font-weight: bold;
-    bottom: 400px;
+    bottom: 360px;
     color: #fffcfc;
     border-color: #ffffff;
   }
@@ -23,13 +26,13 @@
     font-size: 42px;
     font-weight: bold;
     margin-right: 10px;
-    top: 180px;
+    top: 100px;
     color: #2bd77e;
     border-color: #ffffff;
   }
 
   .glyph {
-    top: 180px;
+    top: 100px;
     width: 48px;
     height: 48px;
     color: #2bd77e;
