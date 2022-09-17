@@ -10,6 +10,7 @@ public class PlayerInteractablePanel : Panel
 {
 	private readonly Label _useLabel;
 	private readonly Image _glyphImage;
+	private readonly Label _costLabel;
 	private readonly Label _useMessageLabel;
 
 	public PlayerInteractablePanel()
@@ -18,6 +19,7 @@ public class PlayerInteractablePanel : Panel
 
 		_useLabel = Add.Label( "", "value" );
 		_glyphImage = Add.Image( "", "glyph" );
+		_costLabel = Add.Label( "", "cost" );
 		_useMessageLabel = Add.Label( "", "message" );
 	}
 
@@ -32,8 +34,20 @@ public class PlayerInteractablePanel : Panel
 		_useLabel.Text = "Use";
 		_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
 		if ( player.Using is IUsable usable )
+		{
 			_useMessageLabel.Text = usable.UseMessage;
+			if ( usable.HasCost )
+			{
+				_costLabel.Text = $"{usable.Cost} $";
+				_costLabel.Style.FontColor = player.Money < usable.Cost ? Color.Red : Color.Green;
+			}
+			else
+				_costLabel.Text = string.Empty;
+		}
 		else
+		{
 			_useMessageLabel.Text = string.Empty;
+			_costLabel.Text = string.Empty;
+		}
 	}
 }

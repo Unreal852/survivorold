@@ -126,7 +126,8 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 		return !IsOpening && !IsClosing;
 	}
 
-	public string UseMessage => IsOpened ? "Take Weapon" : $"Random weapon {Cost} $";
+	public string UseMessage => IsOpened ? "Take Weapon" : "Random weapon";
+	public bool   HasCost    => !IsOpened && Cost > 0;
 
 	protected override void OnAnimGraphTag( string tag, AnimGraphTagEvent fireMode )
 	{
