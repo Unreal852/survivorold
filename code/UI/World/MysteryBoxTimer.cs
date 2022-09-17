@@ -8,11 +8,11 @@ public partial class MysteryBoxTimer : WorldPanel
 {
 	private static MysteryBoxTimer _instance;
 
-	private TimeSince _sinceSpawned;
-	private Label     _label;
-	private float     _deleteAfter;
+	private readonly TimeSince _sinceSpawned;
+	private readonly Label     _label;
+	private readonly float     _deleteAfter;
 
-	public MysteryBoxTimer( float deleteAfter )
+	private MysteryBoxTimer( float deleteAfter )
 	{
 		StyleSheet.Load( "UI/World/MysteryBoxTimer.scss" );
 

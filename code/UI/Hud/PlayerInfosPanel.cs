@@ -8,7 +8,7 @@ namespace Survivor.UI.Hud;
 
 public class PlayerInfosPanel : Panel
 {
-	private const    float MaxBarWidth = 350; // Same width as in the .scss *-bar classes.
+	private const    float MaxBarWidth = 350; // Same width as in the width in .scss *-bar classes.
 	private readonly Label _healthBar;
 	private readonly Label _staminaBar;
 	private readonly Label _money;

@@ -17,7 +17,6 @@ public class PlayerHud : HudEntity<RootPanel>
 
 	public override void ClientSpawn()
 	{
-		base.ClientSpawn();
 		// I'm adding this here because otherwise i don't have access to Local.Client
 		RootPanel.AddChild<PlayerInfosPanel>();
 	}
