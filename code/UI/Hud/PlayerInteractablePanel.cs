@@ -25,25 +25,15 @@ public class PlayerInteractablePanel : Panel
 	{
 		if ( Local.Pawn is not SurvivorPlayer player )
 			return;
+		SetClass( "visible", player.Using != null );
 		if ( !IsVisible )
 			return;
 
-		switch ( player.Using )
-		{
-			case null:
-				_useLabel.Text = string.Empty;
-				_glyphImage.Texture = null;
-				_useMessageLabel.Text = string.Empty;
-				return;
-			case IUsable usable when usable.IsUsable( player ):
-				_useLabel.Text = "Use";
-				_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
-				_useMessageLabel.Text = usable.UseMessage;
-				return;
-		}
-
 		_useLabel.Text = "Use";
 		_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
-		_useMessageLabel.Text = string.Empty;
+		if ( player.Using is IUsable usable )
+			_useMessageLabel.Text = usable.UseMessage;
+		else
+			_useMessageLabel.Text = string.Empty;
 	}
 }

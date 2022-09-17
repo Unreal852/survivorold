@@ -4,6 +4,11 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
 
   .message {
     position: absolute;
