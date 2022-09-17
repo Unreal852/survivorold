@@ -103,7 +103,7 @@ public partial class BuyableDoor : ModelEntity, IUsable
 
 	public bool IsUsable( Entity user )
 	{
-		return true;
+		return !_bought;
 	}
 
 	[Event.Tick.Server]
