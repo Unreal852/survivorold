@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Sandbox;
 using Survivor.Entities.Zombies;
 using Survivor.Utils;
 
-namespace Survivor.GameResources;
+namespace Survivor.Assets;
 
 [GameResource( "Zombie Data", "zombie", "Describes a zombie" )]
 public class ZombieAsset : GameResource
@@ -13,7 +11,7 @@ public class ZombieAsset : GameResource
 	private static Dictionary<ZombieType, ZombieAsset> Resources { get; } = new();
 
 	public static ZombieAsset GetResource( ZombieType zombieType )
-	{
+	{ 
 		return Resources.ContainsKey( zombieType ) ? Resources[zombieType] : null;
 	}
 

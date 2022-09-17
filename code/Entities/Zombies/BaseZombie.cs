@@ -1,5 +1,5 @@
 ﻿using Sandbox;
-using Survivor.GameResources;
+using Survivor.Assets;
 using Survivor.HitBox;
 using Survivor.Navigation;
 using Survivor.Players;
