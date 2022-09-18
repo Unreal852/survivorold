@@ -61,7 +61,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Inventory.Add( new Magnum(), true );
 		//Inventory.Add( new AK47() );
 
-		GiveAmmo( AmmoType.Pistol, 1000 );
+		GiveAmmo( AmmoType.Pistol, 18 );
 
 		SuppressPickupNotices = false;
 
