@@ -27,7 +27,7 @@
 		DrawEmptyAnim = "deploy_empty"
 		BoltBackAnim = "boltback"
 		ShootAnim = "fire"
-		ShootZoomedAnim = "fire_zoomed"
+		ShootZoomedAnim = "fire"
 		ShootSound = resource:"sounds/weapons/ak47/ak_47_shot_01.sound"
 		DryFireSound = resource:"sounds/swb/clip/swb_rifle.empty.sound"
 		BulletEjectParticle = resource:"particles/pistol_ejectbrass.vpcf"
