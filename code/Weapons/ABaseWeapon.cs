@@ -4,9 +4,9 @@ using SWB_Base;
 
 namespace Survivor.Weapons;
 
-public abstract partial class BaseWeapon : WeaponBase
+public abstract partial class ABaseWeapon : WeaponBase
 {
-	protected BaseWeapon( string weaponAssetName )
+	protected ABaseWeapon( string weaponAssetName )
 	{
 		Asset = ResourceLibrary.Get<WeaponAsset>( $"config/weapons/{weaponAssetName}.weapon" );
 		if ( Asset == null )
@@ -24,6 +24,8 @@ public abstract partial class BaseWeapon : WeaponBase
 		UISettings.ShowHealthCount = false;
 		UISettings.ShowHealthIcon = false;
 		UISettings.ShowFireMode = false;
+		UISettings.ShowWeaponIcon = false;
+		UISettings.ShowAmmoCount = false;
 	}
 
 	public          WeaponAsset Asset          { get; private set; }

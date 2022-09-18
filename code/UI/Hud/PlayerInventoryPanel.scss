@@ -1,0 +1,143 @@
+﻿PlayerInventoryPanel {
+  position: absolute;
+  width: 100%;
+  bottom: 40px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column-reverse;
+}
+
+PlayerInventoryElementPanel {
+  width: 240px;
+  height: 70px;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+  transform: scale(0.8);
+  margin: 4px 10px 0;
+  background-color: #323232;
+  backdrop-filter: blur(40px);
+  border-radius: 10px;
+  opacity: .5;
+  font-family: Roboto, serif;
+
+  .icon {
+    width: 140px;
+    height: 140px;
+    background-size: 100%;
+    position: absolute;
+    left: 95px;
+    top: -35px;
+    opacity: 100;
+    transition: all 0.1s ease-out;
+  }
+
+  .name {
+    width: 140px;
+    height: 140px;
+    background-size: 100%;
+    position: absolute;
+    right: 0;
+    color: white;
+    font-weight: bolder;
+    top: 35%;
+    opacity: 100;
+    transition: all 0.1s ease-out;
+  }
+
+  .glyph {
+    width: 32px;
+    height: 32px;
+    background-size: 100%;
+    position: absolute;
+    right: 93%;
+    top: 25%;
+    opacity: 100;
+    transition: all 0.1s ease-out;
+  }
+
+  .ammo-count {
+    font-size: 25px;
+    font-weight: 900;
+    position: absolute;
+    top: 10%;
+    right: 160px;
+    opacity: 100;
+    color: white;
+    transition: all 0.1s ease-out;
+  }
+
+  .ammo-reserve {
+    font-size: 20px;
+    font-weight: 500;
+    position: absolute;
+    top: 50%;
+    right: 160px;
+    opacity: 100;
+    color: #b6b6b6;
+    transition: all 0.1s ease-out;
+  }
+
+  &.active {
+    transform: scale(1);
+    transition: all 0.1s ease-out;
+    //width: 190px;
+    //height: 60px;
+
+    .icon {
+      opacity: 100;
+      transition: all 0.1s ease-out;
+    }
+
+    .name {
+      opacity: 100;
+      transition: all 0.1s ease-out;
+    }
+
+    .glyph {
+      opacity: 100;
+      transition: all 0.1s ease-out;
+    }
+
+    .ammo-count {
+      opacity: 100;
+      transition: all 0.1s ease-out;
+    }
+
+    .ammo-reserve {
+      opacity: 100;
+      transition: all 0.1s ease-out;
+    }
+  }
+
+  // smaller icon for things like grenades
+  &.small {
+    width: 90px;
+    height: 60px;
+
+    .icon {
+      width: 100px;
+      height: 100px;
+      left: 10px;
+      top: -20px;
+    }
+
+    .ammo-count {
+      right: 60px;
+      top: 25%;
+    }
+
+    .ammo-reserve {
+      // why does this use 2 lines if I use left: ?
+      right: 60px;
+      top: 32%;
+    }
+  }
+
+  // hide the smaller icons when empty
+  &.hidden {
+    opacity: 0;
+    width: 90px;
+    height: 20px;
+    transition: all 0.1s ease-out;
+  }
+}

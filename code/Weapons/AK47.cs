@@ -4,7 +4,7 @@ using SWB_Base;
 namespace Survivor.Weapons;
 
 [Library( "survivor_ak47", Title = "AK47" )]
-public sealed class AK47 : BaseWeapon
+public sealed class AK47 : ABaseWeapon
 {
 	public AK47() : base( "ak47" )
 	{

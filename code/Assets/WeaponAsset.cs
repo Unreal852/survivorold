@@ -1,7 +1,6 @@
 ﻿using Sandbox;
 using Survivor.Weapons.Bullets;
 using SWB_Base;
-using BaseWeapon = Survivor.Weapons.BaseWeapon;
 
 namespace Survivor.Assets;
 

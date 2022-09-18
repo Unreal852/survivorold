@@ -10,6 +10,7 @@ public class PlayerHud : HudEntity<RootPanel>
 		if ( !IsClient )
 			return;
 		RootPanel.AddChild<GameInfosPanel>();
+		RootPanel.AddChild<PlayerInventoryPanel>();
 		RootPanel.AddChild<PlayerInteractablePanel>();
 		RootPanel.AddChild<ChatBox>();
 		RootPanel.AddChild<SurvivorScoreboard<SurvivorScoreboardEntry>>();

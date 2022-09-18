@@ -2,6 +2,8 @@
 using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Players;
+using Survivor.Weapons;
+using SWB_Base;
 
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable MemberCanBePrivate.Global
@@ -12,14 +14,16 @@ namespace Survivor.Entities.Zombies;
 
 public abstract partial class BaseZombie : BaseNpc
 {
-	[ConVar.Replicated] public static bool      nav_drawpath { get; set; } = false;
-	protected readonly                NavSteer  NavSteer = new();
-	protected readonly                BBox      BBox     = BBox.FromHeightAndRadius( 64, 4 );
-	protected                         Vector3   InputVelocity;
-	protected                         Vector3   LookDirection;
-	protected                         TimeSince SinceLastAttack;
-	protected                         TimeSince SinceLastMoan;
-	protected                         float     NextMoanIn;
+	[ConVar.Replicated]
+	public static bool nav_drawpath { get; set; } = false;
+
+	protected readonly NavSteer  NavSteer = new();
+	protected readonly BBox      BBox     = BBox.FromHeightAndRadius( 64, 4 );
+	protected          Vector3   InputVelocity;
+	protected          Vector3   LookDirection;
+	protected          TimeSince SinceLastAttack;
+	protected          TimeSince SinceLastMoan;
+	protected          float     NextMoanIn;
 
 	public BaseZombie()
 	{
@@ -106,6 +110,18 @@ public abstract partial class BaseZombie : BaseNpc
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
+
+		if ( info.Attacker is not SurvivorPlayer attacker )
+			return;
+
+		// Note - sending this only to the attacker!
+		attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health, ((float)Health).LerpInverse( 100, 0 ) );
+
+		if ( info.Weapon is ABaseWeapon weapon && weapon.UISettings.ShowHitmarker && !weapon.UISettings.HideAll )
+		{
+			attacker.ShowHitmarker( To.Single( attacker ), Health <= 0.0f, weapon.UISettings.PlayHitmarkerSound );
+		}
+
 		// TODO: Target change
 	}
 
