@@ -34,7 +34,7 @@ public sealed class Magnum : BaseWeapon
 				DryFireSound = "swb_rifle.empty",
 				ShootAnim = "w_fire",
 				ShootSound = "sounds/weapons/magnum/magnum_shot_01.sound",
-				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
+				BulletEjectParticle = "",
 				MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
 				BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
 				InfiniteAmmo = InfiniteAmmoType.reserve
