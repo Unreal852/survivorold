@@ -52,7 +52,7 @@ public sealed partial class ShooterZombie : BaseZombie
 		              .Ignore( _weaponEntity )
 		              .Size( 3 )
 		              .Run();
-		DebugOverlay.Line( EyePosition, tr.HitPosition, 1f );
+		//DebugOverlay.Line( EyePosition, tr.HitPosition, 1f );
 		if ( !tr.Hit || tr.Entity is not SurvivorPlayer player )
 			return;
 		player.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
