@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Sandbox;
-using Survivor.Entities.Zombies;
-using Survivor.Utils;
+﻿using Sandbox;
 using SWB_Base;
 using BaseWeapon = Survivor.Weapons.BaseWeapon;
 
@@ -88,10 +85,10 @@ public class WeaponAsset : GameResource
 	[Category( "Animations" )]
 	public string ShootZoomedAnim { get; set; }
 
-	[Category( "Sound" ), ResourceType( "sound" )]
+	[Category( "Sounds" ), ResourceType( "sound" )]
 	public string ShootSound { get; set; }
 
-	[Category( "Sound" ), ResourceType( "sound" )]
+	[Category( "Sounds" ), ResourceType( "sound" )]
 	public string DryFireSound { get; set; }
 
 	[Category( "Particles" ), ResourceType( "vpcf" )]

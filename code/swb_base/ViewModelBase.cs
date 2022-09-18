@@ -1,6 +1,5 @@
 ﻿using System;
 using Sandbox;
-using Survivor.Players;
 
 namespace SWB_Base
 {

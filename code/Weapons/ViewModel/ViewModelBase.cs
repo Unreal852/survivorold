@@ -1,6 +1,5 @@
 ﻿using System;
 using Sandbox;
-using Survivor.Players;
 using SWB_Base;
 
 namespace Survivor.Weapons.ViewModel;

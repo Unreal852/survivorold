@@ -1,9 +1,7 @@
 ﻿using Sandbox;
 using Survivor.Assets;
-using Survivor.HitBox;
 using Survivor.Navigation;
 using Survivor.Players;
-using Survivor.Utils;
 
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable MemberCanBePrivate.Global

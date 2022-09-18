@@ -1,5 +1,4 @@
 ﻿using Sandbox;
-using Survivor.UI.World;
 
 namespace Survivor.Players;
 

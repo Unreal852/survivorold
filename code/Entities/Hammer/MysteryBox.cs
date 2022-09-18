@@ -1,11 +1,8 @@
-﻿using System;
-using Sandbox;
-using Sandbox.Component;
+﻿using Sandbox;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.UI.World;
-using Survivor.Utils;
 using Survivor.Weapons;
 
 // resharper disable all

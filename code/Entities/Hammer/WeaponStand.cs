@@ -1,5 +1,4 @@
-﻿using System;
-using Sandbox;
+﻿using Sandbox;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;

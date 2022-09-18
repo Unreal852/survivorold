@@ -3,7 +3,6 @@ using Sandbox;
 using Sandbox.UI;
 using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
-using Survivor.UI.World;
 using Survivor.Weapons;
 using SWB_Base;
 

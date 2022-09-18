@@ -6,25 +6,17 @@ namespace Survivor.Weapons;
 
 public abstract partial class BaseWeapon : WeaponBase
 {
-	protected BaseWeapon()
-	{
-		UISettings.ShowHealthCount = false;
-		UISettings.ShowHealthIcon = false;
-		UISettings.ShowFireMode = false;
-	}
-
-	public override string      ViewModelPath  { get; }
-	public override string      WorldModelPath { get; }
-	public          WeaponAsset Asset          { get; private set; }
-
-	protected bool InitializeWeapon( string weaponAssetName )
+	protected BaseWeapon( string weaponAssetName )
 	{
 		Asset = ResourceLibrary.Get<WeaponAsset>( $"config/weapons/{weaponAssetName}.weapon" );
 		if ( Asset == null )
 		{
 			Log.Error( $"No weapon asset found with name '{weaponAssetName}'" );
-			return false;
+			return;
 		}
+
+		ViewModelPath = Asset.ViewModel;
+		WorldModelPath = Asset.WorldModel;
 
 		General = new WeaponInfo
 		{
@@ -63,6 +55,13 @@ public abstract partial class BaseWeapon : WeaponBase
 				BulletTracerParticle = Asset.BulletTracerParticle,
 				BarrelSmokeParticle = Asset.BarrelSmokeParticle
 		};
-		return true;
+
+		UISettings.ShowHealthCount = false;
+		UISettings.ShowHealthIcon = false;
+		UISettings.ShowFireMode = false;
 	}
+
+	public          WeaponAsset Asset          { get; private set; }
+	public override string      ViewModelPath  { get; }
+	public override string      WorldModelPath { get; }
 }
