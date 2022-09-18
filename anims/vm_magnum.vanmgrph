@@ -528,7 +528,7 @@
 		[
 			{
 				_class = "CBoolAnimParameter"
-				m_name = "w_fire"
+				m_name = "fire"
 				m_id = 
 				{
 					m_id = 1867792893
@@ -542,7 +542,7 @@
 			},
 			{
 				_class = "CBoolAnimParameter"
-				m_name = "w_reloading"
+				m_name = "reload"
 				m_id = 
 				{
 					m_id = 261791977
@@ -556,7 +556,7 @@
 			},
 			{
 				_class = "CFloatAnimParameter"
-				m_name = "w_fire_speed"
+				m_name = "fire_speed"
 				m_id = 
 				{
 					m_id = 1530900135

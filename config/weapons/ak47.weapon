@@ -2,16 +2,37 @@
 {
 	data = 
 	{
-		Name = ""
-		DrawTime = 0
-		ReloadTime = 0
-		ReloadEmptyTime = 0
+		Name = "AK-47"
+		ViewModel = resource:"models/weapons/assault_rifles/ak47/vm_ak47.vmdl"
+		WorldModel = resource:"models/weapons/assault_rifles/ak47/wm_ak47.vmdl"
+		DrawTime = 1
+		ReloadTime = 2.8
+		ReloadEmptyTime = -1
 		BoltBackTime = -1
 		BoltBackEjectDelay = 0
-		ReloadAnim = ""
-		ReloadEmptyAnim = ""
-		DrawAnim = ""
-		DrawEmptyAnim = ""
-		BoltBackAnim = ""
+		AmmoType = "Rifle"
+		FiringType = "auto"
+		Ammo = 30
+		ClipSize = 30
+		Bullets = 1
+		BulletSize = 3
+		Damage = 10
+		Force = 5
+		Spread = 0.08
+		Recoil = 0.8
+		RPM = 900
+		ReloadAnim = "reload"
+		ReloadEmptyAnim = "reload_empty"
+		DrawAnim = "deploy"
+		DrawEmptyAnim = "deploy_empty"
+		BoltBackAnim = "boltback"
+		ShootAnim = "fire"
+		ShootZoomedAnim = "fire_zoomed"
+		ShootSound = resource:"sounds/weapons/ak47/ak_47_shot_01.sound"
+		DryFireSound = resource:"sounds/swb/clip/swb_rifle.empty.sound"
+		BulletEjectParticle = resource:"particles/pistol_ejectbrass.vpcf"
+		MuzzleFlashParticle = resource:"particles/swb/muzzle/flash_medium.vpcf"
+		BarrelSmokeParticle = resource:"particles/swb/muzzle/barrel_smoke.vpcf"
+		BulletTracerParticle = resource:"particles/swb/tracer/tracer_medium.vpcf"
 	}
 }

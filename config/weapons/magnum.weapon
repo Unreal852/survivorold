@@ -2,6 +2,37 @@
 {
 	data = 
 	{
-		Feet = null
+		Name = "Magnum"
+		ViewModel = resource:"models/weapons/pistols/magnum/vm_magnum.vmdl"
+		WorldModel = resource:"models/weapons/pistols/magnum/wm_magnum.vmdl"
+		DrawTime = 1
+		ReloadTime = 2.8
+		ReloadEmptyTime = -1
+		BoltBackTime = -1
+		BoltBackEjectDelay = 0
+		AmmoType = "Pistol"
+		FiringType = "semi"
+		Ammo = 6
+		ClipSize = 6
+		Bullets = 1
+		BulletSize = 3
+		Damage = 30
+		Force = 8
+		Spread = 0.1
+		Recoil = 2
+		RPM = 80
+		ReloadAnim = "reload"
+		ReloadEmptyAnim = "reload_empty"
+		DrawAnim = "deploy"
+		DrawEmptyAnim = "deploy_empty"
+		BoltBackAnim = "boltback"
+		ShootAnim = "fire"
+		ShootZoomedAnim = "fire_zoomed"
+		ShootSound = resource:"sounds/weapons/magnum/magnum_shot_01.sound"
+		DryFireSound = resource:"sounds/swb/clip/swb_pistol.empty.sound"
+		BulletEjectParticle = resource:"particles/pistol_ejectbrass.vpcf"
+		MuzzleFlashParticle = resource:"particles/swb/muzzle/flash_medium.vpcf"
+		BarrelSmokeParticle = resource:"particles/swb/muzzle/barrel_smoke.vpcf"
+		BulletTracerParticle = resource:"particles/swb/tracer/tracer_medium.vpcf"
 	}
 }
