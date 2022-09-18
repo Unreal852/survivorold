@@ -11,27 +11,60 @@ public class ZombieAsset : GameResource
 	private static Dictionary<ZombieType, ZombieAsset> Resources { get; } = new();
 
 	public static ZombieAsset GetResource( ZombieType zombieType )
-	{ 
+	{
 		return Resources.ContainsKey( zombieType ) ? Resources[zombieType] : null;
 	}
 
-	[Category( "General" )]                             public ZombieType Type          { get; set; }
-	[Category( "General" )]                             public string     FriendlyName  { get; set; }
-	[Category( "Model" ), ResourceType( "vmdl" )]       public string     Model         { get; set; } = "models/citizen/citizen.vmdl";
-	[Category( "Model" )]                               public Color      RenderColor   { get; set; } = Color.Green;
-	[Category( "Model" )]                               public float      Scale         { get; set; } = 1f;
-	[Category( "Behaviour" )]                           public float      Health        { get; set; } = 100f;
-	[Category( "Behaviour" )]                           public float      MoveSpeed     { get; set; } = 5f;
-	[Category( "Behaviour" )]                           public float      AttackRange   { get; set; } = 1.5f;
-	[Category( "Behaviour" )]                           public float      AttackDamages { get; set; } = 1f;
-	[Category( "Behaviour" )]                           public float      AttackForce   { get; set; } = 1f;
-	[Category( "Behaviour" )]                           public float      AttackSpeed   { get; set; } = 1f;
-	[Category( "Clothes" )]                             public bool       UseClothes    { get; set; } = false;
-	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Head          { get; set; }
-	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Chest         { get; set; }
-	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Legs          { get; set; }
-	[Category( "Clothes" ), ResourceType( "clothing" )] public string     Feet          { get; set; }
-	[Category( "Misc" )]                                public string[]   Tags          { get; set; } = { "zombie" };
+	[Category( "General" )]
+	public ZombieType Type { get; set; }
+
+	[Category( "General" )]
+	public string FriendlyName { get; set; }
+
+	[Category( "Model" ), ResourceType( "vmdl" )]
+	public string Model { get; set; } = "models/citizen/citizen.vmdl";
+
+	[Category( "Model" )]
+	public Color RenderColor { get; set; } = Color.Green;
+
+	[Category( "Model" )]
+	public float Scale { get; set; } = 1f;
+
+	[Category( "Behaviour" )]
+	public float Health { get; set; } = 100f;
+
+	[Category( "Behaviour" )]
+	public float MoveSpeed { get; set; } = 5f;
+
+	[Category( "Behaviour" )]
+	public float AttackRange { get; set; } = 1.5f;
+
+	[Category( "Behaviour" )]
+	public float AttackDamages { get; set; } = 1f;
+
+	[Category( "Behaviour" )]
+	public float AttackForce { get; set; } = 1f;
+
+	[Category( "Behaviour" )]
+	public float AttackSpeed { get; set; } = 1f;
+
+	[Category( "Clothes" )]
+	public bool UseClothes { get; set; } = false;
+
+	[Category( "Clothes" ), ResourceType( "clothing" )]
+	public string Head { get; set; }
+
+	[Category( "Clothes" ), ResourceType( "clothing" )]
+	public string Chest { get; set; }
+
+	[Category( "Clothes" ), ResourceType( "clothing" )]
+	public string Legs { get; set; }
+
+	[Category( "Clothes" ), ResourceType( "clothing" )]
+	public string Feet { get; set; }
+
+	[Category( "Misc" )]
+	public string[] Tags { get; set; } = { "zombie" };
 
 	public void Apply( BaseZombie zombie )
 	{
