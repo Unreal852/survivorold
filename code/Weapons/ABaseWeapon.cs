@@ -15,8 +15,8 @@ public abstract partial class ABaseWeapon : WeaponBase
 			return;
 		}
 
-		ViewModelPath = Asset.ViewModel;
-		WorldModelPath = Asset.WorldModel;
+		// ViewModelPath = Asset.ViewModel;
+		// WorldModelPath = Asset.WorldModel;
 
 		General = Asset.GetWeaponInfos();
 		Primary = Asset.GetPrimaryClipInfos();
@@ -28,7 +28,10 @@ public abstract partial class ABaseWeapon : WeaponBase
 		UISettings.ShowAmmoCount = false;
 	}
 
-	public          WeaponAsset Asset          { get; private set; }
-	public override string      ViewModelPath  { get; }
-	public override string      WorldModelPath { get; }
+	public sealed override void Spawn()
+	{
+		base.Spawn();
+	}
+
+	public WeaponAsset Asset { get; private set; }
 }

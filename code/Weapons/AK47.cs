@@ -16,6 +16,9 @@ public sealed class AK47 : ABaseWeapon
 		ViewModelOffset = new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 0f, -5f, 0f ) };
 	}
 
+	public override string ViewModelPath => "models/weapons/assault_rifles/ak47/vm_ak47.vmdl";
+	public override string WorldModelPath => "models/weapons/assault_rifles/ak47/wm_ak47.vmdl";
+
 	public override HoldType HoldType        { get; } = HoldType.Rifle; // TODO: Move this into WeaponAsset
 	public override AngPos   ViewModelOffset { get; }
 }

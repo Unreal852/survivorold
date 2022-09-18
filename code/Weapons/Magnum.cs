@@ -18,6 +18,8 @@ public sealed class Magnum : ABaseWeapon
 		ViewModelOffset = new() { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 0f, -30f, 0f ) };
 	}
 
+	public override string   ViewModelPath   => "models/weapons/pistols/magnum/vm_magnum.vmdl";
+	public override string   WorldModelPath  => "models/weapons/pistols/magnum/wm_magnum.vmdl";
 	public override HoldType HoldType        { get; } = HoldType.Pistol; // TODO: Move this into WeaponAsset
 	public override AngPos   ViewModelOffset { get; }
 }
