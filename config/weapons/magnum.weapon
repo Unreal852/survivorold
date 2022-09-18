@@ -13,7 +13,7 @@
 		AmmoType = "Pistol"
 		FiringType = "semi"
 		Ammo = 6
-		ClipSize = 6
+		ClipSize = 5
 		Bullets = 1
 		BulletSize = 3
 		Damage = 30

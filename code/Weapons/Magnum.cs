@@ -19,7 +19,7 @@ public sealed class Magnum : BaseWeapon
 		DuckAnimData = new AngPos { Angle = new Angles( 5.08f, -2.89f, -25.082f ), Pos = new Vector3( -49.547f, 0f, 2.885f ) };
 		ZoomAnimData = new AngPos { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( -32.063f, -11f, 8.161f ) };
 	}
-
+	
 	public override string   ViewModelPath   { get; }
 	public override string   WorldModelPath  { get; }
 	public override HoldType HoldType        { get; } = HoldType.Pistol;

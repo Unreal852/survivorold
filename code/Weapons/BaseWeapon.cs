@@ -13,7 +13,9 @@ public abstract partial class BaseWeapon : WeaponBase
 		UISettings.ShowFireMode = false;
 	}
 
-	public WeaponAsset Asset { get; private set; }
+	public override string      ViewModelPath  { get; }
+	public override string      WorldModelPath { get; }
+	public          WeaponAsset Asset          { get; private set; }
 
 	protected bool InitializeWeapon( string weaponAssetName )
 	{
