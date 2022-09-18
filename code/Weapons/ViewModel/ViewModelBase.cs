@@ -132,11 +132,11 @@ public class ViewModelBaseEx : BaseViewModel
 
 	private void HandleDuckAnimation( ref CameraSetup camSetup )
 	{
-		if ( !weapon.IsZooming && weapon.DuckAnimData != AngPos.Zero && Owner.GroundEntity != null && Input.Down( InputButton.Duck ) )
-		{
-			targetVectorPos += weapon.DuckAnimData.Pos;
-			targetVectorRot += MathUtil.ToVector3( weapon.DuckAnimData.Angle );
-		}
+		// if ( !weapon.IsZooming && weapon.DuckAnimData != AngPos.Zero && Owner.GroundEntity != null && Input.Down( InputButton.Duck ) )
+		// {
+		// 	targetVectorPos += weapon.DuckAnimData.Pos;
+		// 	targetVectorRot += MathUtil.ToVector3( weapon.DuckAnimData.Angle );
+		// } 
 	}
 
 	private void HandleIdleAnimation( ref CameraSetup camSetup )

@@ -1,3 +1,4 @@
+
 using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
@@ -7,31 +8,32 @@ namespace SWB_Base
 	[Library]
 	public partial class PlayerWalkController : PlayerBaseController
 	{
-		[Net] public float SprintSpeed        { get; set; } = 320.0f;
-		[Net] public float WalkSpeed          { get; set; } = 150.0f;
-		[Net] public float DefaultSpeed       { get; set; } = 190.0f;
-		[Net] public float Acceleration       { get; set; } = 10.0f;
-		[Net] public float AirAcceleration    { get; set; } = 50.0f;
-		[Net] public float FallSoundZ         { get; set; } = -30.0f;
-		[Net] public float GroundFriction     { get; set; } = 4.0f;
-		[Net] public float StopSpeed          { get; set; } = 100.0f;
-		[Net] public float Size               { get; set; } = 20.0f;
-		[Net] public float DistEpsilon        { get; set; } = 0.03125f;
-		[Net] public float GroundAngle        { get; set; } = 46.0f;
-		[Net] public float Bounce             { get; set; } = 0.0f;
-		[Net] public float MoveFriction       { get; set; } = 1.0f;
-		[Net] public float StepSize           { get; set; } = 18.0f;
+		[Net] public float SprintSpeed { get; set; } = 320.0f;
+		[Net] public float WalkSpeed { get; set; } = 150.0f;
+		[Net] public float DefaultSpeed { get; set; } = 190.0f;
+		[Net] public float Acceleration { get; set; } = 10.0f;
+		[Net] public float AirAcceleration { get; set; } = 50.0f;
+		[Net] public float FallSoundZ { get; set; } = -30.0f;
+		[Net] public float GroundFriction { get; set; } = 4.0f;
+		[Net] public float StopSpeed { get; set; } = 100.0f;
+		[Net] public float Size { get; set; } = 20.0f;
+		[Net] public float DistEpsilon { get; set; } = 0.03125f;
+		[Net] public float GroundAngle { get; set; } = 46.0f;
+		[Net] public float Bounce { get; set; } = 0.0f;
+		[Net] public float MoveFriction { get; set; } = 1.0f;
+		[Net] public float StepSize { get; set; } = 18.0f;
 		[Net] public float MaxNonJumpVelocity { get; set; } = 140.0f;
-		[Net] public float BodyGirth          { get; set; } = 32.0f;
-		[Net] public float BodyHeight         { get; set; } = 72.0f;
-		[Net] public float EyeHeight          { get; set; } = 64.0f;
-		[Net] public float Gravity            { get; set; } = 800.0f;
-		[Net] public float AirControl         { get; set; } = 30.0f;
-		public       bool  Swimming           { get; set; } = false;
-		[Net] public bool  AutoJump           { get; set; } = false;
+		[Net] public float BodyGirth { get; set; } = 32.0f;
+		[Net] public float BodyHeight { get; set; } = 72.0f;
+		[Net] public float EyeHeight { get; set; } = 64.0f;
+		[Net] public float Gravity { get; set; } = 800.0f;
+		[Net] public float AirControl { get; set; } = 30.0f;
+		public bool Swimming { get; set; } = false;
+		[Net] public bool AutoJump { get; set; } = false;
 
-		public PlayerDuck    Duck;
+		public PlayerDuck Duck;
 		public PlayerUnstuck Unstuck;
+
 
 		public PlayerWalkController()
 		{
@@ -50,6 +52,7 @@ namespace SWB_Base
 
 			return new BBox( mins, maxs );
 		}
+
 
 		// Duck body height 32
 		// Eye Height 64
@@ -74,7 +77,7 @@ namespace SWB_Base
 		{
 			var girth = BodyGirth * 0.5f;
 
-			var mins = new Vector3( -girth, -girth, 0 )          * Pawn.Scale;
+			var mins = new Vector3( -girth, -girth, 0 ) * Pawn.Scale;
 			var maxs = new Vector3( +girth, +girth, BodyHeight ) * Pawn.Scale;
 
 			Duck.UpdateBBox( ref mins, ref maxs, Pawn.Scale );
@@ -83,6 +86,7 @@ namespace SWB_Base
 		}
 
 		protected float SurfaceFriction;
+
 
 		public override void FrameSimulate()
 		{
@@ -139,15 +143,15 @@ namespace SWB_Base
 
 
 			/*
-			 if (player->m_flWaterJumpTime)
-				{
-					WaterJump();
-					TryPlayerMove();
-					// See if we are still in water?
-					CheckWater();
-					return;
-				}
-			*/
+             if (player->m_flWaterJumpTime)
+	            {
+		            WaterJump();
+		            TryPlayerMove();
+		            // See if we are still in water?
+		            CheckWater();
+		            return;
+	            }
+            */
 
 			// if ( underwater ) do underwater movement
 
@@ -239,13 +243,14 @@ namespace SWB_Base
 				var lineOffset = 0;
 				if ( Host.IsServer ) lineOffset = 10;
 
-				DebugOverlay.ScreenText( $"        Position: {Position}", lineOffset                                + 0 );
-				DebugOverlay.ScreenText( $"        Velocity: {Velocity}", lineOffset                                + 1 );
-				DebugOverlay.ScreenText( $"    BaseVelocity: {BaseVelocity}", lineOffset                            + 2 );
+				DebugOverlay.ScreenText( $"        Position: {Position}", lineOffset + 0 );
+				DebugOverlay.ScreenText( $"        Velocity: {Velocity}", lineOffset + 1 );
+				DebugOverlay.ScreenText( $"    BaseVelocity: {BaseVelocity}", lineOffset + 2 );
 				DebugOverlay.ScreenText( $"    GroundEntity: {GroundEntity} [{GroundEntity?.Velocity}]", lineOffset + 3 );
-				DebugOverlay.ScreenText( $" SurfaceFriction: {SurfaceFriction}", lineOffset                         + 4 );
-				DebugOverlay.ScreenText( $"    WishVelocity: {WishVelocity}", lineOffset                            + 5 );
+				DebugOverlay.ScreenText( $" SurfaceFriction: {SurfaceFriction}", lineOffset + 4 );
+				DebugOverlay.ScreenText( $"    WishVelocity: {WishVelocity}", lineOffset + 5 );
 			}
+
 		}
 
 		public virtual float GetWishSpeed()
@@ -306,6 +311,7 @@ namespace SWB_Base
 			}
 			finally
 			{
+
 				// Now pull the base velocity back out.   Base velocity is set if you are on a moving object, like a conveyor (or maybe another monster?)
 				Velocity -= BaseVelocity;
 			}
@@ -413,14 +419,15 @@ namespace SWB_Base
 
 
 			/*
-			if ( player->m_flWaterJumpTime )
-			{
-			    player->m_flWaterJumpTime -= gpGlobals->frametime();
-			    if ( player->m_flWaterJumpTime < 0 )
-			        player->m_flWaterJumpTime = 0;
+            if ( player->m_flWaterJumpTime )
+            {
+                player->m_flWaterJumpTime -= gpGlobals->frametime();
+                if ( player->m_flWaterJumpTime < 0 )
+                    player->m_flWaterJumpTime = 0;
 
-			    return false;
-			}*/
+                return false;
+            }*/
+
 
 
 			// If we are in the water most of the way...
@@ -434,8 +441,8 @@ namespace SWB_Base
 				var startPos = Pawn.EyePosition;
 
 				var tr = Trace.Ray( startPos, startPos + Pawn.EyeRotation.Forward * 1000 )
-				              .Ignore( Pawn )
-				              .Run();
+				.Ignore( Pawn )
+				.Run();
 
 
 				if ( tr.Entity == null || tr.Entity.ClassName != "func_water" )
@@ -458,15 +465,15 @@ namespace SWB_Base
 				return;
 
 			/*
-			if ( player->m_Local.m_bDucking && (player->GetFlags() & FL_DUCKING) )
-			    return false;
-			*/
+            if ( player->m_Local.m_bDucking && (player->GetFlags() & FL_DUCKING) )
+                return false;
+            */
 
 			/*
-			// Still updating the eye position.
-			if ( player->m_Local.m_nDuckJumpTimeMsecs > 0u )
-			    return false;
-			*/
+            // Still updating the eye position.
+            if ( player->m_Local.m_nDuckJumpTimeMsecs > 0u )
+                return false;
+            */
 
 			ClearGroundEntity();
 
@@ -498,6 +505,7 @@ namespace SWB_Base
 			//mv->m_nOldButtons |= IN_JUMP;
 
 			AddEvent( "jump" );
+
 		}
 
 		public virtual void AirMove()
@@ -530,7 +538,7 @@ namespace SWB_Base
 			Velocity -= BaseVelocity;
 		}
 
-		bool    IsTouchingLadder = false;
+		bool IsTouchingLadder = false;
 		Vector3 LadderNormal;
 
 		public virtual void CheckLadder()
@@ -547,6 +555,7 @@ namespace SWB_Base
 					IsTouchingLadder = false;
 
 					return;
+
 				}
 				else if ( GroundEntity != null && LadderNormal.Dot( wishvel ) > 0 )
 				{
@@ -561,10 +570,10 @@ namespace SWB_Base
 			Vector3 end = start + (IsTouchingLadder ? (LadderNormal * -1.0f) : wishvel) * ladderDistance;
 
 			var pm = Trace.Ray( start, end )
-			              .Size( mins, maxs )
-			              .WithTag( "ladder" )
-			              .Ignore( Pawn )
-			              .Run();
+						.Size( mins, maxs )
+						.WithTag( "ladder" )
+						.Ignore( Pawn )
+						.Run();
 
 			IsTouchingLadder = false;
 
@@ -579,11 +588,12 @@ namespace SWB_Base
 		{
 			var velocity = WishVelocity;
 			float normalDot = velocity.Dot( LadderNormal );
-			var cross = LadderNormal                    * normalDot;
+			var cross = LadderNormal * normalDot;
 			Velocity = (velocity - cross) + (-normalDot * LadderNormal.Cross( Vector3.Up.Cross( LadderNormal ).Normal ));
 
 			Move();
 		}
+
 
 		public virtual void CategorizePosition( bool bStayOnGround )
 		{
@@ -603,7 +613,7 @@ namespace SWB_Base
 			//  Shooting up really fast.  Definitely not on ground trimed until ladder shit
 			//
 			bool bMovingUpRapidly = Velocity.z > MaxNonJumpVelocity;
-			bool bMovingUp = Velocity.z        > 0;
+			bool bMovingUp = Velocity.z > 0;
 
 			bool bMoveToEndPos = false;
 
@@ -643,6 +653,7 @@ namespace SWB_Base
 			{
 				Position = pm.EndPosition;
 			}
+
 		}
 
 		/// <summary>
@@ -673,14 +684,14 @@ namespace SWB_Base
 			}
 
 			/*
-				  m_vecGroundUp = pm.m_vHitNormal;
-				player->m_surfaceProps = pm.m_pSurfaceProperties->GetNameHash();
-				player->m_pSurfaceData = pm.m_pSurfaceProperties;
-				const CPhysSurfaceProperties *pProp = pm.m_pSurfaceProperties;
+              	m_vecGroundUp = pm.m_vHitNormal;
+	            player->m_surfaceProps = pm.m_pSurfaceProperties->GetNameHash();
+	            player->m_pSurfaceData = pm.m_pSurfaceProperties;
+	            const CPhysSurfaceProperties *pProp = pm.m_pSurfaceProperties;
 
-				const CGameSurfaceProperties *pGameProps = g_pPhysicsQuery->GetGameSurfaceproperties( pProp );
-				player->m_chTextureType = (int8)pGameProps->m_nLegacyGameMaterial;
-			*/
+	            const CGameSurfaceProperties *pGameProps = g_pPhysicsQuery->GetGameSurfaceproperties( pProp );
+	            player->m_chTextureType = (int8)pGameProps->m_nLegacyGameMaterial;
+            */
 		}
 
 		/// <summary>
@@ -710,8 +721,8 @@ namespace SWB_Base
 		/// </summary>
 		public virtual void StayOnGround()
 		{
-			var start = Position + Vector3.Up   * 2;
-			var end = Position   + Vector3.Down * StepSize;
+			var start = Position + Vector3.Up * 2;
+			var end = Position + Vector3.Down * StepSize;
 
 			// See how far up we can go without getting stuck
 			var trace = TraceBBox( Position, start );
@@ -748,5 +759,6 @@ namespace SWB_Base
 
 			//GroundTransform = GroundEntity.Transform.ToLocal( new Transform( Pos, Rot ) );
 		}
+
 	}
 }

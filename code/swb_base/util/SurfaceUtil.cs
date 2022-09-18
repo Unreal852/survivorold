@@ -13,7 +13,7 @@ namespace SWB_Base
         {
             "water",
             "glass",
-            "glass.pane",
+            "glass.pane"
         };
 
         public static List<string> RicochetSurfaces = new()
