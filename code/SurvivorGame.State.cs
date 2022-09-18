@@ -17,7 +17,7 @@ public partial class SurvivorGame
 	public static  BaseGameMode               GAME_MODE    => Current.GameMode;
 
 	[Net]
-	public BaseGameMode GameMode { get; set; }
+	public BaseGameMode GameMode { get; private set; }
 
 	public override void PostLevelLoaded()
 	{

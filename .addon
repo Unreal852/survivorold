@@ -72,7 +72,7 @@
         "ConVarName": "sv_difficulty",
         "DisplayName": "Difficulty",
         "DefaultValue": "gm_difficulty_normal",
-        "Description": "The game difficulty affects the way ennemies scale over waves. "
+        "Description": "The game difficulty affects the initial enemies stats and how they scale over the waves."
       },
       "sv_friendly_fire": {
         "DisplayType": "Boolean",
