@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Survivor.Weapons.Bullets;
 using SWB_Base;
 using BaseWeapon = Survivor.Weapons.BaseWeapon;
 
@@ -9,11 +10,11 @@ public class WeaponAsset : GameResource
 {
 	[Category( "General" )]
 	public string Name { get; set; }
-	
-	[Category("Model"), ResourceType("vmdl")]
+
+	[Category( "Model" ), ResourceType( "vmdl" )]
 	public string ViewModel { get; set; }
-	
-	[Category("Model"), ResourceType("vmdl")]
+
+	[Category( "Model" ), ResourceType( "vmdl" )]
 	public string WorldModel { get; set; }
 
 	[Category( "Behaviour" )]
@@ -103,8 +104,49 @@ public class WeaponAsset : GameResource
 	[Category( "Particles" ), ResourceType( "vpcf" )]
 	public string BulletTracerParticle { get; set; } = "particles/swb/tracer/tracer_medium.vpcf";
 
-	public void Apply( BaseWeapon weapon )
+	public WeaponInfo GetWeaponInfos()
 	{
+		return new WeaponInfo
+		{
+				DrawTime = DrawTime,
+				ReloadTime = ReloadTime,
+				ReloadEmptyTime = ReloadEmptyTime,
+				BoltBackTime = BoltBackTime,
+				BoltBackEjectDelay = BoltBackEjectDelay,
+				ReloadAnim = ReloadAnim,
+				ReloadEmptyAnim = ReloadEmptyAnim,
+				DrawAnim = DrawAnim,
+				DrawEmptyAnim = DrawEmptyAnim,
+				BoltBackAnim = BoltBackAnim
+		};
+	}
+
+	public ClipInfo GetPrimaryClipInfos()
+	{
+		return new ClipInfo
+		{
+				Ammo = Ammo,
+				AmmoType = AmmoType,
+				ClipSize = ClipSize,
+				BulletSize = BulletSize,
+				Bullets = Bullets,
+				Damage = Damage,
+				Force = Force,
+				Spread = Spread,
+				Recoil = Recoil,
+				RPM = RPM,
+				FiringType = FiringType,
+				BulletType = new TraceBullet(),
+				//ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1.9f, Rotation = 0.4f },
+				DryFireSound = DryFireSound,
+				ShootAnim = ShootAnim,
+				ShootSound = ShootSound,
+				ShootZoomedAnim = ShootZoomedAnim,
+				BulletEjectParticle = BulletEjectParticle,
+				MuzzleFlashParticle = MuzzleFlashParticle,
+				BulletTracerParticle = BulletTracerParticle,
+				BarrelSmokeParticle = BarrelSmokeParticle
+		};
 	}
 
 	protected override void PostLoad()
@@ -113,5 +155,6 @@ public class WeaponAsset : GameResource
 
 	protected override void PostReload()
 	{
+		
 	}
 }
