@@ -102,9 +102,7 @@ namespace SWB_Base
 
         /// <summary>Data used for setting the weapon to its run position</summary>
         public AngPos RunAnimData { get; set; }
-        
-        public AngPos DuckAnimData { get; set; }
-        
+
         /// <summary>Data used for setting the weapon to its customization position</summary>
         public AngPos CustomizeAnimData { get; set; }
 

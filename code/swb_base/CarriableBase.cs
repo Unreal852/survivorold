@@ -2,138 +2,142 @@
 
 namespace SWB_Base
 {
-	/// <summary>
-	/// An entity that can be carried in the player's inventory and hands.
-	/// </summary>
-	public class CarriableBase : AnimatedEntity
-	{
-		public virtual string        ViewModelPath   => null;
-		public         BaseViewModel ViewModelEntity { get; protected set; }
+    /// <summary>
+    /// An entity that can be carried in the player's inventory and hands.
+    /// </summary>
+    public class CarriableBase : AnimatedEntity
+    {
+        public virtual string ViewModelPath => null;
+        public BaseViewModel ViewModelEntity { get; protected set; }
 
-		public override void Spawn()
-		{
-			base.Spawn();
-			PhysicsEnabled = true;
-			UsePhysicsCollision = true;
-			EnableHideInFirstPerson = true;
-			EnableShadowInFirstPerson = true;
-		}
+        public override void Spawn()
+        {
+            base.Spawn();
 
-		public virtual void ActiveStart( Entity ent )
-		{
-			//base.ActiveStart( ent );
+            PhysicsEnabled = true;
+            UsePhysicsCollision = true;
+            EnableHideInFirstPerson = true;
+            EnableShadowInFirstPerson = true;
+        }
 
-			EnableDrawing = true;
+        public virtual void ActiveStart(Entity ent)
+        {
+            //base.ActiveStart( ent );
 
-			if ( ent is PlayerBase player )
-			{
-				var animator = player.GetActiveAnimator();
-				if ( animator != null )
-				{
-					SimulateAnimator( animator );
-				}
-			}
+            EnableDrawing = true;
 
-			//
-			// If we're the local player (clientside) create viewmodel
-			// and any HUD elements that this weapon wants
-			//
-			if ( IsLocalPawn )
-			{
-				DestroyViewModel();
-				DestroyHudElements();
+            if (ent is PlayerBase player)
+            {
+                var animator = player.GetActiveAnimator();
+                if (animator != null)
+                {
+                    SimulateAnimator(animator);
+                }
+            }
 
-				CreateViewModel();
-				CreateHudElements();
-			}
-		}
+            //
+            // If we're the local player (clientside) create viewmodel
+            // and any HUD elements that this weapon wants
+            //
+            if (IsLocalPawn)
+            {
+                DestroyViewModel();
+                DestroyHudElements();
 
-		public virtual void ActiveEnd( Entity ent, bool dropped )
-		{
-			//
-			// If we're just holstering, then hide us
-			//
-			if ( !dropped )
-			{
-				EnableDrawing = false;
-			}
+                CreateViewModel();
+                CreateHudElements();
+            }
+        }
 
-			if ( IsClient )
-			{
-				DestroyViewModel();
-				DestroyHudElements();
-			}
-		}
+        public virtual void ActiveEnd(Entity ent, bool dropped)
+        {
+            //
+            // If we're just holstering, then hide us
+            //
+            if (!dropped)
+            {
+                EnableDrawing = false;
+            }
 
-		public virtual void OnCarryStart( Entity carrier )
-		{
-			if ( IsClient ) return;
+            if (IsClient)
+            {
+                DestroyViewModel();
+                DestroyHudElements();
+            }
+        }
 
-			SetParent( carrier, true );
-			Owner = carrier;
-			PhysicsEnabled = false;
-			EnableAllCollisions = false;
-			EnableDrawing = false;
-		}
+        public virtual void OnCarryStart(Entity carrier)
+        {
+            if (IsClient) return;
 
-		public virtual void OnCarryDrop( Entity dropper )
-		{
-			if ( IsClient ) return;
+            SetParent(carrier, true);
+            Owner = carrier;
+            PhysicsEnabled = false;
+            EnableAllCollisions = false;
+            EnableDrawing = false;
+        }
 
-			SetParent( null );
-			Owner = null;
-			PhysicsEnabled = true;
-			EnableDrawing = true;
-			EnableAllCollisions = true;
-		}
+        public virtual void OnCarryDrop(Entity dropper)
+        {
+            if (IsClient) return;
 
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
+            SetParent(null);
+            Owner = null;
+            PhysicsEnabled = true;
+            EnableDrawing = true;
+            EnableAllCollisions = true;
+        }
 
-			if ( IsClient && ViewModelEntity.IsValid() )
-			{
-				DestroyViewModel();
-				DestroyHudElements();
-			}
-		}
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
 
-		public virtual void SimulateAnimator( PlayerBaseAnimator anim )
-		{
-			anim.SetAnimParameter( "holdtype", 1 );
-			anim.SetAnimParameter( "aim_body_weight", 1.0f );
-			anim.SetAnimParameter( "holdtype_handedness", 0 );
-		}
+            if (IsClient && ViewModelEntity.IsValid())
+            {
+                DestroyViewModel();
+                DestroyHudElements();
+            }
+        }
 
-		public virtual void CreateViewModel()
-		{
-			Host.AssertClient();
+        public virtual void SimulateAnimator(PlayerBaseAnimator anim)
+        {
+            anim.SetAnimParameter("holdtype", 1);
+            anim.SetAnimParameter("aim_body_weight", 1.0f);
+            anim.SetAnimParameter("holdtype_handedness", 0);
+        }
 
-			if ( string.IsNullOrEmpty( ViewModelPath ) )
-				return;
+        public virtual void CreateViewModel()
+        {
+            Host.AssertClient();
 
-			ViewModelEntity = new BaseViewModel { Position = Position, Owner = Owner, EnableViewmodelRendering = true };
-			ViewModelEntity.SetModel( ViewModelPath );
-		}
+            if (string.IsNullOrEmpty(ViewModelPath))
+                return;
 
-		public virtual void CreateHudElements() { }
+            ViewModelEntity = new BaseViewModel();
+            ViewModelEntity.Position = Position;
+            ViewModelEntity.Owner = Owner;
+            ViewModelEntity.EnableViewmodelRendering = true;
+            ViewModelEntity.SetModel(ViewModelPath);
+        }
 
-		public virtual void DestroyHudElements() { }
+        public virtual void CreateHudElements() { }
 
-		public virtual void DestroyViewModel()
-		{
-			ViewModelEntity?.Delete();
-			ViewModelEntity = null;
-		}
+        public virtual void DestroyHudElements() { }
 
-		public virtual bool CanCarry( Entity carrier )
-		{
-			return true;
-		}
+        public virtual void DestroyViewModel()
+        {
+            ViewModelEntity?.Delete();
+            ViewModelEntity = null;
+        }
 
-		/// <summary>
-		/// Utility - return the entity we should be spawning particles from etc
-		/// </summary>
-		public virtual ModelEntity EffectEntity => (ViewModelEntity.IsValid() && IsFirstPersonMode) ? ViewModelEntity : this;
-	}
+        public virtual bool CanCarry(Entity carrier)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Utility - return the entity we should be spawning particles from etc
+        /// </summary>
+        public virtual ModelEntity EffectEntity => (ViewModelEntity.IsValid() && IsFirstPersonMode) ? ViewModelEntity : this;
+    }
 }
