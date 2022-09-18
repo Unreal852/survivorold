@@ -11,9 +11,9 @@ namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_buyable_door" )]
 [Title( "Buyable door" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
-[HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.animated_model )]
-[RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class BuyableDoor : ModelEntity, IUsable
+[HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.breakable_prop_model )]
+[RenderFields, VisGroup( VisGroup.Physics )]
+public partial class BuyableDoor : Prop, IUsable
 {
 	private bool      _bought          = false;
 	private TimeSince _timeSinceBought = new TimeSince();
@@ -31,9 +31,13 @@ public partial class BuyableDoor : ModelEntity, IUsable
 	public string Room { get; set; } = "";
 
 	[Property]
+	[Category( "Door" ), Title( "Open action" )]
+	public DoorOpenAction OpenAction { get; set; } = DoorOpenAction.Move;
+
+	[Property]
 	[Category( "Door" ), Title( "Open Direction" ),
 	 Description( "The direction where the door goes to play its opening animation. (Setting 0 will disable animation and the door will be instantly deleted" )]
-	public Vector3 OpenDirection { get; set; } = Vector3.Down;
+	public Vector3 OpenMoveDirection { get; set; } = Vector3.Down;
 
 	[Property]
 	[Category( "Door" ), Title( "Open Speed" ), Description( "The open animation speed" )]
@@ -89,8 +93,6 @@ public partial class BuyableDoor : ModelEntity, IUsable
 				player.Money -= Cost;
 				if ( Owner is Room room )
 					room.IsBought = true;
-				if ( OpenDirection == Vector3.Zero )
-					Delete();
 				_bought = true;
 				_timeSinceBought = 0;
 				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}$" );
@@ -99,6 +101,10 @@ public partial class BuyableDoor : ModelEntity, IUsable
 		}
 
 		return false;
+	}
+
+	public override void TakeDamage( DamageInfo info )
+	{
 	}
 
 	public bool IsUsable( Entity user )
@@ -111,9 +117,35 @@ public partial class BuyableDoor : ModelEntity, IUsable
 	{
 		if ( IsValid && _bought )
 		{
-			Position += OpenDirection * OpenSpeed * Time.Delta;
-			if ( _timeSinceBought >= DeleteAfter )
-				Delete();
+			if ( OpenAction == DoorOpenAction.Move )
+			{
+				if ( OpenMoveDirection == Vector3.Zero )
+				{
+					Delete();
+					return;
+				}
+
+				Position += OpenMoveDirection * OpenSpeed * Time.Delta;
+				if ( _timeSinceBought >= DeleteAfter )
+					Delete();
+			}
+			else if ( OpenAction == DoorOpenAction.Destroy )
+			{
+				Break();
+			}
 		}
 	}
+}
+
+public enum DoorOpenAction
+{
+	/// <summary>
+	/// The door will move to the configured direction
+	/// </summary>
+	Move,
+
+	/// <summary>
+	/// The door will break, this requires a breakable model
+	/// </summary>
+	Destroy
 }

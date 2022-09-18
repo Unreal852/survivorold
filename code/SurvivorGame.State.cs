@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
+using Survivor.Assets;
 using Survivor.Entities.Hammer;
 using Survivor.Entities.Zombies;
 using Survivor.GameMode;
@@ -14,7 +15,9 @@ public partial class SurvivorGame
 {
 	private static IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
 	public static  BaseGameMode               GAME_MODE    => Current.GameMode;
-	[Net] public   BaseGameMode               GameMode     { get; set; }
+
+	[Net]
+	public BaseGameMode GameMode { get; set; }
 
 	public override void PostLevelLoaded()
 	{
