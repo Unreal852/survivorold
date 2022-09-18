@@ -1,4 +1,6 @@
-﻿using Survivor.Assets;
+﻿using System.Diagnostics;
+using Sandbox;
+using Survivor.Assets;
 using Survivor.Weapons.Bullets;
 using SWB_Base;
 
@@ -28,10 +30,49 @@ public abstract partial class ABaseWeapon : WeaponBase
 		UISettings.ShowAmmoCount = false;
 	}
 
-	public sealed override void Spawn()
-	{
-		base.Spawn();
-	}
-
 	public WeaponAsset Asset { get; private set; }
+
+	// public override void ShootBullet( float spread, float force, float damage, float bulletSize, bool isPrimary )
+	// {
+	// 	// Spread
+	// 	// var forward = Owner.EyeRotation.Forward;
+	// 	// forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
+	// 	// forward = forward.Normal;
+	// 	// var endPos = Owner.EyePosition + forward * 999999;
+	//
+	// 	var forward = Rotation.Forward;
+	// 	var endPos = Rotation.Forward * 999999;
+	// 	var muzzle = GetModelAttachment( "muzzle" );
+	// 	Log.Info( muzzle.Value.Position );
+	// 	DebugOverlay.Sphere( muzzle.Value.Position, 2, Color.Red );
+	// 	DebugOverlay.Line(muzzle.Value.Position, endPos, Color.Blue);
+	//
+	// 	// Server Bullet
+	// 	if ( isPrimary )
+	// 	{
+	// 		Primary.BulletType.FireSV( this, muzzle.Value.Position, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+	// 	}
+	// 	else
+	// 	{
+	// 		Secondary.BulletType.FireSV( this, muzzle.Value.Position, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+	// 	}
+	//
+	// 	// Client bullet
+	// 	ShootClientBullet( muzzle.Value.Position, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+	// }
+	//
+	// public override void ShootClientBullet( Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize,
+	//                                         bool isPrimary )
+	// {
+	// 	if ( Owner == null ) return;
+	//
+	// 	if ( isPrimary )
+	// 	{
+	// 		Primary.BulletType.FireCL( this, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+	// 	}
+	// 	else
+	// 	{
+	// 		Secondary.BulletType.FireCL( this, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+	// 	}
+	// }
 }
