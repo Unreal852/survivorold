@@ -25,13 +25,21 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		_clothing.LoadFromClient( client );
 	}
 
-	public       bool      SuppressPickupNotices { get; set; } = true;
-	public       bool      GodMode               { get; set; } = false;
-	public       TimeSince SinceRespawn          { get; set; } = 0;
-	[Net] public float     MaxHealth             { get; set; }
-	[Net] public float     MaxStamina            { get; set; }
-	[Net] public float     Stamina               { get; set; }
-	[Net] public int       Money                 { get; set; }
+	public bool      SuppressPickupNotices { get; set; } = true;
+	public bool      GodMode               { get; set; } = false;
+	public TimeSince SinceRespawn          { get; set; } = 0;
+
+	[Net]
+	public float MaxHealth { get; set; }
+
+	[Net]
+	public float MaxStamina { get; set; }
+
+	[Net]
+	public float Stamina { get; set; }
+
+	[Net]
+	public int Money { get; set; }
 
 	private void Prepare()
 	{
@@ -58,11 +66,14 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		SuppressPickupNotices = true;
 
-		Inventory.Add( new Magnum(), true );
+		//Inventory.Add( new Magnum(), true );
+		Inventory.Add( new FN57(), true );
+		Inventory.Add( new KrissVector(), true );
 		//Inventory.Add( new AK47() );
 
-		GiveAmmo( AmmoType.Pistol, 18 );
-
+		GiveAmmo( AmmoType.Pistol, 999 );
+		GiveAmmo( AmmoType.SMG, 999 );
+		
 		SuppressPickupNotices = false;
 
 		SinceRespawn = 0;

@@ -1,0 +1,38 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Name = "FN57"
+		ViewModel = resource:"models/weapons/pistols/fn57/vm_fn57.vmdl"
+		WorldModel = resource:"models/weapons/pistols/fn57/wm_fn57.vmdl"
+		DrawTime = 1
+		ReloadTime = 2.8
+		ReloadEmptyTime = -1
+		BoltBackTime = -1
+		BoltBackEjectDelay = 0
+		AmmoType = "Pistol"
+		FiringType = "semi"
+		Ammo = 10
+		ClipSize = 10
+		Bullets = 1
+		BulletSize = 3
+		Damage = 8
+		Force = 3
+		Spread = 0.1
+		Recoil = 1
+		RPM = 160
+		ReloadAnim = "reload"
+		ReloadEmptyAnim = "reload_empty"
+		DrawAnim = "deploy"
+		DrawEmptyAnim = "deploy_empty"
+		BoltBackAnim = "boltback"
+		ShootAnim = "fire"
+		ShootZoomedAnim = "fire"
+		ShootSound = resource:"sounds/weapons/magnum/magnum_shot_01.sound"
+		DryFireSound = resource:"sounds/swb/clip/swb_pistol.empty.sound"
+		BulletEjectParticle = resource:"particles/pistol_ejectbrass.vpcf"
+		MuzzleFlashParticle = resource:"particles/swb/muzzle/flash_medium.vpcf"
+		BarrelSmokeParticle = resource:"particles/swb/muzzle/barrel_smoke.vpcf"
+		BulletTracerParticle = resource:"particles/swb/tracer/tracer_medium.vpcf"
+	}
+}
