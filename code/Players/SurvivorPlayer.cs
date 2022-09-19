@@ -68,12 +68,12 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		//Inventory.Add( new Magnum(), true );
 		Inventory.Add( new FN57(), true );
-		Inventory.Add( new KrissVector(), true );
+		Inventory.Add( new KrissVector() );
 		//Inventory.Add( new AK47() );
 
 		GiveAmmo( AmmoType.Pistol, 999 );
 		GiveAmmo( AmmoType.SMG, 999 );
-		
+
 		SuppressPickupNotices = false;
 
 		SinceRespawn = 0;
