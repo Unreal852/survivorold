@@ -18,7 +18,7 @@
 		BulletSize = 3
 		Damage = 10
 		Force = 5
-		Spread = 0.08
+		Spread = 0.1
 		Recoil = 0.8
 		RPM = 600
 		ReloadAnim = "reload"
