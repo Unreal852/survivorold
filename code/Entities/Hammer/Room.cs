@@ -20,7 +20,7 @@ public partial class Room : Entity
 	}
 
 	[Property]
-	[Category( "Room" ), Title( "Open all doors when another door for this romm is bought" )]
+	[Category( "Room" ), Title( "Open all doors when bought" ), Description( "Open all doors when another door for this romm is bought" )]
 	public bool OpenAllDoorsWhenBought { get; set; } = false;
 
 	public bool HasSpawns => _zombieSpawns != null && _zombieSpawns.Length > 0;
