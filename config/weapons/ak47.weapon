@@ -24,9 +24,9 @@
 		Recoil = 0.8
 		RPM = 600
 		ReloadAnim = "reload"
-		ReloadEmptyAnim = "reload_empty"
+		ReloadEmptyAnim = "reload"
 		DrawAnim = "deploy"
-		DrawEmptyAnim = "deploy_empty"
+		DrawEmptyAnim = "deploy"
 		BoltBackAnim = "boltback"
 		ShootAnim = "fire"
 		ShootZoomedAnim = "fire"

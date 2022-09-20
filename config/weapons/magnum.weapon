@@ -3,8 +3,8 @@
 	data = 
 	{
 		Name = "Magnum"
-		WeaponType = "MAGNUM"
 		ClassName = "Magnum"
+		WeaponType = "MAGNUM"
 		ViewModel = resource:"models/weapons/pistols/magnum/vm_magnum.vmdl"
 		WorldModel = resource:"models/weapons/pistols/magnum/wm_magnum.vmdl"
 		DrawTime = 1
@@ -24,9 +24,9 @@
 		Recoil = 2
 		RPM = 80
 		ReloadAnim = "reload"
-		ReloadEmptyAnim = "reload_empty"
+		ReloadEmptyAnim = "reload"
 		DrawAnim = "deploy"
-		DrawEmptyAnim = "deploy_empty"
+		DrawEmptyAnim = "deploy"
 		BoltBackAnim = "boltback"
 		ShootAnim = "fire"
 		ShootZoomedAnim = "fire"
