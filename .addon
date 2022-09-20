@@ -26,7 +26,8 @@
     "ProjectTemplate": null,
     "GameCategory": "Shooter",
     "ControlModes": {
-      "Keyboard": true
+      "Keyboard": true,
+      "Gamepad": true
     },
     "Compiler": {
       "RootNamespace": "Survivor",
