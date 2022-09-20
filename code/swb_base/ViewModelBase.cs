@@ -73,7 +73,7 @@ namespace SWB_Base
 			if ( weapon.Primary.Ammo > 0 && weapon.TimeSincePrimaryAttack < 0.05 ) // TODO: This is temporary
 			{
 				finalVectorPos += Vector3.Zero.WithY( Rand.Float( -0.5f, 0f ) );
-				finalVectorRot += Vector3.Random.WithY( Rand.Float( -0.5f, 0.5f ) ).WithX( Rand.Float( -0.5f, 0.5f ) ) * weapon.Primary.Recoil;
+				finalVectorRot += Vector3.Random.WithY( Rand.Float( -0.2f, 0.2f ) ).WithX( Rand.Float( -0.2f, 0.2f ) ) * weapon.Primary.Recoil;
 			}
 
 			animSpeed = 10 * weapon.WalkAnimationSpeedMod;
