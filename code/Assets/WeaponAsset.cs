@@ -1,14 +1,22 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
+using Survivor.Weapons;
 using Survivor.Weapons.Bullets;
 using SWB_Base;
 
 namespace Survivor.Assets;
 
 [GameResource( "Weapon", "weapon", "Describes a weapon", Icon = "military_tech" )]
-public class WeaponAsset : GameResource
+public sealed partial class WeaponAsset : GameResource
 {
 	[Category( "General" )]
 	public string Name { get; set; }
+
+	[Category( "General" ), Title( "C# Type Name" )]
+	public string ClassName { get; set; }
+
+	[Category( "General" )]
+	public WeaponType WeaponType { get; set; }
 
 	[Category( "Model" ), ResourceType( "vmdl" )]
 	public string ViewModel { get; set; }
@@ -148,12 +156,30 @@ public class WeaponAsset : GameResource
 		};
 	}
 
+	public Type GetWeaponClassType()
+	{
+		// TODO: Cache on post load
+		return TypeLibrary.GetDescription( ClassName ).TargetType;
+	}
+
+	public ABaseWeapon CreateWeaponInstance()
+	{
+		// TODO: Cache on post load
+		return TypeLibrary.Create<ABaseWeapon>( ClassName );
+	}
+
+	public ModelEntity CreateWorldModelEntity()
+	{
+		return null;
+	}
+
 	protected override void PostLoad()
 	{
+		RegisterIfNotExists( this );
 	}
 
 	protected override void PostReload()
 	{
-		
+		RegisterIfNotExists( this );
 	}
 }

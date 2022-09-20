@@ -1,8 +1,10 @@
-﻿using Landis;
-using Sandbox;
+﻿using Sandbox;
 using SandboxEditor;
+using Survivor.Assets;
+using Survivor.Extensions;
 using Survivor.Interaction;
 using Survivor.Players;
+using Survivor.Players.Inventory;
 using Survivor.Weapons;
 
 // resharper disable all
@@ -16,12 +18,37 @@ namespace Survivor.Entities.Hammer;
 public partial class WeaponStand : ModelEntity, IUsable
 {
 	[Property]
-	[Title( "Enabled" ), Description( "Unchecking this will prevent this weapon from being bought" )]
+	[Category( "Weapon Stand" ), Title( "Enabled" ), Description( "Unchecking this will prevent this weapon from being bought" )]
 	public bool IsEnabled { get; set; } = true;
 
+	[Property]
+	[Category( "Weapon Stand" ), Title( "Weapon" ), Description( "The weapon sold by this weapon stand" )]
+	public WeaponType Weapon { get; set; }
+
 	[Property, Net]
-	[Title( "Cost" ), Description( "The cost to buy this weapon" )]
+	[Category( "Weapon Stand" ), Title( "Cost" ), Description( "The cost to buy this weapon" )]
 	public int Cost { get; set; } = 0;
+
+	[Property, Net]
+	[Category( "Weapon Stand" ), Title( "Ammo Cost" ), Description( "The cost to buy ammo for this weapon" )]
+	public int AmmoCost { get; set; } = 0;
+
+	[Net]
+	private WeaponAsset WeaponAsset { get; set; }
+
+	private WeaponWorldModel WorldModel { get; set; }
+
+	public int UseCost
+	{
+		get
+		{
+			if ( Local.Pawn is not SurvivorPlayer player )
+				return 0;
+			if ( player.Inventory is SurvivorPlayerInventory inventory && inventory.IsCarryingType( WeaponAsset.GetWeaponClassType() ) )
+				return AmmoCost;
+			return Cost;
+		}
+	}
 
 	public string UseMessage
 	{
@@ -29,7 +56,9 @@ public partial class WeaponStand : ModelEntity, IUsable
 		{
 			if ( Local.Pawn is not SurvivorPlayer player )
 				return string.Empty;
-			return "Buy Weapon";
+			if ( player.Inventory is SurvivorPlayerInventory inventory && inventory.IsCarryingType( WeaponAsset.GetWeaponClassType() ) )
+				return "Buy Ammo";
+			return $"Buy {WeaponAsset.Name}";
 		}
 	}
 
@@ -44,12 +73,15 @@ public partial class WeaponStand : ModelEntity, IUsable
 			return;
 		}
 
-		var prop = new ModelEntity( "models/weapons/assault_rifles/ak47/wm_ak47.vmdl" );
-		var glow = prop.Components.Create<GlowEffect>();
-		glow.Active = true;
-		glow.Color = Color.Green;
-		prop.Transform = weapSpawnPos.Value;
-		prop.PhysicsClear();
+		WeaponAsset = WeaponAsset.GetWeaponAsset( Weapon );
+		if ( WeaponAsset == null )
+		{
+			Log.Error( $"No weapon asset found for '{Weapon}'" );
+			Delete();
+			return;
+		}
+
+		WorldModel = new WeaponWorldModel( WeaponAsset ) { Transform = weapSpawnPos.Value, Parent = this };
 	}
 
 	public bool OnUse( Entity user )
@@ -58,13 +90,13 @@ public partial class WeaponStand : ModelEntity, IUsable
 			return false;
 		if ( user is SurvivorPlayer player && player.TryUse() )
 		{
-			if ( player.Money >= Cost )
-			{
+			var weaponType = WeaponAsset.GetWeaponClassType();
+			if ( player.Inventory.IsCarryingType( weaponType ) && player.Money >= AmmoCost )
+				player.Money -= AmmoCost;
+			else if ( player.Money >= Cost )
 				player.Money -= Cost;
-				player.Inventory.Add( new AK47(), true );
-				Log.Info( player.Inventory );
-				return true;
-			}
+			player.Inventory.Add( WeaponAsset.CreateWeaponInstance(), true );
+			return true;
 		}
 
 		return false;

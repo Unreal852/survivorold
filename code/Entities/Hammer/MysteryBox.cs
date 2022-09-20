@@ -1,6 +1,9 @@
-﻿using Landis;
+﻿using System;
 using Sandbox;
 using SandboxEditor;
+using Survivor.Assets;
+using Survivor.Extensions;
+using Survivor.Glow;
 using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.UI.World;
@@ -16,9 +19,8 @@ namespace Survivor.Entities.Hammer;
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class MysteryBox : AnimatedEntity, IUsable
 {
-	private Entity      _lastUser;
-	private ModelEntity _weaponEntity;
-	private TimeSince   _sinceOpened;
+	private WeaponWorldModel _weaponEntity;
+	private TimeSince        _sinceOpened;
 
 	public MysteryBox()
 	{
@@ -43,96 +45,21 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 	[Net]
 	public bool IsClosing { get; set; }
 
+	[Net]
+	public WeaponAsset WeaponAsset { get; set; }
+
+	[Net]
+	public Entity LastUser { get; set; }
+
+	public int    UseCost    => Cost;
+	public string UseMessage => IsOpened && WeaponAsset != null ? $"Take {WeaponAsset.Name}" : "May the luck be with you";
+	public bool   HasCost    => !IsOpened && Cost > 0;
+
 	public override void Spawn()
 	{
 		base.Spawn();
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
 	}
-
-	public override void ClientSpawn()
-	{
-		base.ClientSpawn();
-	}
-
-	private void SpawnRandomWeapon()
-	{
-		if ( _weaponEntity != null && _weaponEntity.IsValid )
-		{
-			_weaponEntity.Components.RemoveAll();
-			_weaponEntity.Delete();
-			_weaponEntity = null;
-		}
-
-		var wepSpawn = GetAttachment( "weapon" );
-		if ( wepSpawn.HasValue )
-		{
-			if ( Rand.Int( 1 ) == 0 ) // TODO: dummy code
-				_weaponEntity = new ModelEntity( "models/weapons/pistols/magnum/wm_magnum.vmdl" ) { Transform = wepSpawn.Value };
-			else
-				_weaponEntity = new ModelEntity( "models/weapons/assault_rifles/ak47/wm_ak47.vmdl" ) { Transform = wepSpawn.Value, };
-			// var mat = Material.Load( "materials/dev/glowproperty.vmat" );
-			// _weaponEntity.SetMaterialOverride( Material.Load( "materials/dev/glowproperty.vmat" ) );
-		}
-		else
-			Log.Warning( "Missing 'weapon' attachement on the mystery box" );
-	}
-
-	public void OpenBox()
-	{
-		if ( IsOpening || IsClosing || IsOpened )
-			return;
-		SpawnRandomWeapon();
-		SetAnimParameter( "open", true );
-	}
-
-	public void CloseBox()
-	{
-		if ( IsOpening || IsClosing || !IsOpened )
-			return;
-		SetAnimParameter( "close", true );
-		_lastUser = null;
-	}
-
-	public bool OnUse( Entity user )
-	{
-		if ( !IsEnabled )
-			return false;
-		if ( user is SurvivorPlayer player && player.TryUse() )
-		{
-			if ( !IsOpened && player.Money >= Cost )
-			{
-				_lastUser = player;
-				player.Money -= Cost;
-				OpenBox();
-				return true;
-			}
-
-			if ( user == _lastUser && _weaponEntity != null && _weaponEntity.IsValid )
-			{
-				// TODO: Dummy code
-				if ( _weaponEntity.Model.ResourceName.Contains( "ak47" ) )
-					player.Inventory.Add( new AK47(), true );
-				else
-					player.Inventory.Add( new Magnum(), true );
-				MysteryBoxTimer.DeleteMysteryBoxTimerClient();
-				_weaponEntity.Delete();
-				CloseBox();
-				return true;
-			}
-
-			return false;
-		}
-
-		return false;
-	}
-
-	public bool IsUsable( Entity user )
-	{
-		return !IsOpening && !IsClosing;
-	}
-
-	public string UseMessage => IsOpened ? "Take Weapon" : "Random weapon";
-	public bool   HasCost    => !IsOpened && Cost > 0;
 
 	protected override void OnAnimGraphTag( string tag, AnimGraphTagEvent fireMode )
 	{
@@ -148,19 +75,93 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 			IsOpened = fireMode == AnimGraphTagEvent.Start;
 			if ( IsOpened )
 			{
-				if ( _weaponEntity != null && _weaponEntity.IsValid )
-				{
-					var glow = _weaponEntity.Components.Create<GlowEffect>();
-					glow.Active = true;
-					glow.Color = Color.Green;
-				}
-
 				var timerSpawn = GetAttachment( "timer" );
 				if ( !timerSpawn.HasValue )
 					return;
 				MysteryBoxTimer.SpawnMysteryBoxTimerClient( timerSpawn.Value.Position, timerSpawn.Value.Rotation, StayOpenedDuration );
 			}
 		}
+	}
+
+	private void SpawnRandomWeapon()
+	{
+		DeleteWeapon();
+
+		var wepSpawn = GetAttachment( "weapon" );
+		if ( wepSpawn.HasValue )
+		{
+			var weaponTypes = Enum.GetValues<WeaponType>();
+			var randIndex = Rand.Int( 0, weaponTypes.Length - 1 );
+			WeaponAsset = WeaponAsset.GetWeaponAsset( weaponTypes[randIndex] );
+			_weaponEntity = new WeaponWorldModel( WeaponAsset ) { Transform = wepSpawn.Value, Parent = this };
+		}
+		else
+			Log.Warning( "Missing 'weapon' attachement on the mystery box" );
+	}
+
+	private void DeleteWeapon()
+	{
+		WeaponAsset = null;
+		if ( _weaponEntity != null && _weaponEntity.IsValid )
+		{
+			_weaponEntity.Components.RemoveAll();
+			_weaponEntity.Delete();
+			_weaponEntity = null;
+		}
+		else
+			_weaponEntity = null;
+	}
+
+	public void OpenBox()
+	{
+		if ( IsOpening || IsClosing || IsOpened )
+			return;
+		SpawnRandomWeapon();
+		SetAnimParameter( "open", true );
+	}
+
+	public void CloseBox()
+	{
+		if ( IsOpening || IsClosing || !IsOpened )
+			return;
+		SetAnimParameter( "close", true );
+		LastUser = null;
+	}
+
+	public bool OnUse( Entity user )
+	{
+		if ( !IsEnabled )
+			return false;
+		if ( user is SurvivorPlayer player && player.TryUse() )
+		{
+			if ( !IsOpened && player.Money >= Cost )
+			{
+				LastUser = player;
+				player.Money -= Cost;
+				OpenBox();
+				return true;
+			}
+
+			if ( IsOpened && user == LastUser && WeaponAsset != null )
+			{
+				player.Inventory.Add( WeaponAsset.CreateWeaponInstance(), true );
+				MysteryBoxTimer.DeleteMysteryBoxTimerClient();
+				DeleteWeapon();
+				CloseBox();
+				return true;
+			}
+
+			return false;
+		}
+
+		return false;
+	}
+
+	public bool IsUsable( Entity user )
+	{
+		if ( IsOpened )
+			return user == LastUser;
+		return !IsOpening && !IsClosing;
 	}
 
 	[Event.Tick.Server]

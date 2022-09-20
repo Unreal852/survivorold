@@ -47,6 +47,7 @@ public partial class BuyableDoor : Prop, IUsable
 	[Category( "Door" ), Title( "Delete after" ), Description( "Delete this door after the set amount of time (in seconds)" )]
 	public float DeleteAfter { get; set; } = 2.5f;
 
+	public int    UseCost    => Cost;
 	public string UseMessage => "Open Door";
 
 	public override void Spawn()

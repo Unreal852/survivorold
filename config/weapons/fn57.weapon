@@ -2,7 +2,9 @@
 {
 	data = 
 	{
-		Name = "FN57"
+		Name = "FN-57"
+		WeaponType = "FN57"
+		ClassName = "FN57"
 		ViewModel = resource:"models/weapons/pistols/fn57/vm_fn57.vmdl"
 		WorldModel = resource:"models/weapons/pistols/fn57/wm_fn57.vmdl"
 		DrawTime = 1

@@ -5,6 +5,7 @@ using Survivor.Entities;
 using Survivor.Entities.Zombies;
 using Survivor.Players;
 using Survivor.UI.World;
+using Survivor.Weapons;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 using ClientCommand = Sandbox.ConCmd.ClientAttribute;
 using AdminServerCommand = Sandbox.ConCmd.AdminAttribute;
@@ -17,6 +18,14 @@ public partial class SurvivorGame
 	public static void SpawnWorldInteractablePanel()
 	{
 		_ = new WorldInteractablePanel() { Position = Local.Pawn.EyePosition };
+	}
+
+	[ServerCommand( "test2" )]
+	public static void Test2()
+	{
+		string csClass = "Survivor.Weapons.FN57";
+		var wep = TypeLibrary.Create<ABaseWeapon>( "AK47" );
+		Log.Info( wep.Asset.Name );
 	}
 
 	[ServerCommand( "sessioninfos" )]
@@ -42,7 +51,7 @@ public partial class SurvivorGame
 	}
 
 	[AdminServerCommand( "imrich" )]
-	public static void GiveMoney( int amount = 1000 )
+	public static void GiveMoney( int amount = 10000 )
 	{
 		var caller = ConsoleSystem.Caller?.Pawn;
 		if ( caller is SurvivorPlayer player )

@@ -38,8 +38,8 @@ public class PlayerInteractablePanel : Panel
 			_useMessageLabel.Text = usable.UseMessage;
 			if ( usable.HasCost )
 			{
-				_costLabel.Text = $"{usable.Cost} $";
-				_costLabel.Style.FontColor = player.Money < usable.Cost ? Color.Red : Color.Green;
+				_costLabel.Text = $"{usable.UseCost} $";
+				_costLabel.Style.FontColor = player.Money < usable.UseCost ? Color.Red : Color.Green;
 			}
 			else
 				_costLabel.Text = string.Empty;

@@ -1,117 +1,117 @@
 using Sandbox;
 
-namespace Landis
+namespace Survivor.Glow;
+
+/// <summary>
+/// A new and a bit better glow effect.
+/// https://github.com/urnotnick/sbox-glow
+/// </summary>
+public partial class GlowEffect : EntityComponent<ModelEntity>
 {
-	/// <summary>
-	/// A new and a bit better glow effect.
-	/// </summary>
-	public partial class GlowEffect : EntityComponent<ModelEntity>
+	protected override void OnActivate()
 	{
-		protected override void OnActivate()
+		if ( Host.IsServer )
 		{
-			if ( Host.IsServer )
+			if ( GlowModel is null )
 			{
-				if ( GlowModel is null )
-				{
-					GlowModel = new ModelEntity();
-					GlowModel.CopyFrom( Entity );
-					GlowModel.Parent = Entity;
-					GlowModel.EnableDrawing = false;
-					GlowModel.LocalPosition = Vector3.Zero;
-					GlowModel.LocalRotation = Rotation.FromPitch( 0.0f );
-					GlowModel.SetMaterialOverride( "materials/glow.vmat" );
-				}
+				GlowModel = new ModelEntity();
+				GlowModel.CopyFrom( Entity );
+				GlowModel.Parent = Entity;
+				GlowModel.EnableDrawing = false;
+				GlowModel.LocalPosition = Vector3.Zero;
+				GlowModel.LocalRotation = Rotation.FromPitch( 0.0f );
+				GlowModel.SetMaterialOverride( "materials/glow.vmat" );
 			}
 		}
+	}
 
-		protected override void OnDeactivate()
+	protected override void OnDeactivate()
+	{
+		// if ( Host.IsServer )
+		// {
+		// 	Active = false;
+		// 	GlowModel?.Delete();
+		// }
+	}
+
+	/// <summary>
+	/// Internal glow entity.
+	/// </summary>
+	[Net]
+	private ModelEntity GlowModel { get; set; }
+
+	/// <summary>
+	/// Draws the glow effect when enabled.
+	/// </summary>
+	public bool Active
+	{
+		get
 		{
-			if ( Host.IsServer )
+			if ( GlowModel is not null )
 			{
-				Active = false;
-				GlowModel?.Delete();
+				return GlowModel.EnableDrawing;
 			}
+
+			return false;
 		}
 
-		/// <summary>
-		/// Internal glow entity.
-		/// </summary>
-		[Net]
-		private ModelEntity GlowModel { get; set; }
-
-		/// <summary>
-		/// Draws the glow effect when enabled.
-		/// </summary>
-		public bool Active
+		set
 		{
-			get
+			if ( GlowModel is not null )
 			{
-				if ( GlowModel is not null )
-				{
-					return GlowModel.EnableDrawing;
-				}
-
-				return false;
-			}
-
-			set
-			{
-				if ( GlowModel is not null )
-				{
-					GlowModel.EnableDrawing = value;
-				}
+				GlowModel.EnableDrawing = value;
 			}
 		}
+	}
 
-		/// <summary>
-		/// The color of the glow.
-		/// </summary>
-		public Color Color
+	/// <summary>
+	/// The color of the glow.
+	/// </summary>
+	public Color Color
+	{
+		get
 		{
-			get
+			if ( GlowModel is not null )
 			{
-				if ( GlowModel is not null )
-				{
-					return GlowModel.RenderColor;
-				}
-
-				return Color.White;
+				return GlowModel.RenderColor;
 			}
 
-			set
-			{
-				if ( GlowModel is not null )
-				{
-					GlowModel.RenderColor = value;
-				}
-			}
+			return Color.White;
 		}
 
-		/// <summary>
-		/// This doesn't seem to work, let me know if it does or doesn't.
-		/// </summary>
-		public float Opacity
+		set
 		{
-			get => Color.a;
-			set => Color = Color.WithAlpha( value );
+			if ( GlowModel is not null )
+			{
+				GlowModel.RenderColor = value;
+			}
 		}
+	}
 
-		private Material _glowMaterial = Material.Load( "materials/glow.vmat" );
+	/// <summary>
+	/// This doesn't seem to work, let me know if it does or doesn't.
+	/// </summary>
+	public float Opacity
+	{
+		get => Color.a;
+		set => Color = Color.WithAlpha( value );
+	}
 
-		/// <summary>
-		/// Changes the material that is used to draw the glow, don't recommend changing this.
-		/// </summary>
-		public Material MaterialOverride
+	private Material _glowMaterial = Material.Load( "materials/glow.vmat" );
+
+	/// <summary>
+	/// Changes the material that is used to draw the glow, don't recommend changing this.
+	/// </summary>
+	public Material MaterialOverride
+	{
+		get
 		{
-			get
-			{
-				return _glowMaterial;
-			}
-			set
-			{
-				_glowMaterial = value;
-				GlowModel.SetMaterialOverride( _glowMaterial );
-			}
+			return _glowMaterial;
+		}
+		set
+		{
+			_glowMaterial = value;
+			GlowModel.SetMaterialOverride( _glowMaterial );
 		}
 	}
 }

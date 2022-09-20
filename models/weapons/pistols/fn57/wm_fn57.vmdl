@@ -12,7 +12,7 @@
 					{
 						_class = "RenderMeshFile"
 						filename = "blender/FBX/FN57.fbx"
-						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_translation = [ -30.0, 10.0, -140.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
 						align_origin_x_type = "None"
@@ -35,8 +35,13 @@
 				children = 
 				[
 					{
-						_class = "ModelModifier_Translate"
-						translation = [ 0.0, 0.0, -130.0 ]
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 0.5
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
 					},
 				]
 			},
@@ -52,12 +57,12 @@
 							{
 								_class = "Bone"
 								name = "hold_R"
-								origin = [ 2.761629, 0.0, 7.220711 ]
+								origin = [ 1.253413, 0.0, 4.370374 ]
 								angles = [ 0.0, 0.0, 0.0 ]
 								do_not_discard = true
 							},
 						]
-						origin = [ 27.686625, -9.77058, 6.7576 ]
+						origin = [ -1.257548, 0.0, -2.540881 ]
 						angles = [ 0.0, 0.0, 0.0 ]
 						do_not_discard = true
 					},

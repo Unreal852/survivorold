@@ -3,6 +3,8 @@
 	data = 
 	{
 		Name = "KRISS Vector"
+		WeaponType = "VECTOR"
+		ClassName = "KrissVector"
 		ViewModel = resource:"models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl"
 		WorldModel = resource:"models/weapons/pdw/kriss_vector/wm_kriss_vector.vmdl"
 		DrawTime = 1

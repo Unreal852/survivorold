@@ -3,6 +3,8 @@
 	data = 
 	{
 		Name = "Magnum"
+		WeaponType = "MAGNUM"
+		ClassName = "Magnum"
 		ViewModel = resource:"models/weapons/pistols/magnum/vm_magnum.vmdl"
 		WorldModel = resource:"models/weapons/pistols/magnum/wm_magnum.vmdl"
 		DrawTime = 1

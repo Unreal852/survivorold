@@ -17,7 +17,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	public SurvivorPlayer()
 	{
-		Inventory = new SurvivorPlayerInventory( this );
+		base.Inventory = new SurvivorPlayerInventory( this );
 	}
 
 	public SurvivorPlayer( Client client ) : this()
@@ -40,6 +40,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	[Net]
 	public int Money { get; set; }
+
+	public new SurvivorPlayerInventory Inventory => (SurvivorPlayerInventory)base.Inventory;
 
 	private void Prepare()
 	{
@@ -67,8 +69,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		SuppressPickupNotices = true;
 
 		//Inventory.Add( new Magnum(), true );
-		Inventory.Add( new FN57(), true );
-		Inventory.Add( new KrissVector() );
+		base.Inventory.Add( new FN57(), true );
+		base.Inventory.Add( new KrissVector() );
 		//Inventory.Add( new AK47() );
 
 		GiveAmmo( AmmoType.Pistol, 999 );
