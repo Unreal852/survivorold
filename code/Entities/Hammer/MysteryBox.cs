@@ -58,6 +58,7 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 	{
 		if ( _weaponEntity != null && _weaponEntity.IsValid )
 		{
+			_weaponEntity.Components.RemoveAll();
 			_weaponEntity.Delete();
 			_weaponEntity = null;
 		}

@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using Landis;
+using Sandbox;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
@@ -44,6 +45,9 @@ public partial class WeaponStand : ModelEntity, IUsable
 		}
 
 		var prop = new ModelEntity( "models/weapons/assault_rifles/ak47/wm_ak47.vmdl" );
+		var glow = prop.Components.Create<GlowEffect>();
+		glow.Active = true;
+		glow.Color = Color.Green;
 		prop.Transform = weapSpawnPos.Value;
 		prop.PhysicsClear();
 	}
