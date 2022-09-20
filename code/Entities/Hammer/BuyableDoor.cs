@@ -92,16 +92,22 @@ public partial class BuyableDoor : Prop, IUsable
 			if ( player.Money >= Cost )
 			{
 				player.Money -= Cost;
-				if ( Owner is Room room )
-					room.IsBought = true;
-				_bought = true;
-				_timeSinceBought = 0;
-				ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{player.Client.Name} opened {Room} for {Cost}$" );
+				OpenDoor( player );
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	public void OpenDoor( SurvivorPlayer opener )
+	{
+		if ( Owner is Room room )
+			room.IsBought = true;
+		_bought = true;
+		_timeSinceBought = 0;
+		if ( opener != null )
+			ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{opener.Client.Name} opened {Room} for {Cost}$" );
 	}
 
 	public override void TakeDamage( DamageInfo info )
