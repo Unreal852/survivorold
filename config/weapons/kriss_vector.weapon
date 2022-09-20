@@ -3,8 +3,8 @@
 	data = 
 	{
 		Name = "KRISS Vector"
-		WeaponType = "VECTOR"
 		ClassName = "KrissVector"
+		WeaponType = "VECTOR"
 		ViewModel = resource:"models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl"
 		WorldModel = resource:"models/weapons/pdw/kriss_vector/wm_kriss_vector.vmdl"
 		DrawTime = 1
@@ -18,7 +18,7 @@
 		ClipSize = 30
 		Bullets = 1
 		BulletSize = 3
-		Damage = 10
+		Damage = 13
 		Force = 5
 		Spread = 0.08
 		Recoil = 0.3

@@ -3,8 +3,8 @@
 	data = 
 	{
 		Name = "AK-47"
-		WeaponType = "AK47"
 		ClassName = "AK47"
+		WeaponType = "AK47"
 		ViewModel = resource:"models/weapons/assault_rifles/ak47/vm_ak47.vmdl"
 		WorldModel = resource:"models/weapons/assault_rifles/ak47/wm_ak47.vmdl"
 		DrawTime = 1
@@ -18,7 +18,7 @@
 		ClipSize = 30
 		Bullets = 1
 		BulletSize = 3
-		Damage = 10
+		Damage = 15
 		Force = 5
 		Spread = 0.1
 		Recoil = 0.8

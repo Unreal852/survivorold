@@ -3,8 +3,8 @@
 	data = 
 	{
 		Name = "FN-57"
-		WeaponType = "FN57"
 		ClassName = "FN57"
+		WeaponType = "FN57"
 		ViewModel = resource:"models/weapons/pistols/fn57/vm_fn57.vmdl"
 		WorldModel = resource:"models/weapons/pistols/fn57/wm_fn57.vmdl"
 		DrawTime = 1
@@ -18,7 +18,7 @@
 		ClipSize = 10
 		Bullets = 1
 		BulletSize = 3
-		Damage = 8
+		Damage = 12
 		Force = 3
 		Spread = 0.1
 		Recoil = 1
