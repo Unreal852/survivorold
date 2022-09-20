@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using Landis;
+using Sandbox;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
@@ -31,10 +32,16 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 	[Title( "Cost" ), Description( "The price to use this machine" )]
 	public int Cost { get; set; } = 0;
 
-	public       float StayOpenedDuration { get; set; } = 8f;
-	[Net] public bool  IsOpened           { get; set; }
-	[Net] public bool  IsOpening          { get; set; }
-	[Net] public bool  IsClosing          { get; set; }
+	public float StayOpenedDuration { get; set; } = 8f;
+
+	[Net]
+	public bool IsOpened { get; set; }
+
+	[Net]
+	public bool IsOpening { get; set; }
+
+	[Net]
+	public bool IsClosing { get; set; }
 
 	public override void Spawn()
 	{
@@ -140,6 +147,13 @@ public partial class MysteryBox : AnimatedEntity, IUsable
 			IsOpened = fireMode == AnimGraphTagEvent.Start;
 			if ( IsOpened )
 			{
+				if ( _weaponEntity != null && _weaponEntity.IsValid )
+				{
+					var glow = _weaponEntity.Components.Create<GlowEffect>();
+					glow.Active = true;
+					glow.Color = Color.Green;
+				}
+
 				var timerSpawn = GetAttachment( "timer" );
 				if ( !timerSpawn.HasValue )
 					return;
