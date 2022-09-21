@@ -22,13 +22,15 @@ public partial class WeaponUpgrader : AnimatedEntity, IUse
 	[Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
 
-	[Net] public bool        IsOpened                       { get; set; } = false;
-	private      float       FramesBetweenModelColorChanges { get; set; } = 10;
-	private      float       CurrentFrame                   { get; set; } = 0;
-	private      float       StayOpenedDuration             { get; set; } = 5;
-	private      float       DelayBetweenUses               { get; set; } = 3;
-	private      TimeSince   TimeSinceOpened                { get; set; } = 0;
-	private      TimeSince   TimeSinceClosed                { get; set; } = 0;
+	[Net]
+	public bool IsOpened { get; set; } = false;
+
+	private float     FramesBetweenModelColorChanges { get; set; } = 10;
+	private float     CurrentFrame                   { get; set; } = 0;
+	private float     StayOpenedDuration             { get; set; } = 5;
+	private float     DelayBetweenUses               { get; set; } = 3;
+	private TimeSince TimeSinceOpened                { get; set; } = 0;
+	private TimeSince TimeSinceClosed                { get; set; } = 0;
 
 	public override void Spawn()
 	{

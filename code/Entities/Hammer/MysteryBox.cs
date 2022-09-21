@@ -17,7 +17,7 @@ namespace Survivor.Entities.Hammer;
 [Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a mystery box" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/weapon_box.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class MysteryBox : AnimatedEntity, IUsable
+public sealed partial class MysteryBox : AnimatedEntity, IUsable
 {
 	private WeaponWorldModel _weaponEntity;
 	private TimeSince        _sinceOpened;

@@ -23,6 +23,6 @@ public partial class PuncherZombie : BaseZombie
 		animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
 		SetAnimParameter( "b_attack", true );
 		entity.TakeDamage( DamageInfo.Generic( AttackDamages ).WithAttacker( this ).WithForce( AttackForce ) );
-		base.Attack( ref animHelper, entity );
+		SinceLastAttack = 0;
 	}
 }

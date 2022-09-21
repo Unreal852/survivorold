@@ -34,7 +34,7 @@ public sealed partial class ShooterZombie : BaseZombie
 	{
 		if ( entity is Prop )
 			return;
-		base.Attack( ref animHelper, entity );
+		SinceLastAttack = 0;
 		animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
 		SetAnimParameter( "b_attack", true );
 		Sound.FromEntity( "sounds/weapons/ak47/ak_47_shot_01.sound", this );

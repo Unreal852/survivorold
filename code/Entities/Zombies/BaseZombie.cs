@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System.Diagnostics;
+using Sandbox;
 using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Players;
@@ -23,7 +24,9 @@ public abstract partial class BaseZombie : BaseNpc
 	protected          Vector3   LookDirection;
 	protected          TimeSince SinceLastAttack;
 	protected          TimeSince SinceLastMoan;
+	protected          TimeSince SinceSurroundingCheck;
 	protected          float     NextMoanIn;
+	protected readonly float     SurroundingCheckRate = 0.5f;
 
 	public BaseZombie()
 	{
@@ -176,9 +179,10 @@ public abstract partial class BaseZombie : BaseNpc
 
 	protected virtual bool CanAttack( Entity entity )
 	{
+		if ( SinceLastAttack < AttackSpeed )
+			return false;
 		return entity is { IsValid: true, Health: > 0.0f }
-		    && entity.Position.DistanceSquared( Position ) <= (AttackRange * AttackRange)
-		    && SinceLastAttack                             > AttackSpeed;
+		    && entity.Position.DistanceSquared( Position ) <= (AttackRange * AttackRange);
 	}
 
 	protected virtual void Attack( ref CitizenAnimationHelper animHelper, Entity entity )
@@ -188,13 +192,22 @@ public abstract partial class BaseZombie : BaseNpc
 
 	protected virtual void CheckSurroundings( ref CitizenAnimationHelper animationHelper )
 	{
-		foreach ( var entity in FindInSphere( Position, 20.0f ) )
+		if ( SinceSurroundingCheck < SurroundingCheckRate )
+			return;
+		foreach ( var entity in FindInSphere( Position + Vector3.Up * 39, 39.0f ) )
 		{
-			if ( entity is DoorEntity doorEntity )
-				doorEntity.Open( this );
-			if ( entity is Prop prop && CanAttack( prop ) )
-				Attack( ref animationHelper, prop );
+			switch (entity)
+			{
+				case DoorEntity doorEntity:
+					doorEntity.Open( this );
+					break;
+				case Prop prop when CanAttack( prop ):
+					Attack( ref animationHelper, prop );
+					break;
+			}
 		}
+
+		SinceSurroundingCheck = 0;
 	}
 
 	protected virtual void Move( float timeDelta )
