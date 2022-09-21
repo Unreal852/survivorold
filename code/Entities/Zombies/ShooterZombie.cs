@@ -8,6 +8,7 @@ namespace Survivor.Entities.Zombies;
 public sealed partial class ShooterZombie : BaseZombie
 {
 	private ModelEntity _weaponEntity;
+	private Trace       _trace;
 
 	public ShooterZombie()
 	{
@@ -21,6 +22,7 @@ public sealed partial class ShooterZombie : BaseZombie
 		base.Prepare();
 		_weaponEntity = new ModelEntity( "models/weapons/pistols/magnum/wm_magnum.vmdl" );
 		_weaponEntity.SetParent( this, true );
+		_trace = Trace.Ray( 0, 0 ).Ignore( this ).Ignore( _weaponEntity ).UseHitboxes().WithoutTags( "zombie", "gibs" );
 	}
 
 	public override void OnKilled()
@@ -30,10 +32,16 @@ public sealed partial class ShooterZombie : BaseZombie
 		_weaponEntity = null;
 	}
 
+	protected override bool CanAttack( Entity entity )
+	{
+		if ( !base.CanAttack( entity ) )
+			return false;
+		var tr = _trace.FromTo( EyePosition, entity.EyePosition ).Run();
+		return tr.Hit && tr.Entity == entity;
+	}
+
 	protected override void Attack( ref CitizenAnimationHelper animHelper, Entity entity )
 	{
-		if ( entity is Prop )
-			return;
 		SinceLastAttack = 0;
 		animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Pistol;
 		SetAnimParameter( "b_attack", true );
@@ -46,18 +54,14 @@ public sealed partial class ShooterZombie : BaseZombie
 		if ( Rand.Float() >= 0.3f ) // Fake miss
 			return;
 		var endPos = entity.EyePosition + Vector3.Down * 5;
-		var tr = Trace.Ray( EyePosition, endPos )
-		              .UseHitboxes()
-		              .Ignore( this )
-		              .Ignore( _weaponEntity )
-		              .Size( 3 )
-		              .Run();
+		var tr = _trace.FromTo( EyePosition, endPos ).Run();
+		DebugOverlay.Line( EyePosition, endPos );
 		//DebugOverlay.Line( EyePosition, tr.HitPosition, 1f );
-		if ( !tr.Hit || tr.Entity is not SurvivorPlayer player )
+		if ( !tr.Hit )
 			return;
-		player.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
-		                             .UsingTraceResult( tr )
-		                             .WithAttacker( this, _weaponEntity )
-		                             .WithHitBody( tr.Body ) );
+		tr.Entity.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
+		                                .UsingTraceResult( tr )
+		                                .WithAttacker( this, _weaponEntity )
+		                                .WithHitBody( tr.Body ) );
 	}
 }

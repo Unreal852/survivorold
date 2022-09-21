@@ -69,7 +69,6 @@ public abstract partial class BaseZombie : BaseNpc
 		EnableHitboxes = true;
 		UsePhysicsCollision = true;
 
-
 		NextMoanIn = Rand.Float( 1.5f, 10f );
 
 		FindTarget();
