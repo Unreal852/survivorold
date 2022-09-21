@@ -37,7 +37,7 @@
 						[
 							{
 								from = "material.001.vmat"
-								to = "dev/helper/reflectivity_90b.vmat"
+								to = "materials/generic/metal_galvanized.vmat"
 							},
 						]
 						use_global_default = false
