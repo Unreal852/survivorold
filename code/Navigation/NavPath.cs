@@ -7,15 +7,16 @@ namespace Survivor.Navigation;
 public class NavPath
 {
 	public Vector3       TargetPosition;
-	public List<Vector3> Points = new();
+	public List<Vector3> Points           = new();
+	public TimeSince     _sinceLastUpdate = 0;
 
 	public bool IsEmpty => Points.Count <= 1;
 
-	public void Update(ref Vector3 from, Vector3 to )
+	public void Update( ref Vector3 from, Vector3 to )
 	{
 		bool needsBuild = false;
 
-		if ( !TargetPosition.AlmostEqual( to, 5 ) )
+		if ( !TargetPosition.AlmostEqual( to, 5 ))
 		{
 			TargetPosition = to;
 			needsBuild = true;
@@ -43,6 +44,7 @@ public class NavPath
 			foreach ( var pathSegment in path.Segments )
 				Points.Add( pathSegment.Position );
 
+			_sinceLastUpdate = 0;
 			//Points.Add( NavMesh.GetClosestPoint( to ) );
 		}
 

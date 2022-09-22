@@ -2,6 +2,7 @@
 using Sandbox;
 using Survivor.Assets;
 using Survivor.Navigation;
+using Survivor.Performance;
 using Survivor.Players;
 using Survivor.Weapons;
 using SWB_Base;
@@ -129,10 +130,15 @@ public abstract partial class BaseZombie : BaseNpc
 
 	public override void OnServerUpdate()
 	{
+		using var serverUpdateProfiling = Profiler.Scope( $"{nameof(BaseZombie)}::{nameof(OnServerUpdate)}" );
+
 		InputVelocity = 0;
 		if ( NavSteer != null )
 		{
-			NavSteer.Tick( Position );
+			using var navSteerTickProfiling = Profiler.Scope( $"{nameof(NavSteer)}::{nameof(NavSteer.Tick)}" );
+			{
+				NavSteer.Tick( Position );
+			}
 
 			if ( !NavSteer.Output.Finished )
 			{
@@ -144,7 +150,10 @@ public abstract partial class BaseZombie : BaseNpc
 				NavSteer.DebugDrawPath();
 		}
 
-		Move( Time.Delta );
+		using var moveProfiling = Profiler.Scope( $"{nameof(BaseZombie)}::{nameof(Move)}" );
+		{
+			Move( Time.Delta );
+		}
 
 		var walkVelocity = Velocity.WithZ( 0 );
 		if ( walkVelocity.Length > 0.5f )
@@ -161,7 +170,10 @@ public abstract partial class BaseZombie : BaseNpc
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
 
-		CheckSurroundings( ref animHelper );
+		using var checkSurroundingsProfiling = Profiler.Scope( $"{nameof(BaseZombie)}::{nameof(CheckSurroundings)}" );
+		{
+			CheckSurroundings( ref animHelper );
+		}
 
 		if ( CanAttack( NavSteer?.TargetEntity ) )
 		{
@@ -195,7 +207,7 @@ public abstract partial class BaseZombie : BaseNpc
 			return;
 		foreach ( var entity in FindInSphere( Position + Vector3.Up * 39, 39.0f ) )
 		{
-			switch (entity)
+			switch ( entity )
 			{
 				case DoorEntity doorEntity:
 					doorEntity.Open( this );

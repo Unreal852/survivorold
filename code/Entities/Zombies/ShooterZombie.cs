@@ -22,7 +22,7 @@ public sealed partial class ShooterZombie : BaseZombie
 		base.Prepare();
 		_weaponEntity = new ModelEntity( "models/weapons/pistols/magnum/wm_magnum.vmdl" );
 		_weaponEntity.SetParent( this, true );
-		_trace = Trace.Ray( 0, 0 ).Ignore( this ).Ignore( _weaponEntity ).UseHitboxes().WithoutTags( "zombie", "gibs" );
+		_trace = Trace.Ray( 0, 0 ).Ignore( this ).Ignore( _weaponEntity ).UseHitboxes().WithoutTags( "zombie", "debris" );
 	}
 
 	public override void OnKilled()
@@ -55,8 +55,6 @@ public sealed partial class ShooterZombie : BaseZombie
 			return;
 		var endPos = entity.EyePosition + Vector3.Down * 5;
 		var tr = _trace.FromTo( EyePosition, endPos ).Run();
-		DebugOverlay.Line( EyePosition, endPos );
-		//DebugOverlay.Line( EyePosition, tr.HitPosition, 1f );
 		if ( !tr.Hit )
 			return;
 		tr.Entity.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )
