@@ -7,7 +7,7 @@ namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_distributor" )]
 [Title( "Distributor" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a distributor" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/objects/distributeur.vmdl", Archetypes = ModelArchetype.animated_model )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/distributeurv2.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class Distributor : AnimatedEntity, IUse
 {
@@ -22,13 +22,15 @@ public partial class Distributor : AnimatedEntity, IUse
 	[Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
 
-	[Net] public bool        IsOpened                       { get; set; } = false;
-	private      float       FramesBetweenModelColorChanges { get; set; } = 10;
-	private      float       StayOpenedDuration             { get; set; } = 5;
-	private      float       DelayBetweenUses               { get; set; } = 3;
-	private      TimeSince   TimeSinceOpened                { get; set; } = 0;
-	private      TimeSince   TimeSinceClosed                { get; set; } = 0;
-	private      ModelEntity Prop                           { get; set; }
+	[Net]
+	public bool IsOpened { get; set; } = false;
+
+	private float       FramesBetweenModelColorChanges { get; set; } = 10;
+	private float       StayOpenedDuration             { get; set; } = 5;
+	private float       DelayBetweenUses               { get; set; } = 3;
+	private TimeSince   TimeSinceOpened                { get; set; } = 0;
+	private TimeSince   TimeSinceClosed                { get; set; } = 0;
+	private ModelEntity Prop                           { get; set; }
 
 	public override void Spawn()
 	{
@@ -45,7 +47,7 @@ public partial class Distributor : AnimatedEntity, IUse
 		SetAnimParameter( "opening", IsOpened );
 		var att = GetAttachment( "item_spawn" );
 		if ( att.HasValue )
-			Prop = new ModelEntity( "models/objects/bottle.vmdl" ) { Position = att.Value.Position, Scale = 0.4f };
+			Prop = new ModelEntity( "models/attachments/canette.vmdl" ) { Position = att.Value.Position, Scale = 0.7f };
 		TimeSinceOpened = 0;
 	}
 
@@ -78,9 +80,16 @@ public partial class Distributor : AnimatedEntity, IUse
 			Prop = null;
 			return;
 		}
+		
+		if ( Prop is { IsValid: true } )
+		{
+			Prop.Transform = GetAttachment( "item_spawn" ) ?? Transform.Zero;
+			Prop.Scale = 0.7f;
+		}
 
 		if ( !IsOpened || TimeSinceOpened <= 1 )
 			return;
+
 		Close();
 	}
 }

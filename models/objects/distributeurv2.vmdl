@@ -83,8 +83,8 @@
 						_class = "Attachment"
 						name = "item_spawn"
 						parent_bone = "spawner_bottle_001"
-						relative_origin = [ 0.0, 0.0, 0.0 ]
-						relative_angles = [ 0.0, 0.0, 0.0 ]
+						relative_origin = [ 0.26253, 0.158207, -0.042523 ]
+						relative_angles = [ -90.0, -0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
 					},

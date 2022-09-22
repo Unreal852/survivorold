@@ -74,7 +74,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 			var child = Children[i];
 			if ( !child.IsValid || child.Tags.Has( "endPos" ) )
 				continue;
-			const float animSpeed = 4f;
+			const float animSpeed = 3.5f;
 			child.Transform = Transform.Lerp( child.Transform, part.Transform, animSpeed * Time.Delta, false );
 			child.Scale = MathX.Lerp( child.Scale, part.Scale, animSpeed                 * Time.Delta, false );
 			if ( child.Transform == part.Transform )
