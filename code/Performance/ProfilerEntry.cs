@@ -7,18 +7,13 @@ namespace Survivor.Performance;
 
 public class ProfilerEntry
 {
-	private string _name;
-	private int    _calls;
-
-	private double _times;
-
-	//private List<ProfilerEntry>            _children;
-	private Dictionary<string, ProfilerEntry> _entries = new();
+	private readonly Dictionary<string, ProfilerEntry> _entries = new();
+	private          string                            _name;
+	private          int                               _calls;
+	private          double                            _times;
 
 	public ProfilerEntry GetOrCreateChild( string name )
 	{
-		//_children ??= new();
-
 		if ( _entries.ContainsKey( name ) )
 			return _entries[name];
 
