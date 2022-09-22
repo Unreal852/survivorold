@@ -67,14 +67,10 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		ClearAmmo();
 
 		SuppressPickupNotices = true;
-
-		//Inventory.Add( new Magnum(), true );
+		
 		base.Inventory.Add( new FN57(), true );
-		base.Inventory.Add( new KrissVector() );
-		//Inventory.Add( new AK47() );
 
-		GiveAmmo( AmmoType.Pistol, 999 );
-		GiveAmmo( AmmoType.SMG, 999 );
+		GiveAmmo( AmmoType.Pistol, 60 );
 
 		SuppressPickupNotices = false;
 

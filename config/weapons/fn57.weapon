@@ -14,10 +14,10 @@
 		BoltBackEjectDelay = 0
 		AmmoType = "Pistol"
 		FiringType = "semi"
-		Ammo = 10
-		ClipSize = 10
+		Ammo = 20
+		ClipSize = 20
 		Bullets = 1
-		BulletSize = 3
+		BulletSize = 2
 		Damage = 12
 		Force = 3
 		Spread = 0.1

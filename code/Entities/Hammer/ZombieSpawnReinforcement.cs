@@ -42,7 +42,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		{
 			foreach ( var part in Parts )
 			{
-				var prop = new Prop()
+				var prop = new Prop
 				{
 						Model = part.Model,
 						Position = user.EyePosition + user.EyeRotation.Forward * InchesUtils.FromMeters( 3 ),

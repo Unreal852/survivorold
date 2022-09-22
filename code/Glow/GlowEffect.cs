@@ -19,7 +19,7 @@ public partial class GlowEffect : EntityComponent<ModelEntity>
 				GlowModel.Parent = Entity;
 				GlowModel.EnableDrawing = false;
 				GlowModel.LocalPosition = Vector3.Zero;
-				GlowModel.LocalRotation = Rotation.FromPitch( 0.0f );
+				GlowModel.LocalRotation = Rotation.Identity;
 				GlowModel.SetMaterialOverride( "materials/glow.vmat" );
 			}
 		}
