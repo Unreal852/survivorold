@@ -43,7 +43,7 @@ public partial class Distributor : AnimatedEntity, IUse
 			return;
 		IsOpened = true;
 		SetAnimParameter( "opening", IsOpened );
-		var att = GetAttachment( "distri_spawn" );
+		var att = GetAttachment( "item_spawn" );
 		if ( att.HasValue )
 			Prop = new ModelEntity( "models/objects/bottle.vmdl" ) { Position = att.Value.Position, Scale = 0.4f };
 		TimeSinceOpened = 0;
@@ -61,7 +61,7 @@ public partial class Distributor : AnimatedEntity, IUse
 	public bool OnUse( Entity user )
 	{
 		Open();
-		return true;
+		return false;
 	}
 
 	public bool IsUsable( Entity user )

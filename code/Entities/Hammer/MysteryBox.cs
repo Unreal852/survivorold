@@ -139,7 +139,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 				LastUser = player;
 				player.Money -= Cost;
 				OpenBox();
-				return true;
+				return false;
 			}
 
 			if ( IsOpened && user == LastUser && WeaponAsset != null )
@@ -148,10 +148,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 				MysteryBoxTimer.DeleteMysteryBoxTimerClient();
 				DeleteWeapon();
 				CloseBox();
-				return true;
 			}
-
-			return false;
 		}
 
 		return false;

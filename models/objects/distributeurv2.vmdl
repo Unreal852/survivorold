@@ -81,7 +81,7 @@
 				[
 					{
 						_class = "Attachment"
-						name = "distribution"
+						name = "item_spawn"
 						parent_bone = "spawner_bottle_001"
 						relative_origin = [ 0.0, 0.0, 0.0 ]
 						relative_angles = [ 0.0, 0.0, 0.0 ]

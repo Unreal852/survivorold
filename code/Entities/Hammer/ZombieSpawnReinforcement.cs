@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sandbox;
 using Sandbox.Component;
 using Sandbox.UI;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
-
-// resharper disable all
+using Survivor.Utils;
 
 namespace Survivor.Entities.Hammer;
 
@@ -37,22 +37,49 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 
 	public bool OnUse( Entity user )
 	{
+		Log.Info( "Use" );
 		if ( Children.Count == 0 )
 		{
 			foreach ( var part in Parts )
 			{
-				var prop = new Prop() { Model = part.Model, Transform = part.Transform, Scale = part.Scale, Static = true };
+				var prop = new Prop()
+				{
+						Model = part.Model,
+						Position = user.EyePosition + user.EyeRotation.Forward * InchesUtils.FromMeters( 3 ),
+						Rotation = Rotation.Random,
+						Scale = part.Scale / 2,
+						Static = true
+				};
 				prop.SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 				prop.SetParent( this );
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	public bool IsUsable( Entity user )
 	{
 		return true;
+	}
+
+	[Event.Tick.Server]
+	private void OnServerUpdate()
+	{
+		if ( Children.Count == 0 )
+			return;
+		for ( int i = 0; i < Children.Count; i++ )
+		{
+			var part = Parts[i];
+			var child = Children[i];
+			if ( !child.IsValid || child.Tags.Has( "endPos" ) )
+				continue;
+			const float animSpeed = 4f;
+			child.Transform = Transform.Lerp( child.Transform, part.Transform, animSpeed * Time.Delta, false );
+			child.Scale = MathX.Lerp( child.Scale, part.Scale, animSpeed                 * Time.Delta, false );
+			if ( child.Transform == part.Transform )
+				child.Tags.Add( "endPos" );
+		}
 	}
 
 	[Event.Entity.PostSpawn]

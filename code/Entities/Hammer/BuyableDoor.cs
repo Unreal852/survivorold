@@ -93,7 +93,6 @@ public partial class BuyableDoor : Prop, IUsable
 			{
 				player.Money -= Cost;
 				OpenDoor( player );
-				return true;
 			}
 		}
 

@@ -13,7 +13,7 @@ public sealed class FN57 : ABaseWeapon
 		if ( Asset == null )
 			return;
 		Primary.ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1.9f, Rotation = 0.4f }; // TODO: Move this into WeaponAsset
-		RunAnimData = new AngPos { Angle = new Angles( 27.7f, 39.95f, 0f ), Pos = new Vector3( 6.185f, -12.172f, 0.301f ) };
+		RunAnimData = new AngPos { Angle = new Angles(27.7f, 39.95f, 0f), Pos = new Vector3(6.185f, -3.566f, 0.301f) };
 		ZoomAnimData = new AngPos { Angle = new Angles( 0.46f, -0.14f, 0f ), Pos = new Vector3( -3.928f, -4.795f, 0.745f ) };
 		ViewModelOffset = new AngPos { Angle = new Angles( 0f, 0f, 0f ), Pos = new Vector3( 0f, -10.56f, -2.4f ) };
 

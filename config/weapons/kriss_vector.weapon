@@ -22,7 +22,7 @@
 		Force = 5
 		Spread = 0.08
 		Recoil = 0.3
-		RPM = 5000
+		RPM = 2000
 		ReloadAnim = "reload"
 		ReloadEmptyAnim = "reload"
 		DrawAnim = "deploy"

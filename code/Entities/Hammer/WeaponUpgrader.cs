@@ -60,7 +60,7 @@ public partial class WeaponUpgrader : AnimatedEntity, IUse
 	public bool OnUse( Entity user )
 	{
 		Open();
-		return true;
+		return false;
 	}
 
 	public bool IsUsable( Entity user )

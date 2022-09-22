@@ -96,7 +96,6 @@ public partial class WeaponStand : ModelEntity, IUsable
 			else if ( player.Money >= Cost )
 				player.Money -= Cost;
 			player.Inventory.Add( WeaponAsset.CreateWeaponInstance(), true );
-			return true;
 		}
 
 		return false;
