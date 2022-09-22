@@ -34,9 +34,9 @@ public partial class PuncherZombie : BaseZombie
 		SinceLastAttack = 0;
 	}
 
-	protected void PushObject( Entity entity, Vector3 force, float time )
+	protected void PushObject( Entity entity, Angles angle, float time )
 	{
-		// var force = Rotation.From( -90, 0, 0 ).Forward * 5000 * time;
+		var force = Rotation.From( angle ).Forward * 5000 * time;
 
 		var isPhysics = false;
 		if ( entity.PhysicsGroup is { BodyCount: > 0 } )
@@ -56,6 +56,8 @@ public partial class PuncherZombie : BaseZombie
 			{
 				body.ApplyImpulse( force * body.Mass );
 			}
+
+			Log.Info( "physic" );
 		}
 		else
 		{
