@@ -2,7 +2,7 @@
 
 namespace Survivor.Performance;
 
-public struct ProfilerScope : IDisposable
+public readonly struct ProfilerScope : IDisposable
 {
 	private readonly ProfilerEntry _parent;
 	private readonly ProfilerEntry _me;

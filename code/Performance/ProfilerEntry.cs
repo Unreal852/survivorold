@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Sandbox;
 
 namespace Survivor.Performance;
 
-public class ProfilerEntry
+public sealed class ProfilerEntry
 {
 	private readonly Dictionary<string, ProfilerEntry> _entries = new();
 	private          string                            _name;
