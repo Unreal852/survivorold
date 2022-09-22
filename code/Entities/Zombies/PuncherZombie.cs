@@ -1,4 +1,6 @@
 ﻿using Sandbox;
+using Survivor.Players;
+using SWB_Base;
 
 // ReSharper disable PartialTypeWithSinglePart
 
@@ -23,6 +25,48 @@ public partial class PuncherZombie : BaseZombie
 		animHelper.HoldType = CitizenAnimationHelper.HoldTypes.Punch;
 		SetAnimParameter( "b_attack", true );
 		entity.TakeDamage( DamageInfo.Generic( AttackDamages ).WithAttacker( this ).WithForce( AttackForce ) );
+		// if ( entity is SurvivorPlayer player )
+		// {
+		// 	var force = player.Position - Position;
+		// 	PushObject( entity, force.WithZ(3) * 5, Time.Delta );
+		// }
+
 		SinceLastAttack = 0;
+	}
+
+	protected void PushObject( Entity entity, Vector3 force, float time )
+	{
+		// var force = Rotation.From( -90, 0, 0 ).Forward * 5000 * time;
+
+		var isPhysics = false;
+		if ( entity.PhysicsGroup is { BodyCount: > 0 } )
+		{
+			foreach ( var body in entity.PhysicsGroup.Bodies )
+			{
+				if ( body.BodyType != PhysicsBodyType.Dynamic )
+					continue;
+				isPhysics = true;
+				break;
+			}
+		}
+
+		if ( isPhysics )
+		{
+			foreach ( var body in entity.PhysicsGroup.Bodies )
+			{
+				body.ApplyImpulse( force * body.Mass );
+			}
+		}
+		else
+		{
+			// Players...
+
+			if ( force.z > 1 && entity.GroundEntity != null )
+			{
+				entity.GroundEntity = null;
+			}
+
+			entity.Velocity += force;
+		}
 	}
 }
