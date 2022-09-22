@@ -18,11 +18,11 @@ public static class DebugOverlayExtensions
 		var p6 = endPos - lineDir * width + sideDir * radius;
 		var p7 = startPos                 + sideDir * radius;
 
-		GlobalGameNamespace.DebugOverlay.Line( p1, p2 );
-		GlobalGameNamespace.DebugOverlay.Line( p2, p3 );
-		GlobalGameNamespace.DebugOverlay.Line( p3, p4 );
-		GlobalGameNamespace.DebugOverlay.Line( p4, p5 );
-		GlobalGameNamespace.DebugOverlay.Line( p5, p6 );
-		GlobalGameNamespace.DebugOverlay.Line( p6, p7 );
+		overlay.Line( p1, p2 );
+		overlay.Line( p2, p3 );
+		overlay.Line( p3, p4 );
+		overlay.Line( p4, p5 );
+		overlay.Line( p5, p6 );
+		overlay.Line( p6, p7 );
 	}
 }

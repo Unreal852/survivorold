@@ -10,11 +10,11 @@ using Survivor.Players;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_frame_reinforcement" )]
-[Title( "Zombie Spawn Reinforcement" ), Category( "Map" ), Icon( "select_all" ), Description( "" )]
+[Library( "survivor_spawn_reinforcement" )]
+[Title( "Zombie Spawn Reinforcement" ), Category( "Zombie" ), Icon( "select_all" ), Description( "" )]
 [HammerEntity, Solid, AutoApplyMaterial, HideProperty( "enable_shadows" )]
 [VisGroup( VisGroup.Trigger )]
-public partial class FrameReinforcement : ModelEntity, IUsable
+public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 {
 	[Property]
 	[Category( "Frame" ), Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]

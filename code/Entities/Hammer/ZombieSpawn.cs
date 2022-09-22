@@ -6,7 +6,7 @@ using SandboxEditor;
 namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_zombie_spawn" )]
-[Title( "Zombie spawn point" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines the spawn point of the zombies" )]
+[Title( "Zombie spawn point" ), Category( "Zombie" ), Icon( "place" ), Description( "This entity defines the spawn point of the zombies" )]
 [HammerEntity, EditorModel( "models/editor/playerstart.vmdl", FixedBounds = true )]
 public partial class ZombieSpawn : Entity
 {
