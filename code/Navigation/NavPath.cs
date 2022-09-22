@@ -8,7 +8,6 @@ public class NavPath
 {
 	public Vector3       TargetPosition;
 	public List<Vector3> Points           = new();
-	public TimeSince     _sinceLastUpdate = 0;
 
 	public bool IsEmpty => Points.Count <= 1;
 
@@ -16,7 +15,7 @@ public class NavPath
 	{
 		bool needsBuild = false;
 
-		if ( !TargetPosition.AlmostEqual( to, 5 ))
+		if ( !TargetPosition.AlmostEqual( to, 5 ) )
 		{
 			TargetPosition = to;
 			needsBuild = true;
@@ -36,16 +35,14 @@ public class NavPath
 			                  .WithStepHeight( 30 ) // Same step as in the zombie class
 			                  .WithMaxDropDistance( 10000 )
 			                  .WithDropDistanceCostScale( 0.5f )
-			                  .WithMaxDetourDistance( 100 )
-			                  .WithPartialPaths().WithDuckHeight( 12 )
+			                   //.WithMaxDetourDistance( 100 )
+			                  .WithPartialPaths()
+			                  .WithDuckHeight( 12 )
 			                  .WithMaxClimbDistance( 200 ).Build( toFixed.Value );
-			// NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );
-
 			foreach ( var pathSegment in path.Segments )
 				Points.Add( pathSegment.Position );
-
-			_sinceLastUpdate = 0;
-			//Points.Add( NavMesh.GetClosestPoint( to ) );
+			
+			Points.Add( NavMesh.GetClosestPoint( to ).Value );
 		}
 
 		if ( Points.Count <= 1 )

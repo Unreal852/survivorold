@@ -16,8 +16,8 @@ namespace Survivor.Entities.Zombies;
 
 public abstract partial class BaseZombie : BaseNpc
 {
-	[ConVar.Replicated]
-	public static bool nav_drawpath { get; set; } = false;
+	[ConVar.Replicated( "nav_drawpath" )]
+	public static bool NavDrawPath { get; set; } = false;
 
 	protected readonly NavSteer  NavSteer = new();
 	protected readonly BBox      BBox     = BBox.FromHeightAndRadius( 64, 4 );
@@ -146,7 +146,7 @@ public abstract partial class BaseZombie : BaseNpc
 				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, MoveSpeed );
 			}
 
-			if ( nav_drawpath )
+			if ( NavDrawPath )
 				NavSteer.DebugDrawPath();
 		}
 

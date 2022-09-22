@@ -32,11 +32,6 @@ public abstract partial class ABaseWeapon : WeaponBase
 
 	public WeaponAsset Asset { get; private set; }
 
-	public override TraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2 )
-	{
-		return base.TraceBullet( start, end, radius );
-	}
-
 	// public override void ShootBullet( float spread, float force, float damage, float bulletSize, bool isPrimary )
 	// {
 	// 	// Spread
