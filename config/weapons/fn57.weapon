@@ -8,7 +8,7 @@
 		ViewModel = resource:"models/weapons/pistols/fn57/vm_fn57.vmdl"
 		WorldModel = resource:"models/weapons/pistols/fn57/wm_fn57.vmdl"
 		DrawTime = 1
-		ReloadTime = 2.8
+		ReloadTime = 1.9
 		ReloadEmptyTime = -1
 		BoltBackTime = -1
 		BoltBackEjectDelay = 0

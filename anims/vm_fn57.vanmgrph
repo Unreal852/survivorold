@@ -31,6 +31,39 @@
 			{
 				key = 
 				{
+					m_id = 274716351
+				}
+				value = 
+				{
+					_class = "CSpeedScaleAnimNode"
+					m_sName = "Unnamed"
+					m_vecPosition = [ -400.0, -64.0 ]
+					m_nNodeID = 
+					{
+						m_id = 274716351
+					}
+					m_networkMode = "ClientSimulate"
+					m_sNote = ""
+					m_inputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1456942739
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_param = 
+					{
+						m_id = 740357438
+					}
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 474848393
 				}
 				value = 
@@ -360,7 +393,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1456942739
+									m_id = 274716351
 								}
 								m_outputID = 
 								{
@@ -420,7 +453,7 @@
 				{
 					_class = "CSequenceAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ -448.0, -64.0 ]
+					m_vecPosition = [ -592.0, -64.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1456942739
@@ -525,6 +558,23 @@
 				m_bAutoReset = true
 				m_bPredicted = false
 				m_bDefaultValue = false
+			},
+			{
+				_class = "CFloatAnimParameter"
+				m_name = "reload_speed"
+				m_id = 
+				{
+					m_id = 740357438
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bNetwork = false
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bPredicted = false
+				m_fDefaultValue = 1.5
+				m_fMinValue = 1.0
+				m_fMaxValue = 10.0
+				m_bInterpolate = false
 			},
 		]
 	}

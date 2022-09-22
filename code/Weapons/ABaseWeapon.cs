@@ -32,6 +32,18 @@ public abstract partial class ABaseWeapon : WeaponBase
 
 	public WeaponAsset Asset { get; private set; }
 
+	public void UpdateAsset( WeaponAsset asset )
+	{
+		if ( asset == null )
+		{
+			Log.Error("The specified asset is null !!!");
+			return;
+		}
+		Asset = asset;
+		General = Asset.GetWeaponInfos();
+		Primary = Asset.GetPrimaryClipInfos();
+	}
+
 	// public override void ShootBullet( float spread, float force, float damage, float bulletSize, bool isPrimary )
 	// {
 	// 	// Spread
