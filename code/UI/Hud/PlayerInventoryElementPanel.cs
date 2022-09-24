@@ -1,7 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using Survivor.Players;
 using Survivor.Weapons;
 
 namespace Survivor.UI.Hud;

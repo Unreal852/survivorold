@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using Sandbox;
-using Survivor.Assets;
-using Survivor.Weapons.Bullets;
+﻿using Survivor.Assets;
 using SWB_Base;
 
 namespace Survivor.Weapons;

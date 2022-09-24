@@ -1,5 +1,4 @@
 ﻿using Sandbox;
-using Survivor.Players;
 
 // ReSharper disable PartialTypeWithSinglePart
 

@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
-using Survivor.Assets;
 using Survivor.Entities.Hammer;
 using Survivor.Entities.Zombies;
 using Survivor.GameMode;
 using Survivor.GameMode.GameModes;
 using Survivor.Gamemodes;
-using Survivor.Weapons;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;

@@ -2,8 +2,6 @@
 using Sandbox;
 using SandboxEditor;
 using Survivor.Assets;
-using Survivor.Extensions;
-using Survivor.Glow;
 using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.UI.World;

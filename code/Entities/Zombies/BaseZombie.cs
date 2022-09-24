@@ -1,11 +1,9 @@
-﻿using System.Diagnostics;
-using Sandbox;
+﻿using Sandbox;
 using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Performance;
 using Survivor.Players;
 using Survivor.Weapons;
-using SWB_Base;
 
 // ReSharper disable PartialTypeWithSinglePart
 // ReSharper disable MemberCanBePrivate.Global

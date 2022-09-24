@@ -1,7 +1,6 @@
 ﻿using Sandbox;
 using SandboxEditor;
 using Survivor.Assets;
-using Survivor.Extensions;
 using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.Players.Inventory;

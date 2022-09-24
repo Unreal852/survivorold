@@ -1,5 +1,4 @@
-﻿using Sandbox.Internal;
-using Sandbox.Internal.Globals;
+﻿using Sandbox.Internal.Globals;
 
 namespace Survivor.Extensions;
 

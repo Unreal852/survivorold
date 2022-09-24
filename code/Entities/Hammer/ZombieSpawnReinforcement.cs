@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using Sandbox;
-using Sandbox.Component;
-using Sandbox.UI;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
-using Survivor.Utils;
 
 namespace Survivor.Entities.Hammer;
 
