@@ -159,7 +159,6 @@ public class PartInfos
 		if ( IsPlaced )
 		{
 			LinkedProp.SetupPhysicsFromModel( PhysicsMotionType.Static );
-			Log.Info("Setup");
 		}
 	}
 }
