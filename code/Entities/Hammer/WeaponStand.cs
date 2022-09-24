@@ -10,9 +10,10 @@ using Survivor.Weapons;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_weapon_stand" )]
-[Title( "Weapon Stand" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines weapon stand" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/objects/tall_plate.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
+[Library("survivor_weapon_stand")]
+[Category( "Map" ), Icon( "place" )]
+[Title( "Weapon Stand" ), Description( "This entity defines weapon stand" )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/plate.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class WeaponStand : ModelEntity, IUsable
 {

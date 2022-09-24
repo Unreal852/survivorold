@@ -5,8 +5,9 @@ using SandboxEditor;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_distributor" )]
-[Title( "Distributor" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a distributor" )]
+[Library("survivor_distributor")]
+[Category( "Map" ), Icon( "place" )]
+[Title( "Distributor" ),  Description( "This entity defines a distributor" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/distributeurv2.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class Distributor : AnimatedEntity, IUse

@@ -5,9 +5,9 @@ using SandboxEditor;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_player_lobby_spawn" )]
-[Title( "Player lobby spawn point" ), Category( "Player" ), Icon( "place" ),
- Description( "This entity defines the spawn point of the players in the lobby (pre-gale)" )]
+[Library("survivor_player_lobby_spawn")]
+[Category( "Player" ), Icon( "place" )]
+[Title( "Player lobby spawn point" ), Description( "This entity defines the spawn point of the players in the lobby (pre-game)" )]
 [HammerEntity, EditorModel( "models/editor/playerstart.vmdl", FixedBounds = true )]
 public partial class PlayerLobbySpawn : Entity
 {

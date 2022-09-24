@@ -11,8 +11,9 @@ using Survivor.Weapons;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_mystery_box" )]
-[Title( "Mystery Box" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a mystery box" )]
+[Library("survivor_mystery_box")]
+[Category( "Map" ), Icon( "place" )]
+[Title( "Mystery Box" ), Description( "This entity defines a mystery box" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/weapon_box.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public sealed partial class MysteryBox : AnimatedEntity, IUsable

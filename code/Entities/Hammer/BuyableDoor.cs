@@ -9,8 +9,9 @@ using Survivor.Players;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_buyable_door" )]
-[Title( "Buyable door" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a buyable door" )]
+[Library("survivor_door")]
+[Category( "Map" ), Icon( "place" )]
+[Title( "Buyable door" ), Description( "This entity defines a buyable door" )]
 [HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.breakable_prop_model )]
 [RenderFields, VisGroup( VisGroup.Physics )]
 public partial class BuyableDoor : Prop, IUsable

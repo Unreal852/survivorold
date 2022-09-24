@@ -6,8 +6,9 @@ using SandboxEditor;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_room" )]
-[Title( "Room" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a room" )]
+[Library("survivor_room")]
+[Category( "Map" ), Icon( "place" )]
+[Title( "Room" ), Description( "This entity defines a room" )]
 [HammerEntity, EditorModel( "models/editor/air_node.vmdl" )]
 public partial class Room : Entity
 {

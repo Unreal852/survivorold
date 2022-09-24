@@ -38,7 +38,7 @@ public class NavPath
 			                   //.WithMaxDetourDistance( 100 )
 			                  .WithPartialPaths()
 			                  .WithDuckHeight( 12 )
-			                  .WithMaxClimbDistance( 200 ).Build( toFixed.Value );
+			                  .WithMaxClimbDistance( 80 ).Build( toFixed.Value );
 			foreach ( var pathSegment in path.Segments )
 				Points.Add( pathSegment.Position );
 			

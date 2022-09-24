@@ -7,8 +7,9 @@ using Survivor.Players;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_spawn_reinforcement" )]
-[Title( "Zombie Spawn Reinforcement" ), Category( "Zombie" ), Icon( "select_all" ), Description( "" )]
+[Library("survivor_zombie_spawn_reinforcement")]
+[Category( "Zombie" ), Icon( "select_all" )]
+[Title( "Zombie Spawn Reinforcement" ), Description( "" )]
 [HammerEntity, Solid, AutoApplyMaterial, HideProperty( "enable_shadows" )]
 [VisGroup( VisGroup.Trigger )]
 public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
@@ -92,6 +93,8 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		foreach ( var spawnReinforcement in All.OfType<ZombieSpawnReinforcement>() )
 		{
 			var children = spawnReinforcement.Children.OfType<Prop>().ToArray();
+			if ( children.Length == 0 )
+				Log.Error( "Found a spawn reinforcement without any childs !" );
 			spawnReinforcement.PartsInfos = new PartInfos[children.Length];
 			for ( int i = 0; i < spawnReinforcement.PartsInfos.Length; i++ )
 			{

@@ -5,8 +5,9 @@ using SandboxEditor;
 
 namespace Survivor.Entities.Hammer;
 
-[Library( "survivor_weapon_upgrade" )]
-[Title( "Weapon Upgrader" ), Category( "Map" ), Icon( "place" ), Description( "This entity defines a weapon upgrade" )]
+[Library("survivor_weapons_upgrader")]
+[Category( "Map" ), Icon( "place" )]
+[Title( "Weapon Upgrader" ), Description( "This entity defines a weapon upgrade" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/weapon_upgrader.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class WeaponUpgrader : AnimatedEntity, IUse
