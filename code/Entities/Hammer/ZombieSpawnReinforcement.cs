@@ -99,7 +99,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 			for ( int i = 0; i < spawnReinforcement.PartsInfos.Length; i++ )
 			{
 				var prop = children[i];
-				spawnReinforcement.PartsInfos[i] = new PartInfos( prop.Model, prop.Transform, prop.Scale );
+				spawnReinforcement.PartsInfos[i] = new PartInfos( prop.Model, prop.Transform, prop.Scale, prop );
 			}
 		}
 
@@ -114,11 +114,12 @@ public class PartInfos
 	private       float     _currentSeconds = 0.0f;
 	private       Transform _originalPos;
 
-	public PartInfos( Model model, Transform transform, float scale )
+	public PartInfos( Model model, Transform transform, float scale, Prop prop)
 	{
 		Model = model;
 		Transform = transform;
 		Scale = scale;
+		LinkedProp = prop;
 	}
 
 	public Model     Model      { get; }

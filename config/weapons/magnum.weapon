@@ -17,7 +17,7 @@
 		Ammo = 6
 		ClipSize = 5
 		Bullets = 1
-		BulletSize = 3
+		BulletSize = 1
 		Damage = 30
 		Force = 8
 		Spread = 0.1
