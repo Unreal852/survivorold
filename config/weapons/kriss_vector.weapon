@@ -2,7 +2,7 @@
 {
 	data = 
 	{
-		Name = "KRISS Vector"
+		Name = "Vector"
 		ClassName = "KrissVector"
 		WeaponType = "VECTOR"
 		ViewModel = resource:"models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl"
@@ -22,7 +22,7 @@
 		Force = 5
 		Spread = 0.08
 		Recoil = 0.3
-		RPM = 2000
+		RPM = 1800
 		ReloadAnim = "reload"
 		ReloadEmptyAnim = "reload"
 		DrawAnim = "deploy"

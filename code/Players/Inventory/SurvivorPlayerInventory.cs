@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Sandbox;
+using Survivor.Weapons;
 using SWB_Base;
 
 namespace Survivor.Players.Inventory;
@@ -19,25 +20,21 @@ public class SurvivorPlayerInventory : InventoryBase
 		if ( Owner is not SurvivorPlayer player )
 			return false;
 
-		if ( ent is WeaponBase weapon )
+		if ( ent is ABaseWeapon weapon )
 		{
 			if ( IsCarryingType( ent.GetType() ) )
 			{
 				// Inventory bug workaround (duplicate pickup)
 				if ( weapon.TimeSinceActiveStart == 0 )
 					return false;
-
-				var ammo = weapon.Primary.Ammo;
-				var ammoType = weapon.Primary.AmmoType;
-
-				if ( ammo > 0 )
+				
+				if ( player.ActiveChild is ABaseWeapon activeWep )
 				{
-					player.GiveAmmo( ammoType, ammo );
-
+					activeWep.RefillAmmoReserve();
 					if ( !player.SuppressPickupNotices )
 					{
 						Sound.FromWorld( "dm.pickup_ammo", ent.Position );
-						PickupFeed.OnPickup( To.Single( player ), $"+{ammo} {ammoType}" );
+						PickupFeed.OnPickup( To.Single( player ), "+" );
 					}
 				}
 

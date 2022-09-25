@@ -1,4 +1,6 @@
-﻿using Survivor.Assets;
+﻿using System;
+using Sandbox;
+using Survivor.Assets;
 using SWB_Base;
 
 namespace Survivor.Weapons;
@@ -14,11 +16,7 @@ public abstract partial class ABaseWeapon : WeaponBase
 			return;
 		}
 
-		// ViewModelPath = Asset.ViewModel;
-		// WorldModelPath = Asset.WorldModel;
-
-		General = Asset.GetWeaponInfos();
-		Primary = Asset.GetPrimaryClipInfos();
+		UpdateAsset( Asset );
 
 		UISettings.ShowHealthCount = false;
 		UISettings.ShowHealthIcon = false;
@@ -29,59 +27,116 @@ public abstract partial class ABaseWeapon : WeaponBase
 
 	public WeaponAsset Asset { get; private set; }
 
+	[Net]
+	public int AmmoReserve { get; private set; }
+
+	public int MaxAmmo { get; private set; }
+
 	public void UpdateAsset( WeaponAsset asset )
 	{
 		if ( asset == null )
 		{
-			Log.Error("The specified asset is null !!!");
+			Log.Error( "The specified asset is null !!!" );
 			return;
 		}
+
 		Asset = asset;
 		General = Asset.GetWeaponInfos();
 		Primary = Asset.GetPrimaryClipInfos();
+		MaxAmmo = AmmoReserve = Primary.ClipSize * 5;
 	}
 
-	// public override void ShootBullet( float spread, float force, float damage, float bulletSize, bool isPrimary )
-	// {
-	// 	// Spread
-	// 	// var forward = Owner.EyeRotation.Forward;
-	// 	// forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
-	// 	// forward = forward.Normal;
-	// 	// var endPos = Owner.EyePosition + forward * 999999;
-	//
-	// 	var forward = Rotation.Forward;
-	// 	var endPos = Rotation.Forward * 999999;
-	// 	var muzzle = GetModelAttachment( "muzzle" );
-	// 	Log.Info( muzzle.Value.Position );
-	// 	DebugOverlay.Sphere( muzzle.Value.Position, 2, Color.Red );
-	// 	DebugOverlay.Line(muzzle.Value.Position, endPos, Color.Blue);
-	//
-	// 	// Server Bullet
-	// 	if ( isPrimary )
-	// 	{
-	// 		Primary.BulletType.FireSV( this, muzzle.Value.Position, endPos, forward, spread, force, damage, bulletSize, isPrimary );
-	// 	}
-	// 	else
-	// 	{
-	// 		Secondary.BulletType.FireSV( this, muzzle.Value.Position, endPos, forward, spread, force, damage, bulletSize, isPrimary );
-	// 	}
-	//
-	// 	// Client bullet
-	// 	ShootClientBullet( muzzle.Value.Position, endPos, forward, spread, force, damage, bulletSize, isPrimary );
-	// }
-	//
-	// public override void ShootClientBullet( Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize,
-	//                                         bool isPrimary )
-	// {
-	// 	if ( Owner == null ) return;
-	//
-	// 	if ( isPrimary )
-	// 	{
-	// 		Primary.BulletType.FireCL( this, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
-	// 	}
-	// 	else
-	// 	{
-	// 		Secondary.BulletType.FireCL( this, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
-	// 	}
-	// }
+	public void RefillAmmoReserve()
+	{
+		AmmoReserve = MaxAmmo;
+	}
+
+	protected int TakeAmmoFromReserve( int amount )
+	{
+		var available = Math.Min( AmmoReserve, amount );
+		AmmoReserve -= available;
+		return available;
+	}
+
+	public override void Attack( ClipInfo clipInfo, bool isPrimary )
+	{
+		base.Attack( clipInfo, isPrimary );
+	}
+
+	public override void Reload()
+	{
+		if ( IsReloading || IsAnimating || InBoltBack || IsShooting() )
+			return;
+
+		var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
+
+		if ( Primary.Ammo >= maxClipSize || Primary.ClipSize == -1 )
+			return;
+
+		var isEmptyReload = General.ReloadEmptyTime > 0 && Primary.Ammo == 0;
+		TimeSinceReload = -(isEmptyReload ? General.ReloadEmptyTime : General.ReloadTime);
+
+		if ( !isEmptyReload && Primary.Ammo == 0 && General.BoltBackTime > -1 )
+		{
+			TimeSinceReload -= General.BoltBackTime;
+
+			if ( IsServer )
+				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle );
+		}
+
+		if ( AmmoReserve <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
+			return;
+
+		IsReloading = true;
+
+		// Player anim
+		if ( Owner is AnimatedEntity animEntity )
+			animEntity.SetAnimParameter( "b_reload", true );
+
+		StartReloadEffects( isEmptyReload );
+	}
+
+	public override bool TakeAmmo( int amount )
+	{
+		if ( Primary.InfiniteAmmo == InfiniteAmmoType.clip )
+			return true;
+
+		if ( Primary.ClipSize == -1 )
+		{
+			if ( Owner is PlayerBase player )
+			{
+				return player.TakeAmmo( Primary.AmmoType, amount ) > 0;
+			}
+
+			return true;
+		}
+
+		if ( Primary.Ammo < amount )
+			return false;
+
+		Primary.Ammo -= amount;
+		return true;
+	}
+
+	public override void OnReloadFinish()
+	{
+		IsReloading = false;
+		var maxClipSize = BulletCocking && Primary.Ammo > 0 ? Primary.ClipSize + 1 : Primary.ClipSize;
+
+		if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
+		{
+			Primary.Ammo = maxClipSize;
+			return;
+		}
+
+		var ammo = TakeAmmoFromReserve( maxClipSize - Primary.Ammo );
+		if ( ammo == 0 )
+			return;
+		Primary.Ammo += ammo;
+	}
+
+	public override int GetAvailableAmmo()
+	{
+		return Primary.InfiniteAmmo == InfiniteAmmoType.reserve ? Primary.ClipSize : AmmoReserve;
+	}
 }

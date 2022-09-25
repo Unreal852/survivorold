@@ -70,8 +70,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		
 		base.Inventory.Add( new FN57(), true );
 
-		GiveAmmo( AmmoType.Pistol, 60 );
-
 		SuppressPickupNotices = false;
 
 		SinceRespawn = 0;

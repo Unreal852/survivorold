@@ -270,7 +270,7 @@ namespace SWB_Base
 			}
 		}
 
-		public bool TakeAmmo( int amount )
+		public virtual bool TakeAmmo( int amount )
 		{
 			if ( Primary.InfiniteAmmo == InfiniteAmmoType.clip )
 				return true;

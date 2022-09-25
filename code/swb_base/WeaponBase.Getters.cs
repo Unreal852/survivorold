@@ -95,7 +95,7 @@ namespace SWB_Base
             return base.GetAttachment(name, worldspace);
         }
 
-        public int GetAvailableAmmo()
+        public virtual int GetAvailableAmmo()
         {
             if (Owner is not PlayerBase owner) return 0;
 

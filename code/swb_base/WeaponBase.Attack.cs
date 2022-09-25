@@ -301,7 +301,7 @@ namespace SWB_Base
         /// <summary>
         /// Plays the bolt back animation
         /// </summary>
-        async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
+        protected async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
         {
             var player = Owner as PlayerBase;
             var activeWeapon = player.ActiveChild;
