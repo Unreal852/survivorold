@@ -38,6 +38,8 @@ public partial class WeaponStand : ModelEntity, IUsable
 
 	private WeaponWorldModel WorldModel { get; set; }
 
+	public string UsePrefix { get; } = "Buy";
+
 	public int UseCost
 	{
 		get

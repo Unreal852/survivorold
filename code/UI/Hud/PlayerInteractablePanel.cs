@@ -31,21 +31,25 @@ public class PlayerInteractablePanel : Panel
 		if ( !IsVisible )
 			return;
 
-		_useLabel.Text = "Use";
 		_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
 		if ( player.Using is IUsable usable )
 		{
+			_useLabel.Text = usable.UsePrefix;
 			_useMessageLabel.Text = usable.UseMessage;
-			if ( usable.HasCost )
+			if ( string.IsNullOrEmpty( usable.UseSuffix ) && usable.HasCost )
 			{
 				_costLabel.Text = $"{usable.UseCost} $";
 				_costLabel.Style.FontColor = player.Money < usable.UseCost ? Color.Red : Color.Green;
 			}
 			else
-				_costLabel.Text = string.Empty;
+			{
+				_costLabel.Text = usable.UseSuffix;
+				_costLabel.Style.FontColor = Color.White;
+			}
 		}
 		else
 		{
+			_useLabel.Text = string.Empty;
 			_useMessageLabel.Text = string.Empty;
 			_costLabel.Text = string.Empty;
 		}
