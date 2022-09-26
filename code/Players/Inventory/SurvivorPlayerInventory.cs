@@ -8,7 +8,6 @@ namespace Survivor.Players.Inventory;
 
 public class SurvivorPlayerInventory : IInventoryBase
 {
-	// TODO: Rework inventory to support only required things
 	// TODO: Main Weapon, Secondary Weapon, Grenade, Buffs
 
 	public SurvivorPlayerInventory( SurvivorPlayer player )

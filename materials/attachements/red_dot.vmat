@@ -9,12 +9,12 @@ Layer0
 	F_METALNESS_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "textures/weapons/ak47/ak47_ao.png"
+	TextureAmbientOcclusion "textures/attachements/red_dot/reddot_ao.png"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "textures/weapons/ak47/ak47_color.png"
+	TextureColor "textures/attachements/red_dot/reddot_albedo.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -27,13 +27,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	TextureMetalness "textures/weapons/ak47/ak47_metal.png"
+	TextureMetalness "textures/attachements/red_dot/reddot_metallic.png"
 
 	//---- Normal ----
-	TextureNormal "textures/weapons/ak47/ak47_normal.png"
+	TextureNormal "textures/attachements/red_dot/reddot_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "textures/weapons/ak47/ak47_rough.png"
+	TextureRoughness "textures/attachements/red_dot/reddot_roughness.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"

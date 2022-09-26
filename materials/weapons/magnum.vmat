@@ -9,12 +9,12 @@ Layer0
 	F_METALNESS_TEXTURE 1
 
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "textures/magnum/revolver_357_ao.png"
+	TextureAmbientOcclusion "textures/weapons/magnum/magnum_ao.png"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "textures/magnum/revolver_357_color.png"
+	TextureColor "textures/weapons/magnum/magnum_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -27,13 +27,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	TextureMetalness "textures/magnum/revolver_357_metal.png"
+	TextureMetalness "textures/weapons/magnum/magnum_metal.png"
 
 	//---- Normal ----
-	TextureNormal "textures/magnum/revolver_357_normal.png"
+	TextureNormal "textures/weapons/magnum/magnum_normal.png"
 
 	//---- Roughness ----
-	TextureRoughness "textures/magnum/revolver_357_rough.png"
+	TextureRoughness "textures/weapons/magnum/magnum_rough.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"

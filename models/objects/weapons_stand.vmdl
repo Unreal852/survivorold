@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/fbx/attachement_red_dot.fbx"
+						filename = "models/fbx/weapons_stand.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -33,8 +33,8 @@
 				[
 					{
 						_class = "ModelModifier_ScaleAndMirror"
-						scale = 1.0
-						mirror_x = true
+						scale = 0.3937
+						mirror_x = false
 						mirror_y = false
 						mirror_z = false
 						flip_bone_forward = false
@@ -51,16 +51,57 @@
 						remaps = 
 						[
 							{
-								from = "mat.vmat"
-								to = "materials/attachements/red_dot.vmat"
-							},
-							{
-								from = "shader.vmat"
-								to = "materials/attachements/red_dot_point.vmat"
+								from = "plane.vmat"
+								to = "materials/weapons_stand.vmat"
 							},
 						]
 						use_global_default = false
 						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFile"
+						name = "plate"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/fbx/weapons_stand.fbx"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "weapon"
+						parent_bone = "bone_att"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ 0.0, -90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = false
 					},
 				]
 			},

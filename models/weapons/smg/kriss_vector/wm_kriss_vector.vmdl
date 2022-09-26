@@ -11,8 +11,8 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/fbx/weapon_fn57.fbx"
-						import_translation = [ -30.0, 10.0, -140.0 ]
+						filename = "models/fbx/weapon_vector.fbx"
+						import_translation = [ 0.0, 13.0, -135.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
 						align_origin_x_type = "None"
@@ -57,12 +57,12 @@
 							{
 								_class = "Bone"
 								name = "hold_R"
-								origin = [ 1.253413, 0.0, 4.370374 ]
+								origin = [ -6.974645, 0.0, 4.06735 ]
 								angles = [ 0.0, 0.0, 0.0 ]
 								do_not_discard = true
 							},
 						]
-						origin = [ -1.257548, 0.0, -2.540881 ]
+						origin = [ 7.268852, 0.330856, -4.066875 ]
 						angles = [ 0.0, 0.0, 0.0 ]
 						do_not_discard = true
 					},
@@ -77,12 +77,8 @@
 						remaps = 
 						[
 							{
-								from = "fn57_d.vmat"
-								to = "materials/weapons/fn57.vmat"
-							},
-							{
-								from = "bullet_d.vmat"
-								to = "materials/weapons/fn57.vmat"
+								from = "vector_d.vmat"
+								to = "materials/weapons/kriss_vector.vmat"
 							},
 						]
 						use_global_default = false

@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/fbx/weapon_vm_revolver.fbx"
+						filename = "models/fbx/distributor.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -22,11 +22,7 @@
 						import_filter = 
 						{
 							exclude_by_default = false
-							exception_list = 
-							[
-								"Plane_001",
-								"Plane",
-							]
+							exception_list = [  ]
 						}
 					},
 				]
@@ -40,16 +36,57 @@
 						remaps = 
 						[
 							{
-								from = "citizen_skin.vmat"
-								to = "models/citizen/skin/citizen_skin.vmat"
-							},
-							{
-								from = "revolver_357.vmat"
-								to = "materials/weapons/magnum.vmat"
+								from = "material.001.vmat"
+								to = "materials/distributor.vmat"
 							},
 						]
 						use_global_default = false
 						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFile"
+						name = "distributor"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/fbx/distributor.fbx"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "item_spawn"
+						parent_bone = "spawner_bottle_001"
+						relative_origin = [ 0.26253, 0.158207, -0.042523 ]
+						relative_angles = [ -90.0, -0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
 					},
 				]
 			},
@@ -59,7 +96,7 @@
 				[
 					{
 						_class = "AnimFile"
-						name = "Draw"
+						name = "Open"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -71,16 +108,16 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "models/fbx/weapon_vm_revolver.fbx"
+						source_filename = "models/fbx/anims/distributor@anim.fbx"
 						start_frame = 0
-						end_frame = 31
+						end_frame = 101
 						framerate = -1.0
 						take = 2
 						reverse = false
 					},
 					{
 						_class = "AnimFile"
-						name = "Idle"
+						name = "Close"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -92,54 +129,12 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "models/fbx/weapon_vm_revolver.fbx"
+						source_filename = "models/fbx/anims/distributor@anim.fbx"
 						start_frame = 0
-						end_frame = 201
+						end_frame = 101
 						framerate = -1.0
-						take = 4
-						reverse = false
-					},
-					{
-						_class = "AnimFile"
-						name = "Reload"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "models/fbx/weapon_vm_revolver.fbx"
-						start_frame = 0
-						end_frame = 73
-						framerate = -1.0
-						take = 5
-						reverse = false
-					},
-					{
-						_class = "AnimFile"
-						name = "Shoot"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "models/fbx/weapon_vm_revolver.fbx"
-						start_frame = 0
-						end_frame = 21
-						framerate = 30.0
-						take = 3
-						reverse = false
+						take = 2
+						reverse = true
 					},
 					{
 						_class = "AnimBindPose"
@@ -161,21 +156,10 @@
 				]
 				default_root_bone_name = ""
 			},
-			{
-				_class = "ModelModifierList"
-				children = 
-				[
-					{
-						_class = "ModelModifier_Translate"
-						disabled = true
-						translation = [ -30.0, 0.0, 0.0 ]
-					},
-				]
-			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = "anims/weapon_vm_magnum.vanmgrph"
+		anim_graph_name = "anims/distributor.vanmgrph"
 		base_model_name = ""
 	}
 }

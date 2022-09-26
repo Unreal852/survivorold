@@ -30,22 +30,22 @@ public class ZombieAsset : GameResource
 	[Category( "Model" )]
 	public float Scale { get; set; } = 1f;
 
-	[Category( "Behaviour" )]
+	[Category( "Stats" )]
 	public float Health { get; set; } = 100f;
 
-	[Category( "Behaviour" )]
+	[Category( "Stats" )]
 	public float MoveSpeed { get; set; } = 5f;
 
-	[Category( "Behaviour" )]
+	[Category( "Stats" )]
 	public float AttackRange { get; set; } = 1.5f;
 
-	[Category( "Behaviour" )]
+	[Category( "Stats" )]
 	public float AttackDamages { get; set; } = 1f;
 
-	[Category( "Behaviour" )]
+	[Category( "Stats" )]
 	public float AttackForce { get; set; } = 1f;
 
-	[Category( "Behaviour" )]
+	[Category( "Stats" )]
 	public float AttackSpeed { get; set; } = 1f;
 
 	[Category( "Clothes" )]

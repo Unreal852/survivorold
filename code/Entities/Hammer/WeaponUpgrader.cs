@@ -8,7 +8,7 @@ namespace Survivor.Entities.Hammer;
 [Library("survivor_weapons_upgrader")]
 [Category( "Map" ), Icon( "place" )]
 [Title( "Weapon Upgrader" ), Description( "This entity defines a weapon upgrade" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/objects/weapon_upgrader.vmdl", Archetypes = ModelArchetype.animated_model )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/weapons_upgrader.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class WeaponUpgrader : AnimatedEntity, IUse
 {
@@ -37,7 +37,7 @@ public partial class WeaponUpgrader : AnimatedEntity, IUse
 	{
 		base.Spawn();
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
-		SetAnimParameter( "closing", true );
+		SetAnimParameter( "close", true );
 	}
 
 	public void Open()
@@ -45,7 +45,7 @@ public partial class WeaponUpgrader : AnimatedEntity, IUse
 		if ( IsOpened || TimeSinceClosed < DelayBetweenUses )
 			return;
 		IsOpened = true;
-		SetAnimParameter( "opening", IsOpened );
+		SetAnimParameter( "open", IsOpened );
 		TimeSinceOpened = 0;
 	}
 
@@ -54,7 +54,7 @@ public partial class WeaponUpgrader : AnimatedEntity, IUse
 		if ( !IsOpened || TimeSinceOpened < StayOpenedDuration )
 			return;
 		IsOpened = false;
-		SetAnimParameter( "closing", true );
+		SetAnimParameter( "close", true );
 		TimeSinceClosed = 0;
 	}
 

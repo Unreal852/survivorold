@@ -11,7 +11,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "blender/FBX/FN57.fbx"
+						filename = "models/fbx/weapon_fn57.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -82,7 +82,7 @@
 				[
 					{
 						_class = "AnimFile"
-						name = "Anim@Shoot"
+						name = "Shoot"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -94,7 +94,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/FN57.fbx"
+						source_filename = "models/fbx/weapon_fn57.fbx"
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
@@ -103,7 +103,7 @@
 					},
 					{
 						_class = "AnimFile"
-						name = "Anim@Reload"
+						name = "Reload"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -115,7 +115,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/FN57.fbx"
+						source_filename = "models/fbx/weapon_fn57.fbx"
 						start_frame = 0
 						end_frame = 110
 						framerate = -1.0
@@ -124,7 +124,7 @@
 					},
 					{
 						_class = "AnimFile"
-						name = "Anim@Hide"
+						name = "Hide"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -136,7 +136,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/FN57.fbx"
+						source_filename = "models/fbx/weapon_fn57.fbx"
 						start_frame = 0
 						end_frame = 15
 						framerate = -1.0
@@ -145,7 +145,7 @@
 					},
 					{
 						_class = "AnimFile"
-						name = "Anim@Draw"
+						name = "Draw"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -157,7 +157,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/FN57.fbx"
+						source_filename = "models/fbx/weapon_fn57.fbx"
 						start_frame = 0
 						end_frame = 40
 						framerate = -1.0
@@ -166,7 +166,7 @@
 					},
 					{
 						_class = "AnimFile"
-						name = "Anim@Idle"
+						name = "Idle"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -178,7 +178,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
-						source_filename = "blender/FBX/FN57.fbx"
+						source_filename = "models/fbx/weapon_fn57.fbx"
 						start_frame = 0
 						end_frame = 1
 						framerate = -1.0
@@ -735,7 +735,7 @@
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = "anims/vm_fn57.vanmgrph"
+		anim_graph_name = "anims/weapon_vm_fn57.vanmgrph"
 		base_model_name = ""
 	}
 }

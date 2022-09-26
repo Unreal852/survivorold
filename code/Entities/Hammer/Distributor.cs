@@ -1,16 +1,17 @@
 ﻿using Sandbox;
 using SandboxEditor;
+using Survivor.Interaction;
 
 // resharper disable all
 
 namespace Survivor.Entities.Hammer;
 
-[Library("survivor_distributor")]
+[Library( "survivor_distributor" )]
 [Category( "Map" ), Icon( "place" )]
-[Title( "Distributor" ),  Description( "This entity defines a distributor" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/objects/distributeurv2.vmdl", Archetypes = ModelArchetype.animated_model )]
+[Title( "Distributor" ), Description( "This entity defines a distributor" )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/distributor.vmdl", Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class Distributor : AnimatedEntity, IUse
+public partial class Distributor : AnimatedEntity, IUsable
 {
 	// TODO: This class has been written just to test things, this should be rewrite
 	// TODO: Use anim tags
@@ -33,11 +34,13 @@ public partial class Distributor : AnimatedEntity, IUse
 	private TimeSince   TimeSinceClosed                { get; set; } = 0;
 	private ModelEntity Prop                           { get; set; }
 
+	public int UseCost => Cost;
+
 	public override void Spawn()
 	{
 		base.Spawn();
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
-		SetAnimParameter( "closing", true );
+		SetAnimParameter( "close", true );
 	}
 
 	public void Open()
@@ -45,10 +48,10 @@ public partial class Distributor : AnimatedEntity, IUse
 		if ( IsOpened || TimeSinceClosed < DelayBetweenUses )
 			return;
 		IsOpened = true;
-		SetAnimParameter( "opening", IsOpened );
+		SetAnimParameter( "open", IsOpened );
 		var att = GetAttachment( "item_spawn" );
 		if ( att.HasValue )
-			Prop = new ModelEntity( "models/attachments/canette.vmdl" ) { Position = att.Value.Position, Scale = 0.7f };
+			Prop = new ModelEntity( "models/objects/prop_can.vmdl" ) { Position = att.Value.Position, Scale = 0.7f };
 		TimeSinceOpened = 0;
 	}
 
@@ -57,7 +60,7 @@ public partial class Distributor : AnimatedEntity, IUse
 		if ( !IsOpened || TimeSinceOpened < StayOpenedDuration )
 			return;
 		IsOpened = false;
-		SetAnimParameter( "closing", true );
+		SetAnimParameter( "close", true );
 		TimeSinceClosed = 0;
 	}
 
@@ -81,7 +84,7 @@ public partial class Distributor : AnimatedEntity, IUse
 			Prop = null;
 			return;
 		}
-		
+
 		if ( Prop is { IsValid: true } )
 		{
 			Prop.Transform = GetAttachment( "item_spawn" ) ?? Transform.Zero;

@@ -17,7 +17,6 @@ public class RoomManager : EntityComponent
 
 	public void LoadRooms()
 	{
-		// TODO: This is not performant 
 		var rooms = Entity.All.OfType<Room>().ToDictionary( r => r.Name );
 		var spawns = Entity.All.OfType<ZombieSpawn>().ToArray();
 		var doors = Entity.All.OfType<BuyableDoor>().ToArray();

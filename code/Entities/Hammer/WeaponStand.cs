@@ -13,7 +13,7 @@ namespace Survivor.Entities.Hammer;
 [Library( "survivor_weapon_stand" )]
 [Category( "Map" ), Icon( "place" )]
 [Title( "Weapon Stand" ), Description( "This entity defines weapon stand" )]
-[HammerEntity, SupportsSolid, Model( Model = "models/objects/plate.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
+[HammerEntity, SupportsSolid, Model( Model = "models/objects/weapons_stand.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
 public partial class WeaponStand : ModelEntity, IUsable
 {

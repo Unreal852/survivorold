@@ -6,8 +6,8 @@
 		ClassName = "WeaponKrissVector"
 		WeaponType = "VECTOR"
 		HoldType = "Rifle"
-		ViewModel = resource:"models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl"
-		WorldModel = resource:"models/weapons/pdw/kriss_vector/wm_kriss_vector.vmdl"
+		ViewModel = resource:"models/weapons/smg/kriss_vector/vm_kriss_vector.vmdl"
+		WorldModel = resource:"models/weapons/smg/kriss_vector/wm_kriss_vector.vmdl"
 		DrawTime = 1
 		ReloadTime = 2.8
 		ReloadEmptyTime = -1

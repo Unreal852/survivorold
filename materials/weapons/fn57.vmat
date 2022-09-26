@@ -14,7 +14,7 @@ Layer0
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "textures/fn57/fn57_d.png"
+	TextureColor "textures/weapons/fn57/fn57_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -30,7 +30,7 @@ Layer0
 	TextureMetalness "materials/default/default_metal.tga"
 
 	//---- Normal ----
-	TextureNormal "textures/fn57/fn57_n.png"
+	TextureNormal "textures/weapons/fn57/fn57_normal.png"
 
 	//---- Roughness ----
 	TextureRoughness "materials/default/default_rough.tga"
