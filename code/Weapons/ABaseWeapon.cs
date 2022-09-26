@@ -9,7 +9,7 @@ public abstract partial class ABaseWeapon : WeaponBase
 {
 	protected ABaseWeapon( string weaponAssetName )
 	{
-		Asset = ResourceLibrary.Get<WeaponAsset>( $"config/weapons/{weaponAssetName}.weapon" );
+		Asset = ResourceLibrary.Get<WeaponAsset>( $"config/weapons/{weaponAssetName}.wpn" );
 		if ( Asset == null )
 		{
 			Log.Error( $"No weapon asset found with name '{weaponAssetName}'" );
@@ -25,12 +25,9 @@ public abstract partial class ABaseWeapon : WeaponBase
 		UISettings.ShowAmmoCount = false;
 	}
 
-	public WeaponAsset Asset { get; private set; }
-
-	[Net]
-	public int AmmoReserve { get; private set; }
-
-	public int MaxAmmo { get; private set; }
+	public          WeaponAsset Asset         { get; private set; }
+	public override bool        BulletCocking => Asset.BulletCocking;
+	public override HoldType    HoldType      => Asset?.HoldType ?? HoldType.Pistol;
 
 	public void UpdateAsset( WeaponAsset asset )
 	{
@@ -43,18 +40,17 @@ public abstract partial class ABaseWeapon : WeaponBase
 		Asset = asset;
 		General = Asset.GetWeaponInfos();
 		Primary = Asset.GetPrimaryClipInfos();
-		MaxAmmo = AmmoReserve = Primary.ClipSize * 5;
 	}
 
 	public void RefillAmmoReserve()
 	{
-		AmmoReserve = MaxAmmo;
+		Primary.AmmoReserve = Asset.MaxAmmo;
 	}
 
 	protected int TakeAmmoFromReserve( int amount )
 	{
-		var available = Math.Min( AmmoReserve, amount );
-		AmmoReserve -= available;
+		var available = Math.Min( Primary.AmmoReserve, amount );
+		Primary.AmmoReserve -= available;
 		return available;
 	}
 
@@ -84,7 +80,7 @@ public abstract partial class ABaseWeapon : WeaponBase
 				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle );
 		}
 
-		if ( AmmoReserve <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
+		if ( Primary.AmmoReserve <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
 			return;
 
 		IsReloading = true;
@@ -137,6 +133,6 @@ public abstract partial class ABaseWeapon : WeaponBase
 
 	public override int GetAvailableAmmo()
 	{
-		return Primary.InfiniteAmmo == InfiniteAmmoType.reserve ? Primary.ClipSize : AmmoReserve;
+		return Primary.InfiniteAmmo == InfiniteAmmoType.reserve ? Primary.ClipSize : Primary.AmmoReserve;
 	}
 }

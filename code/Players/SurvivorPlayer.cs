@@ -67,8 +67,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		ClearAmmo();
 
 		SuppressPickupNotices = true;
-		
-		base.Inventory.Add( new FN57(), true );
+
+		base.Inventory.Add( new WeaponFN57(), true );
 
 		SuppressPickupNotices = false;
 
@@ -192,7 +192,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	{
 		base.OnKilled();
 
-		Inventory.DropActive();
 		Inventory.DeleteContents();
 
 		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
@@ -208,24 +207,10 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	{
 		// TODO: i should use BuildInput but it wasn't working
 		if ( Input.Pressed( InputButton.Slot1 ) )
-			Inventory.SetActiveSlot( 0, false );
+			Inventory.SetActiveSlot( 0 );
 		else if ( Input.Pressed( InputButton.Slot2 ) )
-			Inventory.SetActiveSlot( 1, false );
+			Inventory.SetActiveSlot( 1 );
 		else if ( Input.Pressed( InputButton.Slot3 ) )
-			Inventory.SetActiveSlot( 2, false );
-		else if ( Input.Pressed( InputButton.Slot4 ) )
-			Inventory.SetActiveSlot( 3, false );
-		else if ( Input.Pressed( InputButton.Slot5 ) )
-			Inventory.SetActiveSlot( 4, false );
-		else if ( Input.Pressed( InputButton.Slot6 ) )
-			Inventory.SetActiveSlot( 5, false );
-		else if ( Input.Pressed( InputButton.Slot7 ) )
-			Inventory.SetActiveSlot( 6, false );
-		else if ( Input.Pressed( InputButton.Slot8 ) )
-			Inventory.SetActiveSlot( 7, false );
-		else if ( Input.Pressed( InputButton.Slot9 ) )
-			Inventory.SetActiveSlot( 8, false );
-		else if ( Input.Pressed( InputButton.Slot0 ) )
-			Inventory.SetActiveSlot( 9, false );
+			Inventory.SetActiveSlot( 2 );
 	}
 }

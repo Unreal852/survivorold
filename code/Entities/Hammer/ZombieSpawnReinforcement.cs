@@ -7,7 +7,7 @@ using Survivor.Players;
 
 namespace Survivor.Entities.Hammer;
 
-[Library("survivor_zombie_spawn_reinforcement")]
+[Library( "survivor_zombie_spawn_reinforcement" )]
 [Category( "Zombie" ), Icon( "select_all" )]
 [Title( "Zombie Spawn Reinforcement" ), Description( "" )]
 [HammerEntity, Solid, AutoApplyMaterial, HideProperty( "enable_shadows" )]
@@ -20,7 +20,8 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 
 	private PartInfos[] PartsInfos { get; set; }
 	public  int         UseCost    => 0;
-	public  string      UseMessage => "Reinforce";
+	public  string      UsePrefix  => "Hold";
+	public  string      UseSuffix  => "to reinforce";
 
 	public override void Spawn()
 	{
@@ -114,7 +115,7 @@ public class PartInfos
 	private       float     _currentSeconds = 0.0f;
 	private       Transform _originalPos;
 
-	public PartInfos( Model model, Transform transform, float scale, Prop prop)
+	public PartInfos( Model model, Transform transform, float scale, Prop prop )
 	{
 		Model = model;
 		Transform = transform;
@@ -126,8 +127,9 @@ public class PartInfos
 	public Transform Transform  { get; }
 	public float     Scale      { get; }
 	public Prop      LinkedProp { get; private set; }
-	public bool      IsMissing  => LinkedProp is not { IsValid: true };
-	public bool      IsPlaced   => !IsMissing && LinkedProp.Position == Transform.Position;
+
+	public bool IsMissing => LinkedProp is not { IsValid: true };
+	public bool IsPlaced  => !IsMissing && LinkedProp.Position == Transform.Position;
 
 	public Prop CreateProp( ZombieSpawnReinforcement parent )
 	{

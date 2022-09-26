@@ -4,9 +4,9 @@ using SWB_Base;
 namespace Survivor.Weapons;
 
 [Library( "survivor_kriss_vector", Title = "KRISS Vector" )]
-public sealed class KrissVector : ABaseWeapon
+public sealed class WeaponKrissVector : ABaseWeapon
 {
-	public KrissVector() : base( "kriss_vector" )
+	public WeaponKrissVector() : base( "kriss_vector" )
 	{
 		if ( Asset == null )
 			return;
@@ -16,8 +16,7 @@ public sealed class KrissVector : ABaseWeapon
 		ViewModelOffset = new AngPos { Angle = new Angles(0f, 0f, 0f), Pos = new Vector3(1.058f, -4.795f, -2.298f) };
 	}
 
-	public override string   ViewModelPath   => "models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl";
-	public override string   WorldModelPath  => "models/weapons/pdw/kriss_vector/wm_kriss_vector.vmdl";
-	public override HoldType HoldType        { get; } = HoldType.Rifle; // TODO: Move this into WeaponAsset
+	public override string ViewModelPath  => "models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl";
+	public override string WorldModelPath => "models/weapons/pdw/kriss_vector/wm_kriss_vector.vmdl";
 	public override AngPos   ViewModelOffset { get; }
 }

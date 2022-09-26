@@ -51,7 +51,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 	public Entity LastUser { get; set; }
 
 	public int    UseCost    => Cost;
-	public string UseMessage => IsOpened && WeaponAsset != null ? $"Take {WeaponAsset.Name}" : "May the luck be with you";
+	public string UseMessage => IsOpened && WeaponAsset != null ? $"Take {WeaponAsset.DisplayName}" : "May the luck be with you";
 	public bool   HasCost    => !IsOpened && Cost > 0;
 
 	public override void Spawn()

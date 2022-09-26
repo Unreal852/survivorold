@@ -10,7 +10,7 @@ using Survivor.Weapons;
 
 namespace Survivor.Entities.Hammer;
 
-[Library("survivor_weapon_stand")]
+[Library( "survivor_weapon_stand" )]
 [Category( "Map" ), Icon( "place" )]
 [Title( "Weapon Stand" ), Description( "This entity defines weapon stand" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/plate.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
@@ -38,13 +38,15 @@ public partial class WeaponStand : ModelEntity, IUsable
 
 	private WeaponWorldModel WorldModel { get; set; }
 
+	public string UsePrefix { get; } = "Buy";
+
 	public int UseCost
 	{
 		get
 		{
 			if ( Local.Pawn is not SurvivorPlayer player )
 				return 0;
-			if ( player.Inventory is SurvivorPlayerInventory inventory && inventory.IsCarryingType( WeaponAsset.GetWeaponClassType() ) )
+			if ( player.Inventory is SurvivorPlayerInventory inventory && inventory.HasWeapon( WeaponAsset.WeaponType ) )
 				return AmmoCost;
 			return Cost;
 		}
@@ -56,9 +58,11 @@ public partial class WeaponStand : ModelEntity, IUsable
 		{
 			if ( Local.Pawn is not SurvivorPlayer player )
 				return string.Empty;
-			if ( player.Inventory is SurvivorPlayerInventory inventory && inventory.IsCarryingType( WeaponAsset.GetWeaponClassType() ) )
+			if ( player.Inventory.HasWeapon( WeaponAsset.WeaponType ) )
 				return "Buy Ammo";
-			return $"Buy {WeaponAsset.Name}";
+			if ( player.Inventory.AreWeaponsSlotsFull() && player.ActiveChild is ABaseWeapon weapon )
+				return $"Replace {weapon.Asset.DisplayName} with {WeaponAsset.DisplayName}";
+			return $"Buy {WeaponAsset.DisplayName}";
 		}
 	}
 
@@ -90,8 +94,7 @@ public partial class WeaponStand : ModelEntity, IUsable
 			return false;
 		if ( user is SurvivorPlayer player && player.TryUse() )
 		{
-			var weaponType = WeaponAsset.GetWeaponClassType();
-			if ( player.Inventory.IsCarryingType( weaponType ) && player.Money >= AmmoCost )
+			if ( player.Inventory.HasWeapon( WeaponAsset.WeaponType ) && player.Money >= AmmoCost )
 				player.Money -= AmmoCost;
 			else if ( player.Money >= Cost )
 				player.Money -= Cost;

@@ -10,20 +10,27 @@ public sealed class WeaponWorldModel : ModelEntity
 	{
 	}
 
-	public WeaponWorldModel( WeaponAsset asset, bool glow = true ) : base( asset.WorldModel )
+	public WeaponWorldModel( WeaponAsset asset, bool glow = false ) : base( asset.WorldModel )
 	{
 		if ( glow )
-		{
-			var glowEffect = Components.Create<GlowEffect>();
-			glowEffect.Active = true;
-			glowEffect.Color = Color.Green;
-		}
+			EnableGlow();
+	}
+
+	public WeaponAsset WeaponAsset { get; set; }
+	public bool        HasGlow     { get; private set; }
+
+	public void EnableGlow()
+	{
+		if ( HasGlow )
+			return;
+		var glowEffect = Components.Create<GlowEffect>();
+		glowEffect.Active = true;
+		glowEffect.Color = Color.Green;
+		HasGlow = true;
 	}
 
 	public override void Spawn()
 	{
 		PhysicsClear();
 	}
-
-	public WeaponAsset WeaponAsset { get; set; }
 }

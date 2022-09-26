@@ -2,9 +2,10 @@
 {
 	data = 
 	{
-		Name = "FN-57"
-		ClassName = "FN57"
+		DisplayName = "FN-57"
+		ClassName = "WeaponFN57"
 		WeaponType = "FN57"
+		HoldType = "Pistol"
 		ViewModel = resource:"models/weapons/pistols/fn57/vm_fn57.vmdl"
 		WorldModel = resource:"models/weapons/pistols/fn57/wm_fn57.vmdl"
 		DrawTime = 1
@@ -13,9 +14,11 @@
 		BoltBackTime = -1
 		BoltBackEjectDelay = 0
 		AmmoType = "Pistol"
-		FiringType = "semi"
 		Ammo = 20
+		MaxAmmo = 100
 		ClipSize = 20
+		FiringType = "semi"
+		BulletCocking = true
 		Bullets = 1
 		BulletSize = 1
 		Damage = 12
