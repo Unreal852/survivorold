@@ -6,19 +6,22 @@ using SWB_Base;
 
 namespace Survivor.Assets;
 
-[GameResource( "Weapon", "weapon", "Describes a weapon", Icon = "military_tech" )]
+[GameResource( "Weapon", "wpn", "Describes a weapon", Icon = "military_tech" )]
 public sealed partial class WeaponAsset : GameResource
 {
 	[Category( "General" )]
-	public string Name { get; set; }
+	public string DisplayName { get; set; }
 
-	[Category( "General" ), Title( "C# Type Name" )]
+	[Category( "General" ), Title( "C# Type Name" ), Description( "This must match the C# class name" )]
 	public string ClassName { get; set; }
 
 	[Category( "General" )]
 	public WeaponType WeaponType { get; set; }
 
-	[Category( "Model" ), ResourceType( "vmdl" )]
+	[Category( "General" )]
+	public HoldType HoldType { get; set; } = HoldType.Pistol;
+
+	[Category( "Model" ), Description( "The first person model" ), ResourceType( "vmdl" )]
 	public string ViewModel { get; set; }
 
 	[Category( "Model" ), ResourceType( "vmdl" )]
@@ -39,37 +42,43 @@ public sealed partial class WeaponAsset : GameResource
 	[Category( "Behaviour" )]
 	public float BoltBackEjectDelay { get; set; } = 0f;
 
-	[Category( "Primary Clip" )]
+	[Category( "Ammo" )]
 	public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
 
-	[Category( "Primary Clip" )]
-	public FiringType FiringType { get; set; } = FiringType.semi;
-
-	[Category( "Primary Clip" )]
+	[Category( "Ammo" )]
 	public int Ammo { get; set; } = 10;
 
-	[Category( "Primary Clip" )]
+	[Category( "Ammo" )]
+	public int MaxAmmo { get; set; } = 100;
+
+	[Category( "Ammo" )]
 	public int ClipSize { get; set; } = 10;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" )]
+	public FiringType FiringType { get; set; } = FiringType.semi;
+
+	[Category( "Shooting" ), Description( "Can a weapon have a bullet in its chamber ?" )]
+	public bool BulletCocking { get; set; } = true;
+
+	[Category( "Shooting" ), Description( "The amount of bullets per shot" )]
 	public int Bullets { get; set; } = 1;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" )]
 	public float BulletSize { get; set; } = 0.1f;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" )]
 	public float Damage { get; set; } = 5;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" )]
 	public float Force { get; set; } = 0.1f;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" )]
 	public float Spread { get; set; } = 0.1f;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" )]
 	public float Recoil { get; set; } = 0.1f;
 
-	[Category( "Primary Clip" )]
+	[Category( "Shooting" ), Description( "The rate of fire" )]
 	public int RPM { get; set; } = 200;
 
 	[Category( "Animations" )]
@@ -133,6 +142,7 @@ public sealed partial class WeaponAsset : GameResource
 		return new ClipInfo
 		{
 				Ammo = Ammo,
+				AmmoReserve = MaxAmmo,
 				AmmoType = AmmoType,
 				ClipSize = ClipSize,
 				BulletSize = BulletSize,
@@ -166,11 +176,6 @@ public sealed partial class WeaponAsset : GameResource
 	{
 		// TODO: Cache on post load
 		return TypeLibrary.Create<ABaseWeapon>( ClassName );
-	}
-
-	public ModelEntity CreateWorldModelEntity()
-	{
-		return null;
 	}
 
 	protected override void PostLoad()

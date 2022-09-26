@@ -6,9 +6,9 @@ using SWB_Base.Attachments;
 namespace Survivor.Weapons;
 
 [Library( "survivor_fn57", Title = "FN57" )]
-public sealed class FN57 : ABaseWeapon
+public sealed class WeaponFN57 : ABaseWeapon
 {
-	public FN57() : base( "fn57" )
+	public WeaponFN57() : base( "fn57" )
 	{
 		if ( Asset == null )
 			return;
@@ -42,10 +42,9 @@ public sealed class FN57 : ABaseWeapon
 		} );
 	}
 
-	public override string   ViewModelPath   => "models/weapons/pistols/fn57/vm_fn57.vmdl";
-	public override string   WorldModelPath  => "models/weapons/pistols/fn57/wm_fn57.vmdl";
-	public override HoldType HoldType        { get; } = HoldType.Pistol; // TODO: Move this into WeaponAsset
-	public override AngPos   ViewModelOffset { get; }
+	public override string ViewModelPath   => "models/weapons/pistols/fn57/vm_fn57.vmdl";
+	public override string WorldModelPath  => "models/weapons/pistols/fn57/wm_fn57.vmdl";
+	public override AngPos ViewModelOffset { get; }
 }
 
 public class RedDot : Sight
