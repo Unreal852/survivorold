@@ -185,13 +185,14 @@ public sealed partial class SurvivorPlayer : PlayerBase
 			return;
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
-		PlaySound( "sounds/player/player_hit_01.sound" );
+		PlaySound( "player.hit_01" );
 	}
 
 	public override void OnKilled()
 	{
 		base.OnKilled();
 
+		Inventory.DropActive()?.Delete();
 		Inventory.DeleteContents();
 
 		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );

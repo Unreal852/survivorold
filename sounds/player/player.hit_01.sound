@@ -10,7 +10,7 @@
 		Decibels = 70
 		Sounds = 
 		[
-			resource:"sounds/player/player_hit_01.vsnd",
+			resource:"sounds/player/player.hit_01.vsnd",
 		]
 		SelectionMode = "Random"
 		MaximumDistance = 1143.9335
