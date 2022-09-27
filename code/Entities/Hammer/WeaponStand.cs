@@ -95,10 +95,15 @@ public partial class WeaponStand : ModelEntity, IUsable
 		if ( user is SurvivorPlayer player && player.TryUse() )
 		{
 			if ( player.Inventory.HasWeapon( WeaponAsset.WeaponType ) && player.Money >= AmmoCost )
+			{
 				player.Money -= AmmoCost;
+				player.Inventory.Add( WeaponAsset.CreateWeaponInstance(), true );
+			}
 			else if ( player.Money >= Cost )
+			{
 				player.Money -= Cost;
-			player.Inventory.Add( WeaponAsset.CreateWeaponInstance(), true );
+				player.Inventory.Add( WeaponAsset.CreateWeaponInstance(), true );
+			}
 		}
 
 		return false;
