@@ -10,7 +10,7 @@ using Survivor.Weapons;
 
 namespace Survivor.Entities.Zombies;
 
-// TODO: Whole movement system isn't that performant at all
+// TODO: Huge performance hit scaling with the number of zombies
 
 public abstract partial class BaseZombie : BaseNpc
 {
