@@ -8,8 +8,6 @@ public class NavPath
 {
 	public Vector3       TargetPosition;
 	public List<Vector3> Points = new();
-	public float         curFrame;
-	public float         nextFrame;
 
 	public bool IsEmpty => Points.Count <= 1;
 
@@ -17,11 +15,10 @@ public class NavPath
 	{
 		bool needsBuild = false;
 
-		if ( !TargetPosition.AlmostEqual( to, 5 ) && ++curFrame >= 10 )
+		if ( !TargetPosition.AlmostEqual( to, 5 ) )
 		{
 			TargetPosition = to;
 			needsBuild = true;
-			curFrame = 0;
 		}
 
 		if ( needsBuild )
