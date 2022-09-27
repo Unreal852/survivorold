@@ -7,7 +7,9 @@ namespace Survivor.Navigation;
 public class NavPath
 {
 	public Vector3       TargetPosition;
-	public List<Vector3> Points           = new();
+	public List<Vector3> Points = new();
+	public float         curFrame;
+	public float         nextFrame;
 
 	public bool IsEmpty => Points.Count <= 1;
 
@@ -15,10 +17,11 @@ public class NavPath
 	{
 		bool needsBuild = false;
 
-		if ( !TargetPosition.AlmostEqual( to, 5 ) )
+		if ( !TargetPosition.AlmostEqual( to, 5 ) && ++curFrame >= 10 )
 		{
 			TargetPosition = to;
 			needsBuild = true;
+			curFrame = 0;
 		}
 
 		if ( needsBuild )
@@ -36,7 +39,6 @@ public class NavPath
 			                  .WithMaxDropDistance( 10000 )
 			                  .WithDropDistanceCostScale( 0.5f )
 			                   //.WithMaxDetourDistance( 100 )
-			                  .WithPartialPaths()
 			                  .WithDuckHeight( 12 )
 			                  .WithMaxClimbDistance( 80 ).Build( toFixed.Value );
 			foreach ( var pathSegment in path.Segments )

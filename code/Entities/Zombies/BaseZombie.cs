@@ -211,7 +211,8 @@ public abstract partial class BaseZombie : BaseNpc
 					doorEntity.Open( this );
 					break;
 				case Prop prop when CanAttack( prop ):
-					Attack( ref animationHelper, prop );
+					Attack( ref animationHelper,
+							prop ); // TODO: Maybe set the prop as a temporary target, because right now, the CheckSurroundings rate jam the real attack rate
 					break;
 			}
 		}
