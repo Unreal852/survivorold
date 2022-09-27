@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using Survivor.Players;
+using Survivor.Weapons;
 
 namespace Survivor.UI.Hud;
 
@@ -27,7 +28,7 @@ public class PlayerInventoryPanel : Panel
 	private void UpdateInventoryElement( SurvivorPlayer player, PlayerInventoryElementPanel invElement, int slot )
 	{
 		Entity slotEntity = player.Inventory.GetSlot( slot );
-		if ( slotEntity is not { IsValid: true } )
+		if ( slotEntity is not ABaseWeapon { IsValid: true } weapon )
 		{
 			invElement.Clear();
 			invElement.SetClass( "hidden", true );
@@ -36,6 +37,7 @@ public class PlayerInventoryPanel : Panel
 
 		invElement.SetClass( "hidden", false );
 		invElement.SetClass( "active", player.ActiveChild == slotEntity );
+		invElement.CreateWeaponIcon( weapon.Asset );
 		invElement.Update( slotEntity, in slot );
 	}
 }

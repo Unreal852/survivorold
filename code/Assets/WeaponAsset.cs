@@ -120,6 +120,12 @@ public sealed partial class WeaponAsset : GameResource
 	[Category( "Particles" ), ResourceType( "vpcf" )]
 	public string BulletTracerParticle { get; set; } = "particles/swb/tracer/tracer_medium.vpcf";
 
+	[Category( "UI" )]
+	public float UiIconScale { get; set; } = 2.0f;
+
+	[Category( "UI" )]
+	public Vector3 UiIconOffset { get; set; } = Vector3.Zero;
+
 	public WeaponInfo GetWeaponInfos()
 	{
 		return new WeaponInfo

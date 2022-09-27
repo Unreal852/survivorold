@@ -16,7 +16,7 @@ public sealed class WeaponKrissVector : ABaseWeapon
 		ViewModelOffset = new AngPos { Angle = new Angles(0f, 0f, 0f), Pos = new Vector3(1.058f, -4.795f, -2.298f) };
 	}
 
-	public override string ViewModelPath  => "models/weapons/pdw/kriss_vector/vm_kriss_vector.vmdl";
-	public override string WorldModelPath => "models/weapons/pdw/kriss_vector/wm_kriss_vector.vmdl";
+	public override string ViewModelPath  => "models/weapons/smg/kriss_vector/vm_kriss_vector.vmdl";
+	public override string WorldModelPath => "models/weapons/smg/kriss_vector/wm_kriss_vector.vmdl";
 	public override AngPos   ViewModelOffset { get; }
 }
