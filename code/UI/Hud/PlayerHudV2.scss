@@ -1,0 +1,138 @@
+﻿PlayerHudV2 {
+  position: absolute;
+  right: 30px;
+  bottom: 40px;
+  width: 450px;
+  height: 250px;
+  
+  opacity: .5;
+  border-radius: 1px;
+
+  .current-weapon-name {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 100;
+    font-size: 25px;
+    font-weight: bolder;
+    color: #4fd4c1;
+  }
+
+  .current-weapon-ammo {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    opacity: 100;
+    font-size: 50px;
+    font-weight: bolder;
+    color: #4fd4c1;
+  }
+
+  .current-weapon-reserve {
+    position: absolute;
+    top: 15%;
+    right: 0;
+    opacity: 100;
+    font-size: 32px;
+    font-weight: bolder;
+    color: #4fd4c1;
+  }
+
+  .player-money {
+    position: absolute;
+    left: 0;
+    top: 34%;
+    font-size: 25px;
+    font-weight: bolder;
+    opacity: 100;
+    color: limegreen;
+  }
+
+  .player-health {
+    position: absolute;
+    right: 0;
+    top: 34%;
+    font-size: 25px;
+    font-weight: bold;
+    opacity: 100;
+    color: #ff0c0c;
+  }
+
+  .player-health-bar {
+    position: absolute;
+    height: 10px;
+    width: 450px;
+    right: 0;
+    top: 45%;
+    opacity: 100;
+    background-color: #ff0c0c;
+
+    &.background-bar {
+      background-color: #262626;
+    }
+  }
+
+  .player-stamina-bar {
+    position: absolute;
+    height: 10px;
+    width: 450px;
+    right: 0;
+    top: 50%;
+    opacity: 100;
+    background-color: #8ceaa7;
+
+    &.background-bar {
+      background-color: #262626;
+    }
+  }
+
+  .inventory-slot-1 {
+    position: absolute;
+    height: 60px;
+    width: 100px;
+    left: 0;
+    top: 55%;
+    opacity: 100;
+    background-color: rgba(80, 204, 185, 0.1);
+  }
+
+  .inventory-slot-2 {
+    position: absolute;
+    height: 60px;
+    width: 100px;
+    left: 101px;
+    top: 55%;
+    opacity: 100;
+    background-color: rgba(80, 204, 185, 0.8);
+  }
+
+  .inventory-slot-3 {
+    position: absolute;
+    height: 60px;
+    width: 100px;
+    left: 201px;
+    top: 55%;
+    opacity: 100;
+    background-color: rgba(80, 204, 185, 0.8);
+  }
+
+  .inventory-slot-4 {
+    position: absolute;
+    height: 60px;
+    width: 100px;
+    left: 301px;
+    top: 55%;
+    opacity: 100;
+    background-color: rgba(80, 204, 185, 0.8);
+  }
+
+  .inventory-slot-5 {
+    position: absolute;
+    height: 60px;
+    width: 100px;
+    left: 401px;
+    top: 55%;
+    opacity: 100;
+    background-color: rgba(80, 204, 185, 0.8);    
+  }
+}

@@ -42,7 +42,7 @@ public partial class PlayerInventoryElementPanel : Panel
 
 		if ( entity is ABaseWeapon weapon )
 		{
-			//_name.Text = weapon.Asset.DisplayName;
+			_name.Text = weapon.Asset.DisplayName;
 			_bullets.Text = weapon.Primary.Ammo.ToString();
 			_bulletReserve.Text = weapon.GetAvailableAmmo().ToString();
 		}

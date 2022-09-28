@@ -12,7 +12,7 @@ public class PlayerInventoryPanel : Panel
 
 	public PlayerInventoryPanel()
 	{
-		StyleSheet.Load( "UI/Hud/PlayerInventoryPanel.scss" );
+		StyleSheet.Load( "UI/Hud/Inventory/PlayerInventoryPanel.scss" );
 		_primaryWeapon = new PlayerInventoryElementPanel( this );
 		_secondaryWeapon = new PlayerInventoryElementPanel( this );
 	}
