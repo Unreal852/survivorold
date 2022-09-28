@@ -201,6 +201,21 @@
 				]
 				default_root_bone_name = ""
 			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "sight"
+						parent_bone = "Vector_Root"
+						relative_origin = [ -12.411539, 145.107422, 6.170963 ]
+						relative_angles = [ -89.999962, -89.999947, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""

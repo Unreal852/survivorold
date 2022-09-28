@@ -37,6 +37,7 @@ public class NavPath
 			                  .WithDropDistanceCostScale( 0.5f )
 			                   //.WithMaxDetourDistance( 100 )
 			                  .WithDuckHeight( 12 )
+			                  .WithPartialPaths()
 			                  .WithMaxClimbDistance( 80 ).Build( toFixed.Value );
 			if ( path == null )
 				return;
@@ -93,7 +94,7 @@ public class NavPath
 		foreach ( var point in Points )
 		{
 			if ( i > 0 )
-				DebugOverlay.Arrow( lastPoint + lift, point + lift, Vector3.Up, 5.0f );
+				DebugOverlay.Arrow( lastPoint + lift, point + lift, Vector3.Up, i == 1 ? Color.Green : Color.Orange, 3.0f );
 			lastPoint = point;
 			i++;
 		}

@@ -4,7 +4,7 @@ namespace Survivor.Extensions;
 
 public static class DebugOverlayExtensions
 {
-	public static void Arrow( this DebugOverlay overlay, Vector3 startPos, Vector3 endPos, Vector3 up, float width = 8.0f )
+	public static void Arrow( this DebugOverlay overlay, Vector3 startPos, Vector3 endPos, Vector3 up, Color color = default, float width = 8.0f )
 	{
 		var lineDir = (endPos - startPos).Normal;
 		var sideDir = lineDir.Cross( up );
@@ -17,11 +17,11 @@ public static class DebugOverlayExtensions
 		var p6 = endPos - lineDir * width + sideDir * radius;
 		var p7 = startPos                 + sideDir * radius;
 
-		overlay.Line( p1, p2 );
-		overlay.Line( p2, p3 );
-		overlay.Line( p3, p4 );
-		overlay.Line( p4, p5 );
-		overlay.Line( p5, p6 );
-		overlay.Line( p6, p7 );
+		overlay.Line( p1, p2, color );
+		overlay.Line( p2, p3, color );
+		overlay.Line( p3, p4, color );
+		overlay.Line( p4, p5, color );
+		overlay.Line( p5, p6, color );
+		overlay.Line( p6, p7, color );
 	}
 }
