@@ -38,9 +38,11 @@ public class NavPath
 			                   //.WithMaxDetourDistance( 100 )
 			                  .WithDuckHeight( 12 )
 			                  .WithMaxClimbDistance( 80 ).Build( toFixed.Value );
+			if ( path == null )
+				return;
 			foreach ( var pathSegment in path.Segments )
 				Points.Add( pathSegment.Position );
-			
+
 			Points.Add( NavMesh.GetClosestPoint( to ).Value );
 		}
 
