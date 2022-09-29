@@ -20,6 +20,6 @@ public class PlayerHud : HudEntity<RootPanel>
 	{
 		// I'm adding this here because otherwise i don't have access to Local.Client
 		RootPanel.AddChild<PlayerHudV2>();
-		RootPanel.AddChild<PlayerInfosPanel>();
+		// RootPanel.AddChild<PlayerInfosPanel>();
 	}
 }

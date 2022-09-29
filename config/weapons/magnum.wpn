@@ -40,6 +40,6 @@
 		BarrelSmokeParticle = resource:"particles/swb/muzzle/barrel_smoke.vpcf"
 		BulletTracerParticle = resource:"particles/swb/tracer/tracer_medium.vpcf"
 		UiIconScale = 1
-		UiIconOffset = "0,-1,2"
+		UiIconOffset = "0,-3,2"
 	}
 }

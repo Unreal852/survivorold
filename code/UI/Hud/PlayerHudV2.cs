@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using Survivor.Assets;
@@ -10,15 +11,15 @@ namespace Survivor.UI.Hud;
 
 public class PlayerHudV2 : Panel
 {
-	private const float                  MaxBarWidth = 450; // Same width as in the width in .scss *-bar classes.
-	private       Label                  _moneyLabel;
-	private       Label                  _healthLabel;
-	private       Label                  _healthBarLabel;
-	private       Label                  _staminaBarLabel;
-	private       Label                  _currentWeaponName;
-	private       Label                  _currentWeaponAmmo;
-	private       Label                  _currentWeaponAmmoReserve;
-	private       PlayerHudV2Inventory[] _playerInventory;
+	private const    float                MaxBarWidth = 550; // Same width as in the width in .scss *-bar classes.
+	private readonly Label                _moneyLabel;
+	private readonly Label                _healthLabel;
+	private readonly Label                _healthBarLabel;
+	private readonly Label                _staminaBarLabel;
+	private readonly Label                _currentWeaponNameLabel;
+	private readonly Label                _currentWeaponAmmoLabel;
+	private readonly Label                _currentWeaponAmmoReserveLabel;
+	private readonly PlayerInventoryPanel _playerInventoryPanel;
 
 	public PlayerHudV2()
 	{
@@ -34,14 +35,11 @@ public class PlayerHudV2 : Panel
 		_healthLabel = Add.Label( "", "player-health" );
 		_healthBarLabel = Add.Label( "", "player-health-bar" );
 		_staminaBarLabel = Add.Label( "", "player-stamina-bar" );
-		_currentWeaponName = Add.Label( "", "current-weapon-name" );
-		_currentWeaponAmmo = Add.Label( "", "current-weapon-ammo" );
-		_currentWeaponAmmoReserve = Add.Label( "", "current-weapon-reserve" );
-		_playerInventory = new PlayerHudV2Inventory[5];
-		for ( int i = 0; i < _playerInventory.Length; i++ )
-		{
-			_playerInventory[i] = new PlayerHudV2Inventory( this, $"inventory-slot-{i + 1}" );
-		}
+		_currentWeaponNameLabel = Add.Label( "", "current-weapon-name" );
+		_currentWeaponAmmoLabel = Add.Label( "", "current-weapon-ammo" );
+		_currentWeaponAmmoReserveLabel = Add.Label( "", "current-weapon-reserve" );
+		_playerInventoryPanel = new PlayerInventoryPanel( 5 );
+		AddChild( _playerInventoryPanel );
 	}
 
 	public override void Tick()
@@ -56,71 +54,131 @@ public class PlayerHudV2 : Panel
 
 		if ( player.ActiveChild is ABaseWeapon weapon )
 		{
-			_currentWeaponName.Text = weapon.Asset.DisplayName;
-			_currentWeaponAmmo.Text = weapon.Primary.Ammo.ToString();
-			_currentWeaponAmmoReserve.Text = weapon.Primary.AmmoReserve.ToString();
+			_currentWeaponNameLabel.Text = weapon.Asset.DisplayName;
+			_currentWeaponAmmoLabel.Text = weapon.Primary.Ammo.ToString();
+			_currentWeaponAmmoReserveLabel.Text = weapon.Primary.AmmoReserve.ToString();
 		}
 
-		var inventory = player.Inventory;
-		for ( int i = 0; i < _playerInventory.Length; i++ )
-		{
-			_playerInventory[i].Update( inventory.GetSlot( i ) );
-		}
+		_playerInventoryPanel.Update( player );
 	}
 }
 
-public class PlayerHudV2Inventory : Panel
+public class PlayerInventoryPanel : Panel
 {
-	public  ScenePanel  WeaponIconScene { get; set; }
-	public  SceneWorld  SceneWorld      { get; set; }
-	private SceneModel  WeaponModel;
-	private WeaponAsset WeaponAsset;
-	private string      _slotClass;
+	private readonly PlayerInventorySlot[] _inventorySlots;
 
-	public PlayerHudV2Inventory( Panel parent, string slotClass )
+	public PlayerInventoryPanel( int inventorySize )
+	{
+		_inventorySlots = new PlayerInventorySlot[inventorySize];
+		for ( int i = 0; i < inventorySize; i++ )
+		{
+			_inventorySlots[i] = new PlayerInventorySlot( this, i );
+		}
+	}
+
+	public int Length => _inventorySlots.Length;
+
+	public PlayerInventorySlot this[ int index ]
+	{
+		get => index >= 0 && _inventorySlots.Length < index ? _inventorySlots[index] : null;
+	}
+
+	public void Update( SurvivorPlayer player )
+	{
+		var inventory = player.Inventory;
+		for ( int i = 0; i < _inventorySlots.Length; i++ )
+			_inventorySlots[i].Update( player, inventory.GetSlot( i ) );
+	}
+}
+
+public class PlayerInventorySlot : Panel
+{
+	private readonly int         _slot;
+	private readonly Label       _ammoLabel;
+	private readonly Label       _nameLabel;
+	private          Image       _glyphImage;
+	private          ScenePanel  _weaponIconPanel;
+	private          SceneWorld  _sceneWorld;
+	private          SceneModel  _weaponModel;
+	private          WeaponAsset _weaponAsset;
+
+	public PlayerInventorySlot( Panel parent, int slot )
 	{
 		Parent = parent;
-		_slotClass = slotClass;
+		_slot = slot;
+		_nameLabel = Add.Label( "", "name" );
+		_ammoLabel = Add.Label( "", "ammo" );
+		_glyphImage = Add.Image( "", "glyph" );
+		_glyphImage.Texture = _slot switch
+		{
+				0 => Input.GetGlyph( InputButton.Slot1 ),
+				1 => Input.GetGlyph( InputButton.Slot2 ),
+				2 => Input.GetGlyph( InputButton.Slot3 ),
+				3 => Input.GetGlyph( InputButton.Slot4 ),
+				4 => Input.GetGlyph( InputButton.Slot5 ),
+				5 => Input.GetGlyph( InputButton.Slot6 ),
+				6 => Input.GetGlyph( InputButton.Slot7 ),
+				7 => Input.GetGlyph( InputButton.Slot8 ),
+				8 => Input.GetGlyph( InputButton.Slot9 ),
+				9 => Input.GetGlyph( InputButton.Slot0 ),
+				_ => Input.GetGlyph( InputButton.Slot1 ),
+		};
 	}
 
-	public void Update( Entity entity )
+	public void Update( SurvivorPlayer owner, Entity entity )
 	{
-		if ( entity is not ABaseWeapon weapon )
-			return;
-		UpdateWeaponIcon( weapon.Asset );
+		if ( entity is ABaseWeapon weapon )
+		{
+			if ( weapon.Asset.WeaponType != _weaponAsset?.WeaponType )
+			{
+				_weaponAsset = weapon.Asset;
+				OnSlotEntityChanged( owner, entity );
+			}
+
+			SetClass( "active", entity == owner.ActiveChild );
+			_ammoLabel.Text = (weapon.Primary.Ammo + weapon.Primary.AmmoReserve).ToString();
+		}
 	}
 
-	public void UpdateWeaponIcon( WeaponAsset asset )
+	private void OnSlotEntityChanged( SurvivorPlayer owner, Entity entity )
 	{
-		if ( asset == null || WeaponAsset?.WeaponType == asset.WeaponType )
+		if ( entity is ABaseWeapon weapon )
+		{
+			_nameLabel.Text = weapon.Asset.DisplayName;
+			UpdateWeaponIcon();
+		}
+	}
+
+	private void UpdateWeaponIcon()
+	{
+		if ( _weaponAsset == null )
 			return;
-		WeaponAsset = asset;
 
-		WeaponModel?.Delete();
-		WeaponModel = null;
+		_weaponModel?.Delete();
+		_weaponModel = null;
 
-		WeaponIconScene?.Delete();
-		WeaponIconScene = null;
+		_weaponIconPanel?.Delete();
+		_weaponIconPanel = null;
 
-		SceneWorld?.Delete();
-		SceneWorld = new SceneWorld();
+		_sceneWorld?.Delete();
+		_sceneWorld = new SceneWorld();
 
-		WeaponModel = new SceneModel( SceneWorld, asset.WorldModel, Transform.Zero ) { ColorTint = Color.White, Rotation = Rotation.From( 0, -90, 0 ) };
-		WeaponModel.Update( RealTime.Delta );
+		_weaponModel = new SceneModel( _sceneWorld, _weaponAsset.WorldModel, Transform.Zero ) { ColorTint = Color.White, Rotation = Rotation.From( 0, -90, 0 ) };
+		_weaponModel.Update( RealTime.Delta );
 
-		WeaponIconScene = Parent.Add.ScenePanel( SceneWorld, Vector3.Zero, Rotation.Identity, 40, _slotClass );
+		_weaponIconPanel = Add.ScenePanel( _sceneWorld, Vector3.Zero, Rotation.Identity, 40, "icon" );
 
-		WeaponIconScene.Camera.Position = WeaponModel.Position + asset.UiIconOffset - Vector3.Backward * InchesUtils.FromMeters( asset.UiIconScale );
-		WeaponIconScene.Camera.Rotation = Rotation.From( new(0, 180, 0) );
-		WeaponIconScene.Camera.AmbientLightColor = Color.Black;
-		WeaponIconScene.Camera.EnablePostProcessing = false;
-		WeaponIconScene.RenderOnce = true;
+		_weaponIconPanel.Camera.Position = _weaponModel.Position + _weaponAsset.UiIconOffset - Vector3.Backward * InchesUtils.FromMeters( _weaponAsset.UiIconScale );
+		_weaponIconPanel.Camera.Rotation = Rotation.From( new(0, 180, 0) );
+		_weaponIconPanel.Camera.AmbientLightColor = Color.Black;
+		_weaponIconPanel.Camera.EnablePostProcessing = false;
+		_weaponIconPanel.RenderOnce = true;
 	}
 
 	public override void OnHotloaded()
 	{
 		base.OnHotloaded();
 
-		UpdateWeaponIcon( WeaponAsset );
+		UpdateWeaponIcon();
 	}
 }
