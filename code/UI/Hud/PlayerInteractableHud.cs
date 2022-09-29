@@ -6,16 +6,16 @@ using Survivor.Players;
 
 namespace Survivor.UI.Hud;
 
-public class PlayerInteractablePanel : Panel
+public class PlayerInteractableHud : Panel
 {
 	private readonly Label _useLabel;
 	private readonly Image _glyphImage;
 	private readonly Label _costLabel;
 	private readonly Label _useMessageLabel;
 
-	public PlayerInteractablePanel()
+	public PlayerInteractableHud()
 	{
-		StyleSheet.Load( "UI/Hud/PlayerInteractablePanel.scss" );
+		StyleSheet.Load( "UI/Hud/PlayerInteractableHud.scss" );
 
 		_useLabel = Add.Label( "", "value" );
 		_glyphImage = Add.Image( "", "glyph" );

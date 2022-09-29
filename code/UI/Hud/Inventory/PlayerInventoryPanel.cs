@@ -1,43 +1,34 @@
-﻿using Sandbox;
-using Sandbox.UI;
+﻿using Sandbox.UI;
 using Survivor.Players;
-using Survivor.Weapons;
 
 namespace Survivor.UI.Hud.Inventory;
 
 public class PlayerInventoryPanel : Panel
 {
-	private readonly PlayerInventoryElementPanel _primaryWeapon;
-	private readonly PlayerInventoryElementPanel _secondaryWeapon;
+	private readonly PlayerInventorySlot[] _inventorySlots;
 
-	public PlayerInventoryPanel()
+	public PlayerInventoryPanel( int inventorySize )
 	{
 		StyleSheet.Load( "UI/Hud/Inventory/PlayerInventoryPanel.scss" );
-		_primaryWeapon = new PlayerInventoryElementPanel( this );
-		_secondaryWeapon = new PlayerInventoryElementPanel( this );
-	}
 
-	public override void Tick()
-	{
-		if ( Local.Pawn is not SurvivorPlayer player )
-			return;
-		UpdateInventoryElement( player, _primaryWeapon, 0 );
-		UpdateInventoryElement( player, _secondaryWeapon, 1 );
-	}
-
-	private void UpdateInventoryElement( SurvivorPlayer player, PlayerInventoryElementPanel invElement, int slot )
-	{
-		Entity slotEntity = player.Inventory.GetSlot( slot );
-		if ( slotEntity is not ABaseWeapon { IsValid: true } weapon )
+		_inventorySlots = new PlayerInventorySlot[inventorySize];
+		for ( int i = 0; i < inventorySize; i++ )
 		{
-			invElement.Clear();
-			invElement.SetClass( "hidden", true );
-			return;
+			_inventorySlots[i] = new PlayerInventorySlot( this, i );
 		}
+	}
 
-		invElement.SetClass( "hidden", false );
-		invElement.SetClass( "active", player.ActiveChild == slotEntity );
-		invElement.CreateWeaponIcon( weapon.Asset );
-		invElement.Update( slotEntity, in slot );
+	public int Length => _inventorySlots.Length;
+
+	public PlayerInventorySlot this[ int index ]
+	{
+		get => index >= 0 && _inventorySlots.Length < index ? _inventorySlots[index] : null;
+	}
+
+	public void Update( SurvivorPlayer player )
+	{
+		var inventory = player.Inventory;
+		for ( int i = 0; i < _inventorySlots.Length; i++ )
+			_inventorySlots[i].Update( player, inventory.GetSlot( i ) );
 	}
 }

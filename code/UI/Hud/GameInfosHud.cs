@@ -3,14 +3,14 @@ using Sandbox.UI.Construct;
 
 namespace Survivor.UI.Hud;
 
-public class GameInfosPanel : Panel
+public class GameInfosHud : Panel
 {
 	private readonly Label _currentWaveLabel;
 	private readonly Label _enemiesRemainingLabel;
 
-	public GameInfosPanel()
+	public GameInfosHud()
 	{
-		StyleSheet.Load( "UI/Hud/GameInfosPanel.scss" );
+		StyleSheet.Load( "UI/Hud/GameInfosHud.scss" );
 
 		_currentWaveLabel = Add.Label( "Wave 0", "wave" );
 		_enemiesRemainingLabel = Add.Label( "Enemies 0", "enemiesRemaining" );

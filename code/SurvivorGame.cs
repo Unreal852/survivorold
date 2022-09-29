@@ -17,10 +17,8 @@ public partial class SurvivorGame : Game
 		Current = this;
 		if ( IsServer )
 		{
-			_ = new PlayerHud();
+			_ = new PlayerHudEntity();
 			Global.TickRate = 30;
-			 
-			// Precache.Add( "sounds/zombies/zombie_moan.sound" );
 		}
 	}
 
