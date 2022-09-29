@@ -30,7 +30,6 @@ public sealed partial class WeaponWorldModel : ModelEntity
 		glowComponent.Width = glow.GlowWidth;
 		glowComponent.Color = glow.GlowColor;
 		glowComponent.Enabled = true;
-		Log.Info( "Enabled" );
 	}
 
 	public override void Spawn()
