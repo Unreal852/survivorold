@@ -11,7 +11,7 @@ using Survivor.Weapons;
 
 namespace Survivor.Entities.Hammer;
 
-[Library("survivor_mystery_box")]
+[Library( "survivor_mystery_box" )]
 [Category( "Map" ), Icon( "place" )]
 [Title( "Mystery Box" ), Description( "This entity defines a mystery box" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/weapons_box.vmdl", Archetypes = ModelArchetype.animated_model )]
@@ -60,6 +60,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
 	}
 
+	// TODO: Make events for thoses
 	protected override void OnAnimGraphTag( string tag, AnimGraphTagEvent fireMode )
 	{
 		if ( !IsServer )

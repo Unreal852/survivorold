@@ -15,7 +15,7 @@ namespace Survivor.Entities.Hammer;
 [Title( "Weapon Stand" ), Description( "This entity defines weapon stand" )]
 [HammerEntity, SupportsSolid, Model( Model = "models/objects/weapons_stand.vmdl", Archetypes = ModelArchetype.generic_actor_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class WeaponStand : ModelEntity, IUsable
+public partial class WeaponStand : ModelEntity, IUsable, IGlow
 {
 	[Property]
 	[Category( "Weapon Stand" ), Title( "Enabled" ), Description( "Unchecking this will prevent this weapon from being bought" )]
@@ -36,9 +36,20 @@ public partial class WeaponStand : ModelEntity, IUsable
 	[Net]
 	private WeaponAsset WeaponAsset { get; set; }
 
+	[Net]
 	private WeaponWorldModel WorldModel { get; set; }
 
 	public string UsePrefix { get; } = "Buy";
+
+	public Color GlowColor
+	{
+		get
+		{
+			if ( Local.Pawn is not SurvivorPlayer player )
+				return Color.Yellow;
+			return player.Money >= UseCost ? Color.Green : Color.Red;
+		}
+	}
 
 	public int UseCost
 	{
@@ -112,5 +123,10 @@ public partial class WeaponStand : ModelEntity, IUsable
 	public bool IsUsable( Entity user )
 	{
 		return true;
+	}
+	
+	public void SetGlow( bool enableGlow )
+	{
+		WorldModel.SetGlow( this, enableGlow );
 	}
 }

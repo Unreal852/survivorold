@@ -1,36 +1,44 @@
 ﻿using Sandbox;
+using Sandbox.Component;
 using Survivor.Assets;
-using Survivor.Glow;
+using Survivor.Interaction;
 
 namespace Survivor.Weapons;
 
-public sealed class WeaponWorldModel : ModelEntity
+public sealed partial class WeaponWorldModel : ModelEntity
 {
 	public WeaponWorldModel()
 	{
 	}
 
-	public WeaponWorldModel( WeaponAsset asset, bool glow = false ) : base( asset.WorldModel )
+	public WeaponWorldModel( WeaponAsset asset ) : base( asset.WorldModel )
 	{
-		if ( glow )
-			EnableGlow();
+		WeaponAsset = asset;
 	}
 
 	public WeaponAsset WeaponAsset { get; set; }
-	public bool        HasGlow     { get; private set; }
 
-	public void EnableGlow()
+	public void SetGlow( IGlow glow, bool enable )
 	{
-		if ( HasGlow )
+		if ( !enable )
+		{
+			Components.Get<Glow>()?.Remove();
 			return;
-		var glowEffect = Components.Create<GlowEffect>();
-		glowEffect.Active = true;
-		glowEffect.Color = Color.Green;
-		HasGlow = true;
+		}
+
+		var glowComponent = Components.GetOrCreate<Glow>();
+		glowComponent.Width = glow.GlowWidth;
+		glowComponent.Color = glow.GlowColor;
+		glowComponent.Enabled = true;
+		Log.Info( "Enabled" );
 	}
 
 	public override void Spawn()
 	{
 		PhysicsClear();
+	}
+
+	public override void ClientSpawn()
+	{
 	}
 }
