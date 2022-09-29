@@ -190,7 +190,6 @@ public class SurvivorPlayerInventory : IInventoryBase
 				if ( !Owner.SuppressPickupNotices )
 				{
 					Sound.FromWorld( "dm.pickup_ammo", ent.Position );
-					PickupFeed.OnPickup( To.Single( Owner ), "+" );
 				}
 
 				return false;
