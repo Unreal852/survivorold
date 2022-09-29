@@ -39,5 +39,6 @@ public sealed partial class WeaponWorldModel : ModelEntity
 
 	public override void ClientSpawn()
 	{
+		//Components.Create<Glow>( false );
 	}
 }
