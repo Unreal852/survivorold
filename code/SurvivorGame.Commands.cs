@@ -1,11 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Sandbox;
 using Survivor.Entities;
 using Survivor.Entities.Zombies;
 using Survivor.Players;
 using Survivor.UI.World;
-using Survivor.Weapons;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 using ClientCommand = Sandbox.ConCmd.ClientAttribute;
 using AdminServerCommand = Sandbox.ConCmd.AdminAttribute;

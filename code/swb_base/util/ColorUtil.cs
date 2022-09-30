@@ -1,7 +1,4 @@
-﻿using Sandbox;
-using System;
-
-namespace SWB_Base
+﻿namespace SWB_Base
 {
     public class ColorUtil
     {

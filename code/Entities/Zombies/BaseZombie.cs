@@ -3,7 +3,6 @@ using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Performance;
 using Survivor.Players;
-using Survivor.Utils;
 using Survivor.Weapons;
 
 // ReSharper disable PartialTypeWithSinglePart

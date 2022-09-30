@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Sandbox;
+﻿using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
