@@ -10,4 +10,10 @@ public sealed partial class TinyPuncherZombie : PuncherZombie
 	}
 
 	public override ZombieType ZombieType => ZombieType.TinyPuncher;
+
+	protected override void Prepare()
+	{
+		base.Prepare();
+		EyePosition = Position + Vector3.Up * 32;
+	}
 }

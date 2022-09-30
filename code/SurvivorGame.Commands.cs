@@ -20,18 +20,11 @@ public partial class SurvivorGame
 		_ = new WorldInteractablePanel() { Position = Local.Pawn.EyePosition };
 	}
 
-	[ServerCommand( "test2" )]
-	public static void Test2()
-	{
-		string csClass = "Survivor.Weapons.FN57";
-		var wep = TypeLibrary.Create<ABaseWeapon>( "AK47" );
-		Log.Info( wep.Asset.Name );
-	}
-
 	[ServerCommand( "sessioninfos" )]
 	public static void SessionInfosCommand()
 	{
 		Log.Info( "SESSION INFOS ----" );
+		Log.Info($"\tMap: {Map.Name}");
 		Log.Info( $"\tGameMode: {Current.GameMode.Name} ({Current.GameMode.GetType()})" );
 		Log.Info( $"\tDifficulty: {Current.GameMode.Difficulty}" );
 	}
@@ -51,11 +44,27 @@ public partial class SurvivorGame
 	}
 
 	[AdminServerCommand( "imrich" )]
-	public static void GiveMoney( int amount = 10000 )
+	public static void GiveMoneyCommand( int amount = 10000 )
 	{
 		var caller = ConsoleSystem.Caller?.Pawn;
 		if ( caller is SurvivorPlayer player )
 			player.Money += amount;
+	}
+
+	[AdminServerCommand( "setmoney" )]
+	public static void ClearMoneyCommand( int amount )
+	{
+		var caller = ConsoleSystem.Caller?.Pawn;
+		if ( caller is SurvivorPlayer player )
+			player.Money = amount;
+	}
+
+	[AdminServerCommand( "impoor" )]
+	public static void ClearMoneyCommand()
+	{
+		var caller = ConsoleSystem.Caller?.Pawn;
+		if ( caller is SurvivorPlayer player )
+			player.Money = 0;
 	}
 
 	[AdminServerCommand( "spawnz" )]
@@ -79,8 +88,7 @@ public partial class SurvivorGame
 	public static void ClearZombiesCommand()
 	{
 		foreach ( BaseNpc npc in All.OfType<BaseNpc>().ToArray() )
-			npc.Delete();
-		GAME_MODE.EnemiesRemaining = 0;
+			npc.OnKilled();
 	}
 
 	[AdminServerCommand( "setnpctpos" )]
@@ -102,32 +110,5 @@ public partial class SurvivorGame
 		var zombies = All.OfType<BaseZombie>();
 		foreach ( BaseZombie zombie in zombies )
 			zombie.SetTarget( trace.EndPosition, true );
-	}
-
-	[AdminServerCommand( Name = "tphere", Help = "Teleport the specified player at the current camera position" )]
-	public static void TeleportPlayerToCurrentCameraPosition( string playerName = null )
-	{
-		var devCamera = ConsoleSystem.Caller.Components.Get<DevCamera>();
-		if ( devCamera == null )
-		{
-			Log.Warning( "DEV CAM is null" );
-			return;
-		}
-
-		if ( string.IsNullOrWhiteSpace( playerName ) )
-		{
-			foreach ( Client client in Client.All )
-				client.Pawn.Position = devCamera.Entity.Position;
-			return;
-		}
-
-		Client clientToTeleport = Client.All.FirstOrDefault( cl => cl.Name.Equals( playerName, StringComparison.OrdinalIgnoreCase ) );
-		if ( clientToTeleport == null )
-		{
-			Log.Warning( $"No client found with the name '{playerName}'" );
-			return;
-		}
-
-		clientToTeleport.Pawn.Position = devCamera.Entity.Position;
 	}
 }

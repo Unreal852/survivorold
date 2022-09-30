@@ -3,6 +3,7 @@ using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Performance;
 using Survivor.Players;
+using Survivor.Utils;
 using Survivor.Weapons;
 
 // ReSharper disable PartialTypeWithSinglePart
@@ -14,8 +15,8 @@ namespace Survivor.Entities.Zombies;
 
 public abstract partial class BaseZombie : BaseNpc
 {
-	[ConVar.Replicated( "nav_drawpath" )]
-	public static bool NavDrawPath { get; set; } = false;
+	[ConVar.Replicated( "zombie_debug" )]
+	public static bool ZombiesDrawDebug { get; set; } = false;
 
 	protected readonly NavSteer  NavSteer = new();
 	protected readonly BBox      BBox     = BBox.FromHeightAndRadius( 64, 4 );
@@ -64,7 +65,7 @@ public abstract partial class BaseZombie : BaseNpc
 		data.Apply( this );
 
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
-		EyePosition = Position + Vector3.Up * 64;
+		EyePosition = Position + Vector3.Up * 64; // TODO: Mode this in zombie asset
 		EnableHitboxes = true;
 		UsePhysicsCollision = true;
 
@@ -100,9 +101,11 @@ public abstract partial class BaseZombie : BaseNpc
 	public override void OnKilled()
 	{
 		base.OnKilled();
-		if ( IsServer && LastAttacker is SurvivorPlayer player )
+		if ( !IsServer )
+			return;
+		SurvivorGame.GAME_MODE.EnemiesRemaining--;
+		if ( LastAttacker is SurvivorPlayer player )
 		{
-			SurvivorGame.Current.GameMode.EnemiesRemaining--;
 			player.Money += Rand.Int( 5, 10 );
 			player.Client.AddInt( "kills" );
 		}
@@ -143,9 +146,6 @@ public abstract partial class BaseZombie : BaseNpc
 				InputVelocity = NavSteer.Output.Direction.Normal;
 				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, MoveSpeed );
 			}
-
-			if ( NavDrawPath )
-				NavSteer.DebugDrawPath();
 		}
 
 		using var moveProfiling = Profiler.Scope( $"{nameof(BaseZombie)}::{nameof(Move)}" );
@@ -163,8 +163,8 @@ public abstract partial class BaseZombie : BaseNpc
 
 		var animHelper = new CitizenAnimationHelper( this );
 
-		LookDirection = Vector3.Lerp( LookDirection, InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
-		animHelper.WithLookAt( EyePosition + LookDirection );
+		LookDirection = Vector3.Lerp( LookDirection, Target?.EyePosition ?? InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
+		animHelper.WithLookAt( LookDirection );
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
 
@@ -184,6 +184,9 @@ public abstract partial class BaseZombie : BaseNpc
 			SinceLastMoan = 0;
 			NextMoanIn = Rand.Float( 1.5f, 10f );
 		}
+
+		if ( ZombiesDrawDebug )
+			DebugDraw();
 	}
 
 	protected virtual bool CanAttack( Entity entity )
@@ -261,5 +264,12 @@ public abstract partial class BaseZombie : BaseNpc
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	protected virtual void DebugDraw()
+	{
+		NavSteer?.DebugDrawPath();
+		DebugOverlay.Line( EyePosition, LookDirection, Target != null ? Color.Red : Color.Yellow );
+		DebugOverlay.Box( PhysicsBody, Color.Yellow );
 	}
 }

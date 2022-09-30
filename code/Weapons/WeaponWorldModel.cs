@@ -20,25 +20,14 @@ public sealed partial class WeaponWorldModel : ModelEntity
 
 	public void SetGlow( IGlow glow, bool enable )
 	{
-		if ( !enable )
-		{
-			Components.Get<Glow>()?.Remove();
-			return;
-		}
-
 		var glowComponent = Components.GetOrCreate<Glow>();
 		glowComponent.Width = glow.GlowWidth;
 		glowComponent.Color = glow.GlowColor;
-		glowComponent.Enabled = true;
+		glowComponent.Enabled = enable;
 	}
 
 	public override void Spawn()
 	{
 		PhysicsClear();
-	}
-
-	public override void ClientSpawn()
-	{
-		//Components.Create<Glow>( false );
 	}
 }

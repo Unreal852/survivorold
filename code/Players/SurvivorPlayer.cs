@@ -38,7 +38,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	[Net]
 	public float Stamina { get; set; }
 
-	[Net]
+	[Net, Change( nameof(OnMoneyChanged) )]
 	public int Money { get; set; }
 
 	public new SurvivorPlayerInventory Inventory => (SurvivorPlayerInventory)base.Inventory;
@@ -73,8 +73,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		SuppressPickupNotices = false;
 
 		SinceRespawn = 0;
-
-		base.Respawn();
 	}
 
 	public bool TryUse()
@@ -86,18 +84,28 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		return true;
 	}
 
-	public void SwitchToBestWeapon()
+	private void SwitchToBestWeapon()
 	{
-		// var best = Children
-		//           .Select( x => x as WeaponBase )
-		//           .Where( x => x.IsValid() && x.IsUsable() )
-		//           .MaxBy( x => x.BucketWeight );
-
 		var best = Children.Select( x => x as WeaponBase ).FirstOrDefault( x => x.IsValid() );
 		if ( best == null )
 			return;
 
 		ActiveChild = best;
+	}
+
+	private void TickPlayerInput()
+	{
+		if ( Input.Pressed( InputButton.Slot1 ) )
+			Inventory.SetActiveSlot( 0 );
+		else if ( Input.Pressed( InputButton.Slot2 ) )
+			Inventory.SetActiveSlot( 1 );
+		else if ( Input.Pressed( InputButton.Slot3 ) )
+			Inventory.SetActiveSlot( 2 );
+	}
+
+	private void OnMoneyChanged( int oldMoney, int newMoney )
+	{
+		Using = null; // This is to force the glow to update
 	}
 
 	public override void Respawn()
@@ -146,19 +154,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				CameraMode = new ThirdPersonCamera();
 		}
 
-		if ( Input.Pressed( InputButton.Drop ) )
-		{
-			var dropped = Inventory.DropActive();
-			if ( dropped != null )
-			{
-				if ( dropped.PhysicsGroup != null )
-					dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 300;
-
-				_sinceDropped = 0;
-				SwitchToBestWeapon();
-			}
-		}
-
 		SimulateActiveChild( cl, ActiveChild );
 
 		//
@@ -202,16 +197,5 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
-	}
-
-	private void TickPlayerInput()
-	{
-		// TODO: i should use BuildInput but it wasn't working
-		if ( Input.Pressed( InputButton.Slot1 ) )
-			Inventory.SetActiveSlot( 0 );
-		else if ( Input.Pressed( InputButton.Slot2 ) )
-			Inventory.SetActiveSlot( 1 );
-		else if ( Input.Pressed( InputButton.Slot3 ) )
-			Inventory.SetActiveSlot( 2 );
 	}
 }

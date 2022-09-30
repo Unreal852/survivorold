@@ -46,13 +46,9 @@ public sealed partial class ShooterZombie : BaseZombie
 		SetAnimParameter( "b_attack", true );
 		Sound.FromEntity( "sounds/weapons/ak47/ak_47_shot_01.sound", this );
 		// TODO: Make the zombie aim realisticaly
-		// var forward = _navSteer.Target;
-		// forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.08f * 0.25f;
-		// forward = forward.Normal;
-		// var endPos = EyePosition + forward * 999999;
-		if ( Rand.Float() >= 0.3f ) // Fake miss
+		if ( Rand.Float() <= 0.5f ) // Fake miss
 			return;
-		var endPos = entity.EyePosition + Vector3.Down * 5;
+		var endPos = LookDirection + Vector3.Down * 5;
 		var tr = _trace.FromTo( EyePosition, endPos ).Run();
 		if ( !tr.Hit )
 			return;
