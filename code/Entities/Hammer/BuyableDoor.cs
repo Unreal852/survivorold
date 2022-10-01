@@ -14,7 +14,7 @@ namespace Survivor.Entities.Hammer;
 [Title( "Buyable door" ), Description( "This entity defines a buyable door" )]
 [HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.breakable_prop_model )]
 [RenderFields, VisGroup( VisGroup.Physics )]
-public partial class BuyableDoor : Prop, IUsable
+public partial class BuyableDoor : AnimatedMapEntity, IUsable
 {
 	private bool      _bought          = false;
 	private TimeSince _timeSinceBought = new TimeSince();
@@ -121,7 +121,7 @@ public partial class BuyableDoor : Prop, IUsable
 				return;
 			}
 
-			animEnt.SetAnimParameter( OpenAnimParam, true );
+			SetAnimParameter( OpenAnimParam, true );
 		}
 	}
 
@@ -134,6 +134,12 @@ public partial class BuyableDoor : Prop, IUsable
 		return !_bought;
 	}
 
+	private void UnregisterAndDelete()
+	{
+		Event.Unregister( this );
+		Delete();
+	}
+
 	[Event.Tick.Server]
 	public void Simulate()
 	{
@@ -143,22 +149,19 @@ public partial class BuyableDoor : Prop, IUsable
 			{
 				if ( OpenMoveDirection == Vector3.Zero )
 				{
-					Event.Unregister( this );
-					Delete();
+					UnregisterAndDelete();
 					return;
 				}
 
 				Position += OpenMoveDirection * OpenSpeed * Time.Delta;
 				if ( _timeSinceBought >= DeleteAfter )
 				{
-					Event.Unregister( this );
-					Delete();
+					UnregisterAndDelete();
 				}
 			}
 			else if ( OpenAction == DoorOpenAction.Destroy )
 			{
-				Event.Unregister( this );
-				Break();
+				UnregisterAndDelete();
 			}
 		}
 	}
