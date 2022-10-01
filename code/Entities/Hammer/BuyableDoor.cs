@@ -9,7 +9,7 @@ using Survivor.Players;
 
 namespace Survivor.Entities.Hammer;
 
-[Library("survivor_door")]
+[Library( "survivor_door" )]
 [Category( "Map" ), Icon( "place" )]
 [Title( "Buyable door" ), Description( "This entity defines a buyable door" )]
 [HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.breakable_prop_model )]
@@ -35,21 +35,26 @@ public partial class BuyableDoor : Prop, IUsable
 	[Category( "Door" ), Title( "Open action" )]
 	public DoorOpenAction OpenAction { get; set; } = DoorOpenAction.Move;
 
-	[Property]
+	[Property, ShowIf( nameof(OpenAction), DoorOpenAction.Move )]
 	[Category( "Door" ), Title( "Open Direction" ),
 	 Description( "The direction where the door goes to play its opening animation. (Setting 0 will disable animation and the door will be instantly deleted" )]
 	public Vector3 OpenMoveDirection { get; set; } = Vector3.Down;
 
-	[Property]
+	[Property, ShowIf( nameof(OpenAction), DoorOpenAction.Animation )]
+	[Category( "Door" ), Title( "Open Animation" ),
+	 Description( "The animation to play when the door is bought" )]
+	public string OpenAnimParam { get; set; } = "open";
+
+	[Property, ShowIf( nameof(OpenAction), DoorOpenAction.Move )]
 	[Category( "Door" ), Title( "Open Speed" ), Description( "The open animation speed" )]
 	public float OpenSpeed { get; set; } = 500f;
 
-	[Property]
+	[Property, ShowIf( nameof(OpenAction), DoorOpenAction.Move )]
 	[Category( "Door" ), Title( "Delete after" ), Description( "Delete this door after the set amount of time (in seconds)" )]
 	public float DeleteAfter { get; set; } = 2.5f;
 
 	public int    UseCost    => Cost;
-	public string UseMessage => "Open Door";
+	public string UseMessage => "Unlock";
 
 	public override void Spawn()
 	{
@@ -108,6 +113,16 @@ public partial class BuyableDoor : Prop, IUsable
 		_timeSinceBought = 0;
 		if ( opener != null )
 			ChatBox.AddChatEntry( To.Everyone, "Survivor", $"{opener.Client.Name} opened {Room} for {Cost}$" );
+		if ( OpenAction == DoorOpenAction.Animation )
+		{
+			if ( Parent is not AnimatedEntity animEnt )
+			{
+				Log.Error( "Missing parent or the parent is not an animated entity" );
+				return;
+			}
+
+			animEnt.SetAnimParameter( OpenAnimParam, true );
+		}
 	}
 
 	public override void TakeDamage( DamageInfo info )
@@ -128,16 +143,21 @@ public partial class BuyableDoor : Prop, IUsable
 			{
 				if ( OpenMoveDirection == Vector3.Zero )
 				{
+					Event.Unregister( this );
 					Delete();
 					return;
 				}
 
 				Position += OpenMoveDirection * OpenSpeed * Time.Delta;
 				if ( _timeSinceBought >= DeleteAfter )
+				{
+					Event.Unregister( this );
 					Delete();
+				}
 			}
 			else if ( OpenAction == DoorOpenAction.Destroy )
 			{
+				Event.Unregister( this );
 				Break();
 			}
 		}
@@ -154,5 +174,10 @@ public enum DoorOpenAction
 	/// <summary>
 	/// The door will break, this requires a breakable model
 	/// </summary>
-	Destroy
+	Destroy,
+
+	/// <summary>
+	/// The door will play an animation
+	/// </summary>
+	Animation
 }
