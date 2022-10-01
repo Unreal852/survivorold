@@ -21,7 +21,7 @@ public partial class DestructibleDoor : Prop, IBuyableDoor
 	[Category( "Door" ), Title( "Cost" ), Description( "The cost to unlock this door" )]
 	public int Cost { get; set; } = 0;
 
-	[Property, FGDType( "target_destination" )]
+	[Property, Net, FGDType( "target_destination" )]
 	[Category( "Door" ), Title( "Room" ), Description( "The room which this door will unlock. Multiple doors can unlock a single room" )]
 	public string Room { get; set; } = "";
 
