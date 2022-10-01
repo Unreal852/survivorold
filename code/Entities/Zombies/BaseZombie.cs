@@ -17,8 +17,9 @@ public abstract partial class BaseZombie : BaseNpc
 	[ConVar.Replicated( "zombie_debug" )]
 	public static bool ZombiesDrawDebug { get; set; } = false;
 
-	protected readonly NavSteer  NavSteer = new();
-	protected readonly BBox      BBox     = BBox.FromHeightAndRadius( 64, 4 );
+	private readonly   string[]  _moveTags = { "solid", "passbullets", "player" };
+	protected readonly NavSteer  NavSteer  = new();
+	protected readonly BBox      BBox      = BBox.FromHeightAndRadius( 64, 4 );
 	protected          Vector3   InputVelocity;
 	protected          Vector3   LookDirection;
 	protected          TimeSince SinceLastAttack;
@@ -224,7 +225,7 @@ public abstract partial class BaseZombie : BaseNpc
 
 	protected virtual void Move( float timeDelta )
 	{
-		MoveHelper move = new(Position, Velocity) { MaxStandableAngle = 50 };
+		MoveHelper move = new(Position, Velocity, _moveTags) { MaxStandableAngle = 50 };
 		move.Trace = move.Trace.Ignore( this ).Size( BBox );
 
 		if ( !Velocity.IsNearlyZero( 0.001f ) )
