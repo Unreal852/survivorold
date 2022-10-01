@@ -11,10 +11,10 @@ namespace Survivor.Entities.Hammer;
 
 [Library( "survivor_animated_door" )]
 [Category( "Map" ), Icon( "place" )]
-[Title( "Buyable door" ), Description( "This entity defines a buyable door" )]
+[Title( "Animated Door" ), Description( "This entity defines a buyable door" )]
 [HammerEntity, SupportsSolid, Model( Archetypes = ModelArchetype.animated_model )]
 [RenderFields, VisGroup( VisGroup.Dynamic )]
-public partial class AnimatedDoor : AnimatedMapEntity, IBuyableDoor
+public partial class AnimatedDoor : AnimatedEntity, IBuyableDoor
 {
 	[Property]
 	[Category( "Door" ), Title( "Enabled" ), Description( "Unchecking this will prevent this door from being bought" )]
