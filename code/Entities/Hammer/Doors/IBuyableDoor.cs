@@ -11,8 +11,11 @@ public interface IBuyableDoor : IUsable
 	public int    Cost      { get; set; }
 	public string Room      { get; set; }
 
-	string IUsable.UsePrefix => "Unlock";
-	int IUsable.   UseCost   => Cost;
+	string IUsable.UsePrefix  => "Unlock";
+
+	string IUsable.UseMessage => Room;
+
+	int IUsable.   UseCost    => Cost;
 
 	public void OpenDoor( SurvivorPlayer buyer );
 }
