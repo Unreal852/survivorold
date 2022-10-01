@@ -2,6 +2,7 @@
 using System.Linq;
 using Sandbox;
 using Survivor.Entities.Hammer;
+using Survivor.Entities.Hammer.Doors;
 
 // resharper disable all
 
@@ -19,7 +20,7 @@ public class RoomManager : EntityComponent
 	{
 		var rooms = Entity.All.OfType<Room>().ToDictionary( r => r.Name );
 		var spawns = Entity.All.OfType<ZombieSpawn>().ToArray();
-		var doors = Entity.All.OfType<BuyableDoor>().ToArray();
+		var doors = Entity.All.OfType<IBuyableDoor>().ToArray();
 		foreach ( var room in rooms.Values )
 		{
 			room.InitializeRoom(

@@ -1,20 +1,21 @@
 ﻿using System;
 using Sandbox;
 using SandboxEditor;
+using Survivor.Entities.Hammer.Doors;
 
 // resharper disable all
 
 namespace Survivor.Entities.Hammer;
 
-[Library("survivor_room")]
+[Library( "survivor_room" )]
 [Category( "Map" ), Icon( "place" )]
 [Title( "Room" ), Description( "This entity defines a room" )]
 [HammerEntity, EditorModel( "models/editor/air_node.vmdl" )]
 public partial class Room : Entity
 {
-	private ZombieSpawn[] _zombieSpawns;
-	private BuyableDoor[] _roomDoors;
-	private bool          _isBought;
+	private ZombieSpawn[]  _zombieSpawns;
+	private IBuyableDoor[] _roomDoors;
+	private bool           _isBought;
 
 	public Room()
 	{
@@ -42,13 +43,13 @@ public partial class Room : Entity
 		}
 	}
 
-	public void InitializeRoom( BuyableDoor[] buyableDoors, ZombieSpawn[] zombieSpawns )
+	public void InitializeRoom( IBuyableDoor[] buyableDoors, ZombieSpawn[] zombieSpawns )
 	{
-		_roomDoors = buyableDoors    ?? Array.Empty<BuyableDoor>();
+		_roomDoors = buyableDoors    ?? Array.Empty<AnimatedDoor>();
 		_zombieSpawns = zombieSpawns ?? Array.Empty<ZombieSpawn>();
 		foreach ( var zombieSpawn in _zombieSpawns )
 			zombieSpawn.Owner = this;
 		foreach ( var buyableDoor in buyableDoors )
-			buyableDoor.Owner = this;
+			buyableDoor.DoorOwner = this;
 	}
 }
