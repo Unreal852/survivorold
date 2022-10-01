@@ -26,20 +26,7 @@ public class PlayerInventorySlot : Panel
 		_nameLabel = Add.Label( "", "name" );
 		_ammoLabel = Add.Label( "", "ammo" );
 		_glyphImage = Add.Image( "", "glyph" );
-		_glyphImage.Texture = _slot switch
-		{
-				0 => Input.GetGlyph( InputButton.Slot1 ),
-				1 => Input.GetGlyph( InputButton.Slot2 ),
-				2 => Input.GetGlyph( InputButton.Slot3 ),
-				3 => Input.GetGlyph( InputButton.Slot4 ),
-				4 => Input.GetGlyph( InputButton.Slot5 ),
-				5 => Input.GetGlyph( InputButton.Slot6 ),
-				6 => Input.GetGlyph( InputButton.Slot7 ),
-				7 => Input.GetGlyph( InputButton.Slot8 ),
-				8 => Input.GetGlyph( InputButton.Slot9 ),
-				9 => Input.GetGlyph( InputButton.Slot0 ),
-				_ => Input.GetGlyph( InputButton.Slot1 ),
-		};
+
 	}
 
 	public void Update( SurvivorPlayer owner, Entity entity )
@@ -49,21 +36,30 @@ public class PlayerInventorySlot : Panel
 			if ( weapon.Asset.WeaponType != _weaponAsset?.WeaponType )
 			{
 				_weaponAsset = weapon.Asset;
-				OnSlotEntityChanged( owner, entity );
+				OnSlotEntityChanged();
 			}
 
 			SetClass( "active", entity == owner.ActiveChild );
 			_ammoLabel.Text = (weapon.Primary.Ammo + weapon.Primary.AmmoReserve).ToString();
 		}
+		
+		_glyphImage.Texture = _slot switch
+		{
+				0 => Input.GetGlyph( InputButton.Slot1 ),
+				1 => Input.GetGlyph( InputButton.Slot2 ),
+				2 => Input.GetGlyph( InputButton.Slot3 ),
+				3 => Input.GetGlyph( InputButton.Slot4 ),
+				4 => Input.GetGlyph( InputButton.Slot5 ),
+				_ => Input.GetGlyph( InputButton.Slot1 )
+		};
 	}
 
-	private void OnSlotEntityChanged( SurvivorPlayer owner, Entity entity )
+	private void OnSlotEntityChanged()
 	{
-		if ( entity is ABaseWeapon weapon )
-		{
-			_nameLabel.Text = weapon.Asset.DisplayName;
-			UpdateWeaponIcon();
-		}
+		if ( _weaponAsset == null )
+			return;
+		_nameLabel.Text = _weaponAsset.DisplayName;
+		UpdateWeaponIcon();
 	}
 
 	private void UpdateWeaponIcon()

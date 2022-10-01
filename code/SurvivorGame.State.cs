@@ -72,7 +72,7 @@ public partial class SurvivorGame
 		var spawns = GetAvailableZombiesSpawns();
 		if ( spawns.Count <= 0 )
 		{
-			Log.Warning( "No zombie spawn found." );
+			Log.Error( "This map is missing zombies spawns." );
 			return false;
 		}
 

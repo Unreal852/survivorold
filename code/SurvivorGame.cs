@@ -24,17 +24,14 @@ public partial class SurvivorGame : Game
 
 	public override void ClientJoined( Client client )
 	{
-		base.ClientJoined( client );
-		Assert.NotNull( GameMode );
-
 		GameMode?.OnClientJoin( this, client );
+		base.ClientJoined( client );
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
 	{
-		base.ClientDisconnect( cl, reason );
-		Assert.NotNull( GameMode );
 		GameMode?.OnClientDisconnected( this, cl, reason );
+		base.ClientDisconnect( cl, reason );
 	}
 
 	public override void DoPlayerDevCam( Client client )

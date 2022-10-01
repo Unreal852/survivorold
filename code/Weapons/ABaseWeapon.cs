@@ -54,10 +54,11 @@ public abstract partial class ABaseWeapon : WeaponBase
 		return available;
 	}
 
-	public override void Attack( ClipInfo clipInfo, bool isPrimary )
-	{
-		base.Attack( clipInfo, isPrimary );
-	}
+	// public override bool CanAttack( ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton )
+	// {
+	// 	// Replace lastAttackTime >= GetRealRPM(clipInfo.RPM);
+	// 	return base.CanAttack( clipInfo, lastAttackTime, inputButton );
+	// }
 
 	public override void Reload()
 	{

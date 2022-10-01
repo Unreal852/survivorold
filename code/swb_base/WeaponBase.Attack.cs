@@ -33,7 +33,7 @@ namespace SWB_Base
 
             if (clipInfo.RPM <= 0) return true;
 
-            return lastAttackTime > GetRealRPM(clipInfo.RPM);
+            return lastAttackTime >= GetRealRPM(clipInfo.RPM);
         }
 
         /// <summary>

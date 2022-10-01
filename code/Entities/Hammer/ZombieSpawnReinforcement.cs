@@ -4,6 +4,7 @@ using Sandbox;
 using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
+using Survivor.Utils;
 
 namespace Survivor.Entities.Hammer;
 
@@ -51,16 +52,11 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		if ( CurrentUsedPart != null )
 			return true;
 		CurrentUsedPart = FindMissingPart();
-		var prop = CurrentUsedPart?.CreateProp( this );
+		var prop = CurrentUsedPart?.CreateProp( this, user.EyePosition + user.EyeRotation.Forward * InchesUtils.FromMeters( 3 ) );
 		if ( prop != null )
-		{
-			//prop.Position = user.EyePosition + user.EyeRotation.Forward * InchesUtils.FromMeters( 3 );
 			return true;
-		}
 
 		return false;
-
-		return true;
 	}
 
 	private PartInfos FindMissingPart()
@@ -131,11 +127,11 @@ public class PartInfos
 	public bool IsMissing => LinkedProp is not { IsValid: true };
 	public bool IsPlaced  => !IsMissing && LinkedProp.Position == Transform.Position;
 
-	public Prop CreateProp( ZombieSpawnReinforcement parent )
+	public Prop CreateProp( ZombieSpawnReinforcement parent, Vector3 position )
 	{
 		if ( !IsMissing )
 			return LinkedProp;
-		_originalPos = new Transform( parent.Position + (parent.Rotation.Backward * 39.0f) + (Vector3.Up * 39.0f), Rotation.Random, Scale / 2 );
+		_originalPos = new Transform( position, Rotation.Random, Scale / 3);
 		_currentSeconds = 0.0f;
 		LinkedProp = new Prop { Model = Model, Transform = _originalPos, Static = true };
 		LinkedProp.SetParent( parent );

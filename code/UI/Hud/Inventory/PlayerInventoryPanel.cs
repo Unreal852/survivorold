@@ -13,9 +13,7 @@ public class PlayerInventoryPanel : Panel
 
 		_inventorySlots = new PlayerInventorySlot[inventorySize];
 		for ( int i = 0; i < inventorySize; i++ )
-		{
 			_inventorySlots[i] = new PlayerInventorySlot( this, i );
-		}
 	}
 
 	public int Length => _inventorySlots.Length;
