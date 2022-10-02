@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Sandbox;
 using Sandbox.UI;
+using Survivor.Performance;
 using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
 using Survivor.Weapons;
@@ -12,8 +14,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 {
 	private readonly ClothingContainer _clothing   = new();
 	private readonly WorldInput        _worldInput = new();
-	private          TimeSince         _sinceDropped;
 	private          TimeSince         _sinceUseInteraction;
+	private          TimeSince         _sinceLastDamage;
+	private          TimeSince         _sinceLastSprint;
 
 	public SurvivorPlayer()
 	{
@@ -27,6 +30,11 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	public bool      SuppressPickupNotices { get; set; } = true;
 	public bool      GodMode               { get; set; } = false;
+	public float     HealthRegenSpeed      { get; set; } = 5.0f;
+	public float     HealthRegenDelay      { get; set; } = 2.0f;
+	public float     StaminaConsumeSpeed   { get; set; } = 20.0f;
+	public float     StaminaRegenSpeed     { get; set; } = 15.0f;
+	public float     StaminaRegenDelay     { get; set; } = 2.0f;
 	public TimeSince SinceRespawn          { get; set; } = 0;
 
 	[Net]
@@ -52,7 +60,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( DevController is PlayerNoclipController )
 			DevController = null;
 
-		Controller = new PlayerWalkController();
+		Controller = new SurvivorPlayerWalkController();
 		Animator = new PlayerBaseAnimator();
 		CameraMode = new FirstPersonCamera();
 
@@ -61,8 +69,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		MaxHealth = Health = 100;
-		MaxStamina = Stamina = 100;
+		Health = MaxHealth = 100;
+		Stamina = MaxStamina = 100;
 
 		ClearAmmo();
 
@@ -101,6 +109,14 @@ public sealed partial class SurvivorPlayer : PlayerBase
 			Inventory.SetActiveSlot( 1 );
 		else if ( Input.Pressed( InputButton.Slot3 ) )
 			Inventory.SetActiveSlot( 2 );
+
+		if ( Input.Pressed( InputButton.View ) )
+		{
+			if ( CameraMode is ThirdPersonCamera )
+				CameraMode = new FirstPersonCamera();
+			else
+				CameraMode = new ThirdPersonCamera();
+		}
 	}
 
 	private void OnMoneyChanged( int oldMoney, int newMoney )
@@ -126,6 +142,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				Log.Info( $"Active: {_worldInput.Active}" );
 		}
 
+		if ( Stamina <= 0 )
+			input.ClearButton( InputButton.Run );
+
 		base.BuildInput( input );
 	}
 
@@ -135,9 +154,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		// Input requested a weapon switch
 		if ( Input.ActiveChild != null )
-		{
 			ActiveChild = Input.ActiveChild;
-		}
 
 		if ( LifeState != LifeState.Alive )
 			return;
@@ -146,13 +163,23 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		TickPlayerUseClient();
 		TickPlayerInput();
 
-		if ( Input.Pressed( InputButton.View ) )
+		// Health regen
+		if ( Health < MaxHealth && _sinceLastDamage >= HealthRegenDelay )
 		{
-			if ( CameraMode is ThirdPersonCamera )
-				CameraMode = new FirstPersonCamera();
-			else
-				CameraMode = new ThirdPersonCamera();
+			Health = Math.Clamp( Health + HealthRegenSpeed * Time.Delta, 0, MaxHealth );
 		}
+
+		// Stamina
+		if ( ((SurvivorPlayerWalkController)Controller).IsSprinting )
+		{
+			_sinceLastSprint = 0;
+			Stamina = Math.Clamp( Stamina - StaminaConsumeSpeed * Time.Delta, 0, MaxStamina );
+		}
+		else if ( Stamina < MaxStamina && _sinceLastSprint >= StaminaRegenDelay )
+		{
+			Stamina = Math.Clamp( Stamina + StaminaRegenSpeed * Time.Delta, 0, MaxStamina );
+		}
+
 
 		SimulateActiveChild( cl, ActiveChild );
 
@@ -166,14 +193,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 			SwitchToBestWeapon();
 	}
 
-	public override void StartTouch( Entity other )
-	{
-		if ( _sinceDropped < 1 )
-			return;
-
-		base.StartTouch( other );
-	}
-
 	public override void TakeDamage( DamageInfo info )
 	{
 		if ( GodMode || SinceRespawn < 1.5 || info.Flags == DamageFlags.PhysicsImpact )
@@ -181,6 +200,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
 		PlaySound( "player.hit_01" );
+		_sinceLastDamage = 0;
 	}
 
 	public override void OnKilled()
