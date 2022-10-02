@@ -43,6 +43,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 
 	private UseProgress UseProgress     { get; }      = new();
 	private PartInfos   CurrentUsedPart { get; set; } = null;
+	private TimeSince   SinceLastPlaced { get; set; }
 
 	public bool OnUse( Entity user )
 	{
@@ -50,6 +51,8 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 			return false;
 		UseProgress.UpdateProgress( player );
 		if ( CurrentUsedPart != null )
+			return true;
+		if ( SinceLastPlaced < 0.2 ) // Small delay between places
 			return true;
 		CurrentUsedPart = FindMissingPart();
 		var prop = CurrentUsedPart?.CreateProp( this, user.EyePosition + user.EyeRotation.Forward * InchesUtils.FromMeters( 3 ) );
@@ -79,7 +82,10 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		{
 			CurrentUsedPart.UpdatePos( 2.0f );
 			if ( CurrentUsedPart.IsPlaced )
+			{
 				CurrentUsedPart = null;
+				SinceLastPlaced = 0;
+			}
 		}
 	}
 
