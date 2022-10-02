@@ -176,7 +176,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	public override void TakeDamage( DamageInfo info )
 	{
-		if ( GodMode || SinceRespawn < 1.5 )
+		if ( GodMode || SinceRespawn < 1.5 || info.Flags == DamageFlags.PhysicsImpact )
 			return;
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
