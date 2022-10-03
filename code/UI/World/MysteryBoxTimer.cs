@@ -6,29 +6,23 @@ namespace Survivor.UI.World;
 
 public partial class MysteryBoxTimer : WorldPanel
 {
-	private static MysteryBoxTimer _instance;
-
-	private readonly TimeSince _sinceSpawned;
-	private readonly Label     _label;
-	private readonly float     _deleteAfter;
+	private static   MysteryBoxTimer _instance;
+	private readonly Label           _label;
+	private readonly TimeUntil       _untilDelete;
 
 	private MysteryBoxTimer( float deleteAfter )
 	{
 		StyleSheet.Load( "UI/World/MysteryBoxTimer.scss" );
 
 		_label = Add.Label( deleteAfter.CeilToInt().ToString(), "value" );
-		_deleteAfter = deleteAfter;
-		_sinceSpawned = 0;
+		_untilDelete = deleteAfter;
 	}
 
 	public override void Tick()
 	{
-		_label.Text = $"{(_deleteAfter - _sinceSpawned).CeilToInt()}";
-		if ( _sinceSpawned >= _deleteAfter )
-		{
-			_label.Delete( true );
+		_label.Text = $"{MathX.FloorToInt( _untilDelete )}";
+		if ( _untilDelete )
 			Delete( true );
-		}
 	}
 
 	[ClientRpc]
