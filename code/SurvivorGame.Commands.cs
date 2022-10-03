@@ -18,6 +18,12 @@ public partial class SurvivorGame
 		_ = new WorldInteractablePanel() { Position = Local.Pawn.EyePosition };
 	}
 
+	[ServerCommand( "forcestart" )]
+	public static void ForceStartGameCommand()
+	{
+		GAME_MODE?.StartGame();
+	}
+
 	[ServerCommand( "selfdmg" )]
 	public static void SelfDamages( float amount = 50 )
 	{

@@ -74,11 +74,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		ClearAmmo();
 
-		SuppressPickupNotices = true;
-
-		base.Inventory.Add( new WeaponFN57(), true );
-
-		SuppressPickupNotices = false;
+		if ( SurvivorGame.GAME_MODE?.State == GameState.Playing )
+			base.Inventory.Add( new WeaponFN57(), true );
 
 		SinceRespawn = 0;
 	}

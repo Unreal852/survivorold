@@ -19,7 +19,7 @@ public class RoomManager : EntityComponent
 	public void LoadRooms()
 	{
 		var rooms = Entity.All.OfType<Room>().ToDictionary( r => r.Name );
-		var spawns = Entity.All.OfType<ZombieSpawn>().ToArray();
+		var spawns = Entity.All.OfType<ZombieSpawnPoint>().ToArray();
 		var doors = Entity.All.OfType<IBuyableDoor>().ToArray();
 		foreach ( var room in rooms.Values )
 		{

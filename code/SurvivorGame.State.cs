@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Sandbox;
 using Survivor.Entities.Hammer;
@@ -12,8 +14,11 @@ namespace Survivor;
 
 public partial class SurvivorGame
 {
-	private static IReadOnlyList<ZombieSpawn> ZombieSpawns { get; set; }
-	public static  BaseGameMode               GAME_MODE    => Current.GameMode;
+	public static BaseGameMode GAME_MODE => Current.GameMode;
+
+	public ReadOnlyCollection<ZombieSpawnPoint>      ZombieSpawnPoints       { get; private set; }
+	public ReadOnlyCollection<PlayerLobbySpawnPoint> PlayerLobbySpawnsPoints { get; private set; }
+	public ReadOnlyCollection<SpawnPoint>            PlayerSpawnPoints       { get; private set; }
 
 	[Net]
 	public BaseGameMode GameMode { get; private set; }
@@ -37,21 +42,57 @@ public partial class SurvivorGame
 				_                         => Difficulty.Normal
 		};
 
+		LoadSpawnPoints();
+
 		GameMode ??= new SurvivorGameMode();
 
 		SessionInfosCommand();
 	}
 
-	public IReadOnlyList<ZombieSpawn> GetAvailableZombiesSpawns()
+	private void LoadSpawnPoints()
 	{
-		var spawns = ZombieSpawns ??= All.OfType<ZombieSpawn>().Where( zs => zs.IsEnabled ).ToArray();
-		return spawns.Where( zs => zs.CanSpawn ).ToArray();
+		var sw = Stopwatch.StartNew();
+		var zombieSpawnPoints = new Collection<ZombieSpawnPoint>();
+		var playerLobbySpawnPoints = new Collection<PlayerLobbySpawnPoint>();
+		var playerSpawnPoints = new Collection<SpawnPoint>();
+
+		foreach ( var entity in All )
+		{
+			switch ( entity )
+			{
+				case ZombieSpawnPoint zombieSpawnPoint:
+					zombieSpawnPoints.Add( zombieSpawnPoint );
+					continue;
+				case PlayerLobbySpawnPoint playerLobbySpawnPoint:
+					playerLobbySpawnPoints.Add( playerLobbySpawnPoint );
+					continue;
+				case SpawnPoint spawnPoint:
+					playerSpawnPoints.Add( spawnPoint );
+					continue;
+				default:
+					continue;
+			}
+		}
+
+		ZombieSpawnPoints = new ReadOnlyCollection<ZombieSpawnPoint>(zombieSpawnPoints);
+		PlayerLobbySpawnsPoints =  new ReadOnlyCollection<PlayerLobbySpawnPoint>(playerLobbySpawnPoints);
+		PlayerSpawnPoints =  new ReadOnlyCollection<SpawnPoint>(playerSpawnPoints);
+		sw.Stop();
+
+		if ( ZombieSpawnPoints.Count == 0 )
+			Log.Error( "Map missing zombies spawn points" );
+		if ( PlayerLobbySpawnsPoints.Count == 0 )
+			Log.Error( "Map missing player lobby spawn points" );
+		if ( PlayerSpawnPoints.Count == 0 )
+			Log.Error( "Map missing player spawn points" );
+
+		Log.Info( $"Map spawn points loaded in {sw.Elapsed.TotalMilliseconds:F}" );
 	}
 
 	public bool SpawnZombies<TZombie>( int amount = 1 ) where TZombie : BaseZombie, new()
 	{
-		var spawns = GetAvailableZombiesSpawns();
-		if ( spawns.Count <= 0 )
+		var spawns = ZombieSpawnPoints.Where( zs => zs.CanSpawn ).ToArray();
+		if ( spawns.Length <= 0 )
 		{
 			Log.Warning( "No zombie spawn found." );
 			return false;
@@ -59,7 +100,7 @@ public partial class SurvivorGame
 
 		for ( var i = 0; i < amount; i++ )
 		{
-			var zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
+			var zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
 			_ = new TZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
 		}
 
@@ -69,8 +110,8 @@ public partial class SurvivorGame
 
 	public bool SpawnZombies( int amount = 1 )
 	{
-		var spawns = GetAvailableZombiesSpawns();
-		if ( spawns.Count <= 0 )
+		var spawns = ZombieSpawnPoints.Where( zs => zs.CanSpawn ).ToArray();
+		if ( spawns.Length <= 0 )
 		{
 			Log.Error( "This map is missing zombies spawns." );
 			return false;
@@ -78,7 +119,7 @@ public partial class SurvivorGame
 
 		for ( int i = 0; i < amount; i++ )
 		{
-			var zombieSpawn = spawns[Rand.Int( 0, spawns.Count - 1 )];
+			var zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
 			switch ( Rand.Int( 2 ) )
 			{
 				case 0:

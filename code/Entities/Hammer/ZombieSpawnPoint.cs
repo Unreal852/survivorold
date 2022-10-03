@@ -9,7 +9,7 @@ namespace Survivor.Entities.Hammer;
 [Category( "Zombie" ), Icon( "place" )]
 [Title( "Zombie spawn point" ), Description( "This entity defines the spawn point of the zombies" )]
 [HammerEntity, EditorModel( "models/editor/playerstart.vmdl", FixedBounds = true )]
-public partial class ZombieSpawn : Entity
+public partial class ZombieSpawnPoint : Entity
 {
 	[Property, Title( "Enabled" ), Description( "Unchecking this will prevent zombies from spawning on this spawn point" )]
 	public bool IsEnabled { get; set; } = true;

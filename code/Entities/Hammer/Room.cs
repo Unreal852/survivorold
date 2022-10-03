@@ -13,7 +13,7 @@ namespace Survivor.Entities.Hammer;
 [HammerEntity, EditorModel( "models/editor/air_node.vmdl" )]
 public partial class Room : Entity
 {
-	private ZombieSpawn[]  _zombieSpawns;
+	private ZombieSpawnPoint[]  _zombieSpawns;
 	private IBuyableDoor[] _roomDoors;
 	private bool           _isBought;
 
@@ -43,10 +43,10 @@ public partial class Room : Entity
 		}
 	}
 
-	public void InitializeRoom( IBuyableDoor[] buyableDoors, ZombieSpawn[] zombieSpawns )
+	public void InitializeRoom( IBuyableDoor[] buyableDoors, ZombieSpawnPoint[] zombieSpawns )
 	{
 		_roomDoors = buyableDoors    ?? Array.Empty<AnimatedDoor>();
-		_zombieSpawns = zombieSpawns ?? Array.Empty<ZombieSpawn>();
+		_zombieSpawns = zombieSpawns ?? Array.Empty<ZombieSpawnPoint>();
 		foreach ( var zombieSpawn in _zombieSpawns )
 			zombieSpawn.Owner = this;
 		foreach ( var buyableDoor in buyableDoors )

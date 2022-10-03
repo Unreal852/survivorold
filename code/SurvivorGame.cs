@@ -24,26 +24,34 @@ public partial class SurvivorGame : Game
 
 	public override void ClientJoined( Client client )
 	{
-		GameMode?.OnClientJoin( this, client );
+		GameMode?.OnClientJoin(  client );
 		base.ClientJoined( client );
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
 	{
-		GameMode?.OnClientDisconnected( this, cl, reason );
+		GameMode?.OnClientDisconnected(  cl, reason );
 		base.ClientDisconnect( cl, reason );
+	}
+
+	public override void MoveToSpawnpoint( Entity pawn )
+	{
+		if ( GameMode != null )
+			GameMode.MovePlayerToSpawnPoint(  pawn );
+		else
+			base.MoveToSpawnpoint( pawn );
 	}
 
 	public override void DoPlayerDevCam( Client client )
 	{
 		Assert.NotNull( GameMode );
-		GameMode?.OnDoPlayerDevCam( this, client );
+		GameMode?.OnDoPlayerDevCam(  client );
 	}
 
 	public override void DoPlayerNoclip( Client client )
 	{
 		Assert.NotNull( GameMode );
-		GameMode?.OnDoPlayerNoclip( this, client );
+		GameMode?.OnDoPlayerNoclip(  client );
 	}
 
 	public new static bool DefaultCleanupFilter( string className, Entity ent )

@@ -9,7 +9,7 @@ namespace Survivor.Entities.Hammer;
 [Category( "Player" ), Icon( "place" )]
 [Title( "Player lobby spawn point" ), Description( "This entity defines the spawn point of the players in the lobby (pre-game)" )]
 [HammerEntity, EditorModel( "models/editor/playerstart.vmdl", FixedBounds = true )]
-public partial class PlayerLobbySpawn : Entity
+public partial class PlayerLobbySpawnPoint : Entity
 {
 	[Property, Title( "Enabled" ), Description( "Unchecking this will prevent players from spawning on this spawn point" )]
 	public bool IsEnabled { get; set; } = true;

@@ -21,7 +21,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 	public virtual Entity Active
 	{
 		get => Owner.ActiveChild;
-		set => Owner.ActiveChild = value;
+		protected set => Owner.ActiveChild = value;
 	}
 
 	public int Count()
@@ -64,7 +64,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 	{
 		Host.AssertServer();
 
-		foreach ( var baseWeapon in Slots )
+		foreach ( var baseWeapon in Slots.ToArray() )
 			baseWeapon.Delete();
 		Slots.Clear();
 	}
