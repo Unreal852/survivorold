@@ -18,6 +18,7 @@ public partial class SurvivorGame : Game
 		if ( IsServer )
 		{
 			Global.TickRate = 30;
+			_ = new PlayerHudEntity();
 		}
 	}
 

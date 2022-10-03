@@ -24,14 +24,6 @@ public partial class SurvivorGame
 		GAME_MODE?.StartGame();
 	}
 
-	[ServerCommand( "selfdmg" )]
-	public static void SelfDamages( float amount = 50 )
-	{
-		var caller = ConsoleSystem.Caller?.Pawn;
-		if ( caller is SurvivorPlayer player )
-			player.TakeDamage( DamageInfo.Generic( amount ) );
-	}
-
 	[ServerCommand( "sessioninfos" )]
 	public static void SessionInfosCommand()
 	{

@@ -1,22 +1,43 @@
-﻿using Sandbox;
+﻿using System.Linq;
+using Sandbox;
 using Sandbox.UI;
 
 namespace Survivor.UI.Hud;
 
-public class PlayerHudEntity : HudEntity<RootPanel>
+public partial class PlayerHudEntity : HudEntity<RootPanel>
 {
+	public static PlayerHudEntity Instance { get; private set; }
+
 	public PlayerHudEntity()
 	{
 		if ( Host.IsServer )
 			return;
-		RootPanel.AddChild<GameInfosHud>();
-		RootPanel.AddChild<PlayerInteractableHud>();
+		RootPanel.AddChild<LobbyHud>();
 		RootPanel.AddChild<ChatBox>();
 		RootPanel.AddChild<SurvivorScoreboard<SurvivorScoreboardEntry>>();
+		Instance = this;
 	}
 
-	public override void ClientSpawn()
+	private void OnGameStart()
 	{
+		var lobbyHud = RootPanel.ChildrenOfType<LobbyHud>().FirstOrDefault();
+		if ( lobbyHud is { IsValid: true } )
+			lobbyHud.Delete( true );
+
 		RootPanel.AddChild<PlayerHud>();
+		RootPanel.AddChild<GameInfosHud>();
+		RootPanel.AddChild<PlayerInteractableHud>();
+	}
+
+	[ClientRpc]
+	public static void ShowGameHud()
+	{
+		if ( Instance == null )
+		{
+			Log.Error( "Missing hud instance, the server did not initialize it." );
+			return;
+		}
+
+		Instance.OnGameStart();
 	}
 }

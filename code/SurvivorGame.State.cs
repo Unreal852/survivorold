@@ -74,9 +74,9 @@ public partial class SurvivorGame
 			}
 		}
 
-		ZombieSpawnPoints = new ReadOnlyCollection<ZombieSpawnPoint>(zombieSpawnPoints);
-		PlayerLobbySpawnsPoints =  new ReadOnlyCollection<PlayerLobbySpawnPoint>(playerLobbySpawnPoints);
-		PlayerSpawnPoints =  new ReadOnlyCollection<SpawnPoint>(playerSpawnPoints);
+		ZombieSpawnPoints = new ReadOnlyCollection<ZombieSpawnPoint>( zombieSpawnPoints );
+		PlayerLobbySpawnsPoints = new ReadOnlyCollection<PlayerLobbySpawnPoint>( playerLobbySpawnPoints );
+		PlayerSpawnPoints = new ReadOnlyCollection<SpawnPoint>( playerSpawnPoints );
 		sw.Stop();
 
 		if ( ZombieSpawnPoints.Count == 0 )

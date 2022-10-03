@@ -43,9 +43,11 @@ public abstract partial class BaseGameMode : Entity
 		State = GameState.Playing;
 		foreach ( var client in Client.All )
 		{
-			if(client.Pawn is SurvivorPlayer player)
+			if ( client.Pawn is SurvivorPlayer player )
 				player.Respawn();
 		}
+
+		PlayerHudEntity.ShowGameHud( To.Everyone );
 	}
 
 	public virtual bool CanRespawn( SurvivorPlayer player )
