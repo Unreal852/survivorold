@@ -13,8 +13,6 @@ namespace Survivor.Gamemodes;
 
 public abstract partial class BaseGameMode : BaseNetworkable
 {
-	private TimeSince _sinceCounterUpdate;
-
 	[Net]
 	public int EnemiesRemaining { get; set; } = 0;
 
@@ -28,7 +26,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 	public GameState State { get; set; } = GameState.Lobby;
 
 	[Net]
-	public int Counter { get; set; }
+	public TimeUntil Until { get; set; }
 
 	public abstract string GameModeName { get; }
 
@@ -39,14 +37,6 @@ public abstract partial class BaseGameMode : BaseNetworkable
 			Event.Register( this );
 			OnStartServer();
 		}
-	}
-
-	public void SetCounter( int value )
-	{
-		if ( Counter == value )
-			return;
-		Counter = value;
-		_sinceCounterUpdate = 0;
 	}
 
 	public void SetGameState( GameState state )
@@ -61,7 +51,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 		switch ( State )
 		{
 			case GameState.Starting:
-				SetCounter( 20 );
+				Until = 20;
 				break;
 			case GameState.Playing:
 				StartGame();
@@ -157,16 +147,8 @@ public abstract partial class BaseGameMode : BaseNetworkable
 	{
 		if ( State == GameState.Starting )
 		{
-			if ( _sinceCounterUpdate >= 1 )
-			{
-				if ( Counter <= 0 )
-				{
-					SetGameState( GameState.Playing );
-					return;
-				}
-
-				SetCounter( Counter - 1 );
-			}
+			if ( Until )
+				SetGameState( GameState.Playing );
 		}
 	}
 }

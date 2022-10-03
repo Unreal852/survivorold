@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
@@ -19,17 +20,19 @@ public class LobbyHud : Panel
 
 	public override void Tick()
 	{
-		if ( SurvivorGame.GAME_MODE == null )
+		var gameMode = SurvivorGame.GAME_MODE;
+		if ( gameMode == null )
 			return;
-
-		if ( SurvivorGame.GAME_MODE.State == GameState.Starting )
+		
+		switch ( gameMode.State )
 		{
-			_secondaryMessageLabel.Text = $"The game will start in {SurvivorGame.GAME_MODE.Counter} second(s)";
-			return;
+			case GameState.Starting:
+				_secondaryMessageLabel.Text = $"The game will start in {MathX.FloorToInt(gameMode.Until)} second(s)";
+				return;
+			case GameState.Lobby:
+				int missingPlayers = Client.All.Count - SurvivorGame.VarMinimumPlayers;
+				_secondaryMessageLabel.Text = $"Waiting for {missingPlayers} player(s)...";
+				break;
 		}
-
-		int missingPlayers = Client.All.Count - SurvivorGame.VarMinimumPlayers;
-		if ( missingPlayers > 0 )
-			_secondaryMessageLabel.Text = $"Waiting for {missingPlayers} player(s)...";
 	}
 }
