@@ -1,6 +1,8 @@
 ﻿using Sandbox;
 using Survivor.Gamemodes;
+using Survivor.Players;
 using Survivor.UI.Hud;
+using Survivor.Weapons;
 
 // ReSharper disable All
 
@@ -24,20 +26,20 @@ public partial class SurvivorGame : Game
 
 	public override void ClientJoined( Client client )
 	{
-		GameMode?.OnClientJoin(  client );
+		GameMode?.OnClientJoin( client );
 		base.ClientJoined( client );
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
 	{
-		GameMode?.OnClientDisconnected(  cl, reason );
+		GameMode?.OnClientDisconnected( cl, reason );
 		base.ClientDisconnect( cl, reason );
 	}
 
 	public override void MoveToSpawnpoint( Entity pawn )
 	{
 		if ( GameMode != null )
-			GameMode.MovePlayerToSpawnPoint(  pawn );
+			GameMode.MovePlayerToSpawnPoint( pawn );
 		else
 			base.MoveToSpawnpoint( pawn );
 	}
@@ -45,18 +47,18 @@ public partial class SurvivorGame : Game
 	public override void DoPlayerDevCam( Client client )
 	{
 		Assert.NotNull( GameMode );
-		GameMode?.OnDoPlayerDevCam(  client );
+		GameMode?.OnDoPlayerDevCam( client );
 	}
 
 	public override void DoPlayerNoclip( Client client )
 	{
 		Assert.NotNull( GameMode );
-		GameMode?.OnDoPlayerNoclip(  client );
+		GameMode?.OnDoPlayerNoclip( client );
 	}
 
 	public new static bool DefaultCleanupFilter( string className, Entity ent )
 	{
-		if ( ent is BaseGameMode )
+		if ( ent is BaseGameMode || ent is ABaseWeapon || ent is SurvivorPlayer )
 			return false;
 		return Game.DefaultCleanupFilter( className, ent );
 	}
