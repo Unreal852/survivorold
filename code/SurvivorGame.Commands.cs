@@ -29,7 +29,7 @@ public partial class SurvivorGame
 	{
 		Log.Info( "SESSION INFOS ----" );
 		Log.Info( $"\tMap: {Map.Name}" );
-		Log.Info( $"\tGameMode: {Current.GameMode.Name} ({Current.GameMode.GetType()})" );
+		Log.Info( $"\tGameMode: {Current.GameMode.GameModeName} ({Current.GameMode.GetType()})" );
 		Log.Info( $"\tDifficulty: {Current.GameMode.Difficulty}" );
 	}
 

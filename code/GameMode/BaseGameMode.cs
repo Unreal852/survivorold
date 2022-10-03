@@ -11,9 +11,8 @@ using Survivor.UI.Hud;
 
 namespace Survivor.Gamemodes;
 
-public abstract partial class BaseGameMode : Entity
+public abstract partial class BaseGameMode : BaseNetworkable
 {
-	private int       _counter;
 	private TimeSince _sinceCounterUpdate;
 
 	[Net]
@@ -29,22 +28,17 @@ public abstract partial class BaseGameMode : Entity
 	public GameState State { get; set; } = GameState.Lobby;
 
 	[Net]
-	public int Counter
-	{
-		get => Counter;
-		set
-		{
-			if ( _counter == value )
-				return;
-			_counter = value;
-			_sinceCounterUpdate = 0;
-		}
-	}
+	public int Counter { get; set; }
 
 	public abstract string GameModeName { get; }
 
 	protected BaseGameMode()
 	{
+		if ( Host.IsServer )
+		{
+			Event.Register( this );
+			OnStartServer();
+		}
 	}
 
 	public void SetCounter( int value )
@@ -58,37 +52,27 @@ public abstract partial class BaseGameMode : Entity
 	public void SetGameState( GameState state )
 	{
 		if ( State == state )
+		{
+			Log.Warning( $"The state is already set to {state}" );
 			return;
+		}
+
 		State = state;
 		switch ( State )
 		{
-			case GameState.Lobby:
-				break;
 			case GameState.Starting:
-				{
-					SetCounter( 10 );
-				}
+				SetCounter( 20 );
 				break;
 			case GameState.Playing:
-				break;
-			case GameState.Ending:
-				break;
-			case GameState.Ended:
+				StartGame();
 				break;
 			default:
-				throw new ArgumentOutOfRangeException();
+				break;
 		}
 	}
 
 	public virtual void StartGame()
 	{
-		if ( State != GameState.Lobby || State != GameState.Starting )
-		{
-			Log.Warning( "The game is already started" );
-			return;
-		}
-
-		State = GameState.Playing;
 		foreach ( var client in Client.All )
 		{
 			if ( client.Pawn is SurvivorPlayer player )
@@ -132,7 +116,6 @@ public abstract partial class BaseGameMode : Entity
 			return;
 
 		player.Transform = entity.Transform;
-		player.Rotation = entity.Rotation; // Trying things
 	}
 
 	public virtual void OnDoPlayerDevCam( Client client )
@@ -165,26 +148,25 @@ public abstract partial class BaseGameMode : Entity
 			pawn.DevController = new PlayerNoclipController();
 	}
 
+	protected virtual void OnStartServer()
+	{
+	}
+
 	[Event.Tick.Server]
 	protected virtual void OnServerTick()
 	{
-		switch ( State )
+		if ( State == GameState.Starting )
 		{
-			case GameState.Starting:
-				if ( _sinceCounterUpdate >= 1 )
+			if ( _sinceCounterUpdate >= 1 )
+			{
+				if ( Counter <= 0 )
 				{
-					if (Counter-- <= 0 )
-					{
-						StartGame();
-						return;
-					}
-
-					_sinceCounterUpdate = 0;
+					SetGameState( GameState.Playing );
+					return;
 				}
 
-				break;
-			default:
-				break;
+				SetCounter( Counter - 1 );
+			}
 		}
 	}
 }

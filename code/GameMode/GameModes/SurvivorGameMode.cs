@@ -1,18 +1,26 @@
-﻿using Survivor.Gamemodes;
+﻿using Sandbox;
+using Survivor.Gamemodes;
 using Survivor.Rooms;
 
 namespace Survivor.GameMode.GameModes;
 
 public class SurvivorGameMode : BaseGameMode
 {
-	public override string GameModeName => "Survivor";
+	protected       RoomManager RoomsManager;
+	public override string      GameModeName => "Survivor";
 
-	public override void Spawn()
+	public SurvivorGameMode()
 	{
-		Components.GetOrCreate<RoomManager>().LoadRooms();
+	}
+
+	protected override void OnStartServer()
+	{
+		RoomsManager = new RoomManager();
+		RoomsManager.LoadRooms();
 	}
 
 	protected override void OnServerTick()
 	{
+		base.OnServerTick();
 	}
 }

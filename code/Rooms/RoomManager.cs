@@ -8,7 +8,7 @@ using Survivor.Entities.Hammer.Doors;
 
 namespace Survivor.Rooms;
 
-public class RoomManager : EntityComponent
+public class RoomManager
 {
 	private readonly Dictionary<string, Room> _rooms = new();
 
