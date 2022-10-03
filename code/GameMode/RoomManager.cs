@@ -6,7 +6,7 @@ using Survivor.Entities.Hammer.Doors;
 
 // resharper disable all
 
-namespace Survivor.Rooms;
+namespace Survivor.GameMode;
 
 public class RoomManager
 {

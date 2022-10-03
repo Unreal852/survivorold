@@ -5,7 +5,6 @@ namespace Survivor.Entities;
 
 public partial class BaseNpc : AnimatedEntity
 {
-	
 	public DamageInfo LastDamage { get; private set; }
 
 	public override void TakeDamage( DamageInfo info )
@@ -20,6 +19,7 @@ public partial class BaseNpc : AnimatedEntity
 	public override void OnKilled()
 	{
 		base.OnKilled();
+		SurvivorGame.GAME_MODE.OnEnemyKilled( this, LastAttacker );
 		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
 	}
 

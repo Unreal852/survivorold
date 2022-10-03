@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using Survivor.Gamemodes;
-using Survivor.Rooms;
 
 namespace Survivor.GameMode.GameModes;
 

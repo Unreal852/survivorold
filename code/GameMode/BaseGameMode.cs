@@ -1,6 +1,7 @@
 ﻿using System;
 using Sandbox;
 using Sandbox.Internal;
+using Survivor.Entities;
 using Survivor.Extensions;
 using Survivor.GameMode;
 using Survivor.Players;
@@ -13,6 +14,12 @@ namespace Survivor.Gamemodes;
 
 public abstract partial class BaseGameMode : BaseNetworkable
 {
+	public const int ZombiesPerWaves       = 5;
+	public const int MaxSimultanousZombies = 20;
+
+	private bool _inWave = false;
+	private int  _spawnedEnemies;
+
 	[Net]
 	public int EnemiesRemaining { get; set; } = 0;
 
@@ -70,6 +77,8 @@ public abstract partial class BaseGameMode : BaseNetworkable
 		}
 
 		PlayerHudEntity.ShowGameHud( To.Everyone );
+
+		Until = 10;
 	}
 
 	public virtual bool CanRespawn( SurvivorPlayer player )
@@ -138,6 +147,21 @@ public abstract partial class BaseGameMode : BaseNetworkable
 			pawn.DevController = new PlayerNoclipController();
 	}
 
+	public virtual void OnEnemyKilled( Entity killed, Entity killer )
+	{
+		EnemiesRemaining--;
+		if ( EnemiesRemaining <= 0 )
+		{
+			_inWave = false;
+			Until = 20;
+		}
+	}
+
+	protected virtual void SpawnZombies( int amount )
+	{
+		var spawnedEnemies = SurvivorGame.Current.SpawnZombies( amount );
+	}
+
 	protected virtual void OnStartServer()
 	{
 	}
@@ -149,6 +173,16 @@ public abstract partial class BaseGameMode : BaseNetworkable
 		{
 			if ( Until )
 				SetGameState( GameState.Playing );
+		}
+
+		if ( State == GameState.Playing )
+		{
+			if ( Until && !_inWave )
+			{
+				_inWave = true;
+				CurrentWave++;
+				SpawnZombies( CurrentWave * ZombiesPerWaves );
+			}
 		}
 	}
 }

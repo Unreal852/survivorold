@@ -89,13 +89,13 @@ public partial class SurvivorGame
 		Log.Info( $"Map spawn points loaded in {sw.Elapsed.TotalMilliseconds:F}" );
 	}
 
-	public bool SpawnZombies<TZombie>( int amount = 1 ) where TZombie : BaseZombie, new()
+	public int SpawnZombies<TZombie>( int amount = 1 ) where TZombie : BaseZombie, new()
 	{
 		var spawns = ZombieSpawnPoints.Where( zs => zs.CanSpawn ).ToArray();
 		if ( spawns.Length <= 0 )
 		{
 			Log.Warning( "No zombie spawn found." );
-			return false;
+			return 0;
 		}
 
 		for ( var i = 0; i < amount; i++ )
@@ -105,16 +105,16 @@ public partial class SurvivorGame
 		}
 
 		GameMode.EnemiesRemaining += amount;
-		return true;
+		return amount;
 	}
 
-	public bool SpawnZombies( int amount = 1 )
+	public int SpawnZombies( int amount = 1 )
 	{
 		var spawns = ZombieSpawnPoints.Where( zs => zs.CanSpawn ).ToArray();
 		if ( spawns.Length <= 0 )
 		{
 			Log.Error( "This map is missing zombies spawns." );
-			return false;
+			return 0;
 		}
 
 		for ( int i = 0; i < amount; i++ )
@@ -135,6 +135,6 @@ public partial class SurvivorGame
 		}
 
 		GameMode.EnemiesRemaining += amount;
-		return true;
+		return amount;
 	}
 }

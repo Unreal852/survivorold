@@ -2,7 +2,6 @@
 using System.Linq;
 using Sandbox;
 using Sandbox.UI;
-using Survivor.Performance;
 using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
 using Survivor.Weapons;

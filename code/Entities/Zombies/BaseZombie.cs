@@ -103,7 +103,6 @@ public abstract partial class BaseZombie : BaseNpc
 		base.OnKilled();
 		if ( !IsServer )
 			return;
-		SurvivorGame.GAME_MODE.EnemiesRemaining--;
 		if ( LastAttacker is SurvivorPlayer player )
 		{
 			player.Money += Rand.Int( 5, 10 );

@@ -21,7 +21,7 @@ public partial class SurvivorGame
 	[ServerCommand( "forcestart" )]
 	public static void ForceStartGameCommand()
 	{
-		GAME_MODE?.StartGame();
+		GAME_MODE?.SetGameState(GameState.Playing);
 	}
 
 	[ServerCommand( "sessioninfos" )]
@@ -84,7 +84,7 @@ public partial class SurvivorGame
 				_         => Current.SpawnZombies( amount ),
 		};
 
-		if ( success )
+		if ( success > 0 )
 			Log.Info( "Zombies Spawned !" );
 	}
 
