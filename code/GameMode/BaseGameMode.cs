@@ -4,6 +4,7 @@ using Survivor.Extensions;
 using Survivor.GameMode;
 using Survivor.Players;
 using Survivor.Players.Controllers;
+using Survivor.UI.Hud;
 
 // ReSharper disable All
 
@@ -45,8 +46,6 @@ public abstract partial class BaseGameMode : Entity
 			if(client.Pawn is SurvivorPlayer player)
 				player.Respawn();
 		}
-		
-		
 	}
 
 	public virtual bool CanRespawn( SurvivorPlayer player )
