@@ -12,7 +12,7 @@ public class SurvivorGameMode : BaseGameMode
 		Components.GetOrCreate<RoomManager>().LoadRooms();
 	}
 
-	public override void OnServerTick()
+	protected override void OnServerTick()
 	{
 	}
 }

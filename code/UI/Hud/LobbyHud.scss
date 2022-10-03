@@ -1,18 +1,26 @@
 ﻿LobbyHud {
   position: absolute;
-  left: 10px;
   top: 5px;
-  width: 450px;
-  height: 100px;
+  left: 10px;
+  width: 50%;
+  height: 25%;
 
-  .message {
+  .primaryMessage {
     position: absolute;
-    left: 15px;
-    top: 5px;
+    top: 5%;
+    left: 5%;
+    font-size: 52px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .secondaryMessage {
+    position: absolute;
+    top: 28%;
+    left: 10%;
     opacity: 100;
     font-size: 32px;
     font-weight: bold;
-    color: #40a2f1;
-    border-color: black;
+    color: #59de22;
   }
 }

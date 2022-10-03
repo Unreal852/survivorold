@@ -14,4 +14,7 @@ public partial class SurvivorGame
 
 	[ConVar.Server( "sv_friendly_fire", Help = "Enable friendly fire" )]
 	public static bool VarFriendlyFire { get; set; }
+
+	[ConVar.Replicated( "sv_min_players" )]
+	public static int VarMinimumPlayers { get; set; }
 }

@@ -58,7 +58,7 @@ public partial class SurvivorGame : Game
 
 	public new static bool DefaultCleanupFilter( string className, Entity ent )
 	{
-		if ( ent is BaseGameMode || ent is ABaseWeapon || ent is SurvivorPlayer )
+		if ( ent is BaseGameMode)
 			return false;
 		return Game.DefaultCleanupFilter( className, ent );
 	}

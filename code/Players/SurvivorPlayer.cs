@@ -167,7 +167,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		}
 
 		// Stamina
-		if ( ((SurvivorPlayerWalkController)Controller).IsSprinting )
+		if ( Controller is SurvivorPlayerWalkController { IsSprinting: true } )
 		{
 			_sinceLastSprint = 0;
 			Stamina = Math.Clamp( Stamina - StaminaConsumeSpeed * Time.Delta, 0, MaxStamina );

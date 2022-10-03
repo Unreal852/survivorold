@@ -50,6 +50,16 @@
         "Minimum": 1,
         "Maximum": 5
       },
+      "sv_min_players": {
+        "DisplayType": "Integer",
+        "Choices": [],
+        "ConVarName": "sv_min_players",
+        "DisplayName": "Minimum Players",
+        "DefaultValue": "1",
+        "Description": "The minimum players.",
+        "Minimum": 1,
+        "Maximum": 10
+      },
       "sv_difficulty": {
         "DisplayType": "Choice",
         "Choices": [
