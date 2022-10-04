@@ -23,6 +23,12 @@ public partial class SurvivorGame
 	{
 		GAME_MODE?.SetGameState(GameState.Playing);
 	}
+	
+	[ServerCommand( "devstart" )]
+	public static void ForceDevStartGameCommand()
+	{
+		GAME_MODE?.SetGameState(GameState.Dev);
+	}
 
 	[ServerCommand( "sessioninfos" )]
 	public static void SessionInfosCommand()

@@ -120,11 +120,13 @@ public partial class SurvivorGame
 		for ( int i = 0; i < amount; i++ )
 		{
 			var zombieSpawn = spawns[Rand.Int( 0, spawns.Length - 1 )];
-			var random = Rand.Float();
-			if ( random <= 0.2 )
-				_ = new ShooterZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
-			else if ( random <= 0.3 )
-				_ = new TinyPuncherZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
+			if ( Rand.Float() <= 0.2 )
+			{
+				if ( Rand.Float() <= 0.3 )
+					_ = new ShooterZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
+				else
+					_ = new TinyPuncherZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
+			}
 			else
 				_ = new PuncherZombie { Position = zombieSpawn.Position + Vector3.Up * 5, Rotation = zombieSpawn.Rotation };
 		}

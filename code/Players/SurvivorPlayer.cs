@@ -73,7 +73,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		ClearAmmo();
 
-		if ( SurvivorGame.GAME_MODE?.State == GameState.Playing )
+		if ( SurvivorGame.GAME_MODE?.State is GameState.Playing or GameState.Dev )
 			base.Inventory.Add( new WeaponFN57(), true );
 
 		SinceRespawn = 0;
@@ -158,7 +158,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		TickPlayerUse();
 		TickPlayerUseClient();
 		TickPlayerInput();
-
+		
 		// Health regen
 		if ( Health < MaxHealth && _sinceLastDamage >= HealthRegenDelay )
 		{

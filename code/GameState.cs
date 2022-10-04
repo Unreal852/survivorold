@@ -2,6 +2,7 @@
 
 public enum GameState
 {
+	Dev,
 	Lobby,
 	Starting,
 	Playing,

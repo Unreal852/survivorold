@@ -60,6 +60,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 			case GameState.Starting:
 				Until = 20;
 				break;
+			case GameState.Dev:
 			case GameState.Playing:
 				StartGame();
 				break;
@@ -105,10 +106,8 @@ public abstract partial class BaseGameMode : BaseNetworkable
 	{
 		Entity entity = State switch
 		{
-				GameState.Lobby    => SurvivorGame.Current.PlayerLobbySpawnsPoints.RandomElement(),
-				GameState.Starting => SurvivorGame.Current.PlayerLobbySpawnsPoints.RandomElement(),
-				GameState.Playing  => SurvivorGame.Current.PlayerSpawnPoints.RandomElement(),
-				_                  => null
+				GameState.Lobby => SurvivorGame.Current.PlayerLobbySpawnsPoints.RandomElement(),
+				_               => SurvivorGame.Current.PlayerSpawnPoints.RandomElement(),
 		};
 
 		if ( entity == null )
