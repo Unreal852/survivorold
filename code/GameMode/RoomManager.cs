@@ -14,6 +14,7 @@ public class RoomManager
 
 	public RoomManager()
 	{
+	
 	}
 
 	public void LoadRooms()
