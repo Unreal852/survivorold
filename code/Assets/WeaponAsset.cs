@@ -1,5 +1,6 @@
 ﻿using System;
 using Sandbox;
+using Survivor.Extensions;
 using Survivor.Weapons;
 using Survivor.Weapons.Bullets;
 using SWB_Base;
@@ -43,7 +44,7 @@ public sealed partial class WeaponAsset : GameResource
 	public float BoltBackEjectDelay { get; set; } = 0f;
 
 	[Category( "Ammo" )]
-	public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
+	public Weapons.AmmoType AmmoType { get; set; } = Survivor.Weapons.AmmoType.Pistol;
 
 	[Category( "Ammo" )]
 	public int Ammo { get; set; } = 10;
@@ -149,7 +150,7 @@ public sealed partial class WeaponAsset : GameResource
 		{
 				Ammo = Ammo,
 				AmmoReserve = MaxAmmo,
-				AmmoType = AmmoType,
+				AmmoType = AmmoType.ToSwbAmmoType(),
 				ClipSize = ClipSize,
 				BulletSize = BulletSize,
 				Bullets = Bullets,

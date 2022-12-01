@@ -5,6 +5,11 @@ using SWB_Base;
 
 namespace Survivor.Weapons;
 
+/**
+ * Changes from SWB
+ * WeaponBase.Getters.GetAvailableAmmo -> virtual
+ * WeaponBase.TakeAmmo -> virtual
+ */
 public abstract partial class ABaseWeapon : WeaponBase
 {
 	protected ABaseWeapon( string weaponAssetName )
@@ -78,7 +83,8 @@ public abstract partial class ABaseWeapon : WeaponBase
 			TimeSinceReload -= General.BoltBackTime;
 
 			if ( IsServer )
-				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle );
+				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime,
+						General.BoltBackEjectDelay, Primary.BulletEjectParticle );
 		}
 
 		if ( Primary.AmmoReserve <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
@@ -93,7 +99,7 @@ public abstract partial class ABaseWeapon : WeaponBase
 		StartReloadEffects( isEmptyReload );
 	}
 
-	public override bool TakeAmmo( int amount )
+	public override bool TakeAmmo( int amount = 1 )
 	{
 		if ( Primary.InfiniteAmmo == InfiniteAmmoType.clip )
 			return true;
