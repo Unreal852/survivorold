@@ -1,5 +1,4 @@
 ﻿using Sandbox;
-using Survivor.HitBox;
 
 namespace Survivor.Entities;
 
@@ -10,9 +9,8 @@ public partial class BaseNpc : AnimatedEntity
 	public override void TakeDamage( DamageInfo info )
 	{
 		LastDamage = info;
-		info.Damage *= GetHitboxGroup( info.HitboxIndex ) == (int)HitboxGroup.Head ? 2 : 1;
+		info.Damage *= info.Hitbox.HasTag( "head" ) ? 2 : 1;
 		this.ProceduralHitReaction( info );
-
 		base.TakeDamage( info );
 	}
 
@@ -20,7 +18,8 @@ public partial class BaseNpc : AnimatedEntity
 	{
 		base.OnKilled();
 		SurvivorGame.GAME_MODE.OnEnemyKilled( this, LastAttacker );
-		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
+		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force,
+				LastDamage.BoneIndex );
 	}
 
 	[Event.Tick.Server]
