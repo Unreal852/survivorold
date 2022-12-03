@@ -95,6 +95,53 @@
         "Description": "Well, i mean, you know what this is right ?"
       }
     },
-    "DefaultLeaderboards": null
+    "DefaultLeaderboards": null,
+    "PackageSettings": [
+      {
+        "DisplayType": "Choice",
+        "Choices": [
+          {
+            "Value": "gm_difficulty_easy",
+            "Name": "Easy"
+          },
+          {
+            "Value": "gm_difficulty_normal",
+            "Name": "Normal"
+          },
+          {
+            "Value": "gm_difficulty_hard",
+            "Name": "Hard"
+          },
+          {
+            "Value": "gm_difficulty_legendary",
+            "Name": "Legendary"
+          }
+        ],
+        "ConVarName": "sv_difficulty",
+        "DisplayName": "Difficulty",
+        "DefaultValue": "gm_difficulty_normal",
+        "Description": "",
+        "Group": ""
+      },
+      {
+        "DisplayType": "Boolean",
+        "Choices": [],
+        "ConVarName": "sv_friendly_fire",
+        "DisplayName": "Friendly fire",
+        "DefaultValue": "true",
+        "Description": "You know what this is right ?",
+        "Group": ""
+      },
+      {
+        "DisplayType": "Integer",
+        "Choices": [],
+        "ConVarName": "sv_min_players",
+        "DisplayName": "Minimum players",
+        "DefaultValue": "1",
+        "Description": "The required amount of players for the game to start",
+        "Group": "",
+        "Maximum": 10
+      }
+    ]
   }
 }
