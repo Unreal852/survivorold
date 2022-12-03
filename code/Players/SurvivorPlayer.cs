@@ -2,6 +2,7 @@
 using System.Linq;
 using Sandbox;
 using Sandbox.UI;
+using Survivor.Extensions;
 using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
 using Survivor.Weapons;
@@ -158,7 +159,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		TickPlayerUse();
 		TickPlayerUseClient();
 		TickPlayerInput();
-		
+
 		// Health regen
 		if ( Health < MaxHealth && _sinceLastDamage >= HealthRegenDelay )
 		{
@@ -206,12 +207,20 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Inventory.DropActive()?.Delete();
 		Inventory.DeleteContents();
 
-		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex ) );
+		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force,
+				LastDamage.BoneIndex );
 
 		Controller = null;
 		CameraMode = new SpectateRagdollCamera();
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
+	}
+
+	[ClientRpc]
+	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force,
+	                                    int bone )
+	{
+		this.BecomeRagdoll( velocity, damageFlags, forcePos, force, bone );
 	}
 }

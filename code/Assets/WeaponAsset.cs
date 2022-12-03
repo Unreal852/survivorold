@@ -195,7 +195,7 @@ public sealed partial class WeaponAsset : GameResource
 		RegisterIfNotExists( this );
 		if ( !Host.IsServer )
 			return;
-		foreach ( Entity entity in Entity.All )
+		foreach ( var entity in Entity.All )
 		{
 			if ( entity is ABaseWeapon weapon && weapon.Asset.WeaponType == WeaponType )
 				weapon.UpdateAsset( this );
