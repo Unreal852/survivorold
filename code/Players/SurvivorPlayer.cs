@@ -106,6 +106,16 @@ public sealed partial class SurvivorPlayer : PlayerBase
 			Inventory.SetActiveSlot( 1 );
 		else if ( Input.Pressed( InputButton.Slot3 ) )
 			Inventory.SetActiveSlot( 2 );
+		
+		switch (Input.MouseWheel)
+		{
+			case > 0:
+				Inventory.SetActiveSlot( Inventory.GetActiveSlot() + 1 );
+				break;
+			case < 0:
+				Inventory.SetActiveSlot( Inventory.GetActiveSlot() - 1 );
+				break;
+		}
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
