@@ -12,6 +12,8 @@ namespace Survivor.Weapons;
  */
 public abstract partial class ABaseWeapon : WeaponBase
 {
+	// TODO: Add duck anim data
+	
 	protected ABaseWeapon( string weaponAssetName )
 	{
 		Asset = ResourceLibrary.Get<WeaponAsset>( $"config/weapons/{weaponAssetName}.wpn" );
