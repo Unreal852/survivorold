@@ -71,7 +71,7 @@ public class TraceBullet : BulletBase
 
 	private void TracerEffects( WeaponBase weapon, string tracerParticle, Vector3 endPos )
 	{
-		ModelEntity firingViewModel = weapon.GetEffectModel();
+		var firingViewModel = weapon.GetEffectModel();
 
 		if ( firingViewModel == null ) return;
 
