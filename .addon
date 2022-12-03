@@ -3,6 +3,7 @@
   "Type": "game",
   "Org": "raeven",
   "Ident": "survivor",
+  "Tags": "survival, zombies",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -93,6 +94,7 @@
         "DefaultValue": "false",
         "Description": "Well, i mean, you know what this is right ?"
       }
-    }
+    },
+    "DefaultLeaderboards": null
   }
 }

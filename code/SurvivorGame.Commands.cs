@@ -7,6 +7,7 @@ using Survivor.UI.World;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 using ClientCommand = Sandbox.ConCmd.ClientAttribute;
 using AdminServerCommand = Sandbox.ConCmd.AdminAttribute;
+// ReSharper disable StringLiteralTypo
 
 namespace Survivor;
 
@@ -97,7 +98,7 @@ public partial class SurvivorGame
 	[AdminServerCommand( "killnpc" )]
 	public static void ClearZombiesCommand()
 	{
-		foreach ( BaseNpc npc in All.OfType<BaseNpc>().ToArray() )
+		foreach ( var npc in All.OfType<BaseNpc>().ToArray() )
 			npc.OnKilled();
 	}
 
@@ -118,7 +119,7 @@ public partial class SurvivorGame
 		                 .Size( 2 )
 		                 .Run();
 		var zombies = All.OfType<BaseZombie>();
-		foreach ( BaseZombie zombie in zombies )
+		foreach ( var zombie in zombies )
 			zombie.SetTarget( trace.EndPosition, true );
 	}
 }

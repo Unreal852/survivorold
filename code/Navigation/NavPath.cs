@@ -6,8 +6,8 @@ namespace Survivor.Navigation;
 
 public class NavPath
 {
-	public Vector3       TargetPosition;
-	public List<Vector3> Points = new();
+	public          Vector3       TargetPosition;
+	public readonly List<Vector3> Points = new();
 
 	public bool IsEmpty => Points.Count <= 1;
 

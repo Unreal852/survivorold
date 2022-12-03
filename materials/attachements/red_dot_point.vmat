@@ -2,7 +2,7 @@
 
 Layer0
 {
-	shader "reflex_sight.vfx"
+	shader "reflex_sight.shader"
 
 	//---- Blending ----
 	F_ADDITIVE_BLEND 1
