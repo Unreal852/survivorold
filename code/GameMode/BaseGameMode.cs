@@ -1,7 +1,5 @@
-﻿using System;
-using Sandbox;
+﻿using Sandbox;
 using Sandbox.Internal;
-using Survivor.Entities;
 using Survivor.Extensions;
 using Survivor.GameMode;
 using Survivor.Players;

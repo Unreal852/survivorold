@@ -1,5 +1,4 @@
-﻿using Sandbox;
-using Survivor.Gamemodes;
+﻿using Survivor.Gamemodes;
 
 namespace Survivor.GameMode.GameModes;
 
