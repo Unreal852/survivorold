@@ -12,7 +12,7 @@ public class ZombieAsset : GameResource
 
 	public static ZombieAsset GetResource( ZombieType zombieType )
 	{
-		return Resources.ContainsKey( zombieType ) ? Resources[zombieType] : null;
+		return Resources.TryGetValue( zombieType, out var value ) ? value : null;
 	}
 
 	[Category( "General" )]

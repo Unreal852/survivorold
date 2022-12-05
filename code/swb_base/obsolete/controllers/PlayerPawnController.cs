@@ -159,10 +159,7 @@ namespace SWB_Base
         /// <summary>
         /// Allow the controller to tweak input. Empty by default
         /// </summary>
-        public virtual void BuildInput(InputBuilder input)
-        {
-
-        }
+        public virtual void BuildInput() { }
 
         public void Simulate(Client client, Entity pawn, PlayerPawnController additional)
         {

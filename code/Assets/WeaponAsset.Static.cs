@@ -9,13 +9,12 @@ public sealed partial class WeaponAsset
 
 	private static void RegisterIfNotExists( WeaponAsset weaponAsset )
 	{
-		if ( Weapons.ContainsKey( weaponAsset.WeaponType ) )
-			Weapons.Remove( weaponAsset.WeaponType );
+		Weapons.Remove( weaponAsset.WeaponType );
 		Weapons.Add( weaponAsset.WeaponType, weaponAsset );
 	}
 
 	public static WeaponAsset GetWeaponAsset( WeaponType weaponType )
 	{
-		return Weapons.ContainsKey( weaponType ) ? Weapons[weaponType] : default;
+		return Weapons.TryGetValue( weaponType, out var value ) ? value : default;
 	}
 }

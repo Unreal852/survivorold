@@ -1,6 +1,8 @@
 ﻿using System;
 using Sandbox;
 using Sandbox.UI;
+using Sandbox.UI.Construct;
+using SWB_Base;
 using SWB_Base.Attachments;
 
 namespace SWB_Base.Editor

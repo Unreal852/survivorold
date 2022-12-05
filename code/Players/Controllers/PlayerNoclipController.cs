@@ -5,9 +5,17 @@ namespace Survivor.Players.Controllers;
 
 public class PlayerNoclipController : PlayerPawnController
 {
+	private SurvivorPlayer _player;
+	
 	public override void Simulate()
 	{
-		var vel = (Input.Rotation.Forward * Input.Forward) + (Input.Rotation.Left * Input.Left);
+		var pl = _player ??= Pawn as SurvivorPlayer;
+
+		var fwd = pl.InputDirection.x.Clamp( -1f, 1f );
+		var left = pl.InputDirection.y.Clamp( -1f, 1f );
+		var rotation = pl.ViewAngles.ToRotation();
+
+		var vel = (rotation.Forward * fwd) + (rotation.Left * left);
 
 		if ( Input.Down( InputButton.Jump ) )
 		{
@@ -31,8 +39,7 @@ public class PlayerNoclipController : PlayerPawnController
 
 		Velocity = Velocity.Approach( 0, Velocity.Length * Time.Delta * 5.0f );
 
-
-		EyeRotation = Input.Rotation;
+		EyeRotation = rotation;
 		WishVelocity = Velocity;
 		GroundEntity = null;
 		BaseVelocity = Vector3.Zero;

@@ -9,11 +9,12 @@ namespace Survivor.Weapons;
  * Changes from SWB
  * WeaponBase.Getters.GetAvailableAmmo -> virtual
  * WeaponBase.TakeAmmo -> virtual
+ * WeaponBase.AsyncBoltBack -> protected
  */
 public abstract partial class ABaseWeapon : WeaponBase
 {
 	// TODO: Add duck anim data
-	
+
 	protected ABaseWeapon( string weaponAssetName )
 	{
 		Asset = ResourceLibrary.Get<WeaponAsset>( $"config/weapons/{weaponAssetName}.wpn" );

@@ -106,8 +106,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 			Inventory.SetActiveSlot( 1 );
 		else if ( Input.Pressed( InputButton.Slot3 ) )
 			Inventory.SetActiveSlot( 2 );
-		
-		switch (Input.MouseWheel)
+
+		switch ( Input.MouseWheel )
 		{
 			case > 0:
 				Inventory.SetActiveSlot( Inventory.GetActiveSlot() + 1 );
@@ -137,10 +137,10 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Prepare();
 	}
 
-	public override void BuildInput( InputBuilder input )
+	public override void BuildInput()
 	{
 		_worldInput.Ray = new Ray( EyePosition, EyeRotation.Forward );
-		_worldInput.MouseLeftPressed = input.Down( InputButton.Use );
+		_worldInput.MouseLeftPressed = Input.Down( InputButton.Use );
 		if ( _worldInput.MouseLeftPressed )
 		{
 			if ( _worldInput.Hovered != null )
@@ -150,9 +150,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		}
 
 		if ( Stamina <= 0 )
-			input.ClearButton( InputButton.Run );
+			Input.ClearButton( InputButton.Run );
 
-		base.BuildInput( input );
+		base.BuildInput();
 	}
 
 	public override void Simulate( Client cl )
@@ -160,8 +160,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		base.Simulate( cl );
 
 		// Input requested a weapon switch
-		if ( Input.ActiveChild != null )
-			ActiveChild = Input.ActiveChild;
+		if ( ActiveChildInput != null )
+			ActiveChild = ActiveChildInput;
 
 		if ( LifeState != LifeState.Alive )
 			return;
