@@ -7,6 +7,7 @@ using Survivor.UI.World;
 using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 using ClientCommand = Sandbox.ConCmd.ClientAttribute;
 using AdminServerCommand = Sandbox.ConCmd.AdminAttribute;
+
 // ReSharper disable StringLiteralTypo
 
 namespace Survivor;
@@ -16,19 +17,19 @@ public partial class SurvivorGame
 	[ClientCommand( "test" )]
 	public static void SpawnWorldInteractablePanel()
 	{
-		_ = new WorldInteractablePanel() { Position = Local.Pawn.EyePosition };
+		_ = new WorldInteractablePanel() { Position = Local.Pawn.AimRay.Position };
 	}
 
 	[ServerCommand( "forcestart" )]
 	public static void ForceStartGameCommand()
 	{
-		GAME_MODE?.SetGameState(GameState.Playing);
+		GAME_MODE?.SetGameState( GameState.Playing );
 	}
-	
+
 	[ServerCommand( "devstart" )]
 	public static void ForceDevStartGameCommand()
 	{
-		GAME_MODE?.SetGameState(GameState.Dev);
+		GAME_MODE?.SetGameState( GameState.Dev );
 	}
 
 	[ServerCommand( "sessioninfos" )]
@@ -113,7 +114,7 @@ public partial class SurvivorGame
 			return;
 		}
 
-		var trace = Trace.Ray( caller.EyePosition, caller.EyePosition + caller.EyeRotation.Forward * 500 )
+		var trace = Trace.Ray( caller.AimRay, 500 )
 		                 .UseHitboxes()
 		                 .Ignore( caller )
 		                 .Size( 2 )

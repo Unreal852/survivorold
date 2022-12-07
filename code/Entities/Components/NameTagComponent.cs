@@ -11,7 +11,7 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 
 	protected override void OnActivate()
 	{
-		_nameTag = new(Entity.Client?.Name ?? Entity.Name, Entity.Client?.PlayerId);
+		_nameTag = new(Entity.Client?.Name ?? Entity.Name, Entity.Client?.SteamId);
 	}
 
 	protected override void OnDeactivate()
@@ -20,16 +20,16 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 		_nameTag = null;
 	}
 
-	[Event.Frame]
+	[Event.Client.FrameAttribute]
 	public void FrameUpdate()
 	{
 		var transform = Entity.GetAttachment( "hat" ) ?? Entity.Transform;
 		transform.Position += Vector3.Up * 10.0f;
-		transform.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+		transform.Rotation = Rotation.LookAt( -Camera.Rotation.Forward );
 		_nameTag.Transform = transform;
 	}
 
-	[Event.Frame]
+	[Event.Client.FrameAttribute]
 	public static void SystemUpdate()
 	{
 		// TODO: I don't think doing this every frame is good

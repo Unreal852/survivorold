@@ -8,7 +8,7 @@ namespace Survivor;
 
 /// <inheritdoc />
 [Library( "survivor", Title = "Survivor" )]
-public partial class SurvivorGame : Game
+public partial class SurvivorGame : GameManager
 {
 	public new static SurvivorGame Current { get; private set; }
 
@@ -56,8 +56,8 @@ public partial class SurvivorGame : Game
 
 	public new static bool DefaultCleanupFilter( string className, Entity ent )
 	{
-		if ( ent is BaseGameMode)
+		if ( ent is BaseGameMode )
 			return false;
-		return Game.DefaultCleanupFilter( className, ent );
+		return GameManager.DefaultCleanupFilter( className, ent );
 	}
 }
