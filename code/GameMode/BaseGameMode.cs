@@ -116,8 +116,10 @@ public abstract partial class BaseGameMode : BaseNetworkable
 
 	public virtual void OnDoPlayerDevCam( Client client )
 	{
-		if ( !client.IsListenServerHost )
+		if (!client.IsListenServerHost )
 			return;
+
+		
 		EntityComponentAccessor components = client.Components;
 		var devCamera = components.Get<DevCamera>( true );
 		if ( devCamera == null )
@@ -132,9 +134,8 @@ public abstract partial class BaseGameMode : BaseNetworkable
 
 	public virtual void OnDoPlayerNoclip( Client client )
 	{
-		if ( !client.IsListenServerHost )
+		if (!client.IsListenServerHost && !client.HasPermission( "noclip" ) )
 			return;
-
 
 		if ( client.Pawn is not SurvivorPlayer pawn )
 			return;

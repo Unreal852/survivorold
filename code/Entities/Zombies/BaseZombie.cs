@@ -118,7 +118,8 @@ public abstract partial class BaseZombie : BaseNpc
 			return;
 
 		// Note - sending this only to the attacker!
-		attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health, ((float)Health).LerpInverse( 100, 0 ) );
+		attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health,
+				((float)Health).LerpInverse( 100, 0 ) );
 
 		if ( info.Weapon is ABaseWeapon weapon && weapon.UISettings.ShowHitmarker && !weapon.UISettings.HideAll )
 		{
@@ -162,7 +163,9 @@ public abstract partial class BaseZombie : BaseNpc
 
 		var animHelper = new CitizenAnimationHelper( this );
 
-		LookDirection = Vector3.Lerp( LookDirection, Target?.EyePosition ?? InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
+		//LookDirection = Vector3.Lerp( LookDirection, Target?.EyePosition ?? InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
+		LookDirection = Vector3.Lerp( LookDirection, Target?.Position ?? InputVelocity.WithZ( 0 ) * 1000,
+				Time.Delta * 100.0f );
 		animHelper.WithLookAt( LookDirection );
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );

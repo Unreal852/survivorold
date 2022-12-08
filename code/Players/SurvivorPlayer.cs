@@ -7,6 +7,7 @@ using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
 using Survivor.Weapons;
 using SWB_Base;
+using PlayerNoclipController = SWB_Base.PlayerNoclipController;
 
 namespace Survivor.Players;
 
@@ -62,7 +63,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		Controller = new SurvivorPlayerWalkController();
 		Animator = new PlayerBaseAnimator();
-		CameraMode = new FirstPersonCamera();
+		CameraMode = new FirstPersonCamera( this );
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -120,9 +121,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( Input.Pressed( InputButton.View ) )
 		{
 			if ( CameraMode is ThirdPersonCamera )
-				CameraMode = new FirstPersonCamera();
+				CameraMode = new FirstPersonCamera( this );
 			else
-				CameraMode = new ThirdPersonCamera();
+				CameraMode = new ThirdPersonCamera( this );
 		}
 	}
 
@@ -158,6 +159,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
+
+		if ( LifeState != LifeState.Alive )
+			return;
 
 		// Input requested a weapon switch
 		if ( ActiveChildInput != null )
@@ -221,7 +225,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				LastDamage.BoneIndex );
 
 		Controller = null;
-		CameraMode = new SpectateRagdollCamera();
+		CameraMode = new SpectateCamera( this );
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
