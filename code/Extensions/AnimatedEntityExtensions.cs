@@ -15,16 +15,17 @@ public static class AnimatedEntityExtensions
 				Position = animatedEntity.Position,
 				Rotation = animatedEntity.Rotation,
 				Scale = animatedEntity.Scale,
-				PhysicsEnabled = true,
 				UsePhysicsCollision = true,
 				EnableAllCollisions = true,
 				SurroundingBoundsMode = SurroundingBoundsType.Physics,
-				Velocity = animatedEntity.Velocity,
 				RenderColor = animatedEntity.RenderColor
 		};
 
 		ragdollEntity.CopyFrom( animatedEntity );
 		ragdollEntity.Tags.Add( "ragdoll", "solid", "debris" );
+
+		ragdollEntity.PhysicsGroup.Velocity = velocity;
+		ragdollEntity.PhysicsEnabled = true;
 
 		foreach ( var child in animatedEntity.Children )
 		{

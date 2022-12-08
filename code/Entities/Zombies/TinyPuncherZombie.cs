@@ -14,6 +14,6 @@ public sealed partial class TinyPuncherZombie : PuncherZombie
 	protected override void Prepare()
 	{
 		base.Prepare();
-		//EyePosition = Position + Vector3.Up * 32;
+		EyeHeight = 0.8f;
 	}
 }

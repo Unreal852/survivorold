@@ -50,7 +50,7 @@ public sealed partial class ShooterZombie : BaseZombie
 		if ( Rand.Float() <= 0.5f ) // Fake miss
 			return;
 		var endPos = LookDirection + Vector3.Down * 5;
-		var tr = _trace.FromTo( AimRay.Position, endPos ).Run();
+		var tr = _trace.FromTo( EyePosition, endPos ).Run();
 		if ( !tr.Hit )
 			return;
 		tr.Entity.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )

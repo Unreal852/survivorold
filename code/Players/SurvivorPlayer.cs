@@ -73,6 +73,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Health = MaxHealth = 100;
 		Stamina = MaxStamina = 100;
 
+		
 		ClearAmmo();
 
 		if ( SurvivorGame.GAME_MODE?.State is GameState.Playing or GameState.Dev )

@@ -3,6 +3,7 @@ using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Performance;
 using Survivor.Players;
+using Survivor.Utils;
 using Survivor.Weapons;
 
 // ReSharper disable PartialTypeWithSinglePart
@@ -39,7 +40,9 @@ public abstract partial class BaseZombie : BaseNpc
 	public          float      AttackDamages { get; set; } = 1f;
 	public          float      AttackForce   { get; set; } = 1f;
 	public          float      AttackRange   { get; set; } = 1f;
+	public          float      EyeHeight     { get; set; } = 1.6f;
 	public abstract ZombieType ZombieType    { get; }
+	public override Ray        AimRay        => new(EyePosition, LookDirection);
 
 	public Entity Target
 	{
@@ -79,7 +82,7 @@ public abstract partial class BaseZombie : BaseNpc
 		if ( IsClient )
 			return;
 		var clients = Client.All;
-		Client client = clients[Rand.Int( 0, clients.Count - 1 )];
+		var client = clients[Rand.Int( 0, clients.Count - 1 )];
 		if ( client.Pawn is SurvivorPlayer player )
 			NavSteer.TargetEntity = player;
 	}
@@ -119,7 +122,7 @@ public abstract partial class BaseZombie : BaseNpc
 
 		// Note - sending this only to the attacker!
 		attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health,
-				((float)Health).LerpInverse( 100, 0 ) );
+				Health.LerpInverse( 100, 0 ) );
 
 		if ( info.Weapon is ABaseWeapon weapon && weapon.UISettings.ShowHitmarker && !weapon.UISettings.HideAll )
 		{
@@ -133,6 +136,7 @@ public abstract partial class BaseZombie : BaseNpc
 	{
 		using var serverUpdateProfiling = Profiler.Scope( $"{nameof(BaseZombie)}::{nameof(OnServerUpdate)}" );
 
+		EyePosition = Position + Vector3.Up * InchesUtils.FromMeters( EyeHeight );
 		InputVelocity = 0;
 		if ( NavSteer != null )
 		{
@@ -164,7 +168,7 @@ public abstract partial class BaseZombie : BaseNpc
 		var animHelper = new CitizenAnimationHelper( this );
 
 		//LookDirection = Vector3.Lerp( LookDirection, Target?.EyePosition ?? InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
-		LookDirection = Vector3.Lerp( LookDirection, Target?.Position ?? InputVelocity.WithZ( 0 ) * 1000,
+		LookDirection = Vector3.Lerp( LookDirection, Target?.AimRay.Position ?? InputVelocity.WithZ( 0 ) * 1000,
 				Time.Delta * 100.0f );
 		animHelper.WithLookAt( LookDirection );
 		animHelper.WithVelocity( Velocity );

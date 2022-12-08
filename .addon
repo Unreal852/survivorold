@@ -142,6 +142,9 @@
         "Group": "",
         "Maximum": 10
       }
-    ]
+    ],
+    "Summary": "Survivor APLHA",
+    "Description": "",
+    "Public": false
   }
 }
