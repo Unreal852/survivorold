@@ -31,7 +31,7 @@ public class PlayerInventorySlot : Panel
 
 	public void Update( SurvivorPlayer owner, Entity entity )
 	{
-		if ( entity is ABaseWeapon weapon )
+		if ( entity is AbstractWeapon weapon )
 		{
 			if ( weapon.Asset.WeaponType != _weaponAsset?.WeaponType )
 			{

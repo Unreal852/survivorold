@@ -179,10 +179,10 @@ public sealed partial class WeaponAsset : GameResource
 		return TypeLibrary.GetDescription( ClassName ).TargetType;
 	}
 
-	public ABaseWeapon CreateWeaponInstance()
+	public AbstractWeapon CreateWeaponInstance()
 	{
 		// TODO: Cache on post load
-		return TypeLibrary.Create<ABaseWeapon>( ClassName );
+		return TypeLibrary.Create<AbstractWeapon>( ClassName );
 	}
 
 	protected override void PostLoad()
@@ -197,7 +197,7 @@ public sealed partial class WeaponAsset : GameResource
 			return;
 		foreach ( var entity in Entity.All )
 		{
-			if ( entity is ABaseWeapon weapon && weapon.Asset.WeaponType == WeaponType )
+			if ( entity is AbstractWeapon weapon && weapon.Asset.WeaponType == WeaponType )
 				weapon.UpdateAsset( this );
 		}
 	}

@@ -6,7 +6,7 @@ using SWB_Base.Attachments;
 namespace Survivor.Weapons;
 
 [Library( "survivor_kriss_vector", Title = "KRISS Vector" )]
-public sealed class WeaponKrissVector : ABaseWeapon
+public sealed class WeaponKrissVector : AbstractWeapon
 {
 	public WeaponKrissVector() : base( "kriss_vector" )
 	{

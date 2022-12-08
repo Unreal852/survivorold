@@ -124,7 +124,7 @@ public abstract partial class BaseZombie : BaseNpc
 		attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health,
 				Health.LerpInverse( 100, 0 ) );
 
-		if ( info.Weapon is ABaseWeapon weapon && weapon.UISettings.ShowHitmarker && !weapon.UISettings.HideAll )
+		if ( info.Weapon is AbstractWeapon weapon && weapon.UISettings.ShowHitmarker && !weapon.UISettings.HideAll )
 		{
 			attacker.ShowHitmarker( To.Single( attacker ), Health <= 0.0f, weapon.UISettings.PlayHitmarkerSound );
 		}

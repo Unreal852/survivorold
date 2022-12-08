@@ -71,7 +71,7 @@ public partial class WeaponStand : ModelEntity, IUsable, IGlow
 				return string.Empty;
 			if ( player.Inventory.HasWeapon( WeaponAsset.WeaponType ) )
 				return "Buy Ammo";
-			if ( player.Inventory.AreWeaponsSlotsFull() && player.ActiveChild is ABaseWeapon weapon )
+			if ( player.Inventory.AreWeaponsSlotsFull() && player.ActiveChild is AbstractWeapon weapon )
 				return $"Replace {weapon.Asset.DisplayName} with {WeaponAsset.DisplayName}";
 			return $"Buy {WeaponAsset.DisplayName}";
 		}

@@ -31,7 +31,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 
 	public virtual bool CanAdd( Entity ent )
 	{
-		return ent is ABaseWeapon bc && bc.CanCarry( Owner );
+		return ent is AbstractWeapon bc && bc.CanCarry( Owner );
 	}
 
 	public void OnChildAdded( Entity child )
@@ -159,7 +159,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 
 		var ent = player.ActiveChild;
 
-		if ( ent is ABaseWeapon { CanDrop: true } && Drop( ent ) )
+		if ( ent is AbstractWeapon { CanDrop: true } && Drop( ent ) )
 		{
 			player.ActiveChild = null;
 			return ent;
@@ -182,7 +182,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 	{
 		Host.AssertServer();
 
-		if ( ent is ABaseWeapon weapon )
+		if ( ent is AbstractWeapon weapon )
 		{
 			if ( TryGetWeapon( weapon.Asset.WeaponType, out var ownedWep ) )
 			{
@@ -224,7 +224,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 	{
 		foreach ( var entity in Slots )
 		{
-			if ( entity is not ABaseWeapon slotWep )
+			if ( entity is not AbstractWeapon slotWep )
 				continue;
 			if ( slotWep.Asset.WeaponType == weaponType )
 				return true;
@@ -233,16 +233,16 @@ public class SurvivorPlayerInventory : IInventoryBase
 		return false;
 	}
 
-	public bool HasWeapon( ABaseWeapon weapon )
+	public bool HasWeapon( AbstractWeapon weapon )
 	{
 		return HasWeapon( weapon.Asset.WeaponType );
 	}
 
-	public bool TryGetWeapon( WeaponType weaponType, out ABaseWeapon weapon )
+	public bool TryGetWeapon( WeaponType weaponType, out AbstractWeapon weapon )
 	{
 		foreach ( var entity in Slots )
 		{
-			if ( entity is ABaseWeapon slotWep && slotWep.Asset.WeaponType == weaponType )
+			if ( entity is AbstractWeapon slotWep && slotWep.Asset.WeaponType == weaponType )
 			{
 				weapon = slotWep;
 				return true;

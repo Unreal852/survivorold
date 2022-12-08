@@ -50,7 +50,7 @@ public class PlayerHud : Panel
 		_healthBarLabel.Style.Width = MaxBarWidth  * player.Health  / player.MaxHealth;
 		_staminaBarLabel.Style.Width = MaxBarWidth * player.Stamina / player.MaxStamina;
 
-		if ( player.ActiveChild is ABaseWeapon weapon )
+		if ( player.ActiveChild is AbstractWeapon weapon )
 		{
 			_currentWeaponNameLabel.Text = weapon.Asset.DisplayName;
 			_currentWeaponAmmoLabel.Text = weapon.Primary.Ammo.ToString();

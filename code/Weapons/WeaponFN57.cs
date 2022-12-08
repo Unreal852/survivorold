@@ -6,7 +6,7 @@ using SWB_Base.Attachments;
 namespace Survivor.Weapons;
 
 [Library( "survivor_fn57", Title = "FN57" )]
-public sealed class WeaponFN57 : ABaseWeapon
+public sealed class WeaponFN57 : AbstractWeapon
 {
 	public WeaponFN57() : base( "fn57" )
 	{
