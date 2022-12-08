@@ -136,7 +136,7 @@ public abstract partial class BaseZombie : BaseNpc
 	{
 		using var serverUpdateProfiling = Profiler.Scope( $"{nameof(BaseZombie)}::{nameof(OnServerUpdate)}" );
 
-		EyePosition = Position + Vector3.Up * InchesUtils.FromMeters( EyeHeight );
+		EyePosition = Position + Vector3.Up * (InchesUtils.FromMeters( EyeHeight ) * Scale);
 		InputVelocity = 0;
 		if ( NavSteer != null )
 		{
