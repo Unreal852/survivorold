@@ -21,7 +21,8 @@ public sealed partial class ShooterZombie : BaseZombie
 		base.Prepare();
 		_weaponEntity = new ModelEntity( "models/weapons/pistols/magnum/wm_magnum.vmdl" );
 		_weaponEntity.SetParent( this, true );
-		_trace = Trace.Ray( 0, 0 ).Ignore( this ).Ignore( _weaponEntity ).UseHitboxes().WithoutTags( "zombie", "debris" );
+		_trace = Trace.Ray( 0, 0 ).Ignore( this ).Ignore( _weaponEntity ).UseHitboxes()
+		              .WithoutTags( "zombie", "debris" );
 	}
 
 	public override void OnKilled()
@@ -35,7 +36,7 @@ public sealed partial class ShooterZombie : BaseZombie
 	{
 		if ( !base.CanAttack( entity ) )
 			return false;
-		var tr = _trace.FromTo( EyePosition, entity.EyePosition ).Run();
+		var tr = _trace.FromTo( AimRay.Position, entity.AimRay.Position ).Run();
 		return tr.Hit && tr.Entity == entity;
 	}
 
@@ -49,7 +50,7 @@ public sealed partial class ShooterZombie : BaseZombie
 		if ( Rand.Float() <= 0.5f ) // Fake miss
 			return;
 		var endPos = LookDirection + Vector3.Down * 5;
-		var tr = _trace.FromTo( EyePosition, endPos ).Run();
+		var tr = _trace.FromTo( AimRay.Position, endPos ).Run();
 		if ( !tr.Hit )
 			return;
 		tr.Entity.TakeDamage( DamageInfo.FromBullet( tr.HitPosition, 3, AttackDamages )

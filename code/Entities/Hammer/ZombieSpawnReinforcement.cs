@@ -55,7 +55,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		if ( SinceLastPlaced < 0.2 ) // Small delay between places
 			return true;
 		CurrentUsedPart = FindMissingPart();
-		var prop = CurrentUsedPart?.CreateProp( this, user.EyePosition + user.EyeRotation.Forward * InchesUtils.FromMeters( 3 ) );
+		var prop = CurrentUsedPart?.CreateProp( this, user.AimRay.Project( InchesUtils.FromMeters( 3 ) ) );
 		if ( prop != null )
 			return true;
 
@@ -137,7 +137,7 @@ public class PartInfos
 	{
 		if ( !IsMissing )
 			return LinkedProp;
-		_originalPos = new Transform( position, Rotation.Random, Scale / 3);
+		_originalPos = new Transform( position, Rotation.Random, Scale / 3 );
 		_currentSeconds = 0.0f;
 		LinkedProp = new Prop { Model = Model, Transform = _originalPos, Static = true };
 		LinkedProp.SetParent( parent );
