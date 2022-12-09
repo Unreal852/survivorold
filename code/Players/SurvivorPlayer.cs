@@ -63,7 +63,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		Controller = new SurvivorPlayerWalkController();
 		Animator = new PlayerBaseAnimator();
-		CameraMode = new FirstPersonCamera( this );
+		CameraMode = new FirstPersonCamera();
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -122,9 +122,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( Input.Pressed( InputButton.View ) )
 		{
 			if ( CameraMode is ThirdPersonCamera )
-				CameraMode = new FirstPersonCamera( this );
+				CameraMode = new FirstPersonCamera();
 			else
-				CameraMode = new ThirdPersonCamera( this );
+				CameraMode = new ThirdPersonCamera();
 		}
 	}
 
@@ -227,7 +227,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				LastDamage.HasTag( "blast" ) );
 
 		Controller = null;
-		CameraMode = new SpectateCamera( this );
+		CameraMode = new SpectateCamera();
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
