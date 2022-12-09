@@ -20,6 +20,7 @@ public partial class SurvivorGame : GameManager
 			Global.TickRate = 30;
 			_ = new PlayerHudEntity();
 		}
+
 	}
 
 	public override void ClientJoined( Client client )

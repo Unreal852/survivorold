@@ -55,7 +55,7 @@ public static class AnimatedEntityExtensions
 			}
 		}
 
-		Limit.Watch( animatedEntity );
+		Limit.Watch( ragdollEntity );
 
 		return ragdollEntity;
 	}
