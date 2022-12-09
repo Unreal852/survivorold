@@ -167,6 +167,7 @@ public abstract partial class BaseZombie : BaseNpc
 
 		var animHelper = new CitizenAnimationHelper( this );
 
+		animHelper.IsSitting = true;
 		//LookDirection = Vector3.Lerp( LookDirection, Target?.EyePosition ?? InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
 		LookDirection = Vector3.Lerp( LookDirection, Target?.AimRay.Position ?? InputVelocity.WithZ( 0 ) * 1000,
 				Time.Delta * 100.0f );

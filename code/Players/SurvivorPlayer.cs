@@ -18,6 +18,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	private          TimeSince         _sinceUseInteraction;
 	private          TimeSince         _sinceLastDamage;
 	private          TimeSince         _sinceLastSprint;
+	private          TimeSince         _sinceDowned;
 
 	public SurvivorPlayer()
 	{
@@ -30,7 +31,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	}
 
 	public bool      SuppressPickupNotices { get; set; } = true;
-	public bool      GodMode               { get; set; } = false;
+	public bool      GodMode               { get; set; }
 	public float     HealthRegenSpeed      { get; set; } = 5.0f;
 	public float     HealthRegenDelay      { get; set; } = 2.0f;
 	public float     StaminaConsumeSpeed   { get; set; } = 20.0f;
@@ -46,6 +47,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	[Net]
 	public float Stamina { get; set; }
+
+	[Net]
+	public bool IsDowned { get; set; }
 
 	[Net, Change( nameof(OnMoneyChanged) )]
 	public int Money { get; set; }
@@ -72,7 +76,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		Health = MaxHealth = 100;
 		Stamina = MaxStamina = 100;
-
+		
+		SetDowned(false);
 
 		ClearAmmo();
 
@@ -125,6 +130,22 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				CameraMode = new FirstPersonCamera();
 			else
 				CameraMode = new ThirdPersonCamera();
+		}
+	}
+
+	private void SetDowned( bool downed )
+	{
+		IsDowned = downed;
+		if ( downed )
+		{
+			_sinceDowned = 0;
+			SetAnimParameter( "sit", 2 );
+			SetAnimParameter( "sit_pose", 8.0f );
+		}
+		else
+		{
+			SetAnimParameter( "sit", 0 );
+			SetAnimParameter( "sit_pose", 0 );
 		}
 	}
 
@@ -192,12 +213,11 @@ public sealed partial class SurvivorPlayer : PlayerBase
 			Stamina = Math.Clamp( Stamina + StaminaRegenSpeed * Time.Delta, 0, MaxStamina );
 		}
 
-
 		SimulateActiveChild( cl, ActiveChild );
 
 		//
 		// If the current weapon is out of ammo and we last fired it over half a second ago
-		// lets try to switch to a better wepaon
+		// lets try to switch to a better weapon
 		//
 		if ( ActiveChild is WeaponBase weapon && !weapon.IsUsable()
 		                                      && weapon.TimeSincePrimaryAttack   > 0.5f
@@ -217,6 +237,15 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	public override void OnKilled()
 	{
+		if ( !IsDowned )
+		{
+			SetDowned(true);
+			return;
+		}
+
+		if ( IsDowned && _sinceDowned < 10 )
+			return;
+
 		base.OnKilled();
 
 		Inventory.DropActive()?.Delete();
