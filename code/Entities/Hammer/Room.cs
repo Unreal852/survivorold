@@ -1,6 +1,6 @@
 ﻿using System;
+using Editor;
 using Sandbox;
-using SandboxEditor;
 using Survivor.Entities.Hammer.Doors;
 
 // resharper disable all

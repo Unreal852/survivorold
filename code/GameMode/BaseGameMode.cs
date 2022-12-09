@@ -120,7 +120,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 		if ( !client.IsListenServerHost )
 			return;
 
-		EntityComponentAccessor components = client.Components;
+		IComponentSystem components = client.Components;
 		var devCamera = components.Get<DevCamera>( true );
 		if ( devCamera == null )
 		{

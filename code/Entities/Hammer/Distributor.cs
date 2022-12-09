@@ -1,5 +1,5 @@
-﻿using Sandbox;
-using SandboxEditor;
+﻿using Editor;
+using Sandbox;
 using Survivor.Interaction;
 
 // resharper disable all

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
+using Editor;
 using Sandbox;
-using SandboxEditor;
 using Survivor.Interaction;
 using Survivor.Players;
 using Survivor.Utils;

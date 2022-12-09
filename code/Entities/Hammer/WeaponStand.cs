@@ -1,5 +1,5 @@
-﻿using Sandbox;
-using SandboxEditor;
+﻿using Editor;
+using Sandbox;
 using Survivor.Assets;
 using Survivor.Interaction;
 using Survivor.Players;

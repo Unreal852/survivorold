@@ -1,7 +1,7 @@
-﻿using Sandbox;
+﻿using Editor;
+using Sandbox;
 using Sandbox.Component;
 using Sandbox.UI;
-using SandboxEditor;
 using Survivor.Entities.Hammer.Doors;
 using Survivor.Players;
 

@@ -73,7 +73,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Health = MaxHealth = 100;
 		Stamina = MaxStamina = 100;
 
-		
+
 		ClearAmmo();
 
 		if ( SurvivorGame.GAME_MODE?.State is GameState.Playing or GameState.Dev )
@@ -207,7 +207,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	public override void TakeDamage( DamageInfo info )
 	{
-		if ( GodMode || SinceRespawn < 1.5 || info.Flags == DamageFlags.PhysicsImpact )
+		if ( GodMode || SinceRespawn < 1.5 || info.HasTag( "physical" ) )
 			return;
 		base.TakeDamage( info );
 		this.ProceduralHitReaction( info );
@@ -222,8 +222,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		Inventory.DropActive()?.Delete();
 		Inventory.DeleteContents();
 
-		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force,
-				LastDamage.BoneIndex );
+		BecomeRagdollOnClient( Velocity, LastDamage.Position, LastDamage.Force,
+				LastDamage.BoneIndex, LastDamage.HasTag( "bullet" ), LastDamage.HasTag( "physicsimpact" ),
+				LastDamage.HasTag( "blast" ) );
 
 		Controller = null;
 		CameraMode = new SpectateCamera( this );
@@ -233,9 +234,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	}
 
 	[ClientRpc]
-	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force,
-	                                    int bone )
+	private void BecomeRagdollOnClient( Vector3 velocity, Vector3 forcePos, Vector3 force,
+	                                    int bone, bool bullet, bool physicsImpact, bool blast )
 	{
-		this.BecomeRagdoll( velocity, damageFlags, forcePos, force, bone );
+		this.BecomeRagdoll( velocity, forcePos, force, bone, bullet, physicsImpact, blast );
 	}
 }

@@ -5,8 +5,8 @@ namespace Survivor.Entities;
 
 public partial class BaseNpc : AnimatedEntity
 {
-	public          DamageInfo LastDamage  { get; private set; }
-	public          Vector3    EyePosition { get; set; }
+	public DamageInfo LastDamage  { get; private set; }
+	public Vector3    EyePosition { get; set; }
 
 	public override void TakeDamage( DamageInfo info )
 	{
@@ -20,20 +20,20 @@ public partial class BaseNpc : AnimatedEntity
 	{
 		base.OnKilled();
 		SurvivorGame.GAME_MODE.OnEnemyKilled( this, LastAttacker );
-		BecomeRagdollOnClient( Velocity, LastDamage.Flags, LastDamage.Position, LastDamage.Force,
-				LastDamage.BoneIndex );
+		BecomeRagdollOnClient( Velocity, LastDamage.Position, LastDamage.Force,
+				LastDamage.BoneIndex, LastDamage.HasTag( "bullet" ), LastDamage.HasTag( "physicsimpact" ),
+				LastDamage.HasTag( "blast" ) );
 	}
-	
-	
+
 	[Event.Tick.Server]
 	public virtual void OnServerUpdate()
 	{
 	}
 
 	[ClientRpc]
-	private void BecomeRagdollOnClient( Vector3 velocity, DamageFlags damageFlags, Vector3 forcePos, Vector3 force,
-	                                    int bone )
+	private void BecomeRagdollOnClient( Vector3 velocity, Vector3 forcePos, Vector3 force,
+	                                    int bone, bool bullet, bool physicsImpact, bool blast )
 	{
-		this.BecomeRagdoll( velocity, damageFlags, forcePos, force, bone );
+		this.BecomeRagdoll( velocity, forcePos, force, bone, bullet, physicsImpact, blast );
 	}
 }

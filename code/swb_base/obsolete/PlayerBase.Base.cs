@@ -158,7 +158,7 @@ public partial class PlayerBase : AnimatedEntity
         LifeState = LifeState.Alive;
         Health = 100;
         Velocity = Vector3.Zero;
-        WaterLevel = 0;
+        //WaterLevel = 0;
 
         CreateHull();
 
@@ -344,7 +344,7 @@ public partial class PlayerBase : AnimatedEntity
             }
         }
 
-        if (info.Flags.HasFlag(DamageFlags.Blast))
+        if (info.HasTag("blast"))
         {
             Deafen(To.Single(Client), info.Damage.LerpInverse(0, 60));
         }

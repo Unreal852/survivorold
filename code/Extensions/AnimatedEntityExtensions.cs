@@ -6,9 +6,9 @@ public static class AnimatedEntityExtensions
 {
 	private static readonly EntityLimit Limit = new() { MaxTotal = 20 };
 
-	public static ModelEntity BecomeRagdoll( this AnimatedEntity animatedEntity, in Vector3 velocity,
-	                                         in DamageFlags damageFlags, in Vector3 forcePos,
-	                                         in Vector3 force, int bone )
+	public static ModelEntity BecomeRagdoll( this AnimatedEntity animatedEntity, Vector3 velocity,
+	                                         Vector3 forcePos, Vector3 force, int bone,
+	                                         bool bullet, bool physicsImpact, bool blast )
 	{
 		var ragdollEntity = new ModelEntity
 		{
@@ -35,7 +35,7 @@ public static class AnimatedEntityExtensions
 			clothModel.CopyFrom( e );
 		}
 
-		if ( damageFlags.HasFlag( DamageFlags.Bullet | DamageFlags.PhysicsImpact ) )
+		if ( bullet || physicsImpact )
 		{
 			var physicsBody = bone > 0 ? animatedEntity.GetBonePhysicsBody( bone ) : null;
 			if ( physicsBody != null )
@@ -44,7 +44,7 @@ public static class AnimatedEntityExtensions
 				animatedEntity.PhysicsGroup.ApplyImpulse( force );
 		}
 
-		if ( damageFlags.HasFlag( DamageFlags.Blast ) )
+		if ( blast )
 		{
 			if ( animatedEntity.PhysicsGroup != null )
 			{

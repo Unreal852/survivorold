@@ -1,5 +1,6 @@
-﻿using Sandbox;
-using SandboxEditor;
+﻿using Editor;
+using Sandbox;
+
 
 // resharper disable all
 

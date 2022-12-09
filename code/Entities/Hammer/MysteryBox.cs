@@ -1,6 +1,6 @@
 ﻿using System;
+using Editor;
 using Sandbox;
-using SandboxEditor;
 using Survivor.Assets;
 using Survivor.Interaction;
 using Survivor.Players;

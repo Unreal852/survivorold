@@ -37,7 +37,7 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
         SetAnimParameter("b_grounded", GroundEntity != null || noclip || sitting);
         SetAnimParameter("b_noclip", noclip);
         SetAnimParameter("b_sit", sitting);
-        SetAnimParameter("b_swim", Pawn.WaterLevel > 0.5f && !sitting);
+        SetAnimParameter("b_swim", Pawn.GetWaterLevel() > 0.5f && !sitting);
 
         if (Host.IsClient && Client.IsValid())
         {

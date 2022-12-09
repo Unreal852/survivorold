@@ -176,7 +176,7 @@ public sealed partial class WeaponAsset : GameResource
 	public Type GetWeaponClassType()
 	{
 		// TODO: Cache on post load
-		return TypeLibrary.GetDescription( ClassName ).TargetType;
+		return TypeLibrary.GetType( ClassName ).TargetType;
 	}
 
 	public AbstractWeapon CreateWeaponInstance()

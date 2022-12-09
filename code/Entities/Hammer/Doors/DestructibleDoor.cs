@@ -1,7 +1,7 @@
-﻿using Sandbox;
+﻿using Editor;
+using Sandbox;
 using Sandbox.Component;
 using Sandbox.UI;
-using SandboxEditor;
 using Survivor.Players;
 
 namespace Survivor.Entities.Hammer.Doors;
@@ -22,7 +22,8 @@ public partial class DestructibleDoor : Prop, IBuyableDoor
 	public int Cost { get; set; } = 0;
 
 	[Property, Net, FGDType( "target_destination" )]
-	[Category( "Door" ), Title( "Room" ), Description( "The room which this door will unlock. Multiple doors can unlock a single room" )]
+	[Category( "Door" ), Title( "Room" ),
+	 Description( "The room which this door will unlock. Multiple doors can unlock a single room" )]
 	public string Room { get; set; } = "";
 
 	public bool IsBought { get; private set; }
