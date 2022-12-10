@@ -7,7 +7,7 @@ public sealed partial class SurvivorPlayer
 {
 	private void TickPlayerUseClient()
 	{
-		if ( !Host.IsClient )
+		if ( !Game.IsClient )
 			return;
 		var wasUsing = Using;
 		Using = FindUsable();

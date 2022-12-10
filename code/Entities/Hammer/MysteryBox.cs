@@ -91,7 +91,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 		if ( wepSpawn.HasValue )
 		{
 			var weaponTypes = Enum.GetValues<WeaponType>();
-			var randIndex = Rand.Int( 0, weaponTypes.Length - 1 );
+			var randIndex = Game.Random.Int( 0, weaponTypes.Length - 1 );
 			WeaponAsset = WeaponAsset.GetWeaponAsset( weaponTypes[randIndex] );
 			_weaponEntity = new WeaponWorldModel( WeaponAsset ) { Transform = wepSpawn.Value, Parent = this };
 		}

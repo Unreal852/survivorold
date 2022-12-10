@@ -25,7 +25,7 @@ public class PlayerInteractableHud : Panel
 
 	public override void Tick()
 	{
-		if ( Local.Pawn is not SurvivorPlayer player )
+		if ( Game.LocalPawn is not SurvivorPlayer player )
 			return;
 		SetClass( "visible", player.Using != null );
 		if ( !IsVisible )

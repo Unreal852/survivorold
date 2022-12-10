@@ -24,7 +24,7 @@ public partial class SurvivorScoreboardEntry : Panel
 		_ping = Add.Label( "", "ping" );
 	}
 
-	public  Client        Client          { get; set; }
+	public  IClient        Client          { get; set; }
 	private RealTimeSince TimeSinceUpdate { get; set; } = 0;
 
 	public override void Tick()
@@ -51,10 +51,10 @@ public partial class SurvivorScoreboardEntry : Panel
 		_deaths.Text = Client.GetInt( "deaths" ).ToString();
 		_money.Text = (Client.Pawn as SurvivorPlayer)?.Money.ToString() ?? "0";
 		_ping.Text = Client.Ping.ToString();
-		SetClass( "me", Client == Local.Client );
+		SetClass( "me", Client == Game.LocalClient );
 	}
 
-	public virtual void UpdateFrom( Client client )
+	public virtual void UpdateFrom( IClient client )
 	{
 		Client = client;
 		UpdateData();

@@ -45,7 +45,7 @@ public partial class WeaponStand : ModelEntity, IUsable, IGlow
 	{
 		get
 		{
-			if ( Local.Pawn is not SurvivorPlayer player )
+			if ( Game.LocalPawn is not SurvivorPlayer player )
 				return Color.Yellow;
 			return player.Money >= UseCost ? Color.Green : Color.Red;
 		}
@@ -55,7 +55,7 @@ public partial class WeaponStand : ModelEntity, IUsable, IGlow
 	{
 		get
 		{
-			if ( Local.Pawn is not SurvivorPlayer player )
+			if ( Game.LocalPawn is not SurvivorPlayer player )
 				return 0;
 			if ( player.Inventory is SurvivorPlayerInventory inventory && inventory.HasWeapon( WeaponAsset.WeaponType ) )
 				return AmmoCost;
@@ -67,7 +67,7 @@ public partial class WeaponStand : ModelEntity, IUsable, IGlow
 	{
 		get
 		{
-			if ( Local.Pawn is not SurvivorPlayer player )
+			if (Game.LocalPawn is not SurvivorPlayer player )
 				return string.Empty;
 			if ( player.Inventory.HasWeapon( WeaponAsset.WeaponType ) )
 				return "Buy Ammo";

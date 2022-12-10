@@ -193,7 +193,7 @@ public sealed partial class WeaponAsset : GameResource
 	protected override void PostReload()
 	{
 		RegisterIfNotExists( this );
-		if ( !Host.IsServer )
+		if ( !Game.IsServer )
 			return;
 		foreach ( var entity in Entity.All )
 		{

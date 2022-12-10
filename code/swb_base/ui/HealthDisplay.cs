@@ -27,7 +27,7 @@ public class HealthDisplay : Panel
 
     public override void Tick()
     {
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         var isAlive = player.Alive();

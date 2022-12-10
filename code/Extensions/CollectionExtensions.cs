@@ -7,6 +7,6 @@ public static class CollectionExtensions
 {
 	public static T RandomElement<T>( this ReadOnlyCollection<T> collection )
 	{
-		return collection.Count == 0 ? default : collection[Rand.Int( 0, collection.Count - 1 )];
+		return collection.Count == 0 ? default : collection[Game.Random.Int( 0, collection.Count - 1 )];
 	}
 }

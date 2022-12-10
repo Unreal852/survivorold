@@ -17,7 +17,7 @@ public partial class SurvivorGame
 	[ClientCommand( "test" )]
 	public static void SpawnWorldInteractablePanel()
 	{
-		_ = new WorldInteractablePanel() { Position = Local.Pawn.AimRay.Position };
+		_ = new WorldInteractablePanel() { Position = Game.LocalPawn.AimRay.Position };
 	}
 
 	[ServerCommand( "forcestart" )]
@@ -36,7 +36,7 @@ public partial class SurvivorGame
 	public static void SessionInfosCommand()
 	{
 		Log.Info( "SESSION INFOS ----" );
-		Log.Info( $"\tMap: {Map.Name}" );
+		Log.Info( $"\tMap: {Game.Server.MapIdent}" );
 		Log.Info( $"\tGameMode: {Current.GameMode.GameModeName} ({Current.GameMode.GetType()})" );
 		Log.Info( $"\tDifficulty: {Current.GameMode.Difficulty}" );
 	}
@@ -52,7 +52,7 @@ public partial class SurvivorGame
 	[AdminServerCommand( "mapreset" )]
 	public static void CleanUpCommand()
 	{
-		Map.Reset( DefaultCleanupFilter );
+		// Map.Reset( DefaultCleanupFilter );
 	}
 
 	[AdminServerCommand( "imrich" )]

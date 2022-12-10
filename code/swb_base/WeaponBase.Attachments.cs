@@ -15,7 +15,7 @@ public partial class WeaponBase
 
     protected void InitAttachments()
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         foreach (var attachmentCategory in AttachmentCategories)
         {
@@ -189,7 +189,7 @@ public partial class WeaponBase
 
     async Task TryEquipAttachmentCL(string name, int instanceID)
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         var activeAttachment = GetActiveAttachment(name);
 
@@ -292,7 +292,7 @@ public partial class WeaponBase
 
     async Task TryHandleAttachmentsCL(int instanceID)
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         if (ActiveAttachments.Count > 0)
         {
@@ -316,7 +316,7 @@ public partial class WeaponBase
         if (AttachmentCategories != null)
         {
             // Initialize attachments on server
-            if (Host.IsServer && shouldEquip && !initializedAttachments)
+            if (Game.IsServer && shouldEquip && !initializedAttachments)
             {
                 initializedAttachments = true;
                 InitAttachments();

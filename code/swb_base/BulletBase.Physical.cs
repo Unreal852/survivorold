@@ -84,7 +84,7 @@ public class BulletEntity : Entity
     public override void Spawn()
     {
         // Gravity calc
-        var currentGravity = Map.Physics.Gravity;
+        var currentGravity = Game.PhysicsWorld.Gravity;
         var gravityRatio = TargetGravity / currentGravity.Length;
         gravScale = gravityRatio;
 
@@ -185,7 +185,7 @@ public class BulletEntity : Entity
 
         // Forward
         var dt = Time.Delta;
-        Velocity += Map.Physics.Gravity * gravScale * dt;
+        Velocity += Game.PhysicsWorld.Gravity * gravScale * dt;
 
         // Drag
         var drag = AirDensity * MathF.Pow(Velocity.Length, 2) * ammoType.Drag;
@@ -244,10 +244,10 @@ public class BulletEntity : Entity
             if (IsServer)
             {
                 var distance = startPos.Distance(Position) / InchesPerMeter;
-                DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Rand.Int(40), maxLifeTime);
+                DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Game.Random.Int(40), maxLifeTime);
             }
         }
-
+ 
         var isValidEnt = tr.Entity.IsValid();
         var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
 

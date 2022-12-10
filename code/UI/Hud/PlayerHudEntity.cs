@@ -10,7 +10,7 @@ public partial class PlayerHudEntity : HudEntity<RootPanel>
 
 	public PlayerHudEntity()
 	{
-		if ( Host.IsServer )
+		if ( Game.IsServer )
 			return;
 		RootPanel.AddChild<LobbyHud>();
 		RootPanel.AddChild<ChatBox>();

@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System.Linq;
+using Sandbox;
 using Survivor.Assets;
 using Survivor.Navigation;
 using Survivor.Performance;
@@ -72,7 +73,7 @@ public abstract partial class BaseZombie : BaseNpc
 		EnableHitboxes = true;
 		UsePhysicsCollision = true;
 
-		NextMoanIn = Rand.Float( 1.5f, 10f );
+		NextMoanIn = Game.Random.Float( 1.5f, 10f );
 
 		FindTarget();
 	}
@@ -81,15 +82,15 @@ public abstract partial class BaseZombie : BaseNpc
 	{
 		if ( IsClient )
 			return;
-		var clients = Client.All;
-		var client = clients[Rand.Int( 0, clients.Count - 1 )];
+		var clients = Game.Clients.ToArray();
+		var client = clients[Game.Random.Int( 0, clients.Length - 1 )];
 		if ( client.Pawn is SurvivorPlayer player )
 			NavSteer.TargetEntity = player;
 	}
 
 	public void SetTarget( Vector3 position, bool force = false )
 	{
-		Host.AssertServer();
+		Game.AssertServer();
 		NavSteer.TargetPosition = position;
 		if ( force )
 			NavSteer.TargetEntity = null;
@@ -108,7 +109,7 @@ public abstract partial class BaseZombie : BaseNpc
 			return;
 		if ( LastAttacker is SurvivorPlayer player )
 		{
-			player.Money += Rand.Int( 5, 10 );
+			player.Money += Game.Random.Int( 5, 10 );
 			player.Client.AddInt( "kills" );
 		}
 	}
@@ -189,7 +190,7 @@ public abstract partial class BaseZombie : BaseNpc
 		{
 			Sound.FromEntity( "zombie_moan", this );
 			SinceLastMoan = 0;
-			NextMoanIn = Rand.Float( 1.5f, 10f );
+			NextMoanIn = Game.Random.Float( 1.5f, 10f );
 		}
 
 		if ( ZombiesDrawDebug )

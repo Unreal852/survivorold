@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.Diagnostics;
 using Survivor.Gamemodes;
 using Survivor.UI.Hud;
 
@@ -17,19 +18,19 @@ public partial class SurvivorGame : GameManager
 		Current = this;
 		if ( IsServer ) 
 		{
-			Global.TickRate = 30;
+			Game.TickRate = 30;
 			_ = new PlayerHudEntity();
 		}
 
 	}
 
-	public override void ClientJoined( Client client )
+	public override void ClientJoined( IClient client )
 	{
 		GameMode?.OnClientJoin( client );
 		base.ClientJoined( client );
 	}
 
-	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	public override void ClientDisconnect( IClient cl, NetworkDisconnectionReason reason )
 	{
 		GameMode?.OnClientDisconnected( cl, reason );
 		base.ClientDisconnect( cl, reason );
@@ -43,22 +44,25 @@ public partial class SurvivorGame : GameManager
 			base.MoveToSpawnpoint( pawn );
 	}
 
-	public override void DoPlayerDevCam( Client client )
+	public override void DoPlayerDevCam( IClient client )
 	{
 		Assert.NotNull( GameMode );
 		GameMode?.OnDoPlayerDevCam( client );
 	}
+	
+	
 
-	public override void DoPlayerNoclip( Client client )
-	{
-		Assert.NotNull( GameMode );
-		GameMode?.OnDoPlayerNoclip( client );
-	}
+	// public override void DoPlayerNoclip( IClient client )
+	// {
+	// 	Assert.NotNull( GameMode );
+	// 	GameMode?.OnDoPlayerNoclip( client );
+	// }
 
-	public new static bool DefaultCleanupFilter( string className, Entity ent )
-	{
-		if ( ent is BaseGameMode )
-			return false;
-		return GameManager.DefaultCleanupFilter( className, ent );
-	}
+	// public new static bool DefaultCleanupFilter( string className, Entity ent )
+	// {
+	// 	if ( ent is BaseGameMode )
+	// 		return false;
+	// 	Def
+	// 	return GameManager.DefaultCleanupFilter( className, ent );
+	// }
 }

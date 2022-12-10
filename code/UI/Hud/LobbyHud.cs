@@ -29,7 +29,7 @@ public class LobbyHud : Panel
 				_secondaryMessageLabel.Text = $"The game will start in {MathX.FloorToInt(gameMode.Until)} second(s)";
 				return;
 			case GameState.Lobby:
-				int missingPlayers = Client.All.Count - SurvivorGame.VarMinimumPlayers;
+				int missingPlayers = Game.Clients.Count - SurvivorGame.VarMinimumPlayers;
 				_secondaryMessageLabel.Text = $"Waiting for {missingPlayers} player(s)...";
 				break;
 		}

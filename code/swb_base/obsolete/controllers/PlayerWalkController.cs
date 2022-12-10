@@ -287,7 +287,7 @@ public partial class PlayerWalkController : PlayerBaseController
 			DebugOverlay.Box( Position, mins, maxs, Color.Blue );
 
 			var lineOffset = 0;
-			if ( Host.IsServer ) lineOffset = 10;
+			if ( Game.IsServer ) lineOffset = 10;
 
 			DebugOverlay.ScreenText( $"        Position: {Position}", lineOffset                                + 0 );
 			DebugOverlay.ScreenText( $"        Velocity: {Velocity}", lineOffset                                + 1 );

@@ -108,7 +108,7 @@ public class CarriableBase : AnimatedEntity
 
     public virtual void CreateViewModel()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         if (string.IsNullOrEmpty(ViewModelPath))
             return;

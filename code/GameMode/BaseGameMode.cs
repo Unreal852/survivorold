@@ -38,7 +38,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 
 	protected BaseGameMode()
 	{
-		if ( Host.IsServer )
+		if ( Game.IsServer )
 		{
 			Event.Register( this );
 			OnStartServer();
@@ -70,7 +70,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 
 	public virtual void StartGame()
 	{
-		foreach ( var client in Client.All )
+		foreach ( var client in Game.Clients )
 		{
 			if ( client.Pawn is SurvivorPlayer player )
 				player.Respawn();
@@ -86,18 +86,18 @@ public abstract partial class BaseGameMode : BaseNetworkable
 		return true;
 	}
 
-	public virtual void OnClientJoin( Client client )
+	public virtual void OnClientJoin( IClient client )
 	{
 		var player = new SurvivorPlayer( client );
 		player.Respawn();
 		client.Pawn = player;
 		if ( State == GameState.Playing )
 			PlayerHudEntity.ShowGameHud( To.Single( client ) );
-		else if ( State == GameState.Lobby && Client.All.Count >= SurvivorGame.VarMinimumPlayers )
+		else if ( State == GameState.Lobby && Game.Clients.Count >= SurvivorGame.VarMinimumPlayers )
 			SetGameState( GameState.Starting );
 	}
 
-	public virtual void OnClientDisconnected( Client client, NetworkDisconnectionReason reason )
+	public virtual void OnClientDisconnected( IClient client, NetworkDisconnectionReason reason )
 	{
 	}
 
@@ -115,7 +115,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 		player.Transform = entity.Transform;
 	}
 
-	public virtual void OnDoPlayerDevCam( Client client )
+	public virtual void OnDoPlayerDevCam( IClient client )
 	{
 		if ( !client.IsListenServerHost )
 			return;
@@ -132,9 +132,11 @@ public abstract partial class BaseGameMode : BaseNetworkable
 			devCamera.Enabled = !devCamera.Enabled;
 	}
 
-	public virtual void OnDoPlayerNoclip( Client client )
+	public virtual void OnDoPlayerNoclip( IClient client )
 	{
-		if ( !client.IsListenServerHost && !client.HasPermission( "noclip" ) )
+		// if ( !client.IsListenServerHost && !client.HasPermission( "noclip" ) )
+		// 	return;
+		if ( !client.IsListenServerHost )
 			return;
 
 		if ( client.Pawn is not SurvivorPlayer pawn )

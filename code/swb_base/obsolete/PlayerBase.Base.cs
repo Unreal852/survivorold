@@ -77,7 +77,7 @@ public partial class PlayerBase : AnimatedEntity
 
     TimeSince timeSinceDied;
 
-    public virtual void SimulateBase(Client cl)
+    public virtual void SimulateBase(IClient cl)
     {
         // E.g player trying to switch weapon
         if (ActiveChildInput.IsValid() && ActiveChildInput.Owner == this)
@@ -100,7 +100,7 @@ public partial class PlayerBase : AnimatedEntity
     }
 
 
-    public override void FrameSimulate(Client cl)
+    public override void FrameSimulate(IClient cl)
     {
         base.FrameSimulate(cl);
 
@@ -159,7 +159,7 @@ public partial class PlayerBase : AnimatedEntity
     /// </summary>
     public virtual void Respawn()
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         LifeState = LifeState.Alive;
         Health = 100;
@@ -297,7 +297,7 @@ public partial class PlayerBase : AnimatedEntity
     /// If you don't call these things, viewmodels and stuff won't work, because the entity won't
     /// know it's become the active entity.
     /// </summary>
-    public virtual void SimulateActiveChild(Client cl, Entity child)
+    public virtual void SimulateActiveChild(IClient cl, Entity child)
     {
         if (LastActiveChild != child)
         {

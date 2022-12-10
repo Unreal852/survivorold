@@ -29,7 +29,7 @@ public class TraceBullet : BulletBase
 		if ( !isValidEnt )
 			return;
 		var canPenetrate = SurfaceUtil.CanPenetrate( tr.Surface );
-		if ( Host.IsClient )
+		if ( Game.IsClient )
 		{ 
 			// Impact
 			tr.Surface.DoBulletImpact( tr );
@@ -39,12 +39,12 @@ public class TraceBullet : BulletBase
 			// Tracer
 			if ( !string.IsNullOrEmpty( tracerParticle ) )
 			{
-				if ( Rand.Int( 1 ) == 0 )
+				if ( Game.Random.Int( 1 ) == 0 )
 					TracerEffects( weapon, tracerParticle, tr.EndPosition );
 			}
 		}
 
-		if ( Host.IsServer )
+		if ( Game.IsServer )
 		{
 			if ( tr.Entity is SurvivorPlayer && !SurvivorGame.VarFriendlyFire )
 				return;

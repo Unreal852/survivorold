@@ -42,7 +42,7 @@ public class PlayerHud : Panel
 
 	public override void Tick()
 	{
-		if ( Local.Pawn is not SurvivorPlayer player )
+		if ( Game.LocalPawn is not SurvivorPlayer player )
 			return;
 
 		_moneyLabel.Text = $"$ {player.Money}";

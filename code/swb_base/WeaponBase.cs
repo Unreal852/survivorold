@@ -77,7 +77,7 @@ public partial class WeaponBase : CarriableBase
 	}
 
 	// BaseSimulate
-	public void BaseSimulate( Client player )
+	public void BaseSimulate( IClient player )
 	{
 		if ( Input.Down( InputButton.Reload ) )
 		{
@@ -111,7 +111,7 @@ public partial class WeaponBase : CarriableBase
 		}
 	}
 
-	public override void Simulate( Client client )
+	public override void Simulate( IClient client )
 	{
 		if ( IsAnimating ) return;
 
@@ -263,7 +263,7 @@ public partial class WeaponBase : CarriableBase
 
 	public override void CreateViewModel()
 	{
-		Host.AssertClient();
+		Game.AssertClient();
 
 		if ( string.IsNullOrEmpty( ViewModelPath ) )
 			return;

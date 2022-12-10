@@ -365,7 +365,7 @@ public partial class WeaponBase
     [ClientRpc]
     protected virtual void ShootEffects(string muzzleFlashParticle, string bulletEjectParticle, string shootAnim)
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         ModelEntity firingViewModel = GetEffectModel();
 

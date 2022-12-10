@@ -49,7 +49,7 @@ namespace SWB_Base
             weaponBase.IsAnimating = false;
         }
 
-        public bool Handle(Client owner, WeaponBase weaponBase)
+        public bool Handle(IClient owner, WeaponBase weaponBase)
         {
             if (RealTime.Now < canNextHandle) return false;
 

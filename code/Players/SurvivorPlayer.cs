@@ -25,7 +25,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		base.Inventory = new SurvivorPlayerInventory( this );
 	}
 
-	public SurvivorPlayer( Client client ) : this()
+	public SurvivorPlayer( IClient client ) : this()
 	{
 		_clothing.LoadFromClient( client );
 	}
@@ -178,7 +178,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		base.BuildInput();
 	}
 
-	public override void Simulate( Client cl )
+	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
 

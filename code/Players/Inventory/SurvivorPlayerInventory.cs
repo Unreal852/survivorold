@@ -62,7 +62,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 
 	public void DeleteContents()
 	{
-		Host.AssertServer();
+		Game.AssertServer();
 
 		foreach ( var baseWeapon in Slots.ToArray() )
 			baseWeapon.Delete();
@@ -138,7 +138,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 
 	public bool Drop( Entity ent )
 	{
-		if ( !Host.IsServer )
+		if ( !Game.IsServer )
 			return false;
 
 		if ( !Contains( ent ) )
@@ -154,7 +154,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 
 	public Entity DropActive()
 	{
-		if ( !Host.IsServer || Owner is not PlayerBase player )
+		if ( !Game.IsServer || Owner is not PlayerBase player )
 			return null;
 
 		var ent = player.ActiveChild;
@@ -180,7 +180,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 
 	public bool Add( Entity ent, bool makeActive = false )
 	{
-		Host.AssertServer();
+		Game.AssertServer();
 
 		if ( ent is AbstractWeapon weapon )
 		{

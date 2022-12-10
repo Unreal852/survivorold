@@ -39,9 +39,9 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
         SetAnimParameter("b_sit", sitting);
         SetAnimParameter("b_swim", Pawn.GetWaterLevel() > 0.5f && !sitting);
 
-        if (Host.IsClient && Client.IsValid())
+        if (Game.IsClient && Client.IsValid())
         {
-            SetAnimParameter("voice", Client.TimeSinceLastVoice < 0.5f ? Client.VoiceLevel : 0.0f);
+            SetAnimParameter("voice", Client.Voice.LastHeard < 0.5f ? Client.Voice.CurrentLevel : 0.0f);
         }
 
         Vector3 aimPos = player.EyePosition + rotation.Forward * 200;
