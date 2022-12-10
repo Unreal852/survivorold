@@ -16,12 +16,11 @@ public partial class SurvivorGame : GameManager
 	public SurvivorGame()
 	{
 		Current = this;
-		if ( IsServer ) 
+		if ( IsServer )
 		{
 			Game.TickRate = 30;
 			_ = new PlayerHudEntity();
 		}
-
 	}
 
 	public override void ClientJoined( IClient client )
@@ -49,20 +48,4 @@ public partial class SurvivorGame : GameManager
 		Assert.NotNull( GameMode );
 		GameMode?.OnDoPlayerDevCam( client );
 	}
-	
-	
-
-	// public override void DoPlayerNoclip( IClient client )
-	// {
-	// 	Assert.NotNull( GameMode );
-	// 	GameMode?.OnDoPlayerNoclip( client );
-	// }
-
-	// public new static bool DefaultCleanupFilter( string className, Entity ent )
-	// {
-	// 	if ( ent is BaseGameMode )
-	// 		return false;
-	// 	Def
-	// 	return GameManager.DefaultCleanupFilter( className, ent );
-	// }
 }
