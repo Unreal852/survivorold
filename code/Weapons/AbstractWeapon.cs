@@ -87,7 +87,7 @@ public abstract partial class AbstractWeapon : WeaponBase
 		{
 			TimeSinceReload -= General.BoltBackTime;
 
-			if ( IsServer )
+			if ( Game.IsServer )
 				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime,
 						General.BoltBackEjectDelay, Primary.BulletEjectParticle );
 		}

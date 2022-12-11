@@ -63,7 +63,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 	// TODO: Make events for thoses
 	protected override void OnAnimGraphTag( string tag, AnimGraphTagEvent fireMode )
 	{
-		if ( !IsServer )
+		if ( !Game.IsServer )
 			return;
 		if ( tag == "Opening" )
 			IsOpening = fireMode == AnimGraphTagEvent.Start;

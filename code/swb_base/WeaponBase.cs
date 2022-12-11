@@ -49,7 +49,7 @@ public partial class WeaponBase : CarriableBase
 		}
 
 		// Check if boltback was not completed
-		if ( IsServer && InBoltBack )
+		if (Game.IsServer && InBoltBack )
 		{
 			_ = AsyncBoltBack( General.DrawTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay,
 					Primary.BulletEjectParticle, true );
@@ -147,7 +147,7 @@ public partial class WeaponBase : CarriableBase
 			OnReloadFinish();
 		}
 
-		if ( IsClient )
+		if ( Game.IsClient )
 		{
 			UISimulate( client );
 		}
@@ -170,7 +170,7 @@ public partial class WeaponBase : CarriableBase
 		{
 			TimeSinceReload -= General.BoltBackTime;
 
-			if ( IsServer )
+			if ( Game.IsServer )
 				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime,
 						General.BoltBackEjectDelay, Primary.BulletEjectParticle );
 		}
@@ -326,7 +326,7 @@ public partial class WeaponBase : CarriableBase
 
 		base.OnCarryDrop( dropper );
 
-		if ( IsServer )
+		if ( Game.IsServer )
 		{
 			// Reattach attachments (they get removed in ActiveEnd) [TEMP]
 			foreach ( var activeAttach in ActiveAttachments )

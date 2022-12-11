@@ -76,7 +76,7 @@ namespace SWB_Base
             // Handle shared changes
             HandleChanges(weaponBase);
 
-            if (weaponBase.IsClient)
+            if (Game.IsClient)
             {
                 var viewModelEntity = weaponBase.ViewModelEntity;
 

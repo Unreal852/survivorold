@@ -117,12 +117,12 @@ public partial class WeaponBase
             return;
         }
 
-        var shouldCreateModel = IsServer ? activeAttachment.WorldAttachmentModel == null : true;
+        var shouldCreateModel = Game.IsServer ? activeAttachment.WorldAttachmentModel == null : true;
         var attachmentModel = attachment.Equip(this, shouldCreateModel);
 
         if (attachmentModel != null)
         {
-            if (IsClient)
+            if (Game.IsClient)
             {
                 activeAttachment.ViewAttachmentModel = attachmentModel;
             }
@@ -162,7 +162,7 @@ public partial class WeaponBase
     {
         var activeAttachment = GetActiveAttachment(name);
 
-        if (IsServer && activeAttachment != null)
+        if (Game.IsServer && activeAttachment != null)
         {
             ActiveAttachments.Remove(activeAttachment);
         }

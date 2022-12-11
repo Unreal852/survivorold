@@ -80,7 +80,7 @@ public abstract partial class BaseZombie : BaseNpc
 
 	private void FindTarget()
 	{
-		if ( IsClient )
+		if ( Game.IsClient )
 			return;
 		var clients = Game.Clients.ToArray();
 		var client = clients[Game.Random.Int( 0, clients.Length - 1 )];
@@ -105,7 +105,7 @@ public abstract partial class BaseZombie : BaseNpc
 	public override void OnKilled()
 	{
 		base.OnKilled();
-		if ( !IsServer )
+		if ( !Game.IsServer )
 			return;
 		if ( LastAttacker is SurvivorPlayer player )
 		{

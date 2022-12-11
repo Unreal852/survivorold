@@ -49,7 +49,7 @@ public partial class WeaponBaseSniper : WeaponBase
             oldSpread = Primary.Spread;
 
         Primary.Spread = 0;
-        if (IsServer)
+        if (Game.IsServer)
         {
             var player = Owner as PlayerBase;
 
@@ -84,7 +84,7 @@ public partial class WeaponBaseSniper : WeaponBase
         IsScoped = false;
         Primary.Spread = oldSpread;
 
-        if (IsServer && switchBackToThirdP)
+        if (Game.IsServer && switchBackToThirdP)
         {
             var player = Owner as PlayerBase;
 
