@@ -22,6 +22,11 @@ public partial class PlayerBase
     {
         SimulateBase(client);
         BulletSimulator.Simulate();
+
+        if (CameraMode is ThirdPersonCamera)
+        {
+            EyeRotation = ThirdPersonCamera.GetEyeRotation(this);
+        }
     }
 
     [Event.Client.BuildInput]

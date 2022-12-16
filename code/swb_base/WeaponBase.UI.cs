@@ -64,11 +64,11 @@ public partial class WeaponBase
 
     public override void DestroyHudElements()
     {
-        if (healthDisplay != null) healthDisplay.Delete(true);
-        if (ammoDisplay != null) ammoDisplay.Delete(true);
-        if (hitmarker != null) hitmarker.Delete(true);
-        if (crosshair != null) crosshair.Delete(true);
-        if (customizationMenu != null) customizationMenu.Delete();
+        healthDisplay?.Delete(true);
+        ammoDisplay?.Delete(true);
+        hitmarker?.Delete(true);
+        crosshair?.Delete(true);
+        customizationMenu?.Delete();
     }
 
     public void UISimulate(IClient player)

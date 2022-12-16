@@ -16,14 +16,14 @@ partial class PlayerBase
 
     public bool IsAttachmentEditing()
     {
-	    Game.AssertClient();
+        Game.AssertClient();
 
         return attachmentEditor != null;
     }
 
     public void CloseAttachmentEditor()
     {
-	    Game.AssertClient();
+        Game.AssertClient();
 
         if (attachmentEditor != null)
         {
@@ -36,8 +36,7 @@ partial class PlayerBase
     [ClientRpc]
     public void ToggleAttachmentEditorCL()
     {
-	    Game.AssertClient();
-
+        Game.AssertClient();
         CloseModelEditor();
 
         if (!IsAttachmentEditing())

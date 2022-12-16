@@ -256,7 +256,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				LastDamage.HasTag( "blast" ) );
 
 		Controller = null;
-		CameraMode = new SpectateCamera();
+		CameraMode = new DeathCamera();
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;

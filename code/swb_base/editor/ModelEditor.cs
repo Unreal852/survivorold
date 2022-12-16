@@ -17,14 +17,14 @@ partial class PlayerBase
 
     public bool IsModelEditing()
     {
-	    Game.AssertClient();
+        Game.AssertClient();
 
         return modelEditor != null;
     }
 
     public void CloseModelEditor()
     {
-	    Game.AssertClient();
+        Game.AssertClient();
 
         if (modelEditor != null)
         {
@@ -36,7 +36,7 @@ partial class PlayerBase
     [ClientRpc]
     public void ToggleModelEditorCL()
     {
-	    Game.AssertClient();
+        Game.AssertClient();
 
         CloseAttachmentEditor();
 

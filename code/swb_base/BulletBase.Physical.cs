@@ -247,7 +247,7 @@ public class BulletEntity : Entity
                 DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Game.Random.Int(40), maxLifeTime);
             }
         }
- 
+
         var isValidEnt = tr.Entity.IsValid();
         var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
 

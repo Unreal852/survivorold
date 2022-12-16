@@ -41,7 +41,7 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
 
         if (Game.IsClient && Client.IsValid())
         {
-            SetAnimParameter("voice", Client.Voice.LastHeard < 0.5f ? Client.Voice.CurrentLevel : 0.0f);
+            SetAnimParameter("voice", Client.Voice.LastHeard < 0.5f ? Client.Voice.LastHeard : 0.0f); ;
         }
 
         Vector3 aimPos = player.EyePosition + rotation.Forward * 200;
@@ -73,7 +73,7 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
 
     public virtual void DoRotation(Rotation idealRotation)
     {
-        var player = Pawn as Player;
+        var player = Pawn as PlayerBase;
 
         //
         // Our ideal player model rotation is the way we're facing

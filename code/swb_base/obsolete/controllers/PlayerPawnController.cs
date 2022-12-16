@@ -32,7 +32,7 @@ public class PlayerPawnController : BaseNetworkable
         if (entity is PlayerBase player)
         {
             EyeRotation = player.EyeRotation;
-            EyeLocalPosition = player.EyePosition;
+            EyeLocalPosition = player.EyeLocalPosition;
         }
 
         BaseVelocity = entity.BaseVelocity;

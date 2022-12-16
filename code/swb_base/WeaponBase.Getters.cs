@@ -96,7 +96,7 @@ public partial class WeaponBase
 
     public Transform? GetModelAttachment(string name, bool worldspace = true)
     {
-        return base.GetAttachment(name, worldspace); 
+        return base.GetAttachment(name, worldspace);
     }
 
     /// <summary>

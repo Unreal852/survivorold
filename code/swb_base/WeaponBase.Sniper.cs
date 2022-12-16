@@ -49,6 +49,7 @@ public partial class WeaponBaseSniper : WeaponBase
             oldSpread = Primary.Spread;
 
         Primary.Spread = 0;
+
         if (Game.IsServer)
         {
             var player = Owner as PlayerBase;

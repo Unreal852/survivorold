@@ -70,8 +70,12 @@ public partial class PlayerBase : AnimatedEntity
         get => Components.Get<CameraMode>();
         set
         {
-            Components.RemoveAny<CameraMode>(); // Temp workaround
-            Components.Add(value);
+            // Server only otherwise breaks refs
+            if (Game.IsServer)
+            {
+                Components.RemoveAny<CameraMode>(); // Temp workaround
+                Components.Add(value);
+            }
         }
     }
 
@@ -164,7 +168,7 @@ public partial class PlayerBase : AnimatedEntity
         LifeState = LifeState.Alive;
         Health = 100;
         Velocity = Vector3.Zero;
-        //WaterLevel = 0;
+        this.ClearWaterLevel();
 
         CreateHull();
 
@@ -350,7 +354,7 @@ public partial class PlayerBase : AnimatedEntity
             }
         }
 
-        if (info.HasTag("blast") )
+        if (info.HasTag("blast"))
         {
             Deafen(To.Single(Client), info.Damage.LerpInverse(0, 60));
         }
