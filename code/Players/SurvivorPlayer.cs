@@ -96,15 +96,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		return true;
 	}
 
-	private void SwitchToBestWeapon()
-	{
-		var best = Children.Select( x => x as WeaponBase ).FirstOrDefault( x => x.IsValid() );
-		if ( best == null )
-			return;
-
-		ActiveChild = best;
-	}
-
 	private void TickPlayerInput()
 	{
 		if ( Input.Pressed( InputButton.Slot1 ) )
@@ -189,9 +180,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( ActiveChildInput != null )
 			ActiveChild = ActiveChildInput;
 
-		if ( LifeState != LifeState.Alive )
-			return;
-
 		TickPlayerUse();
 		TickPlayerUseClient();
 		TickPlayerInput();
@@ -214,15 +202,6 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		}
 
 		SimulateActiveChild( cl, ActiveChild );
-
-		//
-		// If the current weapon is out of ammo and we last fired it over half a second ago
-		// lets try to switch to a better weapon
-		//
-		if ( ActiveChild is WeaponBase weapon && !weapon.IsUsable()
-		                                      && weapon.TimeSincePrimaryAttack   > 0.5f
-		                                      && weapon.TimeSinceSecondaryAttack > 0.5f )
-			SwitchToBestWeapon();
 	}
 
 	public override void TakeDamage( DamageInfo info )
@@ -230,9 +209,9 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		if ( GodMode || SinceRespawn < 1.5 || info.HasTag( "physical" ) )
 			return;
 		base.TakeDamage( info );
+		_sinceLastDamage = 0;
 		this.ProceduralHitReaction( info );
 		PlaySound( "player.hit_01" );
-		_sinceLastDamage = 0;
 	}
 
 	public override void OnKilled()

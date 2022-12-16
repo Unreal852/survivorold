@@ -14,7 +14,7 @@ public partial class SurvivorPlayerWalkController : PlayerWalkController
 		if ( ws >= 0 )
 			return ws;
 
-		if (GroundEntity != null && Input.Down( InputButton.Run ) && Input.Down( InputButton.Forward ) )
+		if (GroundEntity != null && Input.Down( InputButton.Run ) && Input.Down( InputButton.Forward )  )
 		{
 			IsSprinting = true;
 			return SprintSpeed;
