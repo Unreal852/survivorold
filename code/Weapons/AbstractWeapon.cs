@@ -36,8 +36,6 @@ public abstract partial class AbstractWeapon : WeaponBase
 	public          WeaponAsset Asset         { get; private set; }
 	public override bool        BulletCocking => Asset.BulletCocking;
 	public override HoldType    HoldType      => Asset?.HoldType ?? HoldType.Pistol;
-	public override int         FOV           => 90;
-	public override int         ZoomWeaponFOV => 90;
 
 	public void UpdateAsset( WeaponAsset asset )
 	{
