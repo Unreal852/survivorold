@@ -7,7 +7,6 @@ using Survivor.Entities.Zombies;
 using Survivor.GameMode;
 using Survivor.GameMode.GameModes;
 using Survivor.Gamemodes;
-using ServerCommand = Sandbox.ConCmd.ServerAttribute;
 
 namespace Survivor;
 

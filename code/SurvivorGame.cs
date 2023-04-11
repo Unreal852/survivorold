@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using Sandbox.Diagnostics;
-using Survivor.Gamemodes;
 using Survivor.UI.Hud;
 
 // ReSharper disable All

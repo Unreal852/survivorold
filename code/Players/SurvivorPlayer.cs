@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Sandbox;
 using Sandbox.UI;
 using Survivor.Extensions;
@@ -7,18 +6,19 @@ using Survivor.Players.Controllers;
 using Survivor.Players.Inventory;
 using Survivor.Weapons;
 using SWB_Base;
-using PlayerNoclipController = SWB_Base.PlayerNoclipController;
+using SWB_Player;
+using PlayerNoclipController = SWB_Player.PlayerNoclipController;
 
 namespace Survivor.Players;
 
 public sealed partial class SurvivorPlayer : PlayerBase
 {
-	private readonly ClothingContainer _clothing   = new();
-	private readonly WorldInput        _worldInput = new();
-	private          TimeSince         _sinceUseInteraction;
-	private          TimeSince         _sinceLastDamage;
-	private          TimeSince         _sinceLastSprint;
-	private          TimeSince         _sinceDowned;
+	private readonly ClothingContainer _clothing = new();
+	private readonly WorldInput _worldInput = new();
+	private TimeSince _sinceUseInteraction;
+	private TimeSince _sinceLastDamage;
+	private TimeSince _sinceLastSprint;
+	private TimeSince _sinceDowned;
 
 	public SurvivorPlayer()
 	{
@@ -30,14 +30,14 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		_clothing.LoadFromClient( client );
 	}
 
-	public bool      SuppressPickupNotices { get; set; } = true;
-	public bool      GodMode               { get; set; }
-	public float     HealthRegenSpeed      { get; set; } = 5.0f;
-	public float     HealthRegenDelay      { get; set; } = 2.0f;
-	public float     StaminaConsumeSpeed   { get; set; } = 20.0f;
-	public float     StaminaRegenSpeed     { get; set; } = 15.0f;
-	public float     StaminaRegenDelay     { get; set; } = 2.0f;
-	public TimeSince SinceRespawn          { get; set; } = 0;
+	public bool SuppressPickupNotices { get; set; } = true;
+	public bool GodMode { get; set; }
+	public float HealthRegenSpeed { get; set; } = 5.0f;
+	public float HealthRegenDelay { get; set; } = 2.0f;
+	public float StaminaConsumeSpeed { get; set; } = 20.0f;
+	public float StaminaRegenSpeed { get; set; } = 15.0f;
+	public float StaminaRegenDelay { get; set; } = 2.0f;
+	public TimeSince SinceRespawn { get; set; } = 0;
 
 	[Net]
 	public float MaxHealth { get; set; }
@@ -51,7 +51,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	[Net]
 	public bool IsDowned { get; set; }
 
-	[Net, Change( nameof(OnMoneyChanged) )]
+	[Net, Change( nameof( OnMoneyChanged ) )]
 	public int Money { get; set; }
 
 	public new SurvivorPlayerInventory Inventory => (SurvivorPlayerInventory)base.Inventory;
@@ -76,8 +76,8 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 		Health = MaxHealth = 100;
 		Stamina = MaxStamina = 100;
-		
-		SetDowned(false);
+
+		SetDowned( false );
 
 		ClearAmmo();
 
@@ -218,7 +218,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	{
 		if ( !IsDowned )
 		{
-			SetDowned(true);
+			SetDowned( true );
 			return;
 		}
 
@@ -243,7 +243,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	[ClientRpc]
 	private void BecomeRagdollOnClient( Vector3 velocity, Vector3 forcePos, Vector3 force,
-	                                    int bone, bool bullet, bool physicsImpact, bool blast )
+										int bone, bool bullet, bool physicsImpact, bool blast )
 	{
 		this.BecomeRagdoll( velocity, forcePos, force, bone, bullet, physicsImpact, blast );
 	}

@@ -2,6 +2,7 @@
 using Sandbox;
 using Survivor.Assets;
 using SWB_Base;
+using SWB_Player;
 
 namespace Survivor.Weapons;
 
@@ -26,16 +27,14 @@ public abstract partial class AbstractWeapon : WeaponBase
 
 		UpdateAsset( Asset );
 
-		UISettings.ShowHealthCount = false;
-		UISettings.ShowHealthIcon = false;
 		UISettings.ShowFireMode = false;
 		UISettings.ShowWeaponIcon = false;
 		UISettings.ShowAmmoCount = false;
 	}
 
-	public          WeaponAsset Asset         { get; private set; }
-	public override bool        BulletCocking => Asset.BulletCocking;
-	public override HoldType    HoldType      => Asset?.HoldType ?? HoldType.Pistol;
+	public WeaponAsset Asset { get; private set; }
+	public override bool BulletCocking => Asset.BulletCocking;
+	public override HoldType HoldType => Asset?.HoldType ?? HoldType.Pistol;
 
 	public void UpdateAsset( WeaponAsset asset )
 	{
@@ -62,12 +61,6 @@ public abstract partial class AbstractWeapon : WeaponBase
 		return available;
 	}
 
-	// public override bool CanAttack( ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton )
-	// {
-	// 	// Replace lastAttackTime >= GetRealRPM(clipInfo.RPM);
-	// 	return base.CanAttack( clipInfo, lastAttackTime, inputButton );
-	// }
-
 	public override void Reload()
 	{
 		if ( IsReloading || IsAnimating || InBoltBack || IsShooting() )
@@ -86,8 +79,7 @@ public abstract partial class AbstractWeapon : WeaponBase
 			TimeSinceReload -= General.BoltBackTime;
 
 			if ( Game.IsServer )
-				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime,
-						General.BoltBackEjectDelay, Primary.BulletEjectParticle );
+				_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle );
 		}
 
 		if ( Primary.AmmoReserve <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )

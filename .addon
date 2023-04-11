@@ -3,7 +3,7 @@
   "Type": "game",
   "Org": "raeven",
   "Ident": "survivor",
-  "Tags": "survival, zombies",
+  "Tags": "zombies survival",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -145,6 +145,7 @@
     ],
     "Summary": "Survivor APLHA",
     "Description": "",
-    "Public": false
+    "Public": false,
+    "CsProjName": ""
   }
 }

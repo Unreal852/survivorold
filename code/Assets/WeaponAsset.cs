@@ -28,6 +28,9 @@ public sealed partial class WeaponAsset : GameResource
 	[Category( "Model" ), ResourceType( "vmdl" )]
 	public string WorldModel { get; set; }
 
+	[Category( "Model" )]
+	public int FieldOfView { get; set; } = 90;
+
 	[Category( "Behaviour" )]
 	public float DrawTime { get; set; } = 1f;
 
@@ -131,16 +134,17 @@ public sealed partial class WeaponAsset : GameResource
 	{
 		return new WeaponInfo
 		{
-				DrawTime = DrawTime,
-				ReloadTime = ReloadTime,
-				ReloadEmptyTime = ReloadEmptyTime,
-				BoltBackTime = BoltBackTime,
-				BoltBackEjectDelay = BoltBackEjectDelay,
-				ReloadAnim = ReloadAnim,
-				ReloadEmptyAnim = ReloadEmptyAnim,
-				DrawAnim = DrawAnim,
-				DrawEmptyAnim = DrawEmptyAnim,
-				BoltBackAnim = BoltBackAnim
+			FOV = FieldOfView,
+			DrawTime = DrawTime,
+			ReloadTime = ReloadTime,
+			ReloadEmptyTime = ReloadEmptyTime,
+			BoltBackTime = BoltBackTime,
+			BoltBackEjectDelay = BoltBackEjectDelay,
+			ReloadAnim = ReloadAnim,
+			ReloadEmptyAnim = ReloadEmptyAnim,
+			DrawAnim = DrawAnim,
+			DrawEmptyAnim = DrawEmptyAnim,
+			BoltBackAnim = BoltBackAnim
 		};
 	}
 
@@ -148,28 +152,28 @@ public sealed partial class WeaponAsset : GameResource
 	{
 		return new ClipInfo
 		{
-				Ammo = Ammo,
-				AmmoReserve = MaxAmmo,
-				AmmoType = AmmoType.ToSwbAmmoType(),
-				ClipSize = ClipSize,
-				BulletSize = BulletSize,
-				Bullets = Bullets,
-				Damage = Damage,
-				Force = Force,
-				Spread = Spread,
-				Recoil = Recoil,
-				RPM = RPM,
-				FiringType = FiringType,
-				BulletType = new TraceBullet(),
-				//ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1.9f, Rotation = 0.4f },
-				DryFireSound = DryFireSound,
-				ShootAnim = ShootAnim,
-				ShootSound = ShootSound,
-				ShootZoomedAnim = ShootZoomedAnim,
-				BulletEjectParticle = BulletEjectParticle,
-				MuzzleFlashParticle = MuzzleFlashParticle,
-				BulletTracerParticle = BulletTracerParticle,
-				BarrelSmokeParticle = BarrelSmokeParticle
+			Ammo = Ammo,
+			AmmoReserve = MaxAmmo,
+			AmmoType = AmmoType.ToSwbAmmoType(),
+			ClipSize = ClipSize,
+			BulletSize = BulletSize,
+			Bullets = Bullets,
+			Damage = Damage,
+			Force = Force,
+			Spread = Spread,
+			Recoil = Recoil,
+			RPM = RPM,
+			FiringType = FiringType,
+			BulletType = new TraceBullet(),
+			//ScreenShake = new ScreenShake { Length = 0.08f, Delay = 0.02f, Size = 1.9f, Rotation = 0.4f },
+			DryFireSound = DryFireSound,
+			ShootAnim = ShootAnim,
+			ShootSound = ShootSound,
+			ShootZoomedAnim = ShootZoomedAnim,
+			BulletEjectParticle = BulletEjectParticle,
+			MuzzleFlashParticle = MuzzleFlashParticle,
+			BulletTracerParticle = BulletTracerParticle,
+			BarrelSmokeParticle = BarrelSmokeParticle
 		};
 	}
 

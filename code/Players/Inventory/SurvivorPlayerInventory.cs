@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sandbox;
 using Survivor.Weapons;
 using SWB_Base;
+using SWB_Player;
 
 namespace Survivor.Players.Inventory;
 
@@ -16,7 +17,7 @@ public class SurvivorPlayerInventory : IInventoryBase
 	}
 
 	public SurvivorPlayer Owner { get; init; }
-	public List<Entity>   Slots { get; set; } = new();
+	public List<Entity> Slots { get; set; } = new();
 
 	public virtual Entity Active
 	{
