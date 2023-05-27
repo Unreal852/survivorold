@@ -79,8 +79,8 @@ partial class ViewModelBase : BaseViewModel
         // Change the angles and positions of the viewmodel with the new vectors
         Rotation *= Rotation.From(finalVectorRot.x, finalVectorRot.y, finalVectorRot.z);
         Position += finalVectorPos.z * Rotation.Up + finalVectorPos.y * Rotation.Forward + finalVectorPos.x * Rotation.Right;
-        Camera.FieldOfView = finalPlayerFOV;
-        Camera.Main.SetViewModelCamera(finalWeaponFOV, 1, 1000.0f);
+        Camera.FieldOfView = Screen.CreateVerticalFieldOfView(finalPlayerFOV);
+        Camera.Main.SetViewModelCamera(Screen.CreateVerticalFieldOfView(finalWeaponFOV), 1, 1000.0f);
 
         // I'm sure there's something already that does this for me, but I spend an hour
         // searching through the wiki and a bunch of other garbage and couldn't find anything...
@@ -141,7 +141,7 @@ partial class ViewModelBase : BaseViewModel
         targetVectorRot -= new Vector3(MathF.Cos(breatheTime / 5.0f), MathF.Cos(breatheTime / 4.0f), MathF.Cos(breatheTime / 7.0f));
 
         // Crouching animation
-        if (Input.Down(InputButton.Duck) && Owner.GroundEntity != null)
+        if (Input.Down(InputButtonHelper.Duck) && Owner.GroundEntity != null)
             targetVectorPos += new Vector3(-1.0f, -1.0f, 0.5f);
     }
 
@@ -272,7 +272,7 @@ partial class ViewModelBase : BaseViewModel
         }
 
         // If we jumped, start the animation
-        if (Input.Down(InputButton.Jump) && jumpTime == 0.0f)
+        if (Input.Down(InputButtonHelper.Jump) && jumpTime == 0.0f)
         {
             jumpTime = RealTime.Now + 0.31f;
             landTime = 0.0f;

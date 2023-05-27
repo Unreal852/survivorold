@@ -7,20 +7,17 @@ namespace Survivor.Weapons.Bullets;
 
 public class TraceBullet : BulletBase
 {
-	public override void FireSV( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize,
-	                             bool isPrimary )
+	public override void FireSV( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary )
 	{
-		Fire( weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+		Fire( weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary );
 	}
 
-	public override void FireCL( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize,
-	                             bool isPrimary )
+	public override void FireCL( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary )
 	{
-		Fire( weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary );
+		Fire( weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary );
 	}
-	
-	private void Fire( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize,
-	                   bool isPrimary, int refireCount = 0 )
+
+	private void Fire( WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary, int refireCount = 0 )
 	{
 		var tr = weapon.TraceBulletEx( startPos, endPos, bulletSize );
 		if ( !tr.Hit )
@@ -30,7 +27,7 @@ public class TraceBullet : BulletBase
 			return;
 		var canPenetrate = SurfaceUtil.CanPenetrate( tr.Surface );
 		if ( Game.IsClient )
-		{ 
+		{
 			// Impact
 			tr.Surface.DoBulletImpact( tr );
 
@@ -39,7 +36,7 @@ public class TraceBullet : BulletBase
 			// Tracer
 			if ( !string.IsNullOrEmpty( tracerParticle ) )
 			{
-				if ( Game.Random.Int( 1 ) == 0 )
+				if ( Game.Random.Double( 0.0, 1.0 ) < bulletTracerChance )
 					TracerEffects( weapon, tracerParticle, tr.EndPosition );
 			}
 		}
@@ -52,9 +49,9 @@ public class TraceBullet : BulletBase
 			{
 				// Damage
 				var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 25 * force, damage )
-				                           .UsingTraceResult( tr )
-				                           .WithAttacker( weapon.Owner )
-				                           .WithWeapon( weapon );
+										   .UsingTraceResult( tr )
+										   .WithAttacker( weapon.Owner )
+										   .WithWeapon( weapon );
 
 				tr.Entity.TakeDamage( damageInfo );
 			}
@@ -63,15 +60,16 @@ public class TraceBullet : BulletBase
 		// Re-run the trace if we can penetrate
 		if ( canPenetrate )
 		{
-			if ( refireCount > 10 ) return;
+			if ( refireCount > 100 ) return;
+			refireCount++;
 
-			Fire( weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, isPrimary, ++refireCount );
+			Fire( weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary, refireCount );
 		}
 	}
 
 	private void TracerEffects( WeaponBase weapon, string tracerParticle, Vector3 endPos )
 	{
-		var firingViewModel = weapon.GetEffectModel();
+		ModelEntity firingViewModel = weapon.GetEffectModel();
 
 		if ( firingViewModel == null ) return;
 
