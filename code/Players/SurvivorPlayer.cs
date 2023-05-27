@@ -154,7 +154,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 	public override void BuildInput()
 	{
 		_worldInput.Ray = new Ray( EyePosition, EyeRotation.Forward );
-		_worldInput.MouseLeftPressed = Input.Down( InputButton.Use );
+		_worldInput.MouseLeftPressed = Input.Down( "use" );
 		if ( _worldInput.MouseLeftPressed )
 		{
 			if ( _worldInput.Hovered != null )
@@ -164,7 +164,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 		}
 
 		if ( Stamina <= 0 )
-			Input.ClearButton( InputButton.Run );
+			Input.Clear( "run" );
 
 		base.BuildInput();
 	}

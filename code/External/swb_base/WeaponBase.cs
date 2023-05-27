@@ -50,7 +50,7 @@ public partial class WeaponBase : CarriableBase
 
         // Check if boltback was not completed
         if (Game.IsServer && InBoltBack)
-        {
+        { 
             _ = AsyncBoltBack(General.DrawTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
         }
 
