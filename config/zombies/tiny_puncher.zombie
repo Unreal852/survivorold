@@ -1,25 +1,22 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	data = 
-	{
-		Type = "TinyPuncher"
-		FriendlyName = "Baby Zombie"
-		Model = resource:"models/citizen/citizen.vmdl"
-		RenderColor = "0,0.50196,0,1"
-		Scale = 0.5
-		Health = 20
-		MoveSpeed = 9
-		AttackRange = 1.5
-		AttackDamages = 5
-		AttackForce = 2
-		AttackSpeed = 1
-		Head = null
-		Chest = null
-		Legs = null
-		Feet = null
-		Tags = 
-		[
-			"zombie",
-		]
-	}
+  "Type": "TinyPuncher",
+  "FriendlyName": "Baby Zombie",
+  "Model": "models/citizen/citizen.vmdl",
+  "RenderColor": "0,0.50196,0,1",
+  "Scale": 0.5,
+  "Health": 20,
+  "MoveSpeed": 9,
+  "AttackRange": 1.5,
+  "AttackDamages": 5,
+  "AttackForce": 2,
+  "AttackSpeed": 1,
+  "UseClothes": true,
+  "Skin": "models/citizen/skin/citizen_skin_zombie.clothing",
+  "Head": null,
+  "Chest": null,
+  "Legs": null,
+  "Feet": null,
+  "Tags": [
+    "zombie"
+  ]
 }

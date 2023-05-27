@@ -52,6 +52,9 @@ public class ZombieAsset : GameResource
 	public bool UseClothes { get; set; } = false;
 
 	[Category( "Clothes" ), ResourceType( "clothing" )]
+	public string Skin { get; set; }
+
+	[Category( "Clothes" ), ResourceType( "clothing" )]
 	public string Head { get; set; }
 
 	[Category( "Clothes" ), ResourceType( "clothing" )]
@@ -85,6 +88,8 @@ public class ZombieAsset : GameResource
 		{
 			// TODO: Cache clothes instead of doing ResourceLibrary.Get<Clothing> every times e.g: Only do that on PostLoad / PostReload
 			var clothingContainer = new ClothingContainer();
+			if ( !string.IsNullOrWhiteSpace( Skin ) )
+				clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Skin ) );
 			if ( !string.IsNullOrWhiteSpace( Head ) )
 				clothingContainer.Clothing.Add( ResourceLibrary.Get<Clothing>( Head ) );
 			if ( !string.IsNullOrWhiteSpace( Chest ) )
@@ -105,7 +110,7 @@ public class ZombieAsset : GameResource
 			Resources.Add( Type, this );
 		Log.Info( $"Loaded {FriendlyName} with ID {Type}" );
 		if ( Type == ZombieType.Default )
-			Log.Warning(
+			Log.Warning( 
 					$"The zombie data for '{(string.IsNullOrWhiteSpace( FriendlyName ) ? "NO_NAME" : FriendlyName)}' has the default zombie type. Please consider setting a proper type" );
 	}
 

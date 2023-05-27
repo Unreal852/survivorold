@@ -1,26 +1,22 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	data = 
-	{
-		Type = "Shooter"
-		FriendlyName = "Shooter"
-		Model = resource:"models/citizen/citizen.vmdl"
-		RenderColor = "0,0.50196,0,1"
-		Scale = 1
-		Health = 50
-		MoveSpeed = 4
-		AttackRange = 25
-		AttackDamages = 10
-		AttackForce = 1
-		AttackSpeed = 1
-		UseClothes = true
-		Head = resource:"models/citizen_clothes/hat/tactical_helmet/tactical_helmet_army.clothing"
-		Chest = null
-		Legs = null
-		Feet = null
-		Tags = 
-		[
-			"zombie",
-		]
-	}
+  "Type": "Shooter",
+  "FriendlyName": "Shooter",
+  "Model": "models/citizen/citizen.vmdl",
+  "RenderColor": "0,0.50196,0,1",
+  "Scale": 1,
+  "Health": 50,
+  "MoveSpeed": 4,
+  "AttackRange": 25,
+  "AttackDamages": 10,
+  "AttackForce": 1,
+  "AttackSpeed": 1,
+  "UseClothes": true,
+  "Skin": "models/citizen/skin/citizen_skin_zombie.clothing",
+  "Head": "models/citizen_clothes/hat/tactical_helmet/tactical_helmet_army.clothing",
+  "Chest": null,
+  "Legs": null,
+  "Feet": null,
+  "Tags": [
+    "zombie"
+  ]
 }

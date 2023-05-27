@@ -25,7 +25,7 @@ public partial class BaseNpc : AnimatedEntity
 				LastDamage.HasTag( "blast" ) );
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	public virtual void OnServerUpdate()
 	{
 	}
