@@ -20,7 +20,7 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 		_nameTag = null;
 	}
 
-	[Event.Client.FrameAttribute]
+	[GameEvent.Client.Frame]
 	public void FrameUpdate()
 	{
 		var transform = Entity.GetAttachment( "hat" ) ?? Entity.Transform;
@@ -29,7 +29,7 @@ public class NameTagComponent : EntityComponent<SurvivorPlayer>
 		_nameTag.Transform = transform;
 	}
 
-	[Event.Client.FrameAttribute]
+	[GameEvent.Client.Frame]
 	public static void SystemUpdate()
 	{
 		// TODO: I don't think doing this every frame is good

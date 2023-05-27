@@ -161,7 +161,7 @@ public sealed partial class MysteryBox : AnimatedEntity, IUsable
 		return !IsOpening && !IsClosing;
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	public void OnTick()
 	{
 		if ( IsOpening || IsClosing && _weaponEntity != null && _weaponEntity.IsValid )

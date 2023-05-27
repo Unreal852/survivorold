@@ -75,7 +75,7 @@ public partial class Distributor : AnimatedEntity, IUsable
 		return !IsOpened && TimeSinceOpened >= StayOpenedDuration;
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	public void OnTick()
 	{
 		if ( !IsOpened && Prop != null && TimeSinceClosed >= 2 )

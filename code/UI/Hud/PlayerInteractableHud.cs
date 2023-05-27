@@ -31,7 +31,7 @@ public class PlayerInteractableHud : Panel
 		if ( !IsVisible )
 			return;
 
-		_glyphImage.Texture = Input.GetGlyph( InputButton.Use, InputGlyphSize.Medium );
+		_glyphImage.Texture = Input.GetGlyph( "use", InputGlyphSize.Medium );
 		if ( player.Using is IUsable usable )
 		{
 			_useLabel.Text = usable.UsePrefix;

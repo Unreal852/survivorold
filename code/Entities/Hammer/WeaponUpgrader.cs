@@ -70,7 +70,7 @@ public partial class WeaponUpgrader : AnimatedEntity, IUse
 		return !IsOpened && TimeSinceOpened >= StayOpenedDuration;
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	public void OnTick()
 	{
 		if ( !IsOpened || TimeSinceOpened <= 1 || ++CurrentFrame < FramesBetweenModelColorChanges )

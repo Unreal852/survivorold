@@ -38,7 +38,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 	public bool IsUsable( Entity user )
 	{
 		return true;
-		return Children.Count == 0;
+		//return Children.Count == 0;
 	}
 
 	private UseProgress UseProgress     { get; }      = new();
@@ -67,7 +67,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		return PartsInfos.FirstOrDefault( partsInfo => partsInfo.IsMissing );
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	private void OnServerUpdate()
 	{
 		if ( !UseProgress.CheckProgress() )
@@ -89,7 +89,7 @@ public partial class ZombieSpawnReinforcement : ModelEntity, IUsable
 		}
 	}
 
-	[Event.Entity.PostSpawn]
+	[GameEvent.Entity.PostSpawn]
 	private static void OnPostLoad()
 	{
 		var sw = Stopwatch.StartNew();

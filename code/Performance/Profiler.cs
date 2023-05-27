@@ -22,7 +22,7 @@ public static class Profiler
 		Root = new ProfilerEntry();
 	}
 
-	[Event.Tick]
+	[GameEvent.Tick]
 	private static void Frame()
 	{
 		if ( _timeSince >= 0.5f )

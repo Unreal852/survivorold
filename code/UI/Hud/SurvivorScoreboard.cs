@@ -22,7 +22,7 @@ public partial class SurvivorScoreboard<T> : Panel where T : SurvivorScoreboardE
 		_canvas = Add.Panel( "canvas" );
 	}
 
-	public bool IsOpen => Input.Down( InputButton.Score );
+	public bool IsOpen => Input.Down( "Score" );
 
 	public override void Tick()
 	{

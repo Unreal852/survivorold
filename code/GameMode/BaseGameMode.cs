@@ -164,7 +164,7 @@ public abstract partial class BaseGameMode : BaseNetworkable
 	{
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	protected virtual void OnServerTick()
 	{
 		if ( State == GameState.Starting )

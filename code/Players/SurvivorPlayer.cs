@@ -98,11 +98,11 @@ public sealed partial class SurvivorPlayer : PlayerBase
 
 	private void TickPlayerInput()
 	{
-		if ( Input.Pressed( InputButton.Slot1 ) )
+		if ( Input.Pressed( "Slot1" ) )
 			Inventory.SetActiveSlot( 0 );
-		else if ( Input.Pressed( InputButton.Slot2 ) )
+		else if ( Input.Pressed( "Slot2" ) )
 			Inventory.SetActiveSlot( 1 );
-		else if ( Input.Pressed( InputButton.Slot3 ) )
+		else if ( Input.Pressed( "Slot3" ) )
 			Inventory.SetActiveSlot( 2 );
 
 		switch ( Input.MouseWheel )
@@ -115,7 +115,7 @@ public sealed partial class SurvivorPlayer : PlayerBase
 				break;
 		}
 
-		if ( Input.Pressed( InputButton.View ) )
+		if ( Input.Pressed( "View" ) )
 		{
 			if ( CameraMode is ThirdPersonCamera )
 				CameraMode = new FirstPersonCamera();

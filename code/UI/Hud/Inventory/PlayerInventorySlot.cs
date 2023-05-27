@@ -10,14 +10,14 @@ namespace Survivor.UI.Hud.Inventory;
 
 public class PlayerInventorySlot : Panel
 {
-	private readonly int         _slot;
-	private readonly Label       _ammoLabel;
-	private readonly Label       _nameLabel;
-	private          Image       _glyphImage;
-	private          ScenePanel  _weaponIconPanel;
-	private          SceneWorld  _sceneWorld;
-	private          SceneModel  _weaponModel;
-	private          WeaponAsset _weaponAsset;
+	private readonly int _slot;
+	private readonly Label _ammoLabel;
+	private readonly Label _nameLabel;
+	private Image _glyphImage;
+	private ScenePanel _weaponIconPanel;
+	private SceneWorld _sceneWorld;
+	private SceneModel _weaponModel;
+	private WeaponAsset _weaponAsset;
 
 	public PlayerInventorySlot( Panel parent, int slot )
 	{
@@ -42,15 +42,15 @@ public class PlayerInventorySlot : Panel
 			SetClass( "active", entity == owner.ActiveChild );
 			_ammoLabel.Text = (weapon.Primary.Ammo + weapon.Primary.AmmoReserve).ToString();
 		}
-		
+
 		_glyphImage.Texture = _slot switch
 		{
-				0 => Input.GetGlyph( InputButton.Slot1 ),
-				1 => Input.GetGlyph( InputButton.Slot2 ),
-				2 => Input.GetGlyph( InputButton.Slot3 ),
-				3 => Input.GetGlyph( InputButton.Slot4 ),
-				4 => Input.GetGlyph( InputButton.Slot5 ),
-				_ => Input.GetGlyph( InputButton.Slot1 )
+			0 => Input.GetGlyph( "slot1" ),
+			1 => Input.GetGlyph( "slot2" ),
+			2 => Input.GetGlyph( "slot3" ),
+			3 => Input.GetGlyph( "slot4" ),
+			4 => Input.GetGlyph( "slot5" ),
+			_ => Input.GetGlyph( "slot6" )
 		};
 	}
 
@@ -82,7 +82,7 @@ public class PlayerInventorySlot : Panel
 		_weaponIconPanel = Add.ScenePanel( _sceneWorld, Vector3.Zero, Rotation.Identity, 40, "icon" );
 
 		_weaponIconPanel.Camera.Position = _weaponModel.Position + _weaponAsset.UiIconOffset - Vector3.Backward * InchesUtils.FromMeters( _weaponAsset.UiIconScale );
-		_weaponIconPanel.Camera.Rotation = Rotation.From( new(0, 180, 0) );
+		_weaponIconPanel.Camera.Rotation = Rotation.From( new( 0, 180, 0 ) );
 		_weaponIconPanel.Camera.AmbientLightColor = Color.Black;
 		_weaponIconPanel.Camera.EnablePostProcessing = false;
 		_weaponIconPanel.RenderOnce = true;
