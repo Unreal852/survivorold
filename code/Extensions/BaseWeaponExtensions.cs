@@ -20,11 +20,6 @@ public static class BaseWeaponExtensions
 					  .Size( radius )
 					  .Run();
 
-		if ( tr.Entity != null )
-		{
-			Log.Info( tr.Entity.Name );
-		}
-
 		return tr;
 	}
 }
