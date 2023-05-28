@@ -12,13 +12,18 @@ public static class BaseWeaponExtensions
 		var withTags = new[] { "solid", "player", "zombie" };
 
 		var tr = Trace.Ray( start, end )
-		              .UseHitboxes()
-		              .WithoutTags( withoutTags )
-		              .WithAnyTags(withTags)
-		              .Ignore( weapon.Owner )
-		              .Ignore( weapon )
-		              .Size( radius )
-		              .Run();
+					  //.UseHitboxes() Enabling this cause the ray to ignore zombies 
+					  .WithoutTags( withoutTags )
+					  .WithAnyTags( withTags )
+					  .Ignore( weapon.Owner )
+					  .Ignore( weapon )
+					  .Size( radius )
+					  .Run();
+
+		if ( tr.Entity != null )
+		{
+			Log.Info( tr.Entity.Name );
+		}
 
 		return tr;
 	}
